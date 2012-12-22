@@ -71,7 +71,7 @@ extern "C" {
      * \note           Real amount of time slept will not be less than
      *                 select()'s timeout granularity (typically, 10ms).
      */
-    void net_usleep(unsigned long usec);
+    void net_usleep(ulong usec);
 
     /**
      * \brief          Read at most 'len' characters. len is updated to
@@ -81,7 +81,7 @@ extern "C" {
      *                 or a negative error code; EST_ERR_NET_TRY_AGAIN
      *                 indicates read() is blocking.
      */
-    int net_recv(void *ctx, unsigned char *buf, int len);
+    int net_recv(void *ctx, uchar *buf, int len);
 
     /**
      * \brief          Write at most 'len' characters. len is updated to
@@ -91,7 +91,7 @@ extern "C" {
      *                 or a negative error code; EST_ERR_NET_TRY_AGAIN
      *                 indicates write() is blocking.
      */
-    int net_send(void *ctx, unsigned char *buf, int len);
+    int net_send(void *ctx, uchar *buf, int len);
 
     /**
      * \brief          Gracefully shutdown the connection

@@ -96,7 +96,7 @@
 typedef struct _x509_buf {
     int tag;
     int len;
-    unsigned char *p;
+    uchar *p;
 } x509_buf;
 
 typedef struct _x509_name {
@@ -147,9 +147,9 @@ typedef struct _x509_cert {
  * Structures for writing X.509 certificates
  */
 typedef struct _x509_node {
-    unsigned char *data;
-    unsigned char *p;
-    unsigned char *end;
+    uchar *data;
+    uchar *p;
+    uchar *end;
 
     size_t len;
 } x509_node;
@@ -184,7 +184,7 @@ extern "C" {
      *
      * \return         0 if successful, or a specific X509 error code
      */
-    int x509parse_crt(x509_cert * crt, unsigned char *buf, int buflen);
+    int x509parse_crt(x509_cert * crt, uchar *buf, int buflen);
 
     /**
      * \brief          Load one or more certificates and add them
@@ -209,8 +209,8 @@ extern "C" {
      * \return         0 if successful, or a specific X509 error code
      */
     int x509parse_key(rsa_context * rsa,
-              unsigned char *buf, int buflen,
-              unsigned char *pwd, int pwdlen);
+              uchar *buf, int buflen,
+              uchar *pwd, int pwdlen);
 
     /**
      * \brief          Load and parse a private RSA key

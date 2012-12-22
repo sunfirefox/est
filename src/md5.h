@@ -10,12 +10,12 @@
  * \brief          MD5 context structure
  */
 typedef struct {
-    unsigned long total[2]; /*!< number of bytes processed  */
-    unsigned long state[4]; /*!< intermediate digest state  */
-    unsigned char buffer[64];   /*!< data block being processed */
+    ulong total[2]; /*!< number of bytes processed  */
+    ulong state[4]; /*!< intermediate digest state  */
+    uchar buffer[64];   /*!< data block being processed */
 
-    unsigned char ipad[64]; /*!< HMAC: inner padding        */
-    unsigned char opad[64]; /*!< HMAC: outer padding        */
+    uchar ipad[64]; /*!< HMAC: inner padding        */
+    uchar opad[64]; /*!< HMAC: outer padding        */
 } md5_context;
 
 #ifdef __cplusplus
@@ -36,7 +36,7 @@ extern "C" {
      * \param input    buffer holding the  data
      * \param ilen     length of the input data
      */
-    void md5_update(md5_context * ctx, unsigned char *input, int ilen);
+    void md5_update(md5_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          MD5 final digest
@@ -44,7 +44,7 @@ extern "C" {
      * \param ctx      MD5 context
      * \param output   MD5 checksum result
      */
-    void md5_finish(md5_context * ctx, unsigned char output[16]);
+    void md5_finish(md5_context * ctx, uchar output[16]);
 
     /**
      * \brief          Output = MD5( input buffer )
@@ -53,7 +53,7 @@ extern "C" {
      * \param ilen     length of the input data
      * \param output   MD5 checksum result
      */
-    void md5(unsigned char *input, int ilen, unsigned char output[16]);
+    void md5(uchar *input, int ilen, uchar output[16]);
 
     /**
      * \brief          Output = MD5( file contents )
@@ -64,7 +64,7 @@ extern "C" {
      * \return         0 if successful, 1 if fopen failed,
      *                 or 2 if fread failed
      */
-    int md5_file(char *path, unsigned char output[16]);
+    int md5_file(char *path, uchar output[16]);
 
     /**
      * \brief          MD5 HMAC context setup
@@ -73,7 +73,7 @@ extern "C" {
      * \param key      HMAC secret key
      * \param keylen   length of the HMAC key
      */
-    void md5_hmac_starts(md5_context * ctx, unsigned char *key, int keylen);
+    void md5_hmac_starts(md5_context * ctx, uchar *key, int keylen);
 
     /**
      * \brief          MD5 HMAC process buffer
@@ -82,7 +82,7 @@ extern "C" {
      * \param input    buffer holding the  data
      * \param ilen     length of the input data
      */
-    void md5_hmac_update(md5_context * ctx, unsigned char *input, int ilen);
+    void md5_hmac_update(md5_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          MD5 HMAC final digest
@@ -90,7 +90,7 @@ extern "C" {
      * \param ctx      HMAC context
      * \param output   MD5 HMAC checksum result
      */
-    void md5_hmac_finish(md5_context * ctx, unsigned char output[16]);
+    void md5_hmac_finish(md5_context * ctx, uchar output[16]);
 
     /**
      * \brief          Output = HMAC-MD5( hmac key, input buffer )
@@ -101,8 +101,8 @@ extern "C" {
      * \param ilen     length of the input data
      * \param output   HMAC-MD5 result
      */
-    void md5_hmac(unsigned char *key, int keylen,
-              unsigned char *input, int ilen, unsigned char output[16]);
+    void md5_hmac(uchar *key, int keylen,
+              uchar *input, int ilen, uchar output[16]);
 
     /**
      * \brief          Checkup routine

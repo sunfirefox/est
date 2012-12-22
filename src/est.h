@@ -479,7 +479,7 @@
     /**
         Unsigned char data type.
      */
-    typedef const unsigned char cuchar;
+    typedef const uchar cuchar;
 #endif
 
 #ifndef HAS_USHORT
@@ -487,15 +487,15 @@
     /**
         Unsigned short data type.
      */
-    typedef unsigned short ushort;
+    typedef ushort ushort;
 #endif
 
 #ifndef HAS_CUSHORT
     #define HAS_CUSHORT 1
     /**
-        Constant unsigned short data type.
+        Constant ushort data type.
      */
-    typedef const unsigned short cushort;
+    typedef const ushort cushort;
 #endif
 
 #ifndef HAS_CVOID
@@ -587,7 +587,7 @@
         /**
             Unsigned integer 64 bit data type.
          */
-        typedef unsigned long long int uint64;
+        typedef ulong long int uint64;
     #elif BIT_WIN_LIKE
         typedef unsigned __int64 uint64;
     #else
@@ -1147,44 +1147,16 @@ extern "C" {
 /*********************************** Forwards *********************************/
 
 #if UNUSED
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <time.h>
-#include "bit.h"
 #define _FILE_OFFSET_BITS 64
 #endif
 
-//  MOB - drive from compiler
-/*
- * Uncomment if native integers are 8-bit wide.
- *
-#define EST_HAVE_INT8
- */
+//  MOB - what about x64?
+#if BIT_CPU_ARCH == BIT_CPU_X86 || BIT_CPU_ARCH == BIT_CPU_X64
+    #define EST_HAVE_ASM 1
+#endif
 
-/*
- * Uncomment if native integers are 16-bit wide.
- *
-#define EST_HAVE_INT16
- */
-
-/*
- * Uncomment if the compiler supports long long.
- *
-#define EST_HAVE_LONGLONG
- */
-
-/*
- * Uncomment to enable the use of assembly code.
- */
-#define EST_HAVE_ASM
-
-/*
- * Uncomment if the CPU supports SSE2 (IA-32 specific).
- *
-#define EST_HAVE_SSE2
- */
+/* Enable if using Intel CPU with SSE2 */
+#define BIT_SSE2 0
 
 /* Enable SSL/TLS */
 #define BIT_SSL 1
@@ -1235,7 +1207,6 @@ extern "C" {
 #include "md5.h"
 #include "sha1.h"
 #include "x509.h"
-
 #include "ssl.h"
 #include "aes.h"
 #include "arc4.h"

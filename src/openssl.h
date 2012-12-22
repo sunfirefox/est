@@ -20,14 +20,14 @@
 #define SHA1_Init( CTX ) \
         sha1_starts( (CTX) )
 #define SHA1_Update(  CTX, BUF, LEN ) \
-        sha1_update( (CTX), (unsigned char *)(BUF), (LEN) )
+        sha1_update( (CTX), (uchar *)(BUF), (LEN) )
 #define SHA1_Final( OUT, CTX ) \
         sha1_finish( (CTX), (OUT) )
 
 #define MD5_Init( CTX ) \
         md5_starts( (CTX) )
 #define MD5_Update( CTX, BUF, LEN ) \
-        md5_update( (CTX), (unsigned char *)(BUF), (LEN) )
+        md5_update( (CTX), (uchar *)(BUF), (LEN) )
 #define MD5_Final( OUT, CTX ) \
         md5_finish( (CTX), (OUT) )
 
@@ -47,10 +47,10 @@ inline int __RSA_Passthrough(void *output, void *input, int size)
     return size;
 }
 
-inline rsa_context *d2i_RSA_PUBKEY(void *ignore, unsigned char **bufptr,
+inline rsa_context *d2i_RSA_PUBKEY(void *ignore, uchar **bufptr,
                    int len)
 {
-    unsigned char *buffer = *(unsigned char **)bufptr;
+    uchar *buffer = *(uchar **)bufptr;
     rsa_context *rsa;
 
     /*
@@ -97,8 +97,8 @@ inline rsa_context *d2i_RSA_PUBKEY(void *ignore, unsigned char **bufptr,
 
 #define d2i_RSAPrivateKey( a, b, c ) new rsa_context    /* TODO: C++ bleh */
 
-inline int RSA_public_decrypt(int size, unsigned char *input,
-                  unsigned char *output, RSA * key, int ignore)
+inline int RSA_public_decrypt(int size, uchar *input,
+                  uchar *output, RSA * key, int ignore)
 {
     int outsize = size;
     if (!rsa_pkcs1_decrypt(key, RSA_PUBLIC, &outsize, input, output))
@@ -107,8 +107,8 @@ inline int RSA_public_decrypt(int size, unsigned char *input,
         return -1;
 }
 
-inline int RSA_private_decrypt(int size, unsigned char *input,
-                   unsigned char *output, RSA * key, int ignore)
+inline int RSA_private_decrypt(int size, uchar *input,
+                   uchar *output, RSA * key, int ignore)
 {
     int outsize = size;
     if (!rsa_pkcs1_decrypt(key, RSA_PRIVATE, &outsize, input, output))
@@ -117,8 +117,8 @@ inline int RSA_private_decrypt(int size, unsigned char *input,
         return -1;
 }
 
-inline int RSA_public_encrypt(int size, unsigned char *input,
-                  unsigned char *output, RSA * key, int ignore)
+inline int RSA_public_encrypt(int size, uchar *input,
+                  uchar *output, RSA * key, int ignore)
 {
     if (!rsa_pkcs1_encrypt(key, RSA_PUBLIC, size, input, output))
         return RSA_size(key);
@@ -126,8 +126,8 @@ inline int RSA_public_encrypt(int size, unsigned char *input,
         return -1;
 }
 
-inline int RSA_private_encrypt(int size, unsigned char *input,
-                   unsigned char *output, RSA * key, int ignore)
+inline int RSA_private_encrypt(int size, uchar *input,
+                   uchar *output, RSA * key, int ignore)
 {
     if (!rsa_pkcs1_encrypt(key, RSA_PRIVATE, size, input, output))
         return RSA_size(key);

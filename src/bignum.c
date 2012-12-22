@@ -974,7 +974,7 @@ int mpi_div_mpi(mpi * Q, mpi * R, mpi * A, mpi * B)
         if (X.p[i] >= Y.p[t])
             Z.p[i - t - 1] = ~0;
         else {
-#if defined(EST_HAVE_LONGLONG)
+#if BIT_USE_LONG_LONG
             t_dbl r;
 
             r = (t_dbl) X.p[i] << biL;

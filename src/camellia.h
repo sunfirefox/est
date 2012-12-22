@@ -14,7 +14,7 @@
  */
 typedef struct {
     int nr;         /*!<  number of rounds  */
-    unsigned long rk[68];   /*!<  CAMELLIA round keys    */
+    ulong rk[68];   /*!<  CAMELLIA round keys    */
 } camellia_context;
 
 #ifdef __cplusplus
@@ -28,7 +28,7 @@ extern "C" {
      * \param key      encryption key
      * \param keysize  must be 128, 192 or 256
      */
-    void camellia_setkey_enc(camellia_context * ctx, unsigned char *key,
+    void camellia_setkey_enc(camellia_context * ctx, uchar *key,
                  int keysize);
 
     /**
@@ -38,7 +38,7 @@ extern "C" {
      * \param key      decryption key
      * \param keysize  must be 128, 192 or 256
      */
-    void camellia_setkey_dec(camellia_context * ctx, unsigned char *key,
+    void camellia_setkey_dec(camellia_context * ctx, uchar *key,
                  int keysize);
 
     /**
@@ -51,8 +51,8 @@ extern "C" {
      */
     void camellia_crypt_ecb(camellia_context * ctx,
                 int mode,
-                unsigned char input[16],
-                unsigned char output[16]);
+                uchar input[16],
+                uchar output[16]);
 
     /**
      * \brief          CAMELLIA-CBC buffer encryption/decryption
@@ -67,8 +67,8 @@ extern "C" {
     void camellia_crypt_cbc(camellia_context * ctx,
                 int mode,
                 int length,
-                unsigned char iv[16],
-                unsigned char *input, unsigned char *output);
+                uchar iv[16],
+                uchar *input, uchar *output);
 
     /**
      * \brief          CAMELLIA-CFB128 buffer encryption/decryption
@@ -85,8 +85,8 @@ extern "C" {
                    int mode,
                    int length,
                    int *iv_off,
-                   unsigned char iv[16],
-                   unsigned char *input, unsigned char *output);
+                   uchar iv[16],
+                   uchar *input, uchar *output);
 
     /**
      * \brief          Checkup routine

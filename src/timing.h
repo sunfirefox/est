@@ -10,7 +10,7 @@
  * \brief          timer structure
  */
 struct hr_time {
-    unsigned char opaque[32];
+    uchar opaque[32];
 };
 
 #ifdef __cplusplus
@@ -22,7 +22,7 @@ extern "C" {
     /**
      * \brief          Return the CPU cycle counter value
      */
-    unsigned long hardclock(void);
+    ulong hardclock(void);
 
     /**
      * \brief          Return the elapsed time in milliseconds
@@ -30,7 +30,7 @@ extern "C" {
      * \param val      points to a timer structure
      * \param reset    if set to 1, the timer is restarted
      */
-    unsigned long get_timer(struct hr_time *val, int reset);
+    ulong get_timer(struct hr_time *val, int reset);
 
     /**
      * \brief          Setup an alarm clock

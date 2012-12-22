@@ -38,7 +38,7 @@ extern "C" {
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
     int dhm_read_params(dhm_context * ctx,
-                unsigned char **p, unsigned char *end);
+                uchar **p, uchar *end);
 
     /**
      * \brief          Setup and write the ServerKeyExchange parameters
@@ -57,7 +57,7 @@ extern "C" {
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
     int dhm_make_params(dhm_context * ctx, int s_size,
-                unsigned char *output, int *olen,
+                uchar *output, int *olen,
                 int (*f_rng) (void *), void *p_rng);
 
     /**
@@ -69,7 +69,7 @@ extern "C" {
      *
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
-    int dhm_read_public(dhm_context * ctx, unsigned char *input, int ilen);
+    int dhm_read_public(dhm_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          Create own private value X and export G^X
@@ -84,7 +84,7 @@ extern "C" {
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
     int dhm_make_public(dhm_context * ctx, int s_size,
-                unsigned char *output, int olen,
+                uchar *output, int olen,
                 int (*f_rng) (void *), void *p_rng);
 
     /**
@@ -97,7 +97,7 @@ extern "C" {
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
     int dhm_calc_secret(dhm_context * ctx,
-                unsigned char *output, int *olen);
+                uchar *output, int *olen);
 
     /*
      * \brief          Free the components of a DHM key

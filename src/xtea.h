@@ -13,7 +13,7 @@
  * \brief          XTEA context structure
  */
 typedef struct {
-    unsigned long k[4]; /*!< key */
+    ulong k[4]; /*!< key */
 } xtea_context;
 
 #ifdef __cplusplus
@@ -26,7 +26,7 @@ extern "C" {
      * \param ctx      XTEA context to be initialized
      * \param key      the secret key
      */
-    void xtea_setup(xtea_context * ctx, unsigned char key[16]);
+    void xtea_setup(xtea_context * ctx, uchar key[16]);
 
     /**
      * \brief          XTEA cipher function
@@ -38,7 +38,7 @@ extern "C" {
      */
     void xtea_crypt(xtea_context * ctx,
             int mode,
-            unsigned char input[8], unsigned char output[8]);
+            uchar input[8], uchar output[8]);
 
     /*
      * \brief          Checkup routine

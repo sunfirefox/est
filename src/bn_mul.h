@@ -42,7 +42,7 @@
     asm( "movl   %edx,   %ecx   " );            \
     asm( "stosl                 " );
 
-#if defined(EST_HAVE_SSE2)
+#if BIT_SSE2
 
 #define MULADDC_HUIT                            \
     asm( "movd     %ecx,     %mm1     " );      \
@@ -565,7 +565,7 @@
     __asm   mov     ecx, edx                    \
     __asm   stosd
 
-#if defined(EST_HAVE_SSE2)
+#if BIT_SSE2
 
 #define EMIT __asm _emit
 
@@ -651,7 +651,7 @@
 #endif /* EST_HAVE_ASM */
 
 #if !defined(MULADDC_CORE)
-#if defined(EST_HAVE_LONGLONG)
+#if BIT_USE_LONG_LONG
 
 #define MULADDC_INIT                    \
 {                                       \

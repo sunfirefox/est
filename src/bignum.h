@@ -19,27 +19,27 @@
 /*
  * Define the base integer type, architecture-wise
  */
-#if defined(EST_HAVE_INT8)
-    typedef unsigned char t_int;
-    typedef unsigned short t_dbl;
+//  MOB - change to chained elif
+#if BIT_WORDSIZE == 8
+    typedef uchar t_int;
+    typedef ushort t_dbl;
+#elif BIT_WORDSIZE == 16
+    typedef ushort t_int;
+    typedef ulong t_dbl;
 #else
-#if defined(EST_HAVE_INT16)
-    typedef unsigned short t_int;
-    typedef unsigned long t_dbl;
-#else
-    typedef unsigned long t_int;
-#if defined(_MSC_VER) && defined(_M_IX86)
-    typedef unsigned __int64 t_dbl;
-#else
-#if defined(__amd64__) || defined(__x86_64__)    || \
-        defined(__ppc64__) || defined(__powerpc64__) || \
-        defined(__ia64__)  || defined(__alpha__)
-typedef unsigned int t_dbl __attribute__ ((mode(TI)));
-#else
-typedef unsigned long long t_dbl;
-#endif
-#endif
-#endif
+    typedef ulong t_int;
+    #if defined(_MSC_VER) && defined(_M_IX86)
+        typedef unsigned __int64 t_dbl;
+    #else
+        #if defined(__amd64__) || defined(__x86_64__) || defined(__ppc64__) || defined(__powerpc64__) || \
+                defined(__ia64__)  || defined(__alpha__)
+            typedef uint t_dbl __attribute__ ((mode(TI)));
+        #else
+            typedef unsigned long long t_dbl;
+            //  MOB - should other cases use this too?
+            #define BIT_USE_LONG_LONG 1
+        #endif
+    #endif
 #endif
 
 /**
@@ -170,7 +170,7 @@ extern "C" {
      * \return         0 if successful,
      *                 1 if memory allocation failed
      */
-    int mpi_read_binary(mpi * X, unsigned char *buf, int buflen);
+    int mpi_read_binary(mpi * X, uchar *buf, int buflen);
 
     /**
      * \brief          Export X into unsigned binary data, big endian
@@ -185,7 +185,7 @@ extern "C" {
      * \note           Call this function with *buflen = 0 to obtain the
      *                 minimum required buffer size in *buflen.
      */
-    int mpi_write_binary(mpi * X, unsigned char *buf, int buflen);
+    int mpi_write_binary(mpi * X, uchar *buf, int buflen);
 
     /**
      * \brief          Left-shift: X <<= count
