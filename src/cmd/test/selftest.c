@@ -121,8 +121,7 @@ int main(int argc, char *argv[])
         getchar();
 #endif
     }
-
-    return (ret);
+    return ret;
 }
 
 /*

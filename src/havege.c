@@ -10,18 +10,14 @@
 
 #if BIT_HAVEGE
 
-/* ------------------------------------------------------------------------
- * On average, one iteration accesses two 8-word blocks in the havege WALK
- * table, and generates 16 words in the RES array.
- *
- * The data read in the WALK table is updated and permuted after each use.
- * The result of the hardware clock counter read is used  for this update.
- *
- * 25 conditional tests are present.  The conditional tests are grouped in
- * two nested  groups of 12 conditional tests and 1 test that controls the
- * permutation; on average, there should be 6 tests executed and 3 of them
- * should be mispredicted.
- * ------------------------------------------------------------------------
+/*
+   On average, one iteration accesses two 8-word blocks in the havege WALK table, and generates 16 words in the RES array.
+  
+   The data read in the WALK table is updated and permuted after each use. The result of the hardware clock counter read is
+   used for this update.
+  
+   25 conditional tests are present. The conditional tests are grouped in two nested groups of 12 conditional tests and 1
+   test that controls the permutation; on average, there should be 6 tests executed and 3 of them should be mispredicted.
  */
 
 #define SWAP(X,Y) { int *T = X; X = Y; Y = T; }
@@ -120,11 +116,11 @@
             WALK[PT1 ^ PTX ^ 7] ) & (~1);               \
     PT1 ^= (PT2 ^ 0x10) & 0x10;                         \
                                                         \
-    for( n++, i = 0; i < 16; i++ )                      \
+    for (n++, i = 0; i < 16; i++)                       \
         hs->pool[n % COLLECT_SIZE] ^= RES[i];
 
 /*
- * Entropy gathering function
+    Entropy gathering function
  */
 static void havege_fill(havege_state * hs)
 {
@@ -150,18 +146,19 @@ static void havege_fill(havege_state * hs)
     hs->offset[1] = COLLECT_SIZE / 2;
 }
 
+
 /*
- * HAVEGE initialization
+    HAVEGE initialization
  */
 void havege_init(havege_state * hs)
 {
     memset(hs, 0, sizeof(havege_state));
-
     havege_fill(hs);
 }
 
+
 /*
- * HAVEGE rand function
+    HAVEGE rand function
  */
 int havege_rand(void *p_rng)
 {
@@ -176,50 +173,6 @@ int havege_rand(void *p_rng)
 
     return (ret);
 }
-
-#if defined(EST_RAND_TEST)
-
-int main(int argc, char *argv[])
-{
-    FILE *f;
-    time_t t;
-    int i, j, k;
-    havege_state hs;
-    uchar buf[1024];
-
-    if (argc < 2) {
-        fprintf(stderr, "usage: %s <output filename>\n", argv[0]);
-        return (1);
-    }
-
-    if ((f = fopen(argv[1], "wb+")) == NULL) {
-        printf("failed to open '%s' for writing.\n", argv[0]);
-        return (1);
-    }
-
-    havege_init(&hs);
-
-    t = time(NULL);
-
-    for (i = 0, k = 32768; i < k; i++) {
-        for (j = 0; j < sizeof(buf); j++)
-            buf[j] = havege_rand(&hs);
-
-        fwrite(buf, sizeof(buf), 1, f);
-
-        printf("Generating 32Mb of data in file '%s'... %04.1f"
-               "%% done\r", argv[1], (100 * (float)(i + 1)) / k);
-        fflush(stdout);
-    }
-
-    if (t == time(NULL))
-        t--;
-
-    fclose(f);
-    return (0);
-}
-
-#endif
 
 #undef SWAP
 

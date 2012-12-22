@@ -116,7 +116,6 @@ Bit.load({
         sslClient: true,
         sslClient: true,
         sslServer: true,
-        selfTest: false,
         testCerts: true,
 
         /*
@@ -130,10 +129,6 @@ Bit.load({
 
     usage: {
         assert: 'Enable program assertions',
-    },
-
-    defaults: {
-        '+defines': [ '-D_FILE_OFFSET_BITS=64' ]
     },
 
     targets: {

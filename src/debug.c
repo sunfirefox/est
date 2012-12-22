@@ -26,7 +26,7 @@ char *debug_fmt(cchar *format, ...)
     va_end(argp);
 
     str[maxlen] = '\0';
-    return (str);
+    return str;
 }
 
 void debug_print_msg(ssl_context * ssl, int level,

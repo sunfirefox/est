@@ -41,46 +41,44 @@ static const uchar PI_SUBST[256] = {
     0x8D, 0x33, 0x9F, 0x11, 0x83, 0x14
 };
 
+
 /*
- * MD2 context setup
+    MD2 context setup
  */
 void md2_starts(md2_context * ctx)
 {
     memset(ctx, 0, sizeof(md2_context));
 }
 
+
 static void md2_process(md2_context * ctx)
 {
-    int i, j;
-    uchar t = 0;
+    int     i, j;
+    uchar   t = 0;
 
     for (i = 0; i < 16; i++) {
         ctx->state[i + 16] = ctx->buffer[i];
-        ctx->state[i + 32] =
-            (uchar)(ctx->buffer[i] ^ ctx->state[i]);
+        ctx->state[i + 32] = (uchar)(ctx->buffer[i] ^ ctx->state[i]);
     }
 
     for (i = 0; i < 18; i++) {
         for (j = 0; j < 48; j++) {
-            ctx->state[j] = (uchar)
-                (ctx->state[j] ^ PI_SUBST[t]);
+            ctx->state[j] = (uchar) (ctx->state[j] ^ PI_SUBST[t]);
             t = ctx->state[j];
         }
-
         t = (uchar)(t + i);
     }
-
     t = ctx->cksum[15];
 
     for (i = 0; i < 16; i++) {
-        ctx->cksum[i] = (uchar)
-            (ctx->cksum[i] ^ PI_SUBST[ctx->buffer[i] ^ t]);
+        ctx->cksum[i] = (uchar) (ctx->cksum[i] ^ PI_SUBST[ctx->buffer[i] ^ t]);
         t = ctx->cksum[i];
     }
 }
 
+
 /*
- * MD2 process buffer
+    MD2 process buffer
  */
 void md2_update(md2_context * ctx, uchar *input, int ilen)
 {
@@ -93,11 +91,9 @@ void md2_update(md2_context * ctx, uchar *input, int ilen)
             fill = ilen;
 
         memcpy(ctx->buffer + ctx->left, input, fill);
-
         ctx->left += fill;
         input += fill;
         ilen -= fill;
-
         if (ctx->left == 16) {
             ctx->left = 0;
             md2_process(ctx);
@@ -105,13 +101,14 @@ void md2_update(md2_context * ctx, uchar *input, int ilen)
     }
 }
 
+
 /*
- * MD2 final digest
+    MD2 final digest
  */
 void md2_finish(md2_context * ctx, uchar output[16])
 {
-    int i;
-    uchar x;
+    uchar   x;
+    int     i;
 
     x = (uchar)(16 - ctx->left);
 
@@ -119,15 +116,14 @@ void md2_finish(md2_context * ctx, uchar output[16])
         ctx->buffer[i] = x;
 
     md2_process(ctx);
-
     memcpy(ctx->buffer, ctx->cksum, 16);
     md2_process(ctx);
-
     memcpy(output, ctx->state, 16);
 }
 
+
 /*
- * output = MD2( input buffer )
+    output = MD2( input buffer )
  */
 void md2(uchar *input, int ilen, uchar output[16])
 {
@@ -136,19 +132,19 @@ void md2(uchar *input, int ilen, uchar output[16])
     md2_starts(&ctx);
     md2_update(&ctx, input, ilen);
     md2_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(md2_context));
 }
 
+
 /*
- * output = MD2( file contents )
+    output = MD2( file contents )
  */
 int md2_file(char *path, uchar output[16])
 {
-    FILE *f;
-    size_t n;
+    FILE        *f;
+    size_t      n;
     md2_context ctx;
-    uchar buf[1024];
+    uchar       buf[1024];
 
     if ((f = fopen(path, "rb")) == NULL)
         return (1);
@@ -159,32 +155,30 @@ int md2_file(char *path, uchar output[16])
         md2_update(&ctx, buf, (int)n);
 
     md2_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(md2_context));
 
     if (ferror(f) != 0) {
         fclose(f);
         return (2);
     }
-
     fclose(f);
     return (0);
 }
 
+
 /*
- * MD2 HMAC context setup
+    MD2 HMAC context setup
  */
 void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen)
 {
-    int i;
-    uchar sum[16];
+    uchar   sum[16];
+    int     i;
 
     if (keylen > 64) {
         md2(key, keylen, sum);
         keylen = 16;
         key = sum;
     }
-
     memset(ctx->ipad, 0x36, 64);
     memset(ctx->opad, 0x5C, 64);
 
@@ -192,23 +186,23 @@ void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen)
         ctx->ipad[i] = (uchar)(ctx->ipad[i] ^ key[i]);
         ctx->opad[i] = (uchar)(ctx->opad[i] ^ key[i]);
     }
-
     md2_starts(ctx);
     md2_update(ctx, ctx->ipad, 64);
-
     memset(sum, 0, sizeof(sum));
 }
 
+
 /*
- * MD2 HMAC process buffer
+    MD2 HMAC process buffer
  */
 void md2_hmac_update(md2_context * ctx, uchar *input, int ilen)
 {
     md2_update(ctx, input, ilen);
 }
 
+
 /*
- * MD2 HMAC final digest
+    MD2 HMAC final digest
  */
 void md2_hmac_finish(md2_context * ctx, uchar output[16])
 {
@@ -219,15 +213,14 @@ void md2_hmac_finish(md2_context * ctx, uchar output[16])
     md2_update(ctx, ctx->opad, 64);
     md2_update(ctx, tmpbuf, 16);
     md2_finish(ctx, output);
-
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }
 
+
 /*
- * output = HMAC-MD2( hmac key, input buffer )
+    output = HMAC-MD2( hmac key, input buffer )
  */
-void md2_hmac(uchar *key, int keylen, uchar *input, int ilen,
-          uchar output[16])
+void md2_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[16])
 {
     md2_context ctx;
 
@@ -238,80 +231,6 @@ void md2_hmac(uchar *key, int keylen, uchar *input, int ilen,
     memset(&ctx, 0, sizeof(md2_context));
 }
 
-#if defined(BIT_SELF_TEST)
-
-/*
- * RFC 1319 test vectors
- */
-static cchar md2_test_str[7][81] = {
-    {""},
-    {"a"},
-    {"abc"},
-    {"message digest"},
-    {"abcdefghijklmnopqrstuvwxyz"},
-    {"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"},
-    {
-     "12345678901234567890123456789012345678901234567890123456789012"
-     "345678901234567890"}
-};
-
-static const uchar md2_test_sum[7][16] = {
-    {
-     0x83, 0x50, 0xE5, 0xA3, 0xE2, 0x4C, 0x15, 0x3D,
-     0xF2, 0x27, 0x5C, 0x9F, 0x80, 0x69, 0x27, 0x73},
-    {
-     0x32, 0xEC, 0x01, 0xEC, 0x4A, 0x6D, 0xAC, 0x72,
-     0xC0, 0xAB, 0x96, 0xFB, 0x34, 0xC0, 0xB5, 0xD1},
-    {
-     0xDA, 0x85, 0x3B, 0x0D, 0x3F, 0x88, 0xD9, 0x9B,
-     0x30, 0x28, 0x3A, 0x69, 0xE6, 0xDE, 0xD6, 0xBB},
-    {
-     0xAB, 0x4F, 0x49, 0x6B, 0xFB, 0x2A, 0x53, 0x0B,
-     0x21, 0x9F, 0xF3, 0x30, 0x31, 0xFE, 0x06, 0xB0},
-    {
-     0x4E, 0x8D, 0xDF, 0xF3, 0x65, 0x02, 0x92, 0xAB,
-     0x5A, 0x41, 0x08, 0xC3, 0xAA, 0x47, 0x94, 0x0B},
-    {
-     0xDA, 0x33, 0xDE, 0xF2, 0xA4, 0x2D, 0xF1, 0x39,
-     0x75, 0x35, 0x28, 0x46, 0xC3, 0x03, 0x38, 0xCD},
-    {
-     0xD5, 0x97, 0x6F, 0x79, 0xD8, 0x3D, 0x3A, 0x0D,
-     0xC9, 0x80, 0x6C, 0x3C, 0x66, 0xF3, 0xEF, 0xD8}
-};
-
-/*
- * Checkup routine
- */
-int md2_self_test(int verbose)
-{
-    int i;
-    uchar md2sum[16];
-
-    for (i = 0; i < 7; i++) {
-        if (verbose != 0)
-            printf("  MD2 test #%d: ", i + 1);
-
-        md2((uchar *)md2_test_str[i],
-            strlen(md2_test_str[i]), md2sum);
-
-        if (memcmp(md2sum, md2_test_sum[i], 16) != 0) {
-            if (verbose != 0)
-                printf("failed\n");
-
-            return (1);
-        }
-
-        if (verbose != 0)
-            printf("passed\n");
-    }
-
-    if (verbose != 0)
-        printf("\n");
-
-    return (0);
-}
-
-#endif
 
 #undef P
 #undef R
