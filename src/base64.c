@@ -5,9 +5,8 @@
  */
 #include "est.h"
 
-#if defined(EST_BASE64_C)
-
-static const unsigned char base64_enc_map[64] = {
+#if BIT_BASE64
+static const uchar base64_enc_map[64] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
     'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
@@ -17,7 +16,7 @@ static const unsigned char base64_enc_map[64] = {
     '8', '9', '+', '/'
 };
 
-static const unsigned char base64_dec_map[128] = {
+static const uchar base64_dec_map[128] = {
     127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
     127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
     127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
@@ -36,11 +35,11 @@ static const unsigned char base64_dec_map[128] = {
 /*
  * Encode a buffer into base64 format
  */
-int base64_encode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
+int base64_encode(uchar *dst, int *dlen, uchar *src, int slen)
 {
     int i, n;
     int C1, C2, C3;
-    unsigned char *p;
+    uchar *p;
 
     if (slen == 0)
         return (0);
@@ -100,11 +99,11 @@ int base64_encode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
 /*
  * Decode a base64-formatted buffer
  */
-int base64_decode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
+int base64_decode(uchar *dst, int *dlen, uchar *src, int slen)
 {
     int i, j, n;
-    unsigned long x;
-    unsigned char *p;
+    ulong x;
+    uchar *p;
 
     for (i = j = n = 0; i < slen; i++) {
         if ((slen - i) >= 2 && src[i] == '\r' && src[i + 1] == '\n')
@@ -145,11 +144,11 @@ int base64_decode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
         if (++n == 4) {
             n = 0;
             if (j > 0)
-                *p++ = (unsigned char)(x >> 16);
+                *p++ = (uchar)(x >> 16);
             if (j > 1)
-                *p++ = (unsigned char)(x >> 8);
+                *p++ = (uchar)(x >> 8);
             if (j > 2)
-                *p++ = (unsigned char)(x);
+                *p++ = (uchar)(x);
         }
     }
 
@@ -158,9 +157,9 @@ int base64_decode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
     return (0);
 }
 
-#if defined(EST_SELF_TEST)
+#if defined(BIT_SELF_TEST)
 
-static const unsigned char base64_test_dec[64] = {
+static const uchar base64_test_dec[64] = {
     0x24, 0x48, 0x6E, 0x56, 0x87, 0x62, 0x5A, 0xBD,
     0xBF, 0x17, 0xD9, 0xA2, 0xC4, 0x17, 0x1A, 0x01,
     0x94, 0xED, 0x8F, 0x1E, 0x11, 0xB3, 0xD7, 0x09,
@@ -171,7 +170,7 @@ static const unsigned char base64_test_dec[64] = {
     0xD1, 0x41, 0xBA, 0x95, 0x31, 0x5A, 0x0B, 0x97
 };
 
-static const unsigned char base64_test_enc[] =
+static const uchar base64_test_enc[] =
     "JEhuVodiWr2/F9mixBcaAZTtjx4Rs9cJDLbpEG8i7hPK"
     "swcFdsn6MWwINP+Nwmw4AEPpVJevUEvRQbqVMVoLlw==";
 
@@ -181,13 +180,13 @@ static const unsigned char base64_test_enc[] =
 int base64_self_test(int verbose)
 {
     int len;
-    unsigned char *src, buffer[128];
+    uchar *src, buffer[128];
 
     if (verbose != 0)
         printf("  Base64 encoding test: ");
 
     len = sizeof(buffer);
-    src = (unsigned char *)base64_test_dec;
+    src = (uchar *)base64_test_dec;
 
     if (base64_encode(buffer, &len, src, 64) != 0 ||
         memcmp(base64_test_enc, buffer, 88) != 0) {
@@ -201,7 +200,7 @@ int base64_self_test(int verbose)
         printf("passed\n  Base64 decoding test: ");
 
     len = sizeof(buffer);
-    src = (unsigned char *)base64_test_enc;
+    src = (uchar *)base64_test_enc;
 
     if (base64_decode(buffer, &len, src, 88) != 0 ||
         memcmp(base64_test_dec, buffer, 64) != 0) {

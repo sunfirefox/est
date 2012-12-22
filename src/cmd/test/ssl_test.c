@@ -77,9 +77,9 @@ struct options {
  * Although this PRNG has good statistical properties (eg. passes
  * DIEHARD), it is not cryptographically secure.
  */
-unsigned long int lcppm5(unsigned long int *state)
+ulong int lcppm5(ulong int *state)
 {
-    unsigned long int u, v;
+    ulong int u, v;
 
     u = v = state[4] ^ 1;
     state[u & 3] ^= u;
@@ -118,11 +118,11 @@ static int ssl_test(struct options *opt)
     long int nb_read;
     long int nb_written;
 
-    unsigned long read_state[5];
-    unsigned long write_state[5];
+    ulong read_state[5];
+    ulong write_state[5];
 
-    unsigned char *read_buf;
-    unsigned char *write_buf;
+    uchar *read_buf;
+    uchar *write_buf;
 
     struct hr_time t;
     havege_state hs;
@@ -158,21 +158,21 @@ static int ssl_test(struct options *opt)
     }
 
     if (opt->opmode == OPMODE_SERVER) {
-        ret = x509parse_crt(&srvcert, (unsigned char *)test_srv_crt,
+        ret = x509parse_crt(&srvcert, (uchar *)test_srv_crt,
                     strlen(test_srv_crt));
         if (ret != 0) {
             printf("  !  x509parse_crt returned %d\n\n", ret);
             goto exit;
         }
 
-        ret = x509parse_crt(&srvcert, (unsigned char *)test_ca_crt,
+        ret = x509parse_crt(&srvcert, (uchar *)test_ca_crt,
                     strlen(test_ca_crt));
         if (ret != 0) {
             printf("  !  x509parse_crt returned %d\n\n", ret);
             goto exit;
         }
 
-        ret = x509parse_key(&rsa, (unsigned char *)test_srv_key,
+        ret = x509parse_key(&rsa, (uchar *)test_srv_key,
                     strlen(test_srv_key), NULL, 0);
         if (ret != 0) {
             printf("  !  x509parse_key returned %d\n\n", ret);
@@ -219,8 +219,8 @@ static int ssl_test(struct options *opt)
     if (opt->iomode == IOMODE_NONBLOCK)
         net_set_nonblock(client_fd);
 
-    read_buf = (unsigned char *)malloc(opt->buffer_size);
-    write_buf = (unsigned char *)malloc(opt->buffer_size);
+    read_buf = (uchar *)malloc(opt->buffer_size);
+    write_buf = (uchar *)malloc(opt->buffer_size);
 
     if (read_buf == NULL || write_buf == NULL) {
         printf("  ! malloc(%d bytes) failed\n\n", opt->buffer_size);
@@ -239,7 +239,7 @@ static int ssl_test(struct options *opt)
 
                 for (i = 0; i < bytes_to_write; i++)
                     write_buf[i] =
-                        (unsigned char)lcppm5(write_state);
+                        (uchar)lcppm5(write_state);
 
                 offset_to_write = 0;
             }
@@ -277,7 +277,7 @@ static int ssl_test(struct options *opt)
             if (ret >= 0) {
                 for (i = 0; i < ret; i++) {
                     if (read_buf[offset_to_read + i] !=
-                        (unsigned char)lcppm5(read_state)) {
+                        (uchar)lcppm5(read_state)) {
                         ret = 1;
                         printf
                             ("  ! plaintext mismatch\n\n");

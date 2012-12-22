@@ -10,20 +10,20 @@
  */
 #include "est.h"
 
-#if defined(EST_SSL_TLS_C)
+#if BIT_SSL
 
 /*
  * Key material generation
  */
-static int tls1_prf(unsigned char *secret, int slen, char *label,
-            unsigned char *random, int rlen,
-            unsigned char *dstbuf, int dlen)
+static int tls1_prf(uchar *secret, int slen, char *label,
+            uchar *random, int rlen,
+            uchar *dstbuf, int dlen)
 {
     int nb, hs;
     int i, j, k;
-    unsigned char *S1, *S2;
-    unsigned char tmp[128];
-    unsigned char h_i[20];
+    uchar *S1, *S2;
+    uchar tmp[128];
+    uchar h_i[20];
 
     if (sizeof(tmp) < 20 + strlen(label) + rlen)
         return (EST_ERR_SSL_BAD_INPUT_DATA);
@@ -64,7 +64,7 @@ static int tls1_prf(unsigned char *secret, int slen, char *label,
         k = (i + 20 > dlen) ? dlen % 20 : 20;
 
         for (j = 0; j < k; j++)
-            dstbuf[i + j] = (unsigned char)(dstbuf[i + j] ^ h_i[j]);
+            dstbuf[i + j] = (uchar)(dstbuf[i + j] ^ h_i[j]);
     }
 
     memset(tmp, 0, sizeof(tmp));
@@ -78,12 +78,12 @@ int ssl_derive_keys(ssl_context * ssl)
     int i;
     md5_context md5;
     sha1_context sha1;
-    unsigned char tmp[64];
-    unsigned char padding[16];
-    unsigned char sha1sum[20];
-    unsigned char keyblk[256];
-    unsigned char *key1;
-    unsigned char *key2;
+    uchar tmp[64];
+    uchar padding[16];
+    uchar sha1sum[20];
+    uchar keyblk[256];
+    uchar *key1;
+    uchar *key2;
 
     SSL_DEBUG_MSG(2, ("=> derive keys"));
 
@@ -181,7 +181,7 @@ int ssl_derive_keys(ssl_context * ssl)
      * Determine the appropriate key, IV and MAC length.
      */
     switch (ssl->session->cipher) {
-#if defined(EST_ARC4_C)
+#if BIT_RC4
     case SSL_RSA_RC4_128_MD5:
         ssl->keylen = 16;
         ssl->minlen = 16;
@@ -197,7 +197,7 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if defined(EST_DES_C)
+#if BIT_DES
     case SSL_RSA_DES_168_SHA:
     case SSL_EDH_RSA_DES_168_SHA:
         ssl->keylen = 24;
@@ -207,7 +207,7 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if defined(EST_AES_C)
+#if BIT_AES
     case SSL_RSA_AES_128_SHA:
         ssl->keylen = 16;
         ssl->minlen = 32;
@@ -224,7 +224,7 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if defined(EST_CAMELLIA_C)
+#if BIT_CAMELLIA
     case SSL_RSA_CAMELLIA_128_SHA:
         ssl->keylen = 16;
         ssl->minlen = 32;
@@ -276,7 +276,7 @@ int ssl_derive_keys(ssl_context * ssl)
     }
 
     switch (ssl->session->cipher) {
-#if defined(EST_ARC4_C)
+#if BIT_RC4
     case SSL_RSA_RC4_128_MD5:
     case SSL_RSA_RC4_128_SHA:
         arc4_setup((arc4_context *) ssl->ctx_enc, key1, ssl->keylen);
@@ -284,7 +284,7 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if defined(EST_DES_C)
+#if BIT_DES
     case SSL_RSA_DES_168_SHA:
     case SSL_EDH_RSA_DES_168_SHA:
         des3_set3key_enc((des3_context *) ssl->ctx_enc, key1);
@@ -292,7 +292,7 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if defined(EST_AES_C)
+#if BIT_AES
     case SSL_RSA_AES_128_SHA:
         aes_setkey_enc((aes_context *) ssl->ctx_enc, key1, 128);
         aes_setkey_dec((aes_context *) ssl->ctx_dec, key2, 128);
@@ -305,7 +305,7 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if defined(EST_CAMELLIA_C)
+#if BIT_CAMELLIA
     case SSL_RSA_CAMELLIA_128_SHA:
         camellia_setkey_enc((camellia_context *) ssl->ctx_enc, key1,
                     128);
@@ -333,12 +333,12 @@ int ssl_derive_keys(ssl_context * ssl)
     return (0);
 }
 
-void ssl_calc_verify(ssl_context * ssl, unsigned char hash[36])
+void ssl_calc_verify(ssl_context * ssl, uchar hash[36])
 {
     md5_context md5;
     sha1_context sha1;
-    unsigned char pad_1[48];
-    unsigned char pad_2[48];
+    uchar pad_1[48];
+    uchar pad_2[48];
 
     SSL_DEBUG_MSG(2, ("=> calc verify"));
 
@@ -382,18 +382,18 @@ void ssl_calc_verify(ssl_context * ssl, unsigned char hash[36])
 /*
  * SSLv3.0 MAC functions
  */
-static void ssl_mac_md5(unsigned char *secret,
-            unsigned char *buf, int len,
-            unsigned char *ctr, int type)
+static void ssl_mac_md5(uchar *secret,
+            uchar *buf, int len,
+            uchar *ctr, int type)
 {
-    unsigned char header[11];
-    unsigned char padding[48];
+    uchar header[11];
+    uchar padding[48];
     md5_context md5;
 
     memcpy(header, ctr, 8);
-    header[8] = (unsigned char)type;
-    header[9] = (unsigned char)(len >> 8);
-    header[10] = (unsigned char)(len);
+    header[8] = (uchar)type;
+    header[9] = (uchar)(len >> 8);
+    header[10] = (uchar)(len);
 
     memset(padding, 0x36, 48);
     md5_starts(&md5);
@@ -411,18 +411,18 @@ static void ssl_mac_md5(unsigned char *secret,
     md5_finish(&md5, buf + len);
 }
 
-static void ssl_mac_sha1(unsigned char *secret,
-             unsigned char *buf, int len,
-             unsigned char *ctr, int type)
+static void ssl_mac_sha1(uchar *secret,
+             uchar *buf, int len,
+             uchar *ctr, int type)
 {
-    unsigned char header[11];
-    unsigned char padding[40];
+    uchar header[11];
+    uchar padding[40];
     sha1_context sha1;
 
     memcpy(header, ctr, 8);
-    header[8] = (unsigned char)type;
-    header[9] = (unsigned char)(len >> 8);
-    header[10] = (unsigned char)(len);
+    header[8] = (uchar)type;
+    header[9] = (uchar)(len >> 8);
+    header[10] = (uchar)(len);
 
     memset(padding, 0x36, 40);
     sha1_starts(&sha1);
@@ -484,7 +484,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
             break;
 
     if (ssl->ivlen == 0) {
-#if defined(EST_ARC4_C)
+#if BIT_RC4
         padlen = 0;
 
         SSL_DEBUG_MSG(3, ("before encrypt: msglen = %d, "
@@ -506,7 +506,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 
         for (i = 0; i <= padlen; i++)
             ssl->out_msg[ssl->out_msglen + i] =
-                (unsigned char)padlen;
+                (uchar)padlen;
 
         ssl->out_msglen += padlen + 1;
 
@@ -519,7 +519,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 
         switch (ssl->ivlen) {
         case 8:
-#if defined(EST_DES_C)
+#if BIT_DES
             des3_crypt_cbc((des3_context *) ssl->ctx_enc,
                        DES_ENCRYPT, ssl->out_msglen,
                        ssl->iv_enc, ssl->out_msg, ssl->out_msg);
@@ -527,7 +527,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 #endif
 
         case 16:
-#if defined(EST_AES_C)
+#if BIT_AES
             if (ssl->session->cipher == SSL_RSA_AES_128_SHA ||
                 ssl->session->cipher == SSL_RSA_AES_256_SHA ||
                 ssl->session->cipher == SSL_EDH_RSA_AES_256_SHA) {
@@ -539,7 +539,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
             }
 #endif
 
-#if defined(EST_CAMELLIA_C)
+#if BIT_CAMELLIA
             if (ssl->session->cipher == SSL_RSA_CAMELLIA_128_SHA ||
                 ssl->session->cipher == SSL_RSA_CAMELLIA_256_SHA ||
                 ssl->session->cipher ==
@@ -566,7 +566,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 static int ssl_decrypt_buf(ssl_context * ssl)
 {
     int i, padlen;
-    unsigned char tmp[20];
+    uchar tmp[20];
 
     SSL_DEBUG_MSG(2, ("=> decrypt buf"));
 
@@ -577,7 +577,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
     }
 
     if (ssl->ivlen == 0) {
-#if defined(EST_ARC4_C)
+#if BIT_RC4
         padlen = 0;
         arc4_crypt((arc4_context *) ssl->ctx_dec,
                ssl->in_msg, ssl->in_msglen);
@@ -595,7 +595,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
         }
 
         switch (ssl->ivlen) {
-#if defined(EST_DES_C)
+#if BIT_DES
         case 8:
             des3_crypt_cbc((des3_context *) ssl->ctx_dec,
                        DES_DECRYPT, ssl->in_msglen,
@@ -604,7 +604,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 #endif
 
         case 16:
-#if defined(EST_AES_C)
+#if BIT_AES
             if (ssl->session->cipher == SSL_RSA_AES_128_SHA ||
                 ssl->session->cipher == SSL_RSA_AES_256_SHA ||
                 ssl->session->cipher == SSL_EDH_RSA_AES_256_SHA) {
@@ -616,7 +616,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
             }
 #endif
 
-#if defined(EST_CAMELLIA_C)
+#if BIT_CAMELLIA
             if (ssl->session->cipher == SSL_RSA_CAMELLIA_128_SHA ||
                 ssl->session->cipher == SSL_RSA_CAMELLIA_256_SHA ||
                 ssl->session->cipher ==
@@ -671,8 +671,8 @@ static int ssl_decrypt_buf(ssl_context * ssl)
      */
     ssl->in_msglen -= (ssl->maclen + padlen);
 
-    ssl->in_hdr[3] = (unsigned char)(ssl->in_msglen >> 8);
-    ssl->in_hdr[4] = (unsigned char)(ssl->in_msglen);
+    ssl->in_hdr[3] = (uchar)(ssl->in_msglen >> 8);
+    ssl->in_hdr[4] = (uchar)(ssl->in_msglen);
 
     memcpy(tmp, ssl->in_msg + ssl->in_msglen, 20);
 
@@ -770,7 +770,7 @@ int ssl_fetch_input(ssl_context * ssl, int nb_want)
 int ssl_flush_output(ssl_context * ssl)
 {
     int ret;
-    unsigned char *buf;
+    uchar *buf;
 
     SSL_DEBUG_MSG(2, ("=> flush output"));
 
@@ -802,16 +802,16 @@ int ssl_write_record(ssl_context * ssl)
 
     SSL_DEBUG_MSG(2, ("=> write record"));
 
-    ssl->out_hdr[0] = (unsigned char)ssl->out_msgtype;
-    ssl->out_hdr[1] = (unsigned char)ssl->major_ver;
-    ssl->out_hdr[2] = (unsigned char)ssl->minor_ver;
-    ssl->out_hdr[3] = (unsigned char)(len >> 8);
-    ssl->out_hdr[4] = (unsigned char)(len);
+    ssl->out_hdr[0] = (uchar)ssl->out_msgtype;
+    ssl->out_hdr[1] = (uchar)ssl->major_ver;
+    ssl->out_hdr[2] = (uchar)ssl->minor_ver;
+    ssl->out_hdr[3] = (uchar)(len >> 8);
+    ssl->out_hdr[4] = (uchar)(len);
 
     if (ssl->out_msgtype == SSL_MSG_HANDSHAKE) {
-        ssl->out_msg[1] = (unsigned char)((len - 4) >> 16);
-        ssl->out_msg[2] = (unsigned char)((len - 4) >> 8);
-        ssl->out_msg[3] = (unsigned char)((len - 4));
+        ssl->out_msg[1] = (uchar)((len - 4) >> 16);
+        ssl->out_msg[2] = (uchar)((len - 4) >> 8);
+        ssl->out_msg[3] = (uchar)((len - 4));
 
         md5_update(&ssl->fin_md5, ssl->out_msg, len);
         sha1_update(&ssl->fin_sha1, ssl->out_msg, len);
@@ -824,8 +824,8 @@ int ssl_write_record(ssl_context * ssl)
         }
 
         len = ssl->out_msglen;
-        ssl->out_hdr[3] = (unsigned char)(len >> 8);
-        ssl->out_hdr[4] = (unsigned char)(len);
+        ssl->out_hdr[3] = (uchar)(len >> 8);
+        ssl->out_hdr[4] = (uchar)(len);
     }
 
     ssl->out_left = 5 + ssl->out_msglen;
@@ -1085,9 +1085,9 @@ int ssl_write_certificate(ssl_context * ssl)
             return (EST_ERR_SSL_CERTIFICATE_TOO_LARGE);
         }
 
-        ssl->out_msg[i] = (unsigned char)(n >> 16);
-        ssl->out_msg[i + 1] = (unsigned char)(n >> 8);
-        ssl->out_msg[i + 2] = (unsigned char)(n);
+        ssl->out_msg[i] = (uchar)(n >> 16);
+        ssl->out_msg[i + 1] = (uchar)(n >> 8);
+        ssl->out_msg[i + 2] = (uchar)(n);
 
         i += 3;
         memcpy(ssl->out_msg + i, crt->raw.p, n);
@@ -1095,9 +1095,9 @@ int ssl_write_certificate(ssl_context * ssl)
         crt = crt->next;
     }
 
-    ssl->out_msg[4] = (unsigned char)((i - 7) >> 16);
-    ssl->out_msg[5] = (unsigned char)((i - 7) >> 8);
-    ssl->out_msg[6] = (unsigned char)((i - 7));
+    ssl->out_msg[4] = (uchar)((i - 7) >> 16);
+    ssl->out_msg[5] = (uchar)((i - 7) >> 8);
+    ssl->out_msg[6] = (uchar)((i - 7));
 
     ssl->out_msglen = i;
     ssl->out_msgtype = SSL_MSG_HANDSHAKE;
@@ -1207,8 +1207,8 @@ int ssl_parse_certificate(ssl_context * ssl)
             return (EST_ERR_SSL_BAD_HS_CERTIFICATE);
         }
 
-        n = ((unsigned int)ssl->in_msg[i + 1] << 8)
-            | (unsigned int)ssl->in_msg[i + 2];
+        n = ((uint)ssl->in_msg[i + 1] << 8)
+            | (uint)ssl->in_msg[i + 2];
         i += 3;
 
         if (n < 128 || i + n > ssl->in_hslen) {
@@ -1301,14 +1301,14 @@ int ssl_parse_change_cipher_spec(ssl_context * ssl)
     return (0);
 }
 
-static void ssl_calc_finished(ssl_context * ssl, unsigned char *buf, int from,
+static void ssl_calc_finished(ssl_context * ssl, uchar *buf, int from,
                   md5_context * md5, sha1_context * sha1)
 {
     int len = 12;
     char *sender;
-    unsigned char padbuf[48];
-    unsigned char md5sum[16];
-    unsigned char sha1sum[20];
+    uchar padbuf[48];
+    uchar md5sum[16];
+    uchar sha1sum[20];
 
     SSL_DEBUG_MSG(2, ("=> calc  finished"));
 
@@ -1325,10 +1325,10 @@ static void ssl_calc_finished(ssl_context * ssl, unsigned char *buf, int from,
      *               MD5( handshake ) + SHA1( handshake ) )[0..11]
      */
 
-    SSL_DEBUG_BUF(4, "finished  md5 state", (unsigned char *)
+    SSL_DEBUG_BUF(4, "finished  md5 state", (uchar *)
               md5->state, sizeof(md5->state));
 
-    SSL_DEBUG_BUF(4, "finished sha1 state", (unsigned char *)
+    SSL_DEBUG_BUF(4, "finished sha1 state", (uchar *)
               sha1->state, sizeof(sha1->state));
 
     if (ssl->minor_ver == SSL_MINOR_VERSION_0) {
@@ -1337,12 +1337,12 @@ static void ssl_calc_finished(ssl_context * ssl, unsigned char *buf, int from,
 
         memset(padbuf, 0x36, 48);
 
-        md5_update(md5, (unsigned char *)sender, 4);
+        md5_update(md5, (uchar *)sender, 4);
         md5_update(md5, ssl->session->master, 48);
         md5_update(md5, padbuf, 48);
         md5_finish(md5, md5sum);
 
-        sha1_update(sha1, (unsigned char *)sender, 4);
+        sha1_update(sha1, (uchar *)sender, 4);
         sha1_update(sha1, ssl->session->master, 48);
         sha1_update(sha1, padbuf, 40);
         sha1_finish(sha1, sha1sum);
@@ -1433,7 +1433,7 @@ int ssl_parse_finished(ssl_context * ssl)
     int ret, hash_len;
     md5_context md5;
     sha1_context sha1;
-    unsigned char buf[36];
+    uchar buf[36];
 
     SSL_DEBUG_MSG(2, ("=> parse finished"));
 
@@ -1489,7 +1489,7 @@ int ssl_init(ssl_context * ssl)
 
     memset(ssl, 0, sizeof(ssl_context));
 
-    ssl->in_ctr = (unsigned char *)malloc(len);
+    ssl->in_ctr = (uchar *)malloc(len);
     ssl->in_hdr = ssl->in_ctr + 8;
     ssl->in_msg = ssl->in_ctr + 13;
 
@@ -1498,7 +1498,7 @@ int ssl_init(ssl_context * ssl)
         return (1);
     }
 
-    ssl->out_ctr = (unsigned char *)malloc(len);
+    ssl->out_ctr = (uchar *)malloc(len);
     ssl->out_hdr = ssl->out_ctr + 8;
     ssl->out_msg = ssl->out_ctr + 13;
 
@@ -1547,8 +1547,8 @@ void ssl_set_dbg(ssl_context * ssl,
 }
 
 void ssl_set_bio(ssl_context * ssl,
-         int (*f_recv) (void *, unsigned char *, int), void *p_recv,
-         int (*f_send) (void *, unsigned char *, int), void *p_send)
+         int (*f_recv) (void *, uchar *, int), void *p_recv,
+         int (*f_send) (void *, uchar *, int), void *p_send)
 {
     ssl->f_recv = f_recv;
     ssl->f_send = f_send;
@@ -1612,9 +1612,9 @@ int ssl_set_hostname(ssl_context * ssl, char *hostname)
         return (EST_ERR_SSL_BAD_INPUT_DATA);
 
     ssl->hostname_len = strlen(hostname);
-    ssl->hostname = (unsigned char *)malloc(ssl->hostname_len + 1);
+    ssl->hostname = (uchar *)malloc(ssl->hostname_len + 1);
 
-    memcpy(ssl->hostname, (unsigned char *)hostname, ssl->hostname_len);
+    memcpy(ssl->hostname, (uchar *)hostname, ssl->hostname_len);
 
     return (0);
 }
@@ -1635,7 +1635,7 @@ int ssl_get_verify_result(ssl_context * ssl)
 char *ssl_get_cipher(ssl_context * ssl)
 {
     switch (ssl->session->cipher) {
-#if defined(EST_ARC4_C)
+#if BIT_RC4
     case SSL_RSA_RC4_128_MD5:
         return ("SSL_RSA_RC4_128_MD5");
 
@@ -1643,7 +1643,7 @@ char *ssl_get_cipher(ssl_context * ssl)
         return ("SSL_RSA_RC4_128_SHA");
 #endif
 
-#if defined(EST_DES_C)
+#if BIT_DES
     case SSL_RSA_DES_168_SHA:
         return ("SSL_RSA_DES_168_SHA");
 
@@ -1651,7 +1651,7 @@ char *ssl_get_cipher(ssl_context * ssl)
         return ("SSL_EDH_RSA_DES_168_SHA");
 #endif
 
-#if defined(EST_AES_C)
+#if BIT_AES
     case SSL_RSA_AES_128_SHA:
         return ("SSL_RSA_AES_128_SHA");
 
@@ -1662,7 +1662,7 @@ char *ssl_get_cipher(ssl_context * ssl)
         return ("SSL_EDH_RSA_AES_256_SHA");
 #endif
 
-#if defined(EST_CAMELLIA_C)
+#if BIT_CAMELLIA
     case SSL_RSA_CAMELLIA_128_SHA:
         return ("SSL_RSA_CAMELLIA_128_SHA");
 
@@ -1681,30 +1681,30 @@ char *ssl_get_cipher(ssl_context * ssl)
 }
 
 int ssl_default_ciphers[] = {
-#if defined(EST_DHM_C)
-#if defined(EST_AES_C)
+#if BIT_DHM
+#if BIT_AES
     SSL_EDH_RSA_AES_256_SHA,
 #endif
-#if defined(EST_CAMELLIA_C)
+#if BIT_CAMELLIA
     SSL_EDH_RSA_CAMELLIA_256_SHA,
 #endif
-#if defined(EST_DES_C)
+#if BIT_DES
     SSL_EDH_RSA_DES_168_SHA,
 #endif
 #endif
 
-#if defined(EST_AES_C)
+#if BIT_AES
     SSL_RSA_AES_128_SHA,
     SSL_RSA_AES_256_SHA,
 #endif
-#if defined(EST_CAMELLIA_C)
+#if BIT_CAMELLIA
     SSL_RSA_CAMELLIA_128_SHA,
     SSL_RSA_CAMELLIA_256_SHA,
 #endif
-#if defined(EST_DES_C)
+#if BIT_DES
     SSL_RSA_DES_168_SHA,
 #endif
-#if defined(EST_ARC4_C)
+#if BIT_RC4
     SSL_RSA_RC4_128_SHA,
     SSL_RSA_RC4_128_MD5,
 #endif
@@ -1720,25 +1720,23 @@ int ssl_handshake(ssl_context * ssl)
 
     SSL_DEBUG_MSG(2, ("=> handshake"));
 
-#if defined(EST_SSL_CLI_C)
+#if BIT_SSL_CLIENT
     if (ssl->endpoint == SSL_IS_CLIENT)
         ret = ssl_handshake_client(ssl);
 #endif
 
-#if defined(EST_SSL_SRV_C)
+#if BIT_SSL_SERVER
     if (ssl->endpoint == SSL_IS_SERVER)
         ret = ssl_handshake_server(ssl);
 #endif
-
     SSL_DEBUG_MSG(2, ("<= handshake"));
-
     return (ret);
 }
 
 /*
  * Receive application data decrypted from the SSL layer
  */
-int ssl_read(ssl_context * ssl, unsigned char *buf, int len)
+int ssl_read(ssl_context * ssl, uchar *buf, int len)
 {
     int ret, n;
 
@@ -1797,7 +1795,7 @@ int ssl_read(ssl_context * ssl, unsigned char *buf, int len)
 /*
  * Send application data to be encrypted by the SSL layer
  */
-int ssl_write(ssl_context * ssl, unsigned char *buf, int len)
+int ssl_write(ssl_context * ssl, uchar *buf, int len)
 {
     int ret, n;
 
@@ -1887,7 +1885,7 @@ void ssl_free(ssl_context * ssl)
         memset(ssl->in_ctr, 0, SSL_BUFFER_LEN);
         free(ssl->in_ctr);
     }
-#if defined(EST_DHM_C)
+#if BIT_DHM
     dhm_free(&ssl->dhm_ctx);
 #endif
 

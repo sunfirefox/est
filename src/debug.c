@@ -5,7 +5,7 @@
  */
 #include "est.h"
 
-#if defined(EST_DEBUG_C)
+#if BIT_LOGGING
 
 #if defined _MSC_VER && !defined  snprintf
 #define  snprintf  _snprintf
@@ -15,7 +15,7 @@
 #define vsnprintf _vsnprintf
 #endif
 
-char *debug_fmt(const char *format, ...)
+char *debug_fmt(cchar *format, ...)
 {
     va_list argp;
     static char str[512];
@@ -61,7 +61,7 @@ void debug_print_ret(ssl_context * ssl, int level,
 
 void debug_print_buf(ssl_context * ssl, int level,
              char *file, int line, char *text,
-             unsigned char *buf, int len)
+             uchar *buf, int len)
 {
     char str[512];
     int i, maxlen = sizeof(str) - 1;
@@ -90,7 +90,7 @@ void debug_print_buf(ssl_context * ssl, int level,
             ssl->f_dbg(ssl->p_dbg, level, str);
         }
 
-        snprintf(str, maxlen, " %02x", (unsigned int)buf[i]);
+        snprintf(str, maxlen, " %02x", (uint)buf[i]);
 
         str[maxlen] = '\0';
         ssl->f_dbg(ssl->p_dbg, level, str);
@@ -131,7 +131,7 @@ void debug_print_mpi(ssl_context * ssl, int level,
         }
 
         for (k = sizeof(t_int) - 1; k >= 0; k--) {
-            snprintf(str, maxlen, " %02x", (unsigned int)
+            snprintf(str, maxlen, " %02x", (uint)
                  (X->p[i] >> (k << 3)) & 0xFF);
 
             str[maxlen] = '\0';

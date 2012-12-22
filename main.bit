@@ -1,18 +1,131 @@
 /*
     main.bit -- Main Bit File for the Embedthis Security Transport
+
+    This file contains the rules for targets to build and default settings for configuration.
+    The Bit utility (http://ejscript.org) may be used to build Est instead of make. Bit provides
+    for configured builds and generates projects files.
+
+    Alternatively, build using the "make" utility in which case this file is not used.
  */
 
 Bit.load({
     blend: [
         "${BITS}/embedthis.bit",
+        "doc/doc.bit",
     ],
+
+    '+modules': [
+        'bits/est.es',
+    ],
+
     settings: {
 		product: 'est',
-		title: 'Embedthis TLS Library',
+		title: 'Embedthis Security Transport',
         company: 'Embedthis',
 		version: '0.1.0',
 		buildNumber: '0',
         sync: [],
+        packs: [ 'bits/packs' ]
+
+        /*
+            Optional packs to search for when configuring
+         */
+        '+optional': [ 'doxygen', 'dsi', 'ejs', 'man', 'man2html', 'pmaker', 'utest', 'zip' ],
+
+        /*
+            Packs to disable when using --without all
+         */
+        'without-all': ['doxygen', 'dsi', 'ejs', 'man', 'man2html', 'pmaker' ],
+
+        /*
+            AES is required for the ciphers:
+                TLS_RSA_AES_128_SHA
+                TLS_RSA_AES_256_SHA
+                TLS_EDH_RSA_AES_256_SHA  
+         */
+        aes: true,
+
+        /*
+            ARC4 is required for the ciphers:
+                TLS_RSA_RC4_128_MD5                                                                                
+                TLS_RSA_RC4_128_SHA  
+        */
+        rc4: true,
+
+        /* 
+            Camellia is required for the ciphers:
+                TLS_RSA_WITH_CAMELLIA_128_CBC_SHA
+                TLS_RSA_WITH_CAMELLIA_256_CBC_SHA
+                TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA
+          */
+        camellia: false,
+
+        /* 
+            Des is required for the ciphers:
+                TLS_RSA_WITH_3DES_EDE_CBC_SHA
+                TLS_EDH_RSA_WITH_3DES_EDE_CBC_SHA
+         */
+        des: true,
+
+        /*
+            DHM is required for the ciphers:
+                TLS_EDH_RSA_WITH_3DES_EDE_CBC_SHA                                                                            
+                TLS_EDH_RSA_WITH_AES_256_CBC_SHA
+         */
+        dhm: true,
+
+        genPrime: true,
+
+        /* Enable the HAVEGE random generator */
+        havege: true,
+
+        /* Enable debug logging */
+        logging: true,
+
+        /* Enable rare) MD2-signed X.509 certs */
+        md2: false,
+
+        /*  Eanble (rare) MD4-signed X.509 certs */
+        md4: false,
+
+        md5: true,
+        net: true,
+        padlock: true,
+        romTables: true,
+
+        /*
+            Enable RSA ciphers. Required for SSL/TLS and MD5-signed certs
+         */
+        rsa: true,
+
+        /*
+            Enable SHA1. Required for SSL/TLS and SHA1-signed certs
+         */
+        sha1: true,
+
+        /*
+            Enable SHA2. Required for SHA-224 and SHA-256
+         */
+        sha2: true,
+
+        /*
+            Enable SHA4. Required for SHA-384 and SHA-512
+         */
+        sha4: true,
+
+        sslClient: true,
+        sslClient: true,
+        sslServer: true,
+        selfTest: false,
+        testCerts: true,
+
+        /*
+            Enable parsing X509 certificates
+         */
+        x509: true,
+
+        /* Enable the XTEA algorithm */
+        xtea: true,
     },
 
     usage: {

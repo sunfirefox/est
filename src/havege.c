@@ -8,7 +8,7 @@
  */
 #include "est.h"
 
-#if defined(EST_HAVEGE_C)
+#if BIT_HAVEGE
 
 /* ------------------------------------------------------------------------
  * On average, one iteration accesses two 8-word blocks in the havege WALK
@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
     time_t t;
     int i, j, k;
     havege_state hs;
-    unsigned char buf[1024];
+    uchar buf[1024];
 
     if (argc < 2) {
         fprintf(stderr, "usage: %s <output filename>\n", argv[0]);

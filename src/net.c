@@ -5,7 +5,7 @@
  */
 #include "est.h"
 
-#if defined(EST_NET_C)
+#if BIT_NET
 
 #if defined(WIN32) || defined(_WIN32_WCE)
 
@@ -120,7 +120,7 @@ int net_bind(int *fd, char *bind_ip, int port)
         return (EST_ERR_NET_SOCKET_FAILED);
 
     n = 1;
-    setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, (const char *)&n, sizeof(n));
+    setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, (cchar *)&n, sizeof(n));
 
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_family = AF_INET;
@@ -136,9 +136,9 @@ int net_bind(int *fd, char *bind_ip, int port)
 
         if (n == 4)
             server_addr.sin_addr.s_addr =
-                ((unsigned long)c[0] << 24) |
-                ((unsigned long)c[1] << 16) |
-                ((unsigned long)c[2] << 8) | ((unsigned long)c[3]);
+                ((ulong)c[0] << 24) |
+                ((ulong)c[1] << 16) |
+                ((ulong)c[2] << 8) | ((ulong)c[3]);
     }
 
     if (bind(*fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
@@ -232,7 +232,7 @@ int net_set_nonblock(int fd)
 /*
  * Portable usleep helper
  */
-void net_usleep(unsigned long usec)
+void net_usleep(ulong usec)
 {
     struct timeval tv;
     tv.tv_sec = 0;
@@ -243,7 +243,7 @@ void net_usleep(unsigned long usec)
 /*
  * Read at most 'len' characters
  */
-int net_recv(void *ctx, unsigned char *buf, int len)
+int net_recv(void *ctx, uchar *buf, int len)
 {
     int ret = read(*((int *)ctx), buf, len);
 
@@ -274,7 +274,7 @@ int net_recv(void *ctx, unsigned char *buf, int len)
 /*
  * Write at most 'len' characters
  */
-int net_send(void *ctx, unsigned char *buf, int len)
+int net_send(void *ctx, uchar *buf, int len)
 {
     int ret = write(*((int *)ctx), buf, len);
 

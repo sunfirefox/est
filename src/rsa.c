@@ -10,7 +10,7 @@
  */
 #include "est.h"
 
-#if defined(EST_RSA_C)
+#if BIT_RSA
 
 /*
  * Initialize an RSA context
@@ -27,8 +27,8 @@ void rsa_init(rsa_context * ctx,
     ctx->p_rng = p_rng;
 }
 
-#if defined(EST_GENPRIME)
 
+#if BIT_GEN_PRIME
 /*
  * Generate an RSA keypair
  */
@@ -151,7 +151,7 @@ cleanup:
 /*
  * Do an RSA public key operation
  */
-int rsa_public(rsa_context * ctx, unsigned char *input, unsigned char *output)
+int rsa_public(rsa_context * ctx, uchar *input, uchar *output)
 {
     int ret, olen;
     mpi T;
@@ -182,7 +182,7 @@ cleanup:
 /*
  * Do an RSA private key operation
  */
-int rsa_private(rsa_context * ctx, unsigned char *input, unsigned char *output)
+int rsa_private(rsa_context * ctx, uchar *input, uchar *output)
 {
     int ret, olen;
     mpi T, T1, T2;
@@ -239,10 +239,10 @@ cleanup:
  */
 int rsa_pkcs1_encrypt(rsa_context * ctx,
               int mode, int ilen,
-              unsigned char *input, unsigned char *output)
+              uchar *input, uchar *output)
 {
     int nb_pad, olen;
-    unsigned char *p = output;
+    uchar *p = output;
 
     olen = ctx->len;
 
@@ -259,7 +259,7 @@ int rsa_pkcs1_encrypt(rsa_context * ctx,
 
         while (nb_pad-- > 0) {
             do {
-                *p = (unsigned char)rand();
+                *p = (uchar)rand();
             } while (*p == 0);
             p++;
         }
@@ -282,12 +282,12 @@ int rsa_pkcs1_encrypt(rsa_context * ctx,
  */
 int rsa_pkcs1_decrypt(rsa_context * ctx,
               int mode, int *olen,
-              unsigned char *input,
-              unsigned char *output, int output_max_len)
+              uchar *input,
+              uchar *output, int output_max_len)
 {
     int ret, ilen;
-    unsigned char *p;
-    unsigned char buf[512];
+    uchar *p;
+    uchar buf[512];
 
     ilen = ctx->len;
 
@@ -337,10 +337,10 @@ int rsa_pkcs1_decrypt(rsa_context * ctx,
 int rsa_pkcs1_sign(rsa_context * ctx,
            int mode,
            int hash_id,
-           int hashlen, unsigned char *hash, unsigned char *sig)
+           int hashlen, uchar *hash, uchar *sig)
 {
     int nb_pad, olen;
-    unsigned char *p = sig;
+    uchar *p = sig;
 
     olen = ctx->len;
 
@@ -424,11 +424,11 @@ int rsa_pkcs1_sign(rsa_context * ctx,
 int rsa_pkcs1_verify(rsa_context * ctx,
              int mode,
              int hash_id,
-             int hashlen, unsigned char *hash, unsigned char *sig)
+             int hashlen, uchar *hash, uchar *sig)
 {
     int ret, len, siglen;
-    unsigned char *p, c;
-    unsigned char buf[512];
+    uchar *p, c;
+    uchar buf[512];
 
     siglen = ctx->len;
 
@@ -510,7 +510,7 @@ void rsa_free(rsa_context * ctx)
          &ctx->Q, &ctx->P, &ctx->D, &ctx->E, &ctx->N, NULL);
 }
 
-#if defined(EST_SELF_TEST)
+#if defined(BIT_SELF_TEST)
 
 /*
  * Example RSA-1024 keypair, for test purposes
@@ -573,10 +573,10 @@ int rsa_self_test(int verbose)
 {
     int len;
     rsa_context rsa;
-    unsigned char sha1sum[20];
-    unsigned char rsa_plaintext[PT_LEN];
-    unsigned char rsa_decrypted[PT_LEN];
-    unsigned char rsa_ciphertext[KEY_LEN];
+    uchar sha1sum[20];
+    uchar rsa_plaintext[PT_LEN];
+    uchar rsa_decrypted[PT_LEN];
+    uchar rsa_ciphertext[KEY_LEN];
 
     memset(&rsa, 0, sizeof(rsa_context));
 

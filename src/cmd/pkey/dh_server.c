@@ -28,9 +28,9 @@ int main(void)
     int listen_fd = -1;
     int client_fd = -1;
 
-    unsigned char buf[1024];
-    unsigned char hash[20];
-    unsigned char buf2[2];
+    uchar buf[1024];
+    uchar hash[20];
+    uchar buf2[2];
 
     havege_state hs;
     rsa_context rsa;
@@ -134,8 +134,8 @@ int main(void)
      */
     sha1(buf, n, hash);
 
-    buf[n] = (unsigned char)(rsa.len >> 8);
-    buf[n + 1] = (unsigned char)(rsa.len);
+    buf[n] = (uchar)(rsa.len >> 8);
+    buf[n + 1] = (uchar)(rsa.len);
 
     if ((ret = rsa_pkcs1_sign(&rsa, RSA_PRIVATE, RSA_SHA1,
                   0, hash, buf + n + 2)) != 0) {
@@ -144,8 +144,8 @@ int main(void)
     }
 
     buflen = n + 2 + rsa.len;
-    buf2[0] = (unsigned char)(buflen >> 8);
-    buf2[1] = (unsigned char)(buflen);
+    buf2[0] = (uchar)(buflen >> 8);
+    buf2[1] = (uchar)(buflen);
 
     if ((ret = net_send(&client_fd, buf2, 2)) != 2 ||
         (ret = net_send(&client_fd, buf, buflen)) != buflen) {

@@ -12,7 +12,7 @@
 
 #include "tropicssl/sha1.h"
 
-static int sha1_wrapper(char *filename, unsigned char *sum)
+static int sha1_wrapper(char *filename, uchar *sum)
 {
     int ret = sha1_file(filename, sum);
 
@@ -28,7 +28,7 @@ static int sha1_wrapper(char *filename, unsigned char *sum)
 static int sha1_print(char *filename)
 {
     int i;
-    unsigned char sum[20];
+    uchar sum[20];
 
     if (sha1_wrapper(filename, sum) != 0)
         return (1);
@@ -47,7 +47,7 @@ static int sha1_check(char *filename)
     FILE *f;
     int nb_err1, nb_err2;
     int nb_tot1, nb_tot2;
-    unsigned char sum[20];
+    uchar sum[20];
     char buf[41], line[1024];
 
     if ((f = fopen(filename, "rb")) == NULL) {

@@ -1,5 +1,6 @@
 /**
     @file est.h
+
     Embedded Security Transport is an implementation of the SSL/TLS protocol standard.
  */
 
@@ -93,7 +94,7 @@
     #define CPU_ENDIAN BIT_BIG_ENDIAN
 
 #else
-    #error "Cannot determine CPU type in mpr.h"
+    #error "Cannot determine CPU type in est.h"
 #endif
 
 /*
@@ -262,7 +263,7 @@
     #define     HAS_USHORT 1
 #endif
 
-#if MACSOX
+#if MACOSX
     #define     HAS_USHORT 1
     #define     HAS_UINT 1
 #endif
@@ -304,9 +305,7 @@
 #if CYGWIN
     #include    <arpa/inet.h>
 #endif
-
     #include    <ctype.h>
-
 #if BIT_WIN_LIKE
     #include    <direct.h>
 #else
@@ -315,30 +314,23 @@
     #include    <dlfcn.h>
 #endif
 #endif
-
     #include    <fcntl.h>
     #include    <errno.h>
-
 #if BIT_FLOAT
     #include    <float.h>
     #define __USE_ISOC99 1
     #include    <math.h>
 #endif
-
 #if BIT_UNIX_LIKE
     #include    <grp.h> 
 #endif
-
 #if BIT_WIN_LIKE
     #include    <io.h>
 #endif
-
 #if MACOSX || LINUX
     #include    <libgen.h>
 #endif
-
     #include    <limits.h>
-
 #if BIT_UNIX_LIKE || VXWORKS
     #include    <netdb.h>
     #include    <net/if.h>
@@ -346,7 +338,6 @@
     #include    <netinet/tcp.h>
     #include    <netinet/ip.h>
 #endif
-
 #if BIT_UNIX_LIKE
     #include    <pthread.h> 
     #include    <pwd.h> 
@@ -354,41 +345,31 @@
     #include    <resolv.h>
 #endif
 #endif
-
     #include    <setjmp.h>
     #include    <signal.h>
     #include    <stdarg.h>
-
 #if BIT_UNIX_LIKE
     #include    <stdint.h>
 #endif
-
     #include    <stdio.h>
     #include    <stdlib.h>
     #include    <string.h>
-
 #if BIT_UNIX_LIKE
     #include    <syslog.h>
 #endif
-
 #if LINUX
     #include    <sys/epoll.h>
 #endif
-
 #if BIT_UNIX_LIKE
     #include    <sys/ioctl.h>
     #include    <sys/mman.h>
     #include    <sys/poll.h>
 #endif
-
     #include    <sys/stat.h>
-
 #if LINUX
     #include    <sys/prctl.h>
 #endif
-
     #include    <sys/types.h>
-
 #if BIT_UNIX_LIKE
     #include    <sys/resource.h>
     #include    <sys/sem.h>
@@ -400,13 +381,10 @@
     #include    <sys/uio.h>
     #include    <sys/wait.h>
 #endif
-
     #include    <time.h>
-
 #if BIT_UNIX_LIKE
     #include    <unistd.h>
 #endif
-
 #if !VXWORKS
     #include    <wchar.h>
 #endif
@@ -418,11 +396,9 @@
     #include    "w32api/windows.h"
     #include    "sys/cygwin.h"
 #endif
-
 #if LINUX && !__UCLIBC__
     #include    <sys/sendfile.h>
 #endif
-
 #if MACOSX
     #include    <stdbool.h>
     #include    <mach-o/dyld.h>
@@ -433,7 +409,6 @@
     #include    <sys/sysctl.h>
     #include    <libkern/OSAtomic.h>
 #endif
-
 #if VXWORKS
     #include    <vxWorks.h>
     #include    <envLib.h>
@@ -623,30 +598,22 @@
 /**
     Signed file offset data type. Supports large files greater than 4GB in size on all systems.
  */
-typedef int64 MprOff;
+typedef int64 Offset;
 
 #if DOXYGEN
-    typedef int MprSocklen;
+    typedef int Socklen;
 #elif VXWORKS
-    typedef int MprSocklen;
+    typedef int Socklen;
 #else
-    typedef socklen_t MprSocklen;
+    typedef socklen_t Socklen;
 #endif
 
-/**
-    Date and Time Service
-    @stability Stable
-    @see MprTime mprCompareTime mprCreateTimeService mprDecodeLocalTime mprDecodeUniversalTime mprFormatLocalTime 
-        mprFormatTm mprGetDate mprGetElapsedTicks mprGetRemainingTicks mprGetHiResTicks mprGetTimeZoneOffset mprMakeTime 
-        mprMakeUniversalTime mprParseTime 
-    @defgroup MprTime MprTime
- */
-typedef int64 MprTime;
+typedef int64 Time;
 
 /**
     Elapsed time data type. Stores time in milliseconds from some arbitrary start epoch.
  */
-typedef int64 MprTicks;
+typedef int64 Ticks;
 
 #ifndef BITSPERBYTE
     #define BITSPERBYTE     (8 * sizeof(char))
@@ -801,7 +768,7 @@ typedef int64 MprTicks;
     #define F_OK    0
 #endif
 
-#if MACSOX
+#if MACOSX
     #define LD_LIBRARY_PATH "DYLD_LIBRARY_PATH"
 #else
     #define LD_LIBRARY_PATH "LD_LIBRARY_PATH"
@@ -811,16 +778,16 @@ typedef int64 MprTicks;
 /*
     Old VxWorks can't do array[]
  */
-#define MPR_FLEX 0
+#define ARRAY_FLEX 0
 #else
-#define MPR_FLEX
+#define ARRAY_FLEX
 #endif
 
 /*********************************** Fixups ***********************************/
 
 #if BIT_UNIX_LIKE || VXWORKS
-    #define MPR_TEXT        ""
-    #define MPR_BINARY      ""
+    #define FILE_TEXT        ""
+    #define FILE_BINARY      ""
 #endif
 
 #if BIT_UNIX_LIKE
@@ -872,10 +839,8 @@ typedef int64 MprTicks;
     #ifndef SHUT_RDWR
         #define SHUT_RDWR 2
     #endif
-
     #define HAVE_SOCKLEN_T
     #define getpid mprGetpid
-
     #if _DIAB_TOOL
         #define inline __inline__
     #endif
@@ -905,8 +870,8 @@ typedef int64 MprTicks;
 
     #define HAVE_SOCKLEN_T
     #define MSG_NOSIGNAL    0
-    #define MPR_BINARY      "b"
-    #define MPR_TEXT        "t"
+    #define FILE_BINARY     "b"
+    #define FILE_TEXT       "t"
 
     /*
         Error codes 
@@ -998,7 +963,6 @@ typedef int64 MprTicks;
     #ifndef EOF
         #define EOF        -1
     #endif
-
     #define O_RDONLY        0
     #define O_WRONLY        1
     #define O_RDWR          2
@@ -1010,7 +974,6 @@ typedef int64 MprTicks;
     #define O_TEXT          0x400
     #define O_EXCL          0x800
     #define O_BINARY        0x1000
-
     /*
         stat flags
      */
@@ -1045,9 +1008,6 @@ extern "C" {
 #endif
 
 #if LINUX
-    /*
-        For some reason it is removed from fedora 6 pthreads.h and only comes in for UNIX96
-     */
     extern int pthread_mutexattr_gettype (__const pthread_mutexattr_t *__restrict
         __attr, int *__restrict __kind) __THROW;
     extern int pthread_mutexattr_settype (pthread_mutexattr_t *__attr, int __kind) __THROW;
@@ -1072,7 +1032,7 @@ extern "C" {
             This may or may not be necessary - let us know dev@embedthis.com if your system needs this (and why).
          */
         #if _DIAB_TOOL
-            #if BIT_CPU_ARCH == MPR_CPU_PPC
+            #if BIT_CPU_ARCH == BIT_CPU_PPC
                 #define __va_copy(dest, src) memcpy((dest), (src), sizeof(va_list))
             #endif
         #endif
@@ -1108,7 +1068,6 @@ extern "C" {
         time_t  st_mtime;
         time_t  st_ctime;
     };
-
     extern int access(cchar *filename, int flags);
     extern int chdir(cchar   dirname);
     extern int chmod(cchar *path, int mode);
@@ -1197,7 +1156,7 @@ extern "C" {
 #define _FILE_OFFSET_BITS 64
 #endif
 
-
+//  MOB - drive from compiler
 /*
  * Uncomment if native integers are 8-bit wide.
  *
@@ -1227,260 +1186,48 @@ extern "C" {
 #define EST_HAVE_SSE2
  */
 
-/*
- * Enable all SSL/TLS debugging messages.
- */
-#define EST_DEBUG_MSG
+/* Enable SSL/TLS */
+#define BIT_SSL 1
+
+/* Enable basic networking routines - required */
+#define BIT_NET 1
+
+/* Enable RSA. Required for SSL/TLS and MD5-signed certs */
+#ifndef BIT_RSA
+    #define BIT_RSA 1
+#endif
+
+/* Enable SHA1. Required for SSL/TLS and SHA1-signed certs */
+#ifndef BIT_SHA1
+    #define BIT_SHA1 1
+#endif
+
+/* Enable SHA2. Required for SHA-224 and SHA-256 */
+#ifndef BIT_SHA2
+    #define BIT_SHA2 1
+#endif
+
+/* Enable SHA4. Required for SHA-384 and SHA-512 */
+#ifndef BIT_SHA4
+    #define BIT_SHA4 1
+#endif
+
+#if BIT_HAVEGE
+    #define BIT_TIMING 1
+#endif
+
+#if BIT_X509
+    #define BIT_BASE64 1
+    #define BIT_MD5 1
+#endif
+
+#if BIT_X509 || BIT_RSA || BIT_DHM
+    #define BIT_BIGNUM 1
+#endif
 
 /*
- * Enable the checkup functions (*_self_test).
-#define EST_SELF_TEST
+    Include all EST headers
  */
-
-/*
- * Enable the prime-number generation code.
- */
-#define EST_GENPRIME
-
-/*
- * Uncomment this macro to store the AES tables in ROM.
- *
-#define EST_AES_ROM_TABLES
- */
-
-/*
- * Module:  library/aes.c
- * Caller:  library/ssl_tls.c
- *
- * This module enables the following ciphersuites:
- *      SSL_RSA_AES_128_SHA
- *      SSL_RSA_AES_256_SHA
- *      SSL_EDH_RSA_AES_256_SHA
- */
-#define EST_AES_C
-
-/*
- * Module:  library/arc4.c
- * Caller:  library/ssl_tls.c
- *
- * This module enables the following ciphersuites:
- *      SSL_RSA_RC4_128_MD5
- *      SSL_RSA_RC4_128_SHA
- */
-#define EST_ARC4_C
-
-/*
- * Module:  library/base64.c
- * Caller:  library/x509parse.c
- *
- * This module is required for X.509 support.
- */
-#define EST_BASE64_C
-
-/*
- * Module:  library/bignum.c
- * Caller:  library/dhm.c
- *          library/rsa.c
- *          library/ssl_tls.c
- *          library/x509parse.c
- *
- * This module is required for RSA and DHM support.
- */
-#define EST_BIGNUM_C
-
-/*
- * Module:  library/camellia.c
- * Caller:
- *
- * This module enabled the following cipher suites:
-#define EST_CAMELLIA_C
- */
-
-/*
- * Module:  library/certs.c
- * Caller:
- *
- * This module is used for testing (ssl_client/server).
- */
-#define EST_CERTS_C
-
-/*
- * Module:  library/debug.c
- * Caller:  library/ssl_cli.c
- *          library/ssl_srv.c
- *          library/ssl_tls.c
- *
- * This module provides debugging functions.
- */
-#define EST_DEBUG_C
-
-/*
- * Module:  library/des.c
- * Caller:  library/ssl_tls.c
- *
- * This module enables the following ciphersuites:
- *      SSL_RSA_DES_168_SHA
- *      SSL_EDH_RSA_DES_168_SHA
- */
-#define EST_DES_C
-
-/*
- * Module:  library/dhm.c
- * Caller:  library/ssl_cli.c
- *          library/ssl_srv.c
- *
- * This module enables the following ciphersuites:
- *      SSL_EDH_RSA_DES_168_SHA
- *      SSL_EDH_RSA_AES_256_SHA
- */
-#define EST_DHM_C
-
-/*
- * Module:  library/havege.c
- * Caller:
- *
- * This module enables the HAVEGE random number generator.
- */
-#define EST_HAVEGE_C
-
-/*
- * Module:  library/md2.c
- * Caller:  library/x509parse.c
- *
- * Uncomment to enable support for (rare) MD2-signed X.509 certs.
- *
-#define EST_MD2_C
- */
-
-/*
- * Module:  library/md4.c
- * Caller:  library/x509parse.c
- *
- * Uncomment to enable support for (rare) MD4-signed X.509 certs.
- *
-#define EST_MD4_C
- */
-
-/*
- * Module:  library/md5.c
- * Caller:  library/ssl_tls.c
- *          library/x509parse.c
- *
- * This module is required for SSL/TLS and X.509.
- */
-#define EST_MD5_C
-
-/*
- * Module:  library/net.c
- * Caller:
- *
- * This module provides TCP/IP networking routines.
- */
-#define EST_NET_C
-
-/*
- * Module:  library/padlock.c
- * Caller:  library/aes.c
- *
- * This modules adds support for the VIA PadLock on x86.
-#define EST_PADLOCK_C
- */
-
-/*
- * Module:  library/rsa.c
- * Caller:  library/ssl_cli.c
- *          library/ssl_srv.c
- *          library/ssl_tls.c
- *          library/x509.c
- *
- * This module is required for SSL/TLS and MD5-signed certificates.
- */
-#define EST_RSA_C
-
-/*
- * Module:  library/sha1.c
- * Caller:  library/ssl_cli.c
- *          library/ssl_srv.c
- *          library/ssl_tls.c
- *          library/x509parse.c
- *
- * This module is required for SSL/TLS and SHA1-signed certificates.
- */
-#define EST_SHA1_C
-
-/*
- * Module:  library/sha2.c
- * Caller:
- *
- * This module adds support for SHA-224 and SHA-256.
- */
-#define EST_SHA2_C
-
-/*
- * Module:  library/sha4.c
- * Caller:
- *
- * This module adds support for SHA-384 and SHA-512.
- */
-#define EST_SHA4_C
-
-/*
- * Module:  library/ssl_cli.c
- * Caller:
- *
- * This module is required for SSL/TLS client support.
- */
-#define EST_SSL_CLI_C
-
-/*
- * Module:  library/ssl_srv.c
- * Caller:
- *
- * This module is required for SSL/TLS server support.
- */
-#define EST_SSL_SRV_C
-
-/*
- * Module:  library/ssl_tls.c
- * Caller:  library/ssl_cli.c
- *          library/ssl_srv.c
- *
- * This module is required for SSL/TLS.
- */
-#define EST_SSL_TLS_C
-
-/*
- * Module:  library/timing.c
- * Caller:  library/havege.c
- *
- * This module is used by the HAVEGE random number generator.
- */
-#define EST_TIMING_C
-
-/*
- * Module:  library/x509parse.c
- * Caller:  library/ssl_cli.c
- *          library/ssl_srv.c
- *          library/ssl_tls.c
- *
- * This module is required for X.509 certificate parsing.
- */
-#define EST_X509_PARSE_C
-
-/*
- * Module:  library/x509_write.c
- * Caller:
- *
- * This module is required for X.509 certificate writing.
- */
-#define EST_X509_WRITE_C
-
-/*
- * Module:  library/xtea.c
- * Caller:
-#define EST_XTEA_C
- */
-
 #include "bignum.h"
 #include "net.h"
 #include "dhm.h"
@@ -1506,11 +1253,6 @@ extern "C" {
 #include "sha4.h"
 #include "timing.h"
 #include "xtea.h"
-
-/*
-    UNUSED
-    #include "openssl.h"
-*/
 
 #ifdef __cplusplus
 }

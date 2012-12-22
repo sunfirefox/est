@@ -14,12 +14,12 @@
 int main(void)
 {
     int i;
-    unsigned char digest[16];
+    uchar digest[16];
     char str[] = "Hello, world!";
 
     printf("\n  MD5('%s') = ", str);
 
-    md5((unsigned char *)str, 13, digest);
+    md5((uchar *)str, 13, digest);
 
     for (i = 0; i < 16; i++)
         printf("%02x", digest[i]);

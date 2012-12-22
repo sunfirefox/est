@@ -20,16 +20,16 @@
  * Define the base integer type, architecture-wise
  */
 #if defined(EST_HAVE_INT8)
-typedef unsigned char t_int;
-typedef unsigned short t_dbl;
+    typedef unsigned char t_int;
+    typedef unsigned short t_dbl;
 #else
 #if defined(EST_HAVE_INT16)
-typedef unsigned short t_int;
-typedef unsigned long t_dbl;
+    typedef unsigned short t_int;
+    typedef unsigned long t_dbl;
 #else
-typedef unsigned long t_int;
+    typedef unsigned long t_int;
 #if defined(_MSC_VER) && defined(_M_IX86)
-typedef unsigned __int64 t_dbl;
+    typedef unsigned __int64 t_dbl;
 #else
 #if defined(__amd64__) || defined(__x86_64__)    || \
         defined(__ppc64__) || defined(__powerpc64__) || \

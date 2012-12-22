@@ -34,13 +34,13 @@ static int myrand(void *rng_state)
     return (rand());
 }
 
-unsigned char buf[BUFSIZE];
+uchar buf[BUFSIZE];
 
 int main(void)
 {
     int keysize;
-    unsigned long i, j, tsc;
-    unsigned char tmp[32];
+    ulong i, j, tsc;
+    uchar tmp[32];
 #if defined(TROPICSSL_ARC4_C)
     arc4_context arc4;
 #endif

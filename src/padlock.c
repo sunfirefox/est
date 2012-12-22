@@ -8,7 +8,7 @@
  */
 #include "est.h"
 
-#if defined(EST_PADLOCK_C)
+#if BIT_PADLOCK
 
 #if defined(EST_HAVE_X86)
 
@@ -38,13 +38,13 @@ asm("movl  %%ebx, %0           \n" "movl  $0xC0000000, %%eax  \n" "cpuid        
  */
 int padlock_xcryptecb(aes_context * ctx,
               int mode,
-              unsigned char input[16], unsigned char output[16])
+              uchar input[16], uchar output[16])
 {
     int ebx;
-    unsigned long *rk;
-    unsigned long *blk;
-    unsigned long *ctrl;
-    unsigned char buf[256];
+    ulong *rk;
+    ulong *blk;
+    ulong *ctrl;
+    uchar buf[256];
 
     rk = ctx->rk;
     blk = PADLOCK_ALIGN16(buf);
@@ -68,14 +68,14 @@ asm("pushfl; popfl         \n" "movl    %%ebx, %0     \n" "movl    $1, %%ecx    
 int padlock_xcryptcbc(aes_context * ctx,
               int mode,
               int length,
-              unsigned char iv[16],
-              unsigned char *input, unsigned char *output)
+              uchar iv[16],
+              uchar *input, uchar *output)
 {
     int ebx, count;
-    unsigned long *rk;
-    unsigned long *iw;
-    unsigned long *ctrl;
-    unsigned char buf[256];
+    ulong *rk;
+    ulong *iw;
+    ulong *ctrl;
+    uchar buf[256];
 
     if (((long)input & 15) != 0 || ((long)output & 15) != 0)
         return (1);

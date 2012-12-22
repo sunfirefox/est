@@ -12,7 +12,7 @@
 
 #include "tropicssl/md5.h"
 
-static int md5_wrapper(char *filename, unsigned char *sum)
+static int md5_wrapper(char *filename, uchar *sum)
 {
     int ret = md5_file(filename, sum);
 
@@ -28,7 +28,7 @@ static int md5_wrapper(char *filename, unsigned char *sum)
 static int md5_print(char *filename)
 {
     int i;
-    unsigned char sum[16];
+    uchar sum[16];
 
     if (md5_wrapper(filename, sum) != 0)
         return (1);
@@ -47,7 +47,7 @@ static int md5_check(char *filename)
     FILE *f;
     int nb_err1, nb_err2;
     int nb_tot1, nb_tot2;
-    unsigned char sum[16];
+    uchar sum[16];
     char buf[33], line[1024];
 
     if ((f = fopen(filename, "rb")) == NULL) {

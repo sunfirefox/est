@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if defined(EST_TIMING_C)
+#if BIT_TIMING
 
 #if defined(WIN32)
 
@@ -34,18 +34,18 @@ struct _hr_time {
 
 #if (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
-    unsigned long tsc;
+    ulong tsc;
     __asm rdtsc __asm mov[tsc], eax return (tsc);
 }
 
 #else
 #if defined(__GNUC__) && defined(__i386__)
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
-    unsigned long tsc;
+    ulong tsc;
 asm("rdtsc":"=a"(tsc));
     return (tsc);
 }
@@ -53,9 +53,9 @@ asm("rdtsc":"=a"(tsc));
 #else
 #if defined(__GNUC__) && (defined(__amd64__) || defined(__x86_64__))
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
-    unsigned long lo, hi;
+    ulong lo, hi;
 asm("rdtsc":"=a"(lo), "=d"(hi));
     return (lo | (hi << 32));
 }
@@ -63,9 +63,9 @@ asm("rdtsc":"=a"(lo), "=d"(hi));
 #else
 #if defined(__GNUC__) && (defined(__powerpc__) || defined(__ppc__))
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
-    unsigned long tbl, tbu0, tbu1;
+    ulong tbl, tbu0, tbu1;
 
     do {
 asm("mftbu %0":"=r"(tbu0));
@@ -79,9 +79,9 @@ asm("mftbu %0":"=r"(tbu1));
 #else
 #if defined(__GNUC__) && defined(__sparc__)
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
-    unsigned long tick;
+    ulong tick;
     asm(".byte 0x83, 0x41, 0x00, 0x00");
 asm("mov    %%g1, %0":"=r"(tick));
     return (tick);
@@ -90,9 +90,9 @@ asm("mov    %%g1, %0":"=r"(tick));
 #else
 #if defined(__GNUC__) && defined(__alpha__)
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
-    unsigned long cc;
+    ulong cc;
 asm("rpcc %0":"=r"(cc));
     return (cc & 0xFFFFFFFF);
 }
@@ -100,9 +100,9 @@ asm("rpcc %0":"=r"(cc));
 #else
 #if defined(__GNUC__) && defined(__ia64__)
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
-    unsigned long itc;
+    ulong itc;
 asm("mov %0 = ar.itc":"=r"(itc));
     return (itc);
 }
@@ -112,7 +112,7 @@ asm("mov %0 = ar.itc":"=r"(itc));
 static int hardclock_init = 0;
 static struct timeval tv_init;
 
-unsigned long hardclock(void)
+ulong hardclock(void)
 {
     struct timeval tv_cur;
 
@@ -138,16 +138,16 @@ int alarmed = 0;
 
 #if defined(WIN32)
 
-unsigned long get_timer(struct hr_time *val, int reset)
+ulong get_timer(struct hr_time *val, int reset)
 {
-    unsigned long delta;
+    ulong delta;
     LARGE_INTEGER offset, hfreq;
     struct _hr_time *t = (struct _hr_time *)val;
 
     QueryPerformanceCounter(&offset);
     QueryPerformanceFrequency(&hfreq);
 
-    delta = (unsigned long)((1000 *
+    delta = (ulong)((1000 *
                  (offset.QuadPart - t->start.QuadPart)) /
                 hfreq.QuadPart);
 
@@ -180,9 +180,9 @@ void m_sleep(int milliseconds)
 
 #else
 
-unsigned long get_timer(struct hr_time *val, int reset)
+ulong get_timer(struct hr_time *val, int reset)
 {
-    unsigned long delta;
+    ulong delta;
     struct timeval offset;
     struct _hr_time *t = (struct _hr_time *)val;
 

@@ -12,7 +12,7 @@
 
 #include "tropicssl/sha2.h"
 
-static int sha2_wrapper(char *filename, unsigned char *sum)
+static int sha2_wrapper(char *filename, uchar *sum)
 {
     int ret = sha2_file(filename, sum, 0);
 
@@ -28,7 +28,7 @@ static int sha2_wrapper(char *filename, unsigned char *sum)
 static int sha2_print(char *filename)
 {
     int i;
-    unsigned char sum[32];
+    uchar sum[32];
 
     if (sha2_wrapper(filename, sum) != 0)
         return (1);
@@ -47,7 +47,7 @@ static int sha2_check(char *filename)
     FILE *f;
     int nb_err1, nb_err2;
     int nb_tot1, nb_tot2;
-    unsigned char sum[32];
+    uchar sum[32];
     char buf[65], line[1024];
 
     if ((f = fopen(filename, "rb")) == NULL) {

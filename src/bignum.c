@@ -12,7 +12,7 @@
 
 #include "est.h"
 
-#if defined(EST_BIGNUM_C)
+#if BIT_BIGNUM
 
 #define ciL    ((int) sizeof(t_int))    /* chars in limb  */
 #define biL    (ciL << 3)   /* bits  in limb  */
@@ -421,7 +421,7 @@ cleanup:
 /*
  * Import X from unsigned binary data, big endian
  */
-int mpi_read_binary(mpi * X, unsigned char *buf, int buflen)
+int mpi_read_binary(mpi * X, uchar *buf, int buflen)
 {
     int ret, i, j, n;
 
@@ -443,7 +443,7 @@ cleanup:
 /*
  * Export X into unsigned binary data, big endian
  */
-int mpi_write_binary(mpi * X, unsigned char *buf, int buflen)
+int mpi_write_binary(mpi * X, uchar *buf, int buflen)
 {
     int i, j, n;
 
@@ -455,7 +455,7 @@ int mpi_write_binary(mpi * X, unsigned char *buf, int buflen)
     memset(buf, 0, buflen);
 
     for (i = buflen - 1, j = 0; n > 0; i--, j++, n--)
-        buf[i] = (unsigned char)(X->p[j / ciL] >> ((j % ciL) << 3));
+        buf[i] = (uchar)(X->p[j / ciL] >> ((j % ciL) << 3));
 
     return (0);
 }
@@ -1448,7 +1448,7 @@ cleanup:
     return (ret);
 }
 
-#if defined(EST_GENPRIME)
+#if BIT_GEN_PRIME
 
 /*
  * Modular inverse: X = A^-1 mod N  (HAC 14.61 / 14.64)
@@ -1562,7 +1562,7 @@ int mpi_is_prime(mpi * X, int (*f_rng) (void *), void *p_rng)
 {
     int ret, i, j, n, s, xs;
     mpi W, R, T, A, RR;
-    unsigned char *p;
+    uchar *p;
 
     if (mpi_cmp_int(X, 0) == 0)
         return (0);
@@ -1613,9 +1613,9 @@ int mpi_is_prime(mpi * X, int (*f_rng) (void *), void *p_rng)
          */
         MPI_CHK(mpi_grow(&A, X->n));
 
-        p = (unsigned char *)A.p;
+        p = (uchar *)A.p;
         for (j = 0; j < A.n * ciL; j++)
-            *p++ = (unsigned char)f_rng(p_rng);
+            *p++ = (uchar)f_rng(p_rng);
 
         j = mpi_msb(&A) - mpi_msb(&W);
         MPI_CHK(mpi_shift_r(&A, j + 1));
@@ -1668,7 +1668,7 @@ int mpi_gen_prime(mpi * X, int nbits, int dh_flag,
           int (*f_rng) (void *), void *p_rng)
 {
     int ret, k, n;
-    unsigned char *p;
+    uchar *p;
     mpi Y;
 
     if (nbits < 3)
@@ -1681,9 +1681,9 @@ int mpi_gen_prime(mpi * X, int nbits, int dh_flag,
     MPI_CHK(mpi_grow(X, n));
     MPI_CHK(mpi_lset(X, 0));
 
-    p = (unsigned char *)X->p;
+    p = (uchar *)X->p;
     for (k = 0; k < X->n * ciL; k++)
-        *p++ = (unsigned char)f_rng(p_rng);
+        *p++ = (uchar)f_rng(p_rng);
 
     k = mpi_msb(X);
     if (k < nbits)
@@ -1731,7 +1731,7 @@ cleanup:
 
 #endif
 
-#if defined(EST_SELF_TEST)
+#if defined(BIT_SELF_TEST)
 
 #define GCD_PAIR_COUNT  3
 

@@ -37,7 +37,7 @@ void my_debug(void *ctx, int level, char *str)
 int main(void)
 {
     int ret, len, server_fd;
-    unsigned char buf[1024];
+    uchar buf[1024];
     havege_state hs;
     ssl_context ssl;
     ssl_session ssn;

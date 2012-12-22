@@ -1,5 +1,5 @@
 /*
-    start.bit -- Startup Bit File for Embedthis TLS Library
+    start.bit -- Startup Bit File for Embedthis Security Transport
  */
 
 Bit.load({

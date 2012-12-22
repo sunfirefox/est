@@ -9,7 +9,7 @@
  */
 #include "est.h"
 
-#if defined(EST_MD4_C)
+#if BIT_MD4
 
 /*
  * 32-bit integer manipulation macros (little endian)
@@ -17,20 +17,20 @@
 #ifndef GET_ULONG_LE
 #define GET_ULONG_LE(n,b,i)                             \
     {                                                   \
-        (n) = ( (unsigned long) (b)[(i)    ]       )    \
-            | ( (unsigned long) (b)[(i) + 1] <<  8 )    \
-            | ( (unsigned long) (b)[(i) + 2] << 16 )    \
-            | ( (unsigned long) (b)[(i) + 3] << 24 );   \
+        (n) = ( (ulong) (b)[(i)    ]       )    \
+            | ( (ulong) (b)[(i) + 1] <<  8 )    \
+            | ( (ulong) (b)[(i) + 2] << 16 )    \
+            | ( (ulong) (b)[(i) + 3] << 24 );   \
     }
 #endif
 
 #ifndef PUT_ULONG_LE
 #define PUT_ULONG_LE(n,b,i)                             \
     {                                                   \
-        (b)[(i)    ] = (unsigned char) ( (n)       );   \
-        (b)[(i) + 1] = (unsigned char) ( (n) >>  8 );   \
-        (b)[(i) + 2] = (unsigned char) ( (n) >> 16 );   \
-        (b)[(i) + 3] = (unsigned char) ( (n) >> 24 );   \
+        (b)[(i)    ] = (uchar) ( (n)       );   \
+        (b)[(i) + 1] = (uchar) ( (n) >>  8 );   \
+        (b)[(i) + 2] = (uchar) ( (n) >> 16 );   \
+        (b)[(i) + 3] = (uchar) ( (n) >> 24 );   \
     }
 #endif
 
@@ -48,9 +48,9 @@ void md4_starts(md4_context * ctx)
     ctx->state[3] = 0x10325476;
 }
 
-static void md4_process(md4_context * ctx, unsigned char data[64])
+static void md4_process(md4_context * ctx, uchar data[64])
 {
-    unsigned long X[16], A, B, C, D;
+    ulong X[16], A, B, C, D;
 
     GET_ULONG_LE(X[0], data, 0);
     GET_ULONG_LE(X[1], data, 4);
@@ -154,10 +154,10 @@ static void md4_process(md4_context * ctx, unsigned char data[64])
 /*
  * MD4 process buffer
  */
-void md4_update(md4_context * ctx, unsigned char *input, int ilen)
+void md4_update(md4_context * ctx, uchar *input, int ilen)
 {
     int fill;
-    unsigned long left;
+    ulong left;
 
     if (ilen <= 0)
         return;
@@ -168,7 +168,7 @@ void md4_update(md4_context * ctx, unsigned char *input, int ilen)
     ctx->total[0] += ilen;
     ctx->total[0] &= 0xFFFFFFFF;
 
-    if (ctx->total[0] < (unsigned long)ilen)
+    if (ctx->total[0] < (ulong)ilen)
         ctx->total[1]++;
 
     if (left && ilen >= fill) {
@@ -190,7 +190,7 @@ void md4_update(md4_context * ctx, unsigned char *input, int ilen)
     }
 }
 
-static const unsigned char md4_padding[64] = {
+static const uchar md4_padding[64] = {
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -200,11 +200,11 @@ static const unsigned char md4_padding[64] = {
 /*
  * MD4 final digest
  */
-void md4_finish(md4_context * ctx, unsigned char output[16])
+void md4_finish(md4_context * ctx, uchar output[16])
 {
-    unsigned long last, padn;
-    unsigned long high, low;
-    unsigned char msglen[8];
+    ulong last, padn;
+    ulong high, low;
+    uchar msglen[8];
 
     high = (ctx->total[0] >> 29)
         | (ctx->total[1] << 3);
@@ -216,7 +216,7 @@ void md4_finish(md4_context * ctx, unsigned char output[16])
     last = ctx->total[0] & 0x3F;
     padn = (last < 56) ? (56 - last) : (120 - last);
 
-    md4_update(ctx, (unsigned char *)md4_padding, padn);
+    md4_update(ctx, (uchar *)md4_padding, padn);
     md4_update(ctx, msglen, 8);
 
     PUT_ULONG_LE(ctx->state[0], output, 0);
@@ -228,7 +228,7 @@ void md4_finish(md4_context * ctx, unsigned char output[16])
 /*
  * output = MD4( input buffer )
  */
-void md4(unsigned char *input, int ilen, unsigned char output[16])
+void md4(uchar *input, int ilen, uchar output[16])
 {
     md4_context ctx;
 
@@ -242,12 +242,12 @@ void md4(unsigned char *input, int ilen, unsigned char output[16])
 /*
  * output = MD4( file contents )
  */
-int md4_file(char *path, unsigned char output[16])
+int md4_file(char *path, uchar output[16])
 {
     FILE *f;
     size_t n;
     md4_context ctx;
-    unsigned char buf[1024];
+    uchar buf[1024];
 
     if ((f = fopen(path, "rb")) == NULL)
         return (1);
@@ -273,10 +273,10 @@ int md4_file(char *path, unsigned char output[16])
 /*
  * MD4 HMAC context setup
  */
-void md4_hmac_starts(md4_context * ctx, unsigned char *key, int keylen)
+void md4_hmac_starts(md4_context * ctx, uchar *key, int keylen)
 {
     int i;
-    unsigned char sum[16];
+    uchar sum[16];
 
     if (keylen > 64) {
         md4(key, keylen, sum);
@@ -288,8 +288,8 @@ void md4_hmac_starts(md4_context * ctx, unsigned char *key, int keylen)
     memset(ctx->opad, 0x5C, 64);
 
     for (i = 0; i < keylen; i++) {
-        ctx->ipad[i] = (unsigned char)(ctx->ipad[i] ^ key[i]);
-        ctx->opad[i] = (unsigned char)(ctx->opad[i] ^ key[i]);
+        ctx->ipad[i] = (uchar)(ctx->ipad[i] ^ key[i]);
+        ctx->opad[i] = (uchar)(ctx->opad[i] ^ key[i]);
     }
 
     md4_starts(ctx);
@@ -301,7 +301,7 @@ void md4_hmac_starts(md4_context * ctx, unsigned char *key, int keylen)
 /*
  * MD4 HMAC process buffer
  */
-void md4_hmac_update(md4_context * ctx, unsigned char *input, int ilen)
+void md4_hmac_update(md4_context * ctx, uchar *input, int ilen)
 {
     md4_update(ctx, input, ilen);
 }
@@ -309,9 +309,9 @@ void md4_hmac_update(md4_context * ctx, unsigned char *input, int ilen)
 /*
  * MD4 HMAC final digest
  */
-void md4_hmac_finish(md4_context * ctx, unsigned char output[16])
+void md4_hmac_finish(md4_context * ctx, uchar output[16])
 {
-    unsigned char tmpbuf[16];
+    uchar tmpbuf[16];
 
     md4_finish(ctx, tmpbuf);
     md4_starts(ctx);
@@ -325,8 +325,8 @@ void md4_hmac_finish(md4_context * ctx, unsigned char output[16])
 /*
  * output = HMAC-MD4( hmac key, input buffer )
  */
-void md4_hmac(unsigned char *key, int keylen, unsigned char *input, int ilen,
-          unsigned char output[16])
+void md4_hmac(uchar *key, int keylen, uchar *input, int ilen,
+          uchar output[16])
 {
     md4_context ctx;
 
@@ -337,12 +337,12 @@ void md4_hmac(unsigned char *key, int keylen, unsigned char *input, int ilen,
     memset(&ctx, 0, sizeof(md4_context));
 }
 
-#if defined(EST_SELF_TEST)
+#if defined(BIT_SELF_TEST)
 
 /*
  * RFC 1320 test vectors
  */
-static const char md4_test_str[7][81] = {
+static cchar md4_test_str[7][81] = {
     {""},
     {"a"},
     {"abc"},
@@ -354,7 +354,7 @@ static const char md4_test_str[7][81] = {
      "345678901234567890"}
 };
 
-static const unsigned char md4_test_sum[7][16] = {
+static const uchar md4_test_sum[7][16] = {
     {
      0x31, 0xD6, 0xCF, 0xE0, 0xD1, 0x6A, 0xE9, 0x31,
      0xB7, 0x3C, 0x59, 0xD7, 0xE0, 0xC0, 0x89, 0xC0},
@@ -384,13 +384,13 @@ static const unsigned char md4_test_sum[7][16] = {
 int md4_self_test(int verbose)
 {
     int i;
-    unsigned char md4sum[16];
+    uchar md4sum[16];
 
     for (i = 0; i < 7; i++) {
         if (verbose != 0)
             printf("  MD4 test #%d: ", i + 1);
 
-        md4((unsigned char *)md4_test_str[i],
+        md4((uchar *)md4_test_str[i],
             strlen(md4_test_str[i]), md4sum);
 
         if (memcmp(md4sum, md4_test_sum[i], 16) != 0) {

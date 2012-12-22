@@ -5,14 +5,14 @@
  */
 #include "est.h"
 
-#if defined(EST_SSL_SRV_C)
+#if BIT_SSL_SERVER
 
 static int ssl_parse_client_hello(ssl_context * ssl)
 {
     int ret, i, j, n;
     int ciph_len, sess_len;
     int chal_len, comp_len;
-    unsigned char *buf, *p;
+    uchar *buf, *p;
 
     SSL_DEBUG_MSG(2, ("=> parse client hello"));
 
@@ -299,7 +299,7 @@ static int ssl_write_server_hello(ssl_context * ssl)
 {
     time_t t;
     int ret, i, n;
-    unsigned char *buf, *p;
+    uchar *buf, *p;
 
     SSL_DEBUG_MSG(2, ("=> write server hello"));
 
@@ -313,22 +313,22 @@ static int ssl_write_server_hello(ssl_context * ssl)
     buf = ssl->out_msg;
     p = buf + 4;
 
-    *p++ = (unsigned char)ssl->major_ver;
-    *p++ = (unsigned char)ssl->minor_ver;
+    *p++ = (uchar)ssl->major_ver;
+    *p++ = (uchar)ssl->minor_ver;
 
     SSL_DEBUG_MSG(3, ("server hello, chosen version: [%d:%d]",
               buf[4], buf[5]));
 
     t = time(NULL);
-    *p++ = (unsigned char)(t >> 24);
-    *p++ = (unsigned char)(t >> 16);
-    *p++ = (unsigned char)(t >> 8);
-    *p++ = (unsigned char)(t);
+    *p++ = (uchar)(t >> 24);
+    *p++ = (uchar)(t >> 16);
+    *p++ = (uchar)(t >> 8);
+    *p++ = (uchar)(t);
 
     SSL_DEBUG_MSG(3, ("server hello, current time: %lu", t));
 
     for (i = 28; i > 0; i--)
-        *p++ = (unsigned char)ssl->f_rng(ssl->p_rng);
+        *p++ = (uchar)ssl->f_rng(ssl->p_rng);
 
     memcpy(ssl->randbytes + 32, buf + 6, 32);
 
@@ -341,7 +341,7 @@ static int ssl_write_server_hello(ssl_context * ssl)
      *   41+n . 41+n  chosen compression alg.
      */
     ssl->session->length = n = 32;
-    *p++ = (unsigned char)ssl->session->length;
+    *p++ = (uchar)ssl->session->length;
 
     if (ssl->s_get == NULL || ssl->s_get(ssl) != 0) {
         /*
@@ -352,7 +352,7 @@ static int ssl_write_server_hello(ssl_context * ssl)
 
         for (i = 0; i < n; i++)
             ssl->session->id[i] =
-                (unsigned char)ssl->f_rng(ssl->p_rng);
+                (uchar)ssl->f_rng(ssl->p_rng);
     } else {
         /*
          * Found a matching session, resume it
@@ -370,8 +370,8 @@ static int ssl_write_server_hello(ssl_context * ssl)
     SSL_DEBUG_MSG(3, ("%s session has been resumed",
               ssl->resume ? "a" : "no"));
 
-    *p++ = (unsigned char)(ssl->session->cipher >> 8);
-    *p++ = (unsigned char)(ssl->session->cipher);
+    *p++ = (uchar)(ssl->session->cipher >> 8);
+    *p++ = (uchar)(ssl->session->cipher);
     *p++ = SSL_COMPRESS_NULL;
 
     SSL_DEBUG_MSG(3, ("server hello, chosen cipher: %d",
@@ -392,7 +392,7 @@ static int ssl_write_server_hello(ssl_context * ssl)
 static int ssl_write_certificate_request(ssl_context * ssl)
 {
     int ret, n;
-    unsigned char *buf, *p;
+    uchar *buf, *p;
     x509_cert *crt;
 
     SSL_DEBUG_MSG(2, ("=> write certificate request"));
@@ -431,8 +431,8 @@ static int ssl_write_certificate_request(ssl_context * ssl)
             break;
 
         n = crt->subject_raw.len;
-        *p++ = (unsigned char)(n >> 8);
-        *p++ = (unsigned char)(n);
+        *p++ = (uchar)(n >> 8);
+        *p++ = (uchar)(n);
         memcpy(p, crt->subject_raw.p, n);
 
         SSL_DEBUG_BUF(3, "requested DN", p, n);
@@ -443,8 +443,8 @@ static int ssl_write_certificate_request(ssl_context * ssl)
     ssl->out_msglen = n = p - buf;
     ssl->out_msgtype = SSL_MSG_HANDSHAKE;
     ssl->out_msg[0] = SSL_HS_CERTIFICATE_REQUEST;
-    ssl->out_msg[6] = (unsigned char)((n - 8) >> 8);
-    ssl->out_msg[7] = (unsigned char)((n - 8));
+    ssl->out_msg[6] = (uchar)((n - 8) >> 8);
+    ssl->out_msg[7] = (uchar)((n - 8));
 
     ret = ssl_write_record(ssl);
 
@@ -456,7 +456,7 @@ static int ssl_write_certificate_request(ssl_context * ssl)
 static int ssl_write_server_key_exchange(ssl_context * ssl)
 {
     int ret, n;
-    unsigned char hash[36];
+    uchar hash[36];
     md5_context md5;
     sha1_context sha1;
 
@@ -469,7 +469,7 @@ static int ssl_write_server_key_exchange(ssl_context * ssl)
         ssl->state++;
         return (0);
     }
-#if !defined(EST_DHM_C)
+#if !BIT_DHM
     SSL_DEBUG_MSG(1, ("support for dhm is not available"));
     return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 #else
@@ -518,8 +518,8 @@ static int ssl_write_server_key_exchange(ssl_context * ssl)
 
     SSL_DEBUG_BUF(3, "parameters hash", hash, 36);
 
-    ssl->out_msg[4 + n] = (unsigned char)(ssl->rsa_key->len >> 8);
-    ssl->out_msg[5 + n] = (unsigned char)(ssl->rsa_key->len);
+    ssl->out_msg[4 + n] = (uchar)(ssl->rsa_key->len >> 8);
+    ssl->out_msg[5 + n] = (uchar)(ssl->rsa_key->len);
 
     ret = rsa_pkcs1_sign(ssl->rsa_key, RSA_PRIVATE,
                  RSA_RAW, 36, hash, ssl->out_msg + 6 + n);
@@ -593,7 +593,7 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
     if (ssl->session->cipher == SSL_EDH_RSA_DES_168_SHA ||
         ssl->session->cipher == SSL_EDH_RSA_AES_256_SHA ||
         ssl->session->cipher == SSL_EDH_RSA_CAMELLIA_256_SHA) {
-#if !defined(EST_DHM_C)
+#if !BIT_DHM
         SSL_DEBUG_MSG(1, ("support for dhm is not available"));
         return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 #else
@@ -671,7 +671,7 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
 
             for (i = 0; i < ssl->pmslen; i++)
                 ssl->premaster[i] =
-                    (unsigned char)ssl->f_rng(ssl->p_rng);
+                    (uchar)ssl->f_rng(ssl->p_rng);
         }
     }
 
@@ -690,7 +690,7 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
 static int ssl_parse_certificate_verify(ssl_context * ssl)
 {
     int n1, n2, ret;
-    unsigned char hash[36];
+    uchar hash[36];
 
     SSL_DEBUG_MSG(2, ("=> parse certificate verify"));
 

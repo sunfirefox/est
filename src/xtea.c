@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if defined(EST_XTEA_C)
+#if BIT_XTEA
 
 /*
  * 32-bit integer manipulation macros (big endian)
@@ -15,27 +15,27 @@
 #ifndef GET_ULONG_BE
 #define GET_ULONG_BE(n,b,i)                             \
     {                                                   \
-        (n) = ( (unsigned long) (b)[(i)    ] << 24 )    \
-            | ( (unsigned long) (b)[(i) + 1] << 16 )    \
-            | ( (unsigned long) (b)[(i) + 2] <<  8 )    \
-            | ( (unsigned long) (b)[(i) + 3]       );   \
+        (n) = ( (ulong) (b)[(i)    ] << 24 )    \
+            | ( (ulong) (b)[(i) + 1] << 16 )    \
+            | ( (ulong) (b)[(i) + 2] <<  8 )    \
+            | ( (ulong) (b)[(i) + 3]       );   \
     }
 #endif
 
 #ifndef PUT_ULONG_BE
 #define PUT_ULONG_BE(n,b,i)                             \
     {                                                   \
-        (b)[(i)    ] = (unsigned char) ( (n) >> 24 );   \
-        (b)[(i) + 1] = (unsigned char) ( (n) >> 16 );   \
-        (b)[(i) + 2] = (unsigned char) ( (n) >>  8 );   \
-        (b)[(i) + 3] = (unsigned char) ( (n)       );   \
+        (b)[(i)    ] = (uchar) ( (n) >> 24 );   \
+        (b)[(i) + 1] = (uchar) ( (n) >> 16 );   \
+        (b)[(i) + 2] = (uchar) ( (n) >>  8 );   \
+        (b)[(i) + 3] = (uchar) ( (n)       );   \
     }
 #endif
 
 /*
  * XTEA key schedule
  */
-void xtea_setup(xtea_context * ctx, unsigned char key[16])
+void xtea_setup(xtea_context * ctx, uchar key[16])
 {
     int i;
 
@@ -49,10 +49,10 @@ void xtea_setup(xtea_context * ctx, unsigned char key[16])
 /*
  * XTEA encrypt function
  */
-void xtea_crypt_ecb(xtea_context * ctx, int mode, unsigned char input[8],
-            unsigned char output[8])
+void xtea_crypt_ecb(xtea_context * ctx, int mode, uchar input[8],
+            uchar output[8])
 {
-    unsigned long *k, v0, v1, i;
+    ulong *k, v0, v1, i;
 
     k = ctx->k;
 
@@ -60,7 +60,7 @@ void xtea_crypt_ecb(xtea_context * ctx, int mode, unsigned char input[8],
     GET_ULONG_BE(v1, input, 4);
 
     if (mode == XTEA_ENCRYPT) {
-        unsigned long sum = 0, delta = 0x9E3779B9;
+        ulong sum = 0, delta = 0x9E3779B9;
 
         for (i = 0; i < 32; i++) {
             v0 +=
@@ -72,7 +72,7 @@ void xtea_crypt_ecb(xtea_context * ctx, int mode, unsigned char input[8],
                                 3]);
         }
     } else {        /* XTEA_DECRYPT */
-        unsigned long delta = 0x9E3779B9, sum = delta * 32;
+        ulong delta = 0x9E3779B9, sum = delta * 32;
 
         for (i = 0; i < 32; i++) {
             v1 -=
@@ -89,13 +89,13 @@ void xtea_crypt_ecb(xtea_context * ctx, int mode, unsigned char input[8],
     PUT_ULONG_BE(v1, output, 4);
 }
 
-#if defined(EST_SELF_TEST)
+#if defined(BIT_SELF_TEST)
 
 /*
  * XTEA tests vectors (non-official)
  */
 
-static const unsigned char xtea_test_key[6][16] = {
+static const uchar xtea_test_key[6][16] = {
     {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
      0x0c, 0x0d, 0x0e, 0x0f},
     {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
@@ -110,7 +110,7 @@ static const unsigned char xtea_test_key[6][16] = {
      0x00, 0x00, 0x00, 0x00}
 };
 
-static const unsigned char xtea_test_pt[6][8] = {
+static const uchar xtea_test_pt[6][8] = {
     {0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48},
     {0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41},
     {0x5a, 0x5b, 0x6e, 0x27, 0x89, 0x48, 0xd7, 0x7f},
@@ -119,7 +119,7 @@ static const unsigned char xtea_test_pt[6][8] = {
     {0x70, 0xe1, 0x22, 0x5d, 0x6e, 0x4e, 0x76, 0x55}
 };
 
-static const unsigned char xtea_test_ct[6][8] = {
+static const uchar xtea_test_ct[6][8] = {
     {0x49, 0x7d, 0xf3, 0xd0, 0x72, 0x61, 0x2c, 0xb5},
     {0xe7, 0x8f, 0x2d, 0x13, 0x74, 0x43, 0x41, 0xd8},
     {0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41},
@@ -134,7 +134,7 @@ static const unsigned char xtea_test_ct[6][8] = {
 int xtea_self_test(int verbose)
 {
     int i;
-    unsigned char buf[8];
+    uchar buf[8];
     xtea_context ctx;
 
     for (i = 0; i < 6; i++) {
@@ -143,7 +143,7 @@ int xtea_self_test(int verbose)
 
         memcpy(buf, xtea_test_pt[i], 8);
 
-        xtea_setup(&ctx, (unsigned char *)xtea_test_key[i]);
+        xtea_setup(&ctx, (uchar *)xtea_test_key[i]);
         xtea_crypt_ecb(&ctx, XTEA_ENCRYPT, buf, buf);
 
         if (memcmp(buf, xtea_test_ct[i], 8) != 0) {
