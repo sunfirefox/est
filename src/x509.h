@@ -1,49 +1,16 @@
-/**
- * \file x509.h
- *
- *  Based on XySSL: Copyright (C) 2006-2008  Christophe Devine
- *
- *  Copyright (C) 2009  Paul Bakker <polarssl_maintainer at polarssl dot org>
- *
- *  All rights reserved.
- *
- *  Redistribution and use in source and binary forms, with or without
- *  modification, are permitted provided that the following conditions
- *  are met:
- *
- *    * Redistributions of source code must retain the above copyright
- *      notice, this list of conditions and the following disclaimer.
- *    * Redistributions in binary form must reproduce the above copyright
- *      notice, this list of conditions and the following disclaimer in the
- *      documentation and/or other materials provided with the distribution.
- *    * Neither the names of PolarSSL or XySSL nor the names of its contributors
- *      may be used to endorse or promote products derived from this software
- *      without specific prior written permission.
- *
- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- *  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
- *  TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/*
+    x509.h -- Header for the Multithreaded Portable Runtime (MPR).
+
+    Copyright (c) All Rights Reserved. See details at the end of the file.
  */
 #ifndef TROPICSSL_X509_H
 #define TROPICSSL_X509_H
 
-#if UNUSED
-#include "tropicssl/rsa.h"
-#endif
-
-#define TROPICSSL_ERR_ASN1_OUT_OF_DATA                      -0x0014
-#define TROPICSSL_ERR_ASN1_UNEXPECTED_TAG                   -0x0016
-#define TROPICSSL_ERR_ASN1_INVALID_LENGTH                   -0x0018
-#define TROPICSSL_ERR_ASN1_LENGTH_MISMATCH                  -0x001A
-#define TROPICSSL_ERR_ASN1_INVALID_DATA                     -0x001C
+#define TROPICSSL_ERR_EST_ASN1_OUT_OF_DATA                      -0x0014
+#define TROPICSSL_ERR_EST_ASN1_UNEXPECTED_TAG                   -0x0016
+#define TROPICSSL_ERR_EST_ASN1_INVALID_LENGTH                   -0x0018
+#define TROPICSSL_ERR_EST_ASN1_LENGTH_MISMATCH                  -0x001A
+#define TROPICSSL_ERR_EST_ASN1_INVALID_DATA                     -0x001C
 
 #define TROPICSSL_ERR_X509_FEATURE_UNAVAILABLE              -0x0020
 #define TROPICSSL_ERR_X509_CERT_INVALID_PEM                 -0x0040
@@ -79,24 +46,24 @@
 /*
  * DER constants
  */
-#define ASN1_BOOLEAN                 0x01
-#define ASN1_INTEGER                 0x02
-#define ASN1_BIT_STRING              0x03
-#define ASN1_OCTET_STRING            0x04
-#define ASN1_NULL                    0x05
-#define ASN1_OID                     0x06
-#define ASN1_UTF8_STRING             0x0C
-#define ASN1_SEQUENCE                0x10
-#define ASN1_SET                     0x11
-#define ASN1_PRINTABLE_STRING        0x13
-#define ASN1_T61_STRING              0x14
-#define ASN1_IA5_STRING              0x16
-#define ASN1_UTC_TIME                0x17
-#define ASN1_UNIVERSAL_STRING        0x1C
-#define ASN1_BMP_STRING              0x1E
-#define ASN1_PRIMITIVE               0x00
-#define ASN1_CONSTRUCTED             0x20
-#define ASN1_CONTEXT_SPECIFIC        0x80
+#define EST_ASN1_BOOLEAN                 0x01
+#define EST_ASN1_INTEGER                 0x02
+#define EST_ASN1_BIT_STRING              0x03
+#define EST_ASN1_OCTET_STRING            0x04
+#define EST_ASN1_NULL                    0x05
+#define EST_ASN1_OID                     0x06
+#define EST_ASN1_UTF8_STRING             0x0C
+#define EST_ASN1_SEQUENCE                0x10
+#define EST_ASN1_SET                     0x11
+#define EST_ASN1_PRINTABLE_STRING        0x13
+#define EST_ASN1_T61_STRING              0x14
+#define EST_ASN1_IA5_STRING              0x16
+#define EST_ASN1_UTC_TIME                0x17
+#define EST_ASN1_UNIVERSAL_STRING        0x1C
+#define EST_ASN1_BMP_STRING              0x1E
+#define EST_ASN1_PRIMITIVE               0x00
+#define EST_ASN1_CONSTRUCTED             0x20
+#define EST_ASN1_CONTEXT_SPECIFIC        0x80
 
 /*
  * various object identifiers
@@ -312,3 +279,23 @@ extern "C" {
 }
 #endif
 #endif				/* x509.h */
+
+/*
+    @copy   default
+
+    Copyright (c) Embedthis Software LLC, 2003-2013. All Rights Reserved.
+
+    This software is distributed under commercial and open source licenses.
+    You may use the Embedthis Open Source license or you may acquire a 
+    commercial license from Embedthis Software. You agree to be fully bound
+    by the terms of either license. Consult the LICENSE.md distributed with
+    this software for full details and other copyrights.
+
+    Local variables:
+    tab-width: 4
+    c-basic-offset: 4
+    End:
+    vim: sw=4 ts=4 expandtab
+
+    @end
+ */

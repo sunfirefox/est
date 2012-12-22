@@ -1,8 +1,8 @@
 TropicSSL License
 
-Copyright (c) 2009, StackFoundry LLC <support@stackfoundry.com>
-Based on XySSL: Copyright (c) 2006-2008, Christophe Devine
-Based on PolarSSL: Copyright (c) 2009, Paul Bakker
+Copyright (c) 2009, StackFoundry LLC
+Copyright (c) 2009, Paul Bakker
+Copyright (c) 2006-2008, Christophe Devine
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
