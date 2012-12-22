@@ -7,9 +7,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_DHM_C)
-#include <string.h>
-
+#if defined(EST_DHM_C)
 /*
  * helper to validate the mpi size and import it
  */
@@ -18,16 +16,16 @@ static int dhm_read_bignum(mpi * X, unsigned char **p, unsigned char *end)
 	int ret, n;
 
 	if (end - *p < 2)
-		return (TROPICSSL_ERR_DHM_BAD_INPUT_DATA);
+		return (EST_ERR_DHM_BAD_INPUT_DATA);
 
 	n = ((*p)[0] << 8) | (*p)[1];
 	(*p) += 2;
 
 	if ((int)(end - *p) < n)
-		return (TROPICSSL_ERR_DHM_BAD_INPUT_DATA);
+		return (EST_ERR_DHM_BAD_INPUT_DATA);
 
 	if ((ret = mpi_read_binary(X, *p, n)) != 0)
-		return (TROPICSSL_ERR_DHM_READ_PARAMS_FAILED | ret);
+		return (EST_ERR_DHM_READ_PARAMS_FAILED | ret);
 
 	(*p) += n;
 
@@ -51,13 +49,13 @@ int dhm_read_params(dhm_context * ctx, unsigned char **p, unsigned char *end)
 	ctx->len = mpi_size(&ctx->P);
 
 	if (end - *p < 2)
-		return (TROPICSSL_ERR_DHM_BAD_INPUT_DATA);
+		return (EST_ERR_DHM_BAD_INPUT_DATA);
 
 	n = ((*p)[0] << 8) | (*p)[1];
 	(*p) += 2;
 
 	if (end != *p + n)
-		return (TROPICSSL_ERR_DHM_BAD_INPUT_DATA);
+		return (EST_ERR_DHM_BAD_INPUT_DATA);
 
 	return (0);
 }
@@ -113,7 +111,7 @@ int dhm_make_params(dhm_context * ctx, int x_size,
 cleanup:
 
 	if (ret != 0)
-		return (ret | TROPICSSL_ERR_DHM_MAKE_PARAMS_FAILED);
+		return (ret | EST_ERR_DHM_MAKE_PARAMS_FAILED);
 
 	return (0);
 }
@@ -126,10 +124,10 @@ int dhm_read_public(dhm_context * ctx, unsigned char *input, int ilen)
 	int ret;
 
 	if (ctx == NULL || ilen < 1 || ilen > ctx->len)
-		return (TROPICSSL_ERR_DHM_BAD_INPUT_DATA);
+		return (EST_ERR_DHM_BAD_INPUT_DATA);
 
 	if ((ret = mpi_read_binary(&ctx->GY, input, ilen)) != 0)
-		return (TROPICSSL_ERR_DHM_READ_PUBLIC_FAILED | ret);
+		return (EST_ERR_DHM_READ_PUBLIC_FAILED | ret);
 
 	return (0);
 }
@@ -145,7 +143,7 @@ int dhm_make_public(dhm_context * ctx, int x_size,
 	unsigned char *p;
 
 	if (ctx == NULL || olen < 1 || olen > ctx->len)
-		return (TROPICSSL_ERR_DHM_BAD_INPUT_DATA);
+		return (EST_ERR_DHM_BAD_INPUT_DATA);
 
 	/*
 	 * generate X and calculate GX = G^X mod P
@@ -169,7 +167,7 @@ int dhm_make_public(dhm_context * ctx, int x_size,
 cleanup:
 
 	if (ret != 0)
-		return (TROPICSSL_ERR_DHM_MAKE_PUBLIC_FAILED | ret);
+		return (EST_ERR_DHM_MAKE_PUBLIC_FAILED | ret);
 
 	return (0);
 }
@@ -182,7 +180,7 @@ int dhm_calc_secret(dhm_context * ctx, unsigned char *output, int *olen)
 	int ret;
 
 	if (ctx == NULL || *olen < ctx->len)
-		return (TROPICSSL_ERR_DHM_BAD_INPUT_DATA);
+		return (EST_ERR_DHM_BAD_INPUT_DATA);
 
 	MPI_CHK(mpi_exp_mod(&ctx->K, &ctx->GY, &ctx->X, &ctx->P, &ctx->RP));
 
@@ -193,7 +191,7 @@ int dhm_calc_secret(dhm_context * ctx, unsigned char *output, int *olen)
 cleanup:
 
 	if (ret != 0)
-		return (TROPICSSL_ERR_DHM_CALC_SECRET_FAILED | ret);
+		return (EST_ERR_DHM_CALC_SECRET_FAILED | ret);
 
 	return (0);
 }
@@ -207,7 +205,7 @@ void dhm_free(dhm_context * ctx)
 		 &ctx->GX, &ctx->X, &ctx->G, &ctx->P, NULL);
 }
 
-#if defined(TROPICSSL_SELF_TEST)
+#if defined(EST_SELF_TEST)
 
 /*
  * Checkup routine

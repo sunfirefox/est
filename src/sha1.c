@@ -8,10 +8,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_SHA1_C)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_SHA1_C)
 
 /*
  * 32-bit integer manipulation macros (big endian)
@@ -394,7 +391,7 @@ void sha1_hmac(unsigned char *key, int keylen,
 	memset(&ctx, 0, sizeof(sha1_context));
 }
 
-#if defined(TROPICSSL_SELF_TEST)
+#if defined(EST_SELF_TEST)
 /*
  * FIPS-180-1 test vectors
  */

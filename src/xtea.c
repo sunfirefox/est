@@ -7,9 +7,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_XTEA_C)
-
-#include <string.h>
+#if defined(EST_XTEA_C)
 
 /*
  * 32-bit integer manipulation macros (big endian)
@@ -91,10 +89,7 @@ void xtea_crypt_ecb(xtea_context * ctx, int mode, unsigned char input[8],
 	PUT_ULONG_BE(v1, output, 4);
 }
 
-#if defined(TROPICSSL_SELF_TEST)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_SELF_TEST)
 
 /*
  * XTEA tests vectors (non-official)

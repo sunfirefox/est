@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_MD4_H
-#define TROPICSSL_MD4_H
+#ifndef EST_MD4_H
+#define EST_MD4_H
 
 /**
  * \brief          MD4 context structure

@@ -8,10 +8,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_SHA4_C)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_SHA4_C)
 
 /*
  * 64-bit integer manipulation macros (big endian)
@@ -397,7 +394,7 @@ void sha4_hmac(unsigned char *key, int keylen,
 	memset(&ctx, 0, sizeof(sha4_context));
 }
 
-#if defined(TROPICSSL_SELF_TEST)
+#if defined(EST_SELF_TEST)
 
 /*
  * FIPS-180-2 test vectors

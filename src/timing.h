@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_TIMING_H
-#define TROPICSSL_TIMING_H
+#ifndef EST_TIMING_H
+#define EST_TIMING_H
 
 /**
  * \brief          timer structure

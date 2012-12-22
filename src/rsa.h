@@ -3,17 +3,17 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_RSA_H
-#define TROPICSSL_RSA_H
+#ifndef EST_RSA_H
+#define EST_RSA_H
 
-#define TROPICSSL_ERR_RSA_BAD_INPUT_DATA                    -0x0400
-#define TROPICSSL_ERR_RSA_INVALID_PADDING                   -0x0410
-#define TROPICSSL_ERR_RSA_KEY_GEN_FAILED                    -0x0420
-#define TROPICSSL_ERR_RSA_KEY_CHECK_FAILED                  -0x0430
-#define TROPICSSL_ERR_RSA_PUBLIC_FAILED                     -0x0440
-#define TROPICSSL_ERR_RSA_PRIVATE_FAILED                    -0x0450
-#define TROPICSSL_ERR_RSA_VERIFY_FAILED                     -0x0460
-#define TROPICSSL_ERR_RSA_OUTPUT_TO_LARGE                   -0x0470
+#define EST_ERR_RSA_BAD_INPUT_DATA                    -0x0400
+#define EST_ERR_RSA_INVALID_PADDING                   -0x0410
+#define EST_ERR_RSA_KEY_GEN_FAILED                    -0x0420
+#define EST_ERR_RSA_KEY_CHECK_FAILED                  -0x0430
+#define EST_ERR_RSA_PUBLIC_FAILED                     -0x0440
+#define EST_ERR_RSA_PRIVATE_FAILED                    -0x0450
+#define EST_ERR_RSA_VERIFY_FAILED                     -0x0460
+#define EST_ERR_RSA_OUTPUT_TO_LARGE                   -0x0470
 
 /*
  * PKCS#1 constants
@@ -111,7 +111,7 @@ extern "C" {
 	 * \note           rsa_init() must be called beforehand to setup
 	 *                 the RSA context (especially f_rng and p_rng).
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_RSA_XXX error code
+	 * \return         0 if successful, or an EST_ERR_RSA_XXX error code
 	 */
 	int rsa_gen_key(rsa_context * ctx, int nbits, int exponent);
 
@@ -120,7 +120,7 @@ extern "C" {
 	 *
 	 * \param ctx      RSA context to be checked
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_RSA_XXX error code
+	 * \return         0 if successful, or an EST_ERR_RSA_XXX error code
 	 */
 	int rsa_check_pubkey(rsa_context * ctx);
 
@@ -129,7 +129,7 @@ extern "C" {
 	 *
 	 * \param ctx      RSA context to be checked
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_RSA_XXX error code
+	 * \return         0 if successful, or an EST_ERR_RSA_XXX error code
 	 */
 	int rsa_check_privkey(rsa_context * ctx);
 
@@ -140,7 +140,7 @@ extern "C" {
 	 * \param input    input buffer
 	 * \param output   output buffer
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_RSA_XXX error code
+	 * \return         0 if successful, or an EST_ERR_RSA_XXX error code
 	 *
 	 * \note           This function does NOT take care of message
 	 *                 padding. Also, be sure to set input[0] = 0.
@@ -158,7 +158,7 @@ extern "C" {
 	 * \param input    input buffer
 	 * \param output   output buffer
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_RSA_XXX error code
+	 * \return         0 if successful, or an EST_ERR_RSA_XXX error code
 	 *
 	 * \note           The input and output buffers must be large
 	 *                 enough (eg. 128 bytes if RSA-1024 is used).
@@ -175,7 +175,7 @@ extern "C" {
 	 * \param input    buffer holding the data to be encrypted
 	 * \param output   buffer that will hold the ciphertext
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_RSA_XXX error code
+	 * \return         0 if successful, or an EST_ERR_RSA_XXX error code
 	 *
 	 * \note           The output buffer must be as large as the size
 	 *                 of ctx->N (eg. 128 bytes if RSA-1024 is used).
@@ -194,7 +194,7 @@ extern "C" {
 	 * \param olen     will contain the plaintext length
 	 * \param output_max_len	maximum length of the output buffer
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_RSA_XXX error code
+	 * \return         0 if successful, or an EST_ERR_RSA_XXX error code
 	 *
 	 * \note           The output buffer must be as large as the size
 	 *                 of ctx->N (eg. 128 bytes if RSA-1024 is used) otherwise
@@ -216,7 +216,7 @@ extern "C" {
 	 * \param sig      buffer that will hold the ciphertext
 	 *
 	 * \return         0 if the signing operation was successful,
-	 *                 or an TROPICSSL_ERR_RSA_XXX error code
+	 *                 or an EST_ERR_RSA_XXX error code
 	 *
 	 * \note           The "sig" buffer must be as large as the size
 	 *                 of ctx->N (eg. 128 bytes if RSA-1024 is used).
@@ -238,7 +238,7 @@ extern "C" {
 	 * \param sig      buffer holding the ciphertext
 	 *
 	 * \return         0 if the verify operation was successful,
-	 *                 or an TROPICSSL_ERR_RSA_XXX error code
+	 *                 or an EST_ERR_RSA_XXX error code
 	 *
 	 * \note           The "sig" buffer must be as large as the size
 	 *                 of ctx->N (eg. 128 bytes if RSA-1024 is used).

@@ -9,7 +9,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_ARC4_C)
+#if defined(EST_ARC4_C)
 
 /*
  * ARC4 key schedule
@@ -68,10 +68,7 @@ void arc4_crypt(arc4_context * ctx, unsigned char *buf, int buflen)
 	ctx->y = y;
 }
 
-#if defined(TROPICSSL_SELF_TEST)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_SELF_TEST)
 
 /*
  * ARC4 tests vectors as posted by Eric Rescorla in sep. 1994:

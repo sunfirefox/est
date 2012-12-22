@@ -17,10 +17,10 @@
  *         . Alpha                . MIPS32
  *         . C, longlong          . C, generic
  */
-#ifndef TROPICSSL_BN_MUL_H
-#define TROPICSSL_BN_MUL_H
+#ifndef EST_BN_MUL_H
+#define EST_BN_MUL_H
 
-#if defined(TROPICSSL_HAVE_ASM)
+#if defined(EST_HAVE_ASM)
 
 #if defined(__GNUC__)
 #if defined(__i386__)
@@ -42,7 +42,7 @@
     asm( "movl   %edx,   %ecx   " );            \
     asm( "stosl                 " );
 
-#if defined(TROPICSSL_HAVE_SSE2)
+#if defined(EST_HAVE_SSE2)
 
 #define MULADDC_HUIT                            \
     asm( "movd     %ecx,     %mm1     " );      \
@@ -565,7 +565,7 @@
     __asm   mov     ecx, edx                    \
     __asm   stosd
 
-#if defined(TROPICSSL_HAVE_SSE2)
+#if defined(EST_HAVE_SSE2)
 
 #define EMIT __asm _emit
 
@@ -648,10 +648,10 @@
 #endif /* SSE2 */
 #endif /* MSVC */
 
-#endif /* TROPICSSL_HAVE_ASM */
+#endif /* EST_HAVE_ASM */
 
 #if !defined(MULADDC_CORE)
-#if defined(TROPICSSL_HAVE_LONGLONG)
+#if defined(EST_HAVE_LONGLONG)
 
 #define MULADDC_INIT                    \
 {                                       \

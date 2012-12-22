@@ -10,10 +10,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_MD2_C)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_MD2_C)
 
 static const unsigned char PI_SUBST[256] = {
 	0x29, 0x2E, 0x43, 0xC9, 0xA2, 0xD8, 0x7C, 0x01, 0x3D, 0x36,
@@ -241,7 +238,7 @@ void md2_hmac(unsigned char *key, int keylen, unsigned char *input, int ilen,
 	memset(&ctx, 0, sizeof(md2_context));
 }
 
-#if defined(TROPICSSL_SELF_TEST)
+#if defined(EST_SELF_TEST)
 
 /*
  * RFC 1319 test vectors

@@ -3,15 +3,15 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_DHM_H
-#define TROPICSSL_DHM_H
+#ifndef EST_DHM_H
+#define EST_DHM_H
 
-#define TROPICSSL_ERR_DHM_BAD_INPUT_DATA                    -0x0480
-#define TROPICSSL_ERR_DHM_READ_PARAMS_FAILED                -0x0490
-#define TROPICSSL_ERR_DHM_MAKE_PARAMS_FAILED                -0x04A0
-#define TROPICSSL_ERR_DHM_READ_PUBLIC_FAILED                -0x04B0
-#define TROPICSSL_ERR_DHM_MAKE_PUBLIC_FAILED                -0x04C0
-#define TROPICSSL_ERR_DHM_CALC_SECRET_FAILED                -0x04D0
+#define EST_ERR_DHM_BAD_INPUT_DATA                    -0x0480
+#define EST_ERR_DHM_READ_PARAMS_FAILED                -0x0490
+#define EST_ERR_DHM_MAKE_PARAMS_FAILED                -0x04A0
+#define EST_ERR_DHM_READ_PUBLIC_FAILED                -0x04B0
+#define EST_ERR_DHM_MAKE_PUBLIC_FAILED                -0x04C0
+#define EST_ERR_DHM_CALC_SECRET_FAILED                -0x04D0
 
 typedef struct {
 	int len;		/*!<  size(P) in chars  */
@@ -35,7 +35,7 @@ extern "C" {
 	 * \param p        &(start of input buffer)
 	 * \param end      end of buffer
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_DHM_XXX error code
+	 * \return         0 if successful, or an EST_ERR_DHM_XXX error code
 	 */
 	int dhm_read_params(dhm_context * ctx,
 			    unsigned char **p, unsigned char *end);
@@ -54,7 +54,7 @@ extern "C" {
 	 *                 have already been properly set (for example
 	 *                 using mpi_read_string or mpi_read_binary).
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_DHM_XXX error code
+	 * \return         0 if successful, or an EST_ERR_DHM_XXX error code
 	 */
 	int dhm_make_params(dhm_context * ctx, int s_size,
 			    unsigned char *output, int *olen,
@@ -67,7 +67,7 @@ extern "C" {
 	 * \param input    input buffer
 	 * \param ilen     size of buffer
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_DHM_XXX error code
+	 * \return         0 if successful, or an EST_ERR_DHM_XXX error code
 	 */
 	int dhm_read_public(dhm_context * ctx, unsigned char *input, int ilen);
 
@@ -81,7 +81,7 @@ extern "C" {
 	 * \param f_rng    RNG function
 	 * \param p_rng    RNG parameter
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_DHM_XXX error code
+	 * \return         0 if successful, or an EST_ERR_DHM_XXX error code
 	 */
 	int dhm_make_public(dhm_context * ctx, int s_size,
 			    unsigned char *output, int olen,
@@ -94,7 +94,7 @@ extern "C" {
 	 * \param output   destination buffer
 	 * \param olen     number of chars written
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_DHM_XXX error code
+	 * \return         0 if successful, or an EST_ERR_DHM_XXX error code
 	 */
 	int dhm_calc_secret(dhm_context * ctx,
 			    unsigned char *output, int *olen);

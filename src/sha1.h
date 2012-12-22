@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_SHA1_H
-#define TROPICSSL_SHA1_H
+#ifndef EST_SHA1_H
+#define EST_SHA1_H
 
 /**
  * \brief          SHA-1 context structure

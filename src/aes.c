@@ -10,9 +10,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_AES_C)
-
-#include <string.h>
+#if defined(EST_AES_C)
 
 /*
  * 32-bit integer manipulation macros (little endian)
@@ -38,7 +36,7 @@
 #endif
 
 #define FSb AESFSb
-#if defined(TROPICSSL_AES_ROM_TABLES)
+#if defined(EST_AES_ROM_TABLES)
 /*
  * Forward S-box
  */
@@ -427,7 +425,7 @@ void aes_setkey_enc(aes_context * ctx, unsigned char *key, int keysize)
 	int i;
 	unsigned long *RK;
 
-#if !defined(TROPICSSL_AES_ROM_TABLES)
+#if !defined(EST_AES_ROM_TABLES)
 	if (aes_init_done == 0) {
 		aes_gen_tables();
 		aes_init_done = 1;
@@ -632,7 +630,7 @@ void aes_crypt_ecb(aes_context * ctx,
 	int i;
 	unsigned long *RK, X0, X1, X2, X3, Y0, Y1, Y2, Y3;
 
-#if defined(TROPICSSL_PADLOCK_C) && defined(TROPICSSL_HAVE_X86)
+#if defined(EST_PADLOCK_C) && defined(EST_HAVE_X86)
 	if (padlock_supports(PADLOCK_ACE)) {
 		if (padlock_xcryptecb(ctx, mode, input, output) == 0)
 			return;
@@ -732,7 +730,7 @@ void aes_crypt_cbc(aes_context * ctx,
 	int i;
 	unsigned char temp[16];
 
-#if defined(TROPICSSL_PADLOCK_C) && defined(TROPICSSL_HAVE_X86)
+#if defined(EST_PADLOCK_C) && defined(EST_HAVE_X86)
 	if (padlock_supports(PADLOCK_ACE)) {
 		if (padlock_xcryptcbc(ctx, mode, length, iv, input, output) ==
 		    0)
@@ -806,9 +804,7 @@ void aes_crypt_cfb128(aes_context * ctx,
 	*iv_off = n;
 }
 
-#if defined(TROPICSSL_SELF_TEST)
-
-#include <stdio.h>
+#if defined(EST_SELF_TEST)
 
 /*
  * AES test vectors from:

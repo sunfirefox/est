@@ -8,8 +8,8 @@
 /*
  * OpenSSL wrapper contributed by David Barett
  */
-#ifndef TROPICSSL_OPENSSL_H
-#define TROPICSSL_OPENSSL_H
+#ifndef EST_OPENSSL_H
+#define EST_OPENSSL_H
 
 #define AES_SIZE                16
 #define AES_BLOCK_SIZE          16

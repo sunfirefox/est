@@ -8,10 +8,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_MD5_C)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_MD5_C)
 
 /*
  * 32-bit integer manipulation macros (little endian)
@@ -359,7 +356,7 @@ void md5_hmac(unsigned char *key, int keylen, unsigned char *input, int ilen,
 	memset(&ctx, 0, sizeof(md5_context));
 }
 
-#if defined(TROPICSSL_SELF_TEST)
+#if defined(EST_SELF_TEST)
 /*
  * RFC 1321 test vectors
  */

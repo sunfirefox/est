@@ -6,12 +6,9 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#include <string.h>
-#include <time.h>
-
 #include "est.h"
 
-#if defined(TROPICSSL_HAVEGE_C)
+#if defined(EST_HAVEGE_C)
 
 /* ------------------------------------------------------------------------
  * On average, one iteration accesses two 8-word blocks in the havege WALK
@@ -180,9 +177,7 @@ int havege_rand(void *p_rng)
 	return (ret);
 }
 
-#if defined(TROPICSSL_RAND_TEST)
-
-#include <stdio.h>
+#if defined(EST_RAND_TEST)
 
 int main(int argc, char *argv[])
 {

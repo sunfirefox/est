@@ -9,10 +9,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_MD4_C)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_MD4_C)
 
 /*
  * 32-bit integer manipulation macros (little endian)
@@ -340,7 +337,7 @@ void md4_hmac(unsigned char *key, int keylen, unsigned char *input, int ilen,
 	memset(&ctx, 0, sizeof(md4_context));
 }
 
-#if defined(TROPICSSL_SELF_TEST)
+#if defined(EST_SELF_TEST)
 
 /*
  * RFC 1320 test vectors

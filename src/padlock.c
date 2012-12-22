@@ -8,11 +8,9 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_PADLOCK_C)
+#if defined(EST_PADLOCK_C)
 
-#if defined(TROPICSSL_HAVE_X86)
-
-#include <string.h>
+#if defined(EST_HAVE_X86)
 
 /*
  * PadLock detection routine

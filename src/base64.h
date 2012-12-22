@@ -3,11 +3,11 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_BASE64_H
-#define TROPICSSL_BASE64_H
+#ifndef EST_BASE64_H
+#define EST_BASE64_H
 
-#define TROPICSSL_ERR_BASE64_BUFFER_TOO_SMALL               -0x0010
-#define TROPICSSL_ERR_BASE64_INVALID_CHARACTER              -0x0012
+#define EST_ERR_BASE64_BUFFER_TOO_SMALL               -0x0010
+#define EST_ERR_BASE64_INVALID_CHARACTER              -0x0012
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,7 +21,7 @@ extern "C" {
 	 * \param src      source buffer
 	 * \param slen     amount of data to be encoded
 	 *
-	 * \return         0 if successful, or TROPICSSL_ERR_BASE64_BUFFER_TOO_SMALL.
+	 * \return         0 if successful, or EST_ERR_BASE64_BUFFER_TOO_SMALL.
 	 *                 *dlen is always updated to reflect the amount
 	 *                 of data that has (or would have) been written.
 	 *
@@ -39,8 +39,8 @@ extern "C" {
 	 * \param src      source buffer
 	 * \param slen     amount of data to be decoded
 	 *
-	 * \return         0 if successful, TROPICSSL_ERR_BASE64_BUFFER_TOO_SMALL, or
-	 *                 TROPICSSL_ERR_BASE64_INVALID_DATA if the input data is not
+	 * \return         0 if successful, EST_ERR_BASE64_BUFFER_TOO_SMALL, or
+	 *                 EST_ERR_BASE64_INVALID_DATA if the input data is not
 	 *                 correct. *dlen is always updated to reflect the amount
 	 *                 of data that has (or would have) been written.
 	 *

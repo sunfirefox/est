@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_CAMELLIA_H
-#define TROPICSSL_CAMELLIA_H
+#ifndef EST_CAMELLIA_H
+#define EST_CAMELLIA_H
 
 #define CAMELLIA_ENCRYPT     1
 #define CAMELLIA_DECRYPT     0

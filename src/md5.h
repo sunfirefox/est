@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_MD5_H
-#define TROPICSSL_MD5_H
+#ifndef EST_MD5_H
+#define EST_MD5_H
 
 /**
  * \brief          MD5 context structure

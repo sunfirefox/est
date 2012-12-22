@@ -3,38 +3,36 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_SSL_H
-#define TROPICSSL_SSL_H
+#ifndef EST_SSL_H
+#define EST_SSL_H
 
-#include <time.h>
-
-#define TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE               -0x1000
-#define TROPICSSL_ERR_SSL_BAD_INPUT_DATA                    -0x1800
-#define TROPICSSL_ERR_SSL_INVALID_MAC                       -0x2000
-#define TROPICSSL_ERR_SSL_INVALID_RECORD                    -0x2800
-#define TROPICSSL_ERR_SSL_INVALID_MODULUS_SIZE              -0x3000
-#define TROPICSSL_ERR_SSL_UNKNOWN_CIPHER                    -0x3800
-#define TROPICSSL_ERR_SSL_NO_CIPHER_CHOSEN                  -0x4000
-#define TROPICSSL_ERR_SSL_NO_SESSION_FOUND                  -0x4800
-#define TROPICSSL_ERR_SSL_NO_CLIENT_CERTIFICATE             -0x5000
-#define TROPICSSL_ERR_SSL_CERTIFICATE_TOO_LARGE             -0x5800
-#define TROPICSSL_ERR_SSL_CERTIFICATE_REQUIRED              -0x6000
-#define TROPICSSL_ERR_SSL_PRIVATE_KEY_REQUIRED              -0x6800
-#define TROPICSSL_ERR_SSL_CA_CHAIN_REQUIRED                 -0x7000
-#define TROPICSSL_ERR_SSL_UNEXPECTED_MESSAGE                -0x7800
-#define TROPICSSL_ERR_SSL_FATAL_ALERT_MESSAGE               -0x8000
-#define TROPICSSL_ERR_SSL_PEER_VERIFY_FAILED                -0x8800
-#define TROPICSSL_ERR_SSL_PEER_CLOSE_NOTIFY                 -0x9000
-#define TROPICSSL_ERR_SSL_BAD_HS_CLIENT_HELLO               -0x9800
-#define TROPICSSL_ERR_SSL_BAD_HS_SERVER_HELLO               -0xA000
-#define TROPICSSL_ERR_SSL_BAD_HS_CERTIFICATE                -0xA800
-#define TROPICSSL_ERR_SSL_BAD_HS_CERTIFICATE_REQUEST        -0xB000
-#define TROPICSSL_ERR_SSL_BAD_HS_SERVER_KEY_EXCHANGE        -0xB800
-#define TROPICSSL_ERR_SSL_BAD_HS_SERVER_HELLO_DONE          -0xC000
-#define TROPICSSL_ERR_SSL_BAD_HS_CLIENT_KEY_EXCHANGE        -0xC800
-#define TROPICSSL_ERR_SSL_BAD_HS_CERTIFICATE_VERIFY         -0xD000
-#define TROPICSSL_ERR_SSL_BAD_HS_CHANGE_CIPHER_SPEC         -0xD800
-#define TROPICSSL_ERR_SSL_BAD_HS_FINISHED                   -0xE000
+#define EST_ERR_SSL_FEATURE_UNAVAILABLE               -0x1000
+#define EST_ERR_SSL_BAD_INPUT_DATA                    -0x1800
+#define EST_ERR_SSL_INVALID_MAC                       -0x2000
+#define EST_ERR_SSL_INVALID_RECORD                    -0x2800
+#define EST_ERR_SSL_INVALID_MODULUS_SIZE              -0x3000
+#define EST_ERR_SSL_UNKNOWN_CIPHER                    -0x3800
+#define EST_ERR_SSL_NO_CIPHER_CHOSEN                  -0x4000
+#define EST_ERR_SSL_NO_SESSION_FOUND                  -0x4800
+#define EST_ERR_SSL_NO_CLIENT_CERTIFICATE             -0x5000
+#define EST_ERR_SSL_CERTIFICATE_TOO_LARGE             -0x5800
+#define EST_ERR_SSL_CERTIFICATE_REQUIRED              -0x6000
+#define EST_ERR_SSL_PRIVATE_KEY_REQUIRED              -0x6800
+#define EST_ERR_SSL_CA_CHAIN_REQUIRED                 -0x7000
+#define EST_ERR_SSL_UNEXPECTED_MESSAGE                -0x7800
+#define EST_ERR_SSL_FATAL_ALERT_MESSAGE               -0x8000
+#define EST_ERR_SSL_PEER_VERIFY_FAILED                -0x8800
+#define EST_ERR_SSL_PEER_CLOSE_NOTIFY                 -0x9000
+#define EST_ERR_SSL_BAD_HS_CLIENT_HELLO               -0x9800
+#define EST_ERR_SSL_BAD_HS_SERVER_HELLO               -0xA000
+#define EST_ERR_SSL_BAD_HS_CERTIFICATE                -0xA800
+#define EST_ERR_SSL_BAD_HS_CERTIFICATE_REQUEST        -0xB000
+#define EST_ERR_SSL_BAD_HS_SERVER_KEY_EXCHANGE        -0xB800
+#define EST_ERR_SSL_BAD_HS_SERVER_HELLO_DONE          -0xC000
+#define EST_ERR_SSL_BAD_HS_CLIENT_KEY_EXCHANGE        -0xC800
+#define EST_ERR_SSL_BAD_HS_CERTIFICATE_VERIFY         -0xD000
+#define EST_ERR_SSL_BAD_HS_CHANGE_CIPHER_SPEC         -0xD800
+#define EST_ERR_SSL_BAD_HS_FINISHED                   -0xE000
 
 /*
  * Various constants
@@ -436,7 +434,7 @@ extern "C" {
 	 *
 	 * \param ssl      SSL context
 	 *
-	 * \return         0 if successful, TROPICSSL_ERR_NET_TRY_AGAIN,
+	 * \return         0 if successful, EST_ERR_NET_TRY_AGAIN,
 	 *                 or a specific SSL error code.
 	 */
 	int ssl_handshake(ssl_context * ssl);
@@ -463,7 +461,7 @@ extern "C" {
 	 * \return         This function returns the number of bytes written,
 	 *                 or a negative error code.
 	 *
-	 * \note           When this function returns TROPICSSL_ERR_NET_TRY_AGAIN,
+	 * \note           When this function returns EST_ERR_NET_TRY_AGAIN,
 	 *                 it must be called later with the *same* arguments,
 	 *                 until it returns a positive value.
 	 */

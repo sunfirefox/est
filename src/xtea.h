@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_XTEA_H
-#define TROPICSSL_XTEA_H
+#ifndef EST_XTEA_H
+#define EST_XTEA_H
 
 #define XTEA_ENCRYPT     1
 #define XTEA_DECRYPT     0

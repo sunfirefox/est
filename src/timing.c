@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_TIMING_C)
+#if defined(EST_TIMING_C)
 
 #if defined(WIN32)
 

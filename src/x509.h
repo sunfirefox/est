@@ -3,40 +3,40 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_X509_H
-#define TROPICSSL_X509_H
+#ifndef EST_X509_H
+#define EST_X509_H
 
-#define TROPICSSL_ERR_EST_ASN1_OUT_OF_DATA                      -0x0014
-#define TROPICSSL_ERR_EST_ASN1_UNEXPECTED_TAG                   -0x0016
-#define TROPICSSL_ERR_EST_ASN1_INVALID_LENGTH                   -0x0018
-#define TROPICSSL_ERR_EST_ASN1_LENGTH_MISMATCH                  -0x001A
-#define TROPICSSL_ERR_EST_ASN1_INVALID_DATA                     -0x001C
+#define EST_ERR_ASN1_OUT_OF_DATA                      -0x0014
+#define EST_ERR_ASN1_UNEXPECTED_TAG                   -0x0016
+#define EST_ERR_ASN1_INVALID_LENGTH                   -0x0018
+#define EST_ERR_ASN1_LENGTH_MISMATCH                  -0x001A
+#define EST_ERR_ASN1_INVALID_DATA                     -0x001C
 
-#define TROPICSSL_ERR_X509_FEATURE_UNAVAILABLE              -0x0020
-#define TROPICSSL_ERR_X509_CERT_INVALID_PEM                 -0x0040
-#define TROPICSSL_ERR_X509_CERT_INVALID_FORMAT              -0x0060
-#define TROPICSSL_ERR_X509_CERT_INVALID_VERSION             -0x0080
-#define TROPICSSL_ERR_X509_CERT_INVALID_SERIAL              -0x00A0
-#define TROPICSSL_ERR_X509_CERT_INVALID_ALG                 -0x00C0
-#define TROPICSSL_ERR_X509_CERT_INVALID_NAME                -0x00E0
-#define TROPICSSL_ERR_X509_CERT_INVALID_DATE                -0x0100
-#define TROPICSSL_ERR_X509_CERT_INVALID_PUBKEY              -0x0120
-#define TROPICSSL_ERR_X509_CERT_INVALID_SIGNATURE           -0x0140
-#define TROPICSSL_ERR_X509_CERT_INVALID_EXTENSIONS          -0x0160
-#define TROPICSSL_ERR_X509_CERT_UNKNOWN_VERSION             -0x0180
-#define TROPICSSL_ERR_X509_CERT_UNKNOWN_SIG_ALG             -0x01A0
-#define TROPICSSL_ERR_X509_CERT_UNKNOWN_PK_ALG              -0x01C0
-#define TROPICSSL_ERR_X509_CERT_SIG_MISMATCH                -0x01E0
-#define TROPICSSL_ERR_X509_CERT_VERIFY_FAILED               -0x0200
-#define TROPICSSL_ERR_X509_KEY_INVALID_PEM                  -0x0220
-#define TROPICSSL_ERR_X509_KEY_INVALID_VERSION              -0x0240
-#define TROPICSSL_ERR_X509_KEY_INVALID_FORMAT               -0x0260
-#define TROPICSSL_ERR_X509_KEY_INVALID_ENC_IV               -0x0280
-#define TROPICSSL_ERR_X509_KEY_UNKNOWN_ENC_ALG              -0x02A0
-#define TROPICSSL_ERR_X509_KEY_PASSWORD_REQUIRED            -0x02C0
-#define TROPICSSL_ERR_X509_KEY_PASSWORD_MISMATCH            -0x02E0
-#define TROPICSSL_ERR_X509_POINT_ERROR                      -0x0300
-#define TROPICSSL_ERR_X509_VALUE_TO_LENGTH                  -0x0320
+#define EST_ERR_X509_FEATURE_UNAVAILABLE              -0x0020
+#define EST_ERR_X509_CERT_INVALID_PEM                 -0x0040
+#define EST_ERR_X509_CERT_INVALID_FORMAT              -0x0060
+#define EST_ERR_X509_CERT_INVALID_VERSION             -0x0080
+#define EST_ERR_X509_CERT_INVALID_SERIAL              -0x00A0
+#define EST_ERR_X509_CERT_INVALID_ALG                 -0x00C0
+#define EST_ERR_X509_CERT_INVALID_NAME                -0x00E0
+#define EST_ERR_X509_CERT_INVALID_DATE                -0x0100
+#define EST_ERR_X509_CERT_INVALID_PUBKEY              -0x0120
+#define EST_ERR_X509_CERT_INVALID_SIGNATURE           -0x0140
+#define EST_ERR_X509_CERT_INVALID_EXTENSIONS          -0x0160
+#define EST_ERR_X509_CERT_UNKNOWN_VERSION             -0x0180
+#define EST_ERR_X509_CERT_UNKNOWN_SIG_ALG             -0x01A0
+#define EST_ERR_X509_CERT_UNKNOWN_PK_ALG              -0x01C0
+#define EST_ERR_X509_CERT_SIG_MISMATCH                -0x01E0
+#define EST_ERR_X509_CERT_VERIFY_FAILED               -0x0200
+#define EST_ERR_X509_KEY_INVALID_PEM                  -0x0220
+#define EST_ERR_X509_KEY_INVALID_VERSION              -0x0240
+#define EST_ERR_X509_KEY_INVALID_FORMAT               -0x0260
+#define EST_ERR_X509_KEY_INVALID_ENC_IV               -0x0280
+#define EST_ERR_X509_KEY_UNKNOWN_ENC_ALG              -0x02A0
+#define EST_ERR_X509_KEY_PASSWORD_REQUIRED            -0x02C0
+#define EST_ERR_X509_KEY_PASSWORD_MISMATCH            -0x02E0
+#define EST_ERR_X509_POINT_ERROR                      -0x0300
+#define EST_ERR_X509_VALUE_TO_LENGTH                  -0x0320
 
 #define BADCERT_EXPIRED                 1
 #define BADCERT_REVOKED                 2
@@ -250,7 +250,7 @@ extern "C" {
 	 *                 NULL if the CN must not be verified)
 	 * \param flags    result of the verification
 	 *
-	 * \return         0 if successful or TROPICSSL_ERR_X509_SIG_VERIFY_FAILED,
+	 * \return         0 if successful or EST_ERR_X509_SIG_VERIFY_FAILED,
 	 *                 in which case *flags will have one or more of
 	 *                 the following values set:
 	 *                      BADCERT_EXPIRED --

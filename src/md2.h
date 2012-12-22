@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_MD2_H
-#define TROPICSSL_MD2_H
+#ifndef EST_MD2_H
+#define EST_MD2_H
 
 /**
  * \brief          MD2 context structure

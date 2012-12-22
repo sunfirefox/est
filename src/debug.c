@@ -5,10 +5,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_DEBUG_C)
-
-#include <stdarg.h>
-#include <stdlib.h>
+#if defined(EST_DEBUG_C)
 
 #if defined _MSC_VER && !defined  snprintf
 #define	 snprintf  _snprintf

@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_SHA4_H
-#define TROPICSSL_SHA4_H
+#ifndef EST_SHA4_H
+#define EST_SHA4_H
 
 #if defined(_MSC_VER) || defined(__WATCOMC__)
 #define UL64(x) x##ui64

@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_CERTS_H
-#define TROPICSSL_CERTS_H
+#ifndef EST_CERTS_H
+#define EST_CERTS_H
 
 #ifdef __cplusplus
 extern "C" {

@@ -3,29 +3,27 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_BIGNUM_H
-#define TROPICSSL_BIGNUM_H
+#ifndef EST_BIGNUM_H
+#define EST_BIGNUM_H
 
-#include <stdio.h>
-
-#define TROPICSSL_ERR_MPI_FILE_IO_ERROR                     -0x0002
-#define TROPICSSL_ERR_MPI_BAD_INPUT_DATA                    -0x0004
-#define TROPICSSL_ERR_MPI_INVALID_CHARACTER                 -0x0006
-#define TROPICSSL_ERR_MPI_BUFFER_TOO_SMALL                  -0x0008
-#define TROPICSSL_ERR_MPI_NEGATIVE_VALUE                    -0x000A
-#define TROPICSSL_ERR_MPI_DIVISION_BY_ZERO                  -0x000C
-#define TROPICSSL_ERR_MPI_NOT_ACCEPTABLE                    -0x000E
+#define EST_ERR_MPI_FILE_IO_ERROR                     -0x0002
+#define EST_ERR_MPI_BAD_INPUT_DATA                    -0x0004
+#define EST_ERR_MPI_INVALID_CHARACTER                 -0x0006
+#define EST_ERR_MPI_BUFFER_TOO_SMALL                  -0x0008
+#define EST_ERR_MPI_NEGATIVE_VALUE                    -0x000A
+#define EST_ERR_MPI_DIVISION_BY_ZERO                  -0x000C
+#define EST_ERR_MPI_NOT_ACCEPTABLE                    -0x000E
 
 #define MPI_CHK(f) if( ( ret = f ) != 0 ) goto cleanup
 
 /*
  * Define the base integer type, architecture-wise
  */
-#if defined(TROPICSSL_HAVE_INT8)
+#if defined(EST_HAVE_INT8)
 typedef unsigned char t_int;
 typedef unsigned short t_dbl;
 #else
-#if defined(TROPICSSL_HAVE_INT16)
+#if defined(EST_HAVE_INT16)
 typedef unsigned short t_int;
 typedef unsigned long t_dbl;
 #else
@@ -118,7 +116,7 @@ extern "C" {
 	 * \param radix    input numeric base
 	 * \param s        null-terminated string buffer
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_MPI_XXX error code
+	 * \return         0 if successful, or an EST_ERR_MPI_XXX error code
 	 */
 	int mpi_read_string(mpi * X, int radix, char *s);
 
@@ -130,7 +128,7 @@ extern "C" {
 	 * \param s        string buffer
 	 * \param slen     string buffer size
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_MPI_XXX error code
+	 * \return         0 if successful, or an EST_ERR_MPI_XXX error code
 	 *
 	 * \note           Call this function with *slen = 0 to obtain the
 	 *                 minimum required buffer size in *slen.
@@ -144,7 +142,7 @@ extern "C" {
 	 * \param radix    input numeric base
 	 * \param fin      input file handle
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_MPI_XXX error code
+	 * \return         0 if successful, or an EST_ERR_MPI_XXX error code
 	 */
 	int mpi_read_file(mpi * X, int radix, FILE * fin);
 
@@ -156,7 +154,7 @@ extern "C" {
 	 * \param radix    output numeric base
 	 * \param fout     output file handle
 	 *
-	 * \return         0 if successful, or an TROPICSSL_ERR_MPI_XXX error code
+	 * \return         0 if successful, or an EST_ERR_MPI_XXX error code
 	 *
 	 * \note           Set fout == NULL to print X on the console.
 	 */
@@ -182,7 +180,7 @@ extern "C" {
 	 * \param buflen   output buffer size
 	 *
 	 * \return         0 if successful,
-	 *                 TROPICSSL_ERR_MPI_BUFFER_TOO_SMALL if buf isn't large enough
+	 *                 EST_ERR_MPI_BUFFER_TOO_SMALL if buf isn't large enough
 	 *
 	 * \note           Call this function with *buflen = 0 to obtain the
 	 *                 minimum required buffer size in *buflen.
@@ -244,7 +242,7 @@ extern "C" {
 	 * \brief          Unsigned substraction: X = |A| - |B|
 	 *
 	 * \return         0 if successful,
-	 *                 TROPICSSL_ERR_MPI_NEGATIVE_VALUE if B is greater than A
+	 *                 EST_ERR_MPI_NEGATIVE_VALUE if B is greater than A
 	 */
 	int mpi_sub_abs(mpi * X, mpi * A, mpi * B);
 
@@ -301,7 +299,7 @@ extern "C" {
 	 *
 	 * \return         0 if successful,
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_DIVISION_BY_ZERO if B == 0
+	 *                 EST_ERR_MPI_DIVISION_BY_ZERO if B == 0
 	 *
 	 * \note           Either Q or R can be NULL.
 	 */
@@ -312,7 +310,7 @@ extern "C" {
 	 *
 	 * \return         0 if successful,
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_DIVISION_BY_ZERO if b == 0
+	 *                 EST_ERR_MPI_DIVISION_BY_ZERO if b == 0
 	 *
 	 * \note           Either Q or R can be NULL.
 	 */
@@ -323,7 +321,7 @@ extern "C" {
 	 *
 	 * \return         0 if successful,
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_DIVISION_BY_ZERO if B == 0
+	 *                 EST_ERR_MPI_DIVISION_BY_ZERO if B == 0
 	 */
 	int mpi_mod_mpi(mpi * R, mpi * A, mpi * B);
 
@@ -332,7 +330,7 @@ extern "C" {
 	 *
 	 * \return         0 if successful,
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_DIVISION_BY_ZERO if b == 0
+	 *                 EST_ERR_MPI_DIVISION_BY_ZERO if b == 0
 	 */
 	int mpi_mod_int(t_int * r, mpi * A, int b);
 
@@ -341,7 +339,7 @@ extern "C" {
 	 *
 	 * \return         0 if successful,
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_BAD_INPUT_DATA if N is negative or even
+	 *                 EST_ERR_MPI_BAD_INPUT_DATA if N is negative or even
 	 *
 	 * \note           _RR is used to avoid re-computing R*R mod N across
 	 *                 multiple calls, which speeds up things a bit. It can
@@ -362,8 +360,8 @@ extern "C" {
 	 *
 	 * \return         0 if successful,
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_BAD_INPUT_DATA if N is negative or nil
-	 *                 TROPICSSL_ERR_MPI_NOT_ACCEPTABLE if A has no inverse mod N
+	 *                 EST_ERR_MPI_BAD_INPUT_DATA if N is negative or nil
+	 *                 EST_ERR_MPI_NOT_ACCEPTABLE if A has no inverse mod N
 	 */
 	int mpi_inv_mod(mpi * X, mpi * A, mpi * N);
 
@@ -372,7 +370,7 @@ extern "C" {
 	 *
 	 * \return         0 if successful (probably prime),
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_NOT_ACCEPTABLE if X is not prime
+	 *                 EST_ERR_MPI_NOT_ACCEPTABLE if X is not prime
 	 */
 	int mpi_is_prime(mpi * X, int (*f_rng) (void *), void *p_rng);
 
@@ -387,7 +385,7 @@ extern "C" {
 	 *
 	 * \return         0 if successful (probably prime),
 	 *                 1 if memory allocation failed,
-	 *                 TROPICSSL_ERR_MPI_BAD_INPUT_DATA if nbits is < 3
+	 *                 EST_ERR_MPI_BAD_INPUT_DATA if nbits is < 3
 	 */
 	int mpi_gen_prime(mpi * X, int nbits, int dh_flag,
 			  int (*f_rng) (void *), void *p_rng);

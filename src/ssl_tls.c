@@ -10,11 +10,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_SSL_TLS_C)
-
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
+#if defined(EST_SSL_TLS_C)
 
 /*
  * Key material generation
@@ -30,7 +26,7 @@ static int tls1_prf(unsigned char *secret, int slen, char *label,
 	unsigned char h_i[20];
 
 	if (sizeof(tmp) < 20 + strlen(label) + rlen)
-		return (TROPICSSL_ERR_SSL_BAD_INPUT_DATA);
+		return (EST_ERR_SSL_BAD_INPUT_DATA);
 
 	hs = (slen + 1) / 2;
 	S1 = secret;
@@ -185,7 +181,7 @@ int ssl_derive_keys(ssl_context * ssl)
 	 * Determine the appropriate key, IV and MAC length.
 	 */
 	switch (ssl->session->cipher) {
-#if defined(TROPICSSL_ARC4_C)
+#if defined(EST_ARC4_C)
 	case SSL_RSA_RC4_128_MD5:
 		ssl->keylen = 16;
 		ssl->minlen = 16;
@@ -201,7 +197,7 @@ int ssl_derive_keys(ssl_context * ssl)
 		break;
 #endif
 
-#if defined(TROPICSSL_DES_C)
+#if defined(EST_DES_C)
 	case SSL_RSA_DES_168_SHA:
 	case SSL_EDH_RSA_DES_168_SHA:
 		ssl->keylen = 24;
@@ -211,7 +207,7 @@ int ssl_derive_keys(ssl_context * ssl)
 		break;
 #endif
 
-#if defined(TROPICSSL_AES_C)
+#if defined(EST_AES_C)
 	case SSL_RSA_AES_128_SHA:
 		ssl->keylen = 16;
 		ssl->minlen = 32;
@@ -228,7 +224,7 @@ int ssl_derive_keys(ssl_context * ssl)
 		break;
 #endif
 
-#if defined(TROPICSSL_CAMELLIA_C)
+#if defined(EST_CAMELLIA_C)
 	case SSL_RSA_CAMELLIA_128_SHA:
 		ssl->keylen = 16;
 		ssl->minlen = 32;
@@ -248,7 +244,7 @@ int ssl_derive_keys(ssl_context * ssl)
 	default:
 		SSL_DEBUG_MSG(1, ("cipher %s is not available",
 				  ssl_get_cipher(ssl)));
-		return (TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE);
+		return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 	}
 
 	SSL_DEBUG_MSG(3, ("keylen: %d, minlen: %d, ivlen: %d, maclen: %d",
@@ -280,7 +276,7 @@ int ssl_derive_keys(ssl_context * ssl)
 	}
 
 	switch (ssl->session->cipher) {
-#if defined(TROPICSSL_ARC4_C)
+#if defined(EST_ARC4_C)
 	case SSL_RSA_RC4_128_MD5:
 	case SSL_RSA_RC4_128_SHA:
 		arc4_setup((arc4_context *) ssl->ctx_enc, key1, ssl->keylen);
@@ -288,7 +284,7 @@ int ssl_derive_keys(ssl_context * ssl)
 		break;
 #endif
 
-#if defined(TROPICSSL_DES_C)
+#if defined(EST_DES_C)
 	case SSL_RSA_DES_168_SHA:
 	case SSL_EDH_RSA_DES_168_SHA:
 		des3_set3key_enc((des3_context *) ssl->ctx_enc, key1);
@@ -296,7 +292,7 @@ int ssl_derive_keys(ssl_context * ssl)
 		break;
 #endif
 
-#if defined(TROPICSSL_AES_C)
+#if defined(EST_AES_C)
 	case SSL_RSA_AES_128_SHA:
 		aes_setkey_enc((aes_context *) ssl->ctx_enc, key1, 128);
 		aes_setkey_dec((aes_context *) ssl->ctx_dec, key2, 128);
@@ -309,7 +305,7 @@ int ssl_derive_keys(ssl_context * ssl)
 		break;
 #endif
 
-#if defined(TROPICSSL_CAMELLIA_C)
+#if defined(EST_CAMELLIA_C)
 	case SSL_RSA_CAMELLIA_128_SHA:
 		camellia_setkey_enc((camellia_context *) ssl->ctx_enc, key1,
 				    128);
@@ -327,7 +323,7 @@ int ssl_derive_keys(ssl_context * ssl)
 #endif
 
 	default:
-		return (TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE);
+		return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 	}
 
 	memset(keyblk, 0, sizeof(keyblk));
@@ -488,7 +484,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 			break;
 
 	if (ssl->ivlen == 0) {
-#if defined(TROPICSSL_ARC4_C)
+#if defined(EST_ARC4_C)
 		padlen = 0;
 
 		SSL_DEBUG_MSG(3, ("before encrypt: msglen = %d, "
@@ -501,7 +497,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 		arc4_crypt((arc4_context *) ssl->ctx_enc,
 			   ssl->out_msg, ssl->out_msglen);
 #else
-		return (TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE);
+		return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 #endif
 	} else {
 		padlen = ssl->ivlen - (ssl->out_msglen + 1) % ssl->ivlen;
@@ -523,7 +519,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 
 		switch (ssl->ivlen) {
 		case 8:
-#if defined(TROPICSSL_DES_C)
+#if defined(EST_DES_C)
 			des3_crypt_cbc((des3_context *) ssl->ctx_enc,
 				       DES_ENCRYPT, ssl->out_msglen,
 				       ssl->iv_enc, ssl->out_msg, ssl->out_msg);
@@ -531,7 +527,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 #endif
 
 		case 16:
-#if defined(TROPICSSL_AES_C)
+#if defined(EST_AES_C)
 			if (ssl->session->cipher == SSL_RSA_AES_128_SHA ||
 			    ssl->session->cipher == SSL_RSA_AES_256_SHA ||
 			    ssl->session->cipher == SSL_EDH_RSA_AES_256_SHA) {
@@ -543,7 +539,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 			}
 #endif
 
-#if defined(TROPICSSL_CAMELLIA_C)
+#if defined(EST_CAMELLIA_C)
 			if (ssl->session->cipher == SSL_RSA_CAMELLIA_128_SHA ||
 			    ssl->session->cipher == SSL_RSA_CAMELLIA_256_SHA ||
 			    ssl->session->cipher ==
@@ -558,7 +554,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 #endif
 
 		default:
-			return (TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE);
+			return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 		}
 	}
 
@@ -577,16 +573,16 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 	if (ssl->in_msglen < ssl->minlen) {
 		SSL_DEBUG_MSG(1, ("in_msglen (%d) < minlen (%d)",
 				  ssl->in_msglen, ssl->minlen));
-		return (TROPICSSL_ERR_SSL_INVALID_MAC);
+		return (EST_ERR_SSL_INVALID_MAC);
 	}
 
 	if (ssl->ivlen == 0) {
-#if defined(TROPICSSL_ARC4_C)
+#if defined(EST_ARC4_C)
 		padlen = 0;
 		arc4_crypt((arc4_context *) ssl->ctx_dec,
 			   ssl->in_msg, ssl->in_msglen);
 #else
-		return (TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE);
+		return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 #endif
 	} else {
 		/*
@@ -595,11 +591,11 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 		if (ssl->in_msglen % ssl->ivlen != 0) {
 			SSL_DEBUG_MSG(1, ("msglen (%d) %% ivlen (%d) != 0",
 					  ssl->in_msglen, ssl->ivlen));
-			return (TROPICSSL_ERR_SSL_INVALID_MAC);
+			return (EST_ERR_SSL_INVALID_MAC);
 		}
 
 		switch (ssl->ivlen) {
-#if defined(TROPICSSL_DES_C)
+#if defined(EST_DES_C)
 		case 8:
 			des3_crypt_cbc((des3_context *) ssl->ctx_dec,
 				       DES_DECRYPT, ssl->in_msglen,
@@ -608,7 +604,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 #endif
 
 		case 16:
-#if defined(TROPICSSL_AES_C)
+#if defined(EST_AES_C)
 			if (ssl->session->cipher == SSL_RSA_AES_128_SHA ||
 			    ssl->session->cipher == SSL_RSA_AES_256_SHA ||
 			    ssl->session->cipher == SSL_EDH_RSA_AES_256_SHA) {
@@ -620,7 +616,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 			}
 #endif
 
-#if defined(TROPICSSL_CAMELLIA_C)
+#if defined(EST_CAMELLIA_C)
 			if (ssl->session->cipher == SSL_RSA_CAMELLIA_128_SHA ||
 			    ssl->session->cipher == SSL_RSA_CAMELLIA_256_SHA ||
 			    ssl->session->cipher ==
@@ -635,7 +631,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 #endif
 
 		default:
-			return (TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE);
+			return (EST_ERR_SSL_FEATURE_UNAVAILABLE);
 		}
 
 		padlen = 1 + ssl->in_msg[ssl->in_msglen - 1];
@@ -706,7 +702,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 
 	if (memcmp(tmp, ssl->in_msg + ssl->in_msglen, ssl->maclen) != 0) {
 		SSL_DEBUG_MSG(1, ("message mac does not match"));
-		return (TROPICSSL_ERR_SSL_INVALID_MAC);
+		return (EST_ERR_SSL_INVALID_MAC);
 	}
 
 	/*
@@ -714,7 +710,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 	 * will produce the same error as an invalid MAC.
 	 */
 	if (ssl->ivlen != 0 && padlen == 0)
-		return (TROPICSSL_ERR_SSL_INVALID_MAC);
+		return (EST_ERR_SSL_INVALID_MAC);
 
 	if (ssl->in_msglen == 0) {
 		ssl->nb_zero++;
@@ -726,7 +722,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 		if (ssl->nb_zero > 3) {
 			SSL_DEBUG_MSG(1, ("received four consecutive empty "
 					  "messages, possible DoS attack"));
-			return (TROPICSSL_ERR_SSL_INVALID_MAC);
+			return (EST_ERR_SSL_INVALID_MAC);
 		}
 	} else
 		ssl->nb_zero = 0;
@@ -877,12 +873,12 @@ int ssl_read_record(ssl_context * ssl)
 
 		if (ssl->in_msglen < 4 || ssl->in_msg[1] != 0) {
 			SSL_DEBUG_MSG(1, ("bad handshake length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 
 		if (ssl->in_msglen < ssl->in_hslen) {
 			SSL_DEBUG_MSG(1, ("bad handshake length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 
 		md5_update(&ssl->fin_md5, ssl->in_msg, ssl->in_hslen);
@@ -911,13 +907,13 @@ int ssl_read_record(ssl_context * ssl)
 
 	if (ssl->in_hdr[1] != ssl->major_ver) {
 		SSL_DEBUG_MSG(1, ("major version mismatch"));
-		return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+		return (EST_ERR_SSL_INVALID_RECORD);
 	}
 
 	if (ssl->in_hdr[2] != SSL_MINOR_VERSION_0 &&
 	    ssl->in_hdr[2] != SSL_MINOR_VERSION_1) {
 		SSL_DEBUG_MSG(1, ("minor version mismatch"));
-		return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+		return (EST_ERR_SSL_INVALID_RECORD);
 	}
 
 	/*
@@ -926,18 +922,18 @@ int ssl_read_record(ssl_context * ssl)
 	if (ssl->do_crypt == 0) {
 		if (ssl->in_msglen < 1 || ssl->in_msglen > SSL_MAX_CONTENT_LEN) {
 			SSL_DEBUG_MSG(1, ("bad message length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 	} else {
 		if (ssl->in_msglen < ssl->minlen) {
 			SSL_DEBUG_MSG(1, ("bad message length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 
 		if (ssl->minor_ver == SSL_MINOR_VERSION_0 &&
 		    ssl->in_msglen > ssl->minlen + SSL_MAX_CONTENT_LEN) {
 			SSL_DEBUG_MSG(1, ("bad message length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 
 		/*
@@ -946,7 +942,7 @@ int ssl_read_record(ssl_context * ssl)
 		if (ssl->minor_ver == SSL_MINOR_VERSION_1 &&
 		    ssl->in_msglen > ssl->minlen + SSL_MAX_CONTENT_LEN + 256) {
 			SSL_DEBUG_MSG(1, ("bad message length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 	}
 
@@ -972,7 +968,7 @@ int ssl_read_record(ssl_context * ssl)
 
 		if (ssl->in_msglen > SSL_MAX_CONTENT_LEN) {
 			SSL_DEBUG_MSG(1, ("bad message length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 	}
 
@@ -990,12 +986,12 @@ int ssl_read_record(ssl_context * ssl)
 		 */
 		if (ssl->in_msglen < 4 || ssl->in_msg[1] != 0) {
 			SSL_DEBUG_MSG(1, ("bad handshake length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 
 		if (ssl->in_msglen < ssl->in_hslen) {
 			SSL_DEBUG_MSG(1, ("bad handshake length"));
-			return (TROPICSSL_ERR_SSL_INVALID_RECORD);
+			return (EST_ERR_SSL_INVALID_RECORD);
 		}
 
 		md5_update(&ssl->fin_md5, ssl->in_msg, ssl->in_hslen);
@@ -1011,14 +1007,14 @@ int ssl_read_record(ssl_context * ssl)
 		 */
 		if (ssl->in_msg[0] == SSL_ALERT_FATAL) {
 			SSL_DEBUG_MSG(1, ("is a fatal alert message"));
-			return (TROPICSSL_ERR_SSL_FATAL_ALERT_MESSAGE |
+			return (EST_ERR_SSL_FATAL_ALERT_MESSAGE |
 				ssl->in_msg[1]);
 		}
 
 		if (ssl->in_msg[0] == SSL_ALERT_WARNING &&
 		    ssl->in_msg[1] == SSL_ALERT_CLOSE_NOTIFY) {
 			SSL_DEBUG_MSG(2, ("is a close notify message"));
-			return (TROPICSSL_ERR_SSL_PEER_CLOSE_NOTIFY);
+			return (EST_ERR_SSL_PEER_CLOSE_NOTIFY);
 		}
 	}
 
@@ -1063,7 +1059,7 @@ int ssl_write_certificate(ssl_context * ssl)
 	} else {		/* SSL_IS_SERVER */
 		if (ssl->own_cert == NULL) {
 			SSL_DEBUG_MSG(1, ("got no certificate to send"));
-			return (TROPICSSL_ERR_SSL_CERTIFICATE_REQUIRED);
+			return (EST_ERR_SSL_CERTIFICATE_REQUIRED);
 		}
 	}
 
@@ -1086,7 +1082,7 @@ int ssl_write_certificate(ssl_context * ssl)
 		if (i + 3 + n > SSL_MAX_CONTENT_LEN) {
 			SSL_DEBUG_MSG(1, ("certificate too large, %d > %d",
 					  i + 3 + n, SSL_MAX_CONTENT_LEN));
-			return (TROPICSSL_ERR_SSL_CERTIFICATE_TOO_LARGE);
+			return (EST_ERR_SSL_CERTIFICATE_TOO_LARGE);
 		}
 
 		ssl->out_msg[i] = (unsigned char)(n >> 16);
@@ -1155,7 +1151,7 @@ int ssl_parse_certificate(ssl_context * ssl)
 				return (0);
 			else
 				return
-				    (TROPICSSL_ERR_SSL_NO_CLIENT_CERTIFICATE);
+				    (EST_ERR_SSL_NO_CLIENT_CERTIFICATE);
 		}
 	}
 
@@ -1169,7 +1165,7 @@ int ssl_parse_certificate(ssl_context * ssl)
 
 			if (ssl->authmode == SSL_VERIFY_REQUIRED)
 				return
-				    (TROPICSSL_ERR_SSL_NO_CLIENT_CERTIFICATE);
+				    (EST_ERR_SSL_NO_CLIENT_CERTIFICATE);
 			else
 				return (0);
 		}
@@ -1177,12 +1173,12 @@ int ssl_parse_certificate(ssl_context * ssl)
 
 	if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
 		SSL_DEBUG_MSG(1, ("bad certificate message"));
-		return (TROPICSSL_ERR_SSL_UNEXPECTED_MESSAGE);
+		return (EST_ERR_SSL_UNEXPECTED_MESSAGE);
 	}
 
 	if (ssl->in_msg[0] != SSL_HS_CERTIFICATE || ssl->in_hslen < 10) {
 		SSL_DEBUG_MSG(1, ("bad certificate message"));
-		return (TROPICSSL_ERR_SSL_BAD_HS_CERTIFICATE);
+		return (EST_ERR_SSL_BAD_HS_CERTIFICATE);
 	}
 
 	/*
@@ -1192,7 +1188,7 @@ int ssl_parse_certificate(ssl_context * ssl)
 
 	if (ssl->in_msg[4] != 0 || ssl->in_hslen != 7 + n) {
 		SSL_DEBUG_MSG(1, ("bad certificate message"));
-		return (TROPICSSL_ERR_SSL_BAD_HS_CERTIFICATE);
+		return (EST_ERR_SSL_BAD_HS_CERTIFICATE);
 	}
 
 	if ((ssl->peer_cert = (x509_cert *) malloc(sizeof(x509_cert))) == NULL) {
@@ -1208,7 +1204,7 @@ int ssl_parse_certificate(ssl_context * ssl)
 	while (i < ssl->in_hslen) {
 		if (ssl->in_msg[i] != 0) {
 			SSL_DEBUG_MSG(1, ("bad certificate message"));
-			return (TROPICSSL_ERR_SSL_BAD_HS_CERTIFICATE);
+			return (EST_ERR_SSL_BAD_HS_CERTIFICATE);
 		}
 
 		n = ((unsigned int)ssl->in_msg[i + 1] << 8)
@@ -1217,7 +1213,7 @@ int ssl_parse_certificate(ssl_context * ssl)
 
 		if (n < 128 || i + n > ssl->in_hslen) {
 			SSL_DEBUG_MSG(1, ("bad certificate message"));
-			return (TROPICSSL_ERR_SSL_BAD_HS_CERTIFICATE);
+			return (EST_ERR_SSL_BAD_HS_CERTIFICATE);
 		}
 
 		ret = x509parse_crt(ssl->peer_cert, ssl->in_msg + i, n);
@@ -1234,7 +1230,7 @@ int ssl_parse_certificate(ssl_context * ssl)
 	if (ssl->authmode != SSL_VERIFY_NO_CHECK) {
 		if (ssl->ca_chain == NULL) {
 			SSL_DEBUG_MSG(1, ("got no CA chain"));
-			return (TROPICSSL_ERR_SSL_CA_CHAIN_REQUIRED);
+			return (EST_ERR_SSL_CA_CHAIN_REQUIRED);
 		}
 
 		ret = x509parse_verify(ssl->peer_cert, ssl->ca_chain,
@@ -1290,12 +1286,12 @@ int ssl_parse_change_cipher_spec(ssl_context * ssl)
 
 	if (ssl->in_msgtype != SSL_MSG_CHANGE_CIPHER_SPEC) {
 		SSL_DEBUG_MSG(1, ("bad change cipher spec message"));
-		return (TROPICSSL_ERR_SSL_UNEXPECTED_MESSAGE);
+		return (EST_ERR_SSL_UNEXPECTED_MESSAGE);
 	}
 
 	if (ssl->in_msglen != 1 || ssl->in_msg[0] != 1) {
 		SSL_DEBUG_MSG(1, ("bad change cipher spec message"));
-		return (TROPICSSL_ERR_SSL_BAD_HS_CHANGE_CIPHER_SPEC);
+		return (EST_ERR_SSL_BAD_HS_CHANGE_CIPHER_SPEC);
 	}
 
 	ssl->state++;
@@ -1453,21 +1449,21 @@ int ssl_parse_finished(ssl_context * ssl)
 
 	if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
 		SSL_DEBUG_MSG(1, ("bad finished message"));
-		return (TROPICSSL_ERR_SSL_UNEXPECTED_MESSAGE);
+		return (EST_ERR_SSL_UNEXPECTED_MESSAGE);
 	}
 
 	hash_len = (ssl->minor_ver == SSL_MINOR_VERSION_0) ? 36 : 12;
 
 	if (ssl->in_msg[0] != SSL_HS_FINISHED || ssl->in_hslen != 4 + hash_len) {
 		SSL_DEBUG_MSG(1, ("bad finished message"));
-		return (TROPICSSL_ERR_SSL_BAD_HS_FINISHED);
+		return (EST_ERR_SSL_BAD_HS_FINISHED);
 	}
 
 	ssl_calc_finished(ssl, buf, ssl->endpoint ^ 1, &md5, &sha1);
 
 	if (memcmp(ssl->in_msg + 4, buf, hash_len) != 0) {
 		SSL_DEBUG_MSG(1, ("bad finished message"));
-		return (TROPICSSL_ERR_SSL_BAD_HS_FINISHED);
+		return (EST_ERR_SSL_BAD_HS_FINISHED);
 	}
 
 	if (ssl->resume != 0) {
@@ -1613,7 +1609,7 @@ int ssl_set_dh_param(ssl_context * ssl, char *dhm_P, char *dhm_G)
 int ssl_set_hostname(ssl_context * ssl, char *hostname)
 {
 	if (hostname == NULL)
-		return (TROPICSSL_ERR_SSL_BAD_INPUT_DATA);
+		return (EST_ERR_SSL_BAD_INPUT_DATA);
 
 	ssl->hostname_len = strlen(hostname);
 	ssl->hostname = (unsigned char *)malloc(ssl->hostname_len + 1);
@@ -1639,7 +1635,7 @@ int ssl_get_verify_result(ssl_context * ssl)
 char *ssl_get_cipher(ssl_context * ssl)
 {
 	switch (ssl->session->cipher) {
-#if defined(TROPICSSL_ARC4_C)
+#if defined(EST_ARC4_C)
 	case SSL_RSA_RC4_128_MD5:
 		return ("SSL_RSA_RC4_128_MD5");
 
@@ -1647,7 +1643,7 @@ char *ssl_get_cipher(ssl_context * ssl)
 		return ("SSL_RSA_RC4_128_SHA");
 #endif
 
-#if defined(TROPICSSL_DES_C)
+#if defined(EST_DES_C)
 	case SSL_RSA_DES_168_SHA:
 		return ("SSL_RSA_DES_168_SHA");
 
@@ -1655,7 +1651,7 @@ char *ssl_get_cipher(ssl_context * ssl)
 		return ("SSL_EDH_RSA_DES_168_SHA");
 #endif
 
-#if defined(TROPICSSL_AES_C)
+#if defined(EST_AES_C)
 	case SSL_RSA_AES_128_SHA:
 		return ("SSL_RSA_AES_128_SHA");
 
@@ -1666,7 +1662,7 @@ char *ssl_get_cipher(ssl_context * ssl)
 		return ("SSL_EDH_RSA_AES_256_SHA");
 #endif
 
-#if defined(TROPICSSL_CAMELLIA_C)
+#if defined(EST_CAMELLIA_C)
 	case SSL_RSA_CAMELLIA_128_SHA:
 		return ("SSL_RSA_CAMELLIA_128_SHA");
 
@@ -1685,30 +1681,30 @@ char *ssl_get_cipher(ssl_context * ssl)
 }
 
 int ssl_default_ciphers[] = {
-#if defined(TROPICSSL_DHM_C)
-#if defined(TROPICSSL_AES_C)
+#if defined(EST_DHM_C)
+#if defined(EST_AES_C)
 	SSL_EDH_RSA_AES_256_SHA,
 #endif
-#if defined(TROPICSSL_CAMELLIA_C)
+#if defined(EST_CAMELLIA_C)
 	SSL_EDH_RSA_CAMELLIA_256_SHA,
 #endif
-#if defined(TROPICSSL_DES_C)
+#if defined(EST_DES_C)
 	SSL_EDH_RSA_DES_168_SHA,
 #endif
 #endif
 
-#if defined(TROPICSSL_AES_C)
+#if defined(EST_AES_C)
 	SSL_RSA_AES_128_SHA,
 	SSL_RSA_AES_256_SHA,
 #endif
-#if defined(TROPICSSL_CAMELLIA_C)
+#if defined(EST_CAMELLIA_C)
 	SSL_RSA_CAMELLIA_128_SHA,
 	SSL_RSA_CAMELLIA_256_SHA,
 #endif
-#if defined(TROPICSSL_DES_C)
+#if defined(EST_DES_C)
 	SSL_RSA_DES_168_SHA,
 #endif
-#if defined(TROPICSSL_ARC4_C)
+#if defined(EST_ARC4_C)
 	SSL_RSA_RC4_128_SHA,
 	SSL_RSA_RC4_128_MD5,
 #endif
@@ -1720,16 +1716,16 @@ int ssl_default_ciphers[] = {
  */
 int ssl_handshake(ssl_context * ssl)
 {
-	int ret = TROPICSSL_ERR_SSL_FEATURE_UNAVAILABLE;
+	int ret = EST_ERR_SSL_FEATURE_UNAVAILABLE;
 
 	SSL_DEBUG_MSG(2, ("=> handshake"));
 
-#if defined(TROPICSSL_SSL_CLI_C)
+#if defined(EST_SSL_CLI_C)
 	if (ssl->endpoint == SSL_IS_CLIENT)
 		ret = ssl_handshake_client(ssl);
 #endif
 
-#if defined(TROPICSSL_SSL_SRV_C)
+#if defined(EST_SSL_SRV_C)
 	if (ssl->endpoint == SSL_IS_SERVER)
 		ret = ssl_handshake_server(ssl);
 #endif
@@ -1774,7 +1770,7 @@ int ssl_read(ssl_context * ssl, unsigned char *buf, int len)
 
 		if (ssl->in_msgtype != SSL_MSG_APPLICATION_DATA) {
 			SSL_DEBUG_MSG(1, ("bad application data message"));
-			return (TROPICSSL_ERR_SSL_UNEXPECTED_MESSAGE);
+			return (EST_ERR_SSL_UNEXPECTED_MESSAGE);
 		}
 
 		ssl->in_offt = ssl->in_msg;
@@ -1891,7 +1887,7 @@ void ssl_free(ssl_context * ssl)
 		memset(ssl->in_ctr, 0, SSL_BUFFER_LEN);
 		free(ssl->in_ctr);
 	}
-#if defined(TROPICSSL_DHM_C)
+#if defined(EST_DHM_C)
 	dhm_free(&ssl->dhm_ctx);
 #endif
 

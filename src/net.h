@@ -3,19 +3,19 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_NET_H
-#define TROPICSSL_NET_H
+#ifndef EST_NET_H
+#define EST_NET_H
 
-#define TROPICSSL_ERR_NET_UNKNOWN_HOST                      -0x0F00
-#define TROPICSSL_ERR_NET_SOCKET_FAILED                     -0x0F10
-#define TROPICSSL_ERR_NET_CONNECT_FAILED                    -0x0F20
-#define TROPICSSL_ERR_NET_BIND_FAILED                       -0x0F30
-#define TROPICSSL_ERR_NET_LISTEN_FAILED                     -0x0F40
-#define TROPICSSL_ERR_NET_ACCEPT_FAILED                     -0x0F50
-#define TROPICSSL_ERR_NET_RECV_FAILED                       -0x0F60
-#define TROPICSSL_ERR_NET_SEND_FAILED                       -0x0F70
-#define TROPICSSL_ERR_NET_CONN_RESET                        -0x0F80
-#define TROPICSSL_ERR_NET_TRY_AGAIN                         -0x0F90
+#define EST_ERR_NET_UNKNOWN_HOST                      -0x0F00
+#define EST_ERR_NET_SOCKET_FAILED                     -0x0F10
+#define EST_ERR_NET_CONNECT_FAILED                    -0x0F20
+#define EST_ERR_NET_BIND_FAILED                       -0x0F30
+#define EST_ERR_NET_LISTEN_FAILED                     -0x0F40
+#define EST_ERR_NET_ACCEPT_FAILED                     -0x0F50
+#define EST_ERR_NET_RECV_FAILED                       -0x0F60
+#define EST_ERR_NET_SEND_FAILED                       -0x0F70
+#define EST_ERR_NET_CONN_RESET                        -0x0F80
+#define EST_ERR_NET_TRY_AGAIN                         -0x0F90
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,9 +25,9 @@ extern "C" {
 	 * \brief          Initiate a TCP connection with host:port
 	 *
 	 * \return         0 if successful, or one of:
-	 *                      TROPICSSL_ERR_NET_SOCKET_FAILED,
-	 *                      TROPICSSL_ERR_NET_UNKNOWN_HOST,
-	 *                      TROPICSSL_ERR_NET_CONNECT_FAILED
+	 *                      EST_ERR_NET_SOCKET_FAILED,
+	 *                      EST_ERR_NET_UNKNOWN_HOST,
+	 *                      EST_ERR_NET_CONNECT_FAILED
 	 */
 	int net_connect(int *fd, char *host, int port);
 
@@ -36,17 +36,17 @@ extern "C" {
 	 *                 If bind_ip == NULL, all interfaces are binded.
 	 *
 	 * \return         0 if successful, or one of:
-	 *                      TROPICSSL_ERR_NET_SOCKET_FAILED,
-	 *                      TROPICSSL_ERR_NET_BIND_FAILED,
-	 *                      TROPICSSL_ERR_NET_LISTEN_FAILED
+	 *                      EST_ERR_NET_SOCKET_FAILED,
+	 *                      EST_ERR_NET_BIND_FAILED,
+	 *                      EST_ERR_NET_LISTEN_FAILED
 	 */
 	int net_bind(int *fd, char *bind_ip, int port);
 
 	/**
 	 * \brief          Accept a connection from a remote client
 	 *
-	 * \return         0 if successful, TROPICSSL_ERR_NET_ACCEPT_FAILED, or
-	 *                 TROPICSSL_ERR_NET_WOULD_BLOCK is bind_fd was set to
+	 * \return         0 if successful, EST_ERR_NET_ACCEPT_FAILED, or
+	 *                 EST_ERR_NET_WOULD_BLOCK is bind_fd was set to
 	 *                 non-blocking and accept() is blocking.
 	 */
 	int net_accept(int bind_fd, int *client_fd, void *client_ip);
@@ -78,7 +78,7 @@ extern "C" {
 	 *                 reflect the actual number of characters read.
 	 *
 	 * \return         This function returns the number of bytes received,
-	 *                 or a negative error code; TROPICSSL_ERR_NET_TRY_AGAIN
+	 *                 or a negative error code; EST_ERR_NET_TRY_AGAIN
 	 *                 indicates read() is blocking.
 	 */
 	int net_recv(void *ctx, unsigned char *buf, int len);
@@ -88,7 +88,7 @@ extern "C" {
 	 *                 reflect the number of characters _not_ written.
 	 *
 	 * \return         This function returns the number of bytes sent,
-	 *                 or a negative error code; TROPICSSL_ERR_NET_TRY_AGAIN
+	 *                 or a negative error code; EST_ERR_NET_TRY_AGAIN
 	 *                 indicates write() is blocking.
 	 */
 	int net_send(void *ctx, unsigned char *buf, int len);

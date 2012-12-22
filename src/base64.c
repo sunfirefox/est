@@ -5,7 +5,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_BASE64_C)
+#if defined(EST_BASE64_C)
 
 static const unsigned char base64_enc_map[64] = {
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -60,7 +60,7 @@ int base64_encode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
 
 	if (*dlen < n + 1) {
 		*dlen = n + 1;
-		return (TROPICSSL_ERR_BASE64_BUFFER_TOO_SMALL);
+		return (EST_ERR_BASE64_BUFFER_TOO_SMALL);
 	}
 
 	n = (slen / 3) * 3;
@@ -114,13 +114,13 @@ int base64_decode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
 			continue;
 
 		if (src[i] == '=' && ++j > 2)
-			return (TROPICSSL_ERR_BASE64_INVALID_CHARACTER);
+			return (EST_ERR_BASE64_INVALID_CHARACTER);
 
 		if (src[i] > 127 || base64_dec_map[src[i]] == 127)
-			return (TROPICSSL_ERR_BASE64_INVALID_CHARACTER);
+			return (EST_ERR_BASE64_INVALID_CHARACTER);
 
 		if (base64_dec_map[src[i]] < 64 && j != 0)
-			return (TROPICSSL_ERR_BASE64_INVALID_CHARACTER);
+			return (EST_ERR_BASE64_INVALID_CHARACTER);
 
 		n++;
 	}
@@ -132,7 +132,7 @@ int base64_decode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
 
 	if (*dlen < n) {
 		*dlen = n;
-		return (TROPICSSL_ERR_BASE64_BUFFER_TOO_SMALL);
+		return (EST_ERR_BASE64_BUFFER_TOO_SMALL);
 	}
 
 	for (j = 3, n = x = 0, p = dst; i > 0; i--, src++) {
@@ -158,10 +158,7 @@ int base64_decode(unsigned char *dst, int *dlen, unsigned char *src, int slen)
 	return (0);
 }
 
-#if defined(TROPICSSL_SELF_TEST)
-
-#include <string.h>
-#include <stdio.h>
+#if defined(EST_SELF_TEST)
 
 static const unsigned char base64_test_dec[64] = {
 	0x24, 0x48, 0x6E, 0x56, 0x87, 0x62, 0x5A, 0xBD,

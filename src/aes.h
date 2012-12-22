@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_AES_H
-#define TROPICSSL_AES_H
+#ifndef EST_AES_H
+#define EST_AES_H
 
 #define AES_ENCRYPT     1
 #define AES_DECRYPT     0

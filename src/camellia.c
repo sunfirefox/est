@@ -8,9 +8,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_CAMELLIA_C)
-
-#include <string.h>
+#if defined(EST_CAMELLIA_C)
 
 /*
  * 32-bit integer manipulation macros (big endian)
@@ -46,7 +44,7 @@ static const unsigned char SIGMA_CHARS[6][8] = {
 
 #define FSb CAMELLIAFSb
 
-#ifdef TROPICSSL_CAMELLIA_SMALL_MEMORY
+#ifdef EST_CAMELLIA_SMALL_MEMORY
 static const unsigned char FSb[256] = {
 	112, 130, 44, 236, 179, 39, 192, 229, 228, 133, 87, 53, 234, 12, 174,
 	65,
@@ -609,9 +607,7 @@ void camellia_crypt_cfb128(camellia_context * ctx,
 	*iv_off = n;
 }
 
-#if defined(TROPICSSL_SELF_TEST)
-
-#include <stdio.h>
+#if defined(EST_SELF_TEST)
 
 /*
  * Camellia test vectors from:

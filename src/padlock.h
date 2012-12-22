@@ -3,13 +3,13 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_PADLOCK_H
-#define TROPICSSL_PADLOCK_H
+#ifndef EST_PADLOCK_H
+#define EST_PADLOCK_H
 
 #if (defined(__GNUC__) && defined(__i386__))
 
-#ifndef TROPICSSL_HAVE_X86
-#define TROPICSSL_HAVE_X86
+#ifndef EST_HAVE_X86
+#define EST_HAVE_X86
 #endif
 
 #define PADLOCK_RNG 0x000C

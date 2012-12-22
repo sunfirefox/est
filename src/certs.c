@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_CERTS_C)
+#if defined(EST_CERTS_C)
 
 char test_ca_crt[] =
     "-----BEGIN CERTIFICATE-----\r\n"

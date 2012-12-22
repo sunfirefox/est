@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_HAVEGE_H
-#define TROPICSSL_HAVEGE_H
+#ifndef EST_HAVEGE_H
+#define EST_HAVEGE_H
 
 #define COLLECT_SIZE 1024
 

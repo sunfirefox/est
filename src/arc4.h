@@ -3,8 +3,8 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
-#ifndef TROPICSSL_ARC4_H
-#define TROPICSSL_ARC4_H
+#ifndef EST_ARC4_H
+#define EST_ARC4_H
 
 /**
  * \brief          ARC4 context structure

@@ -10,9 +10,7 @@
  */
 #include "est.h"
 
-#if defined(TROPICSSL_DES_C)
-
-#include <string.h>
+#if defined(EST_DES_C)
 
 /*
  * 32-bit integer manipulation macros (big endian)
@@ -583,9 +581,7 @@ void des3_crypt_cbc(des3_context * ctx,
 	}
 }
 
-#if defined(TROPICSSL_SELF_TEST)
-
-#include <stdio.h>
+#if defined(EST_SELF_TEST)
 
 /*
  * DES and 3DES test vectors from:
