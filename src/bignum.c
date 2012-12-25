@@ -12,7 +12,7 @@
 
 #include "est.h"
 
-#if BIT_BIGNUM
+#if BIT_EST_BIGNUM
 
 #define ciL    ((int) sizeof(t_int))    /* chars in limb  */
 #define biL    (ciL << 3)   /* bits  in limb  */
@@ -1437,7 +1437,7 @@ cleanup:
     return ret;
 }
 
-#if BIT_GEN_PRIME
+#if BIT_EST_GEN_PRIME
 
 /*
  * Modular inverse: X = A^-1 mod N  (HAC 14.61 / 14.64)
@@ -1712,9 +1712,9 @@ cleanup:
     return ret;
 }
 
-#endif /* BIT_GEN_PRIME */
+#endif /* BIT_EST_GEN_PRIME */
 
-#endif /* BIT_BIGNUM */
+#endif /* BIT_EST_BIGNUM */
 
 /*
     @copy   default

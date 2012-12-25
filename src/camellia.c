@@ -8,7 +8,7 @@
  */
 #include "est.h"
 
-#if BIT_CAMELLIA
+#if BIT_EST_CAMELLIA
 
 /*
  * 32-bit integer manipulation macros (big endian)

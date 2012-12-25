@@ -5,7 +5,7 @@
  */
 #include "est.h"
 
-#if BIT_BASE64
+#if BIT_EST_BASE64
 static const uchar base64_enc_map[64] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',

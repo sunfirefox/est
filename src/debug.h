@@ -6,7 +6,7 @@
 #ifndef SSL_DEBUG_H
 #define SSL_DEBUG_H
 
-#if BIT_LOGGING
+#if BIT_EST_LOGGING
 #define SSL_DEBUG_MSG( level, args )                    \
     debug_print_msg( ssl, level, __FILE__, __LINE__, debug_fmt args );
 

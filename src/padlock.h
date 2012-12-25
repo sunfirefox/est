@@ -6,8 +6,9 @@
 #ifndef EST_PADLOCK_H
 #define EST_PADLOCK_H
 
-#if (defined(__GNUC__) && defined(__i386__))
+//  MOB - use #if BIT_CPU_ARCH == BIT_CPU_X86
 
+#if (defined(__GNUC__) && defined(__i386__))
 #ifndef EST_HAVE_X86
 #define EST_HAVE_X86
 #endif

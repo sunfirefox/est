@@ -9,7 +9,7 @@
  */
 #include "est.h"
 
-#if BIT_RC4
+#if BIT_EST_RC4
 /*
    ARC4 key schedule
  */

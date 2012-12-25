@@ -9,7 +9,7 @@
  */
 #include "est.h"
 
-#if BIT_MD4
+#if BIT_EST_MD4
 
 /*
    32-bit integer manipulation macros (little endian)

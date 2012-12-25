@@ -14,7 +14,7 @@
 
 #include "est.h"
 
-#if BIT_X509
+#if BIT_EST_X509
 
 /*
  * ASN.1 DER decoding routines
@@ -927,7 +927,7 @@ int x509parse_crtfile(x509_cert * chain, char *path)
     return (ret);
 }
 
-#if BIT_DES
+#if BIT_EST_DES
 /*
  * Read a 16-byte hex string and convert it to binary
  */
@@ -1026,7 +1026,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen,
         enc = 0;
 
         if (memcmp(s1, "Proc-Type: 4,ENCRYPTED", 22) == 0) {
-#if BIT_DES
+#if BIT_EST_DES
             enc++;
 
             s1 += 22;
@@ -1073,7 +1073,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen,
         buflen = len;
 
         if (enc != 0) {
-#if BIT_DES
+#if BIT_EST_DES
             if (pwd == NULL) {
                 free(buf);
                 return
@@ -1405,12 +1405,12 @@ int x509parse_expired(x509_cert * crt)
 static void x509_hash(uchar *in, int len, int alg, uchar *out)
 {
     switch (alg) {
-#if BIT_MD2
+#if BIT_EST_MD2
     case RSA_MD2:
         md2(in, len, out);
         break;
 #endif
-#if BIT_MD4
+#if BIT_EST_MD4
     case RSA_MD4:
         md4(in, len, out);
         break;

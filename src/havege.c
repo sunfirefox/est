@@ -8,7 +8,7 @@
  */
 #include "est.h"
 
-#if BIT_HAVEGE
+#if BIT_EST_HAVEGE
 
 /*
    On average, one iteration accesses two 8-word blocks in the havege WALK table, and generates 16 words in the RES array.

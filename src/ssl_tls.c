@@ -10,7 +10,7 @@
  */
 #include "est.h"
 
-#if BIT_SSL
+#if BIT_EST_SSL
 
 /*
    Key material generation
@@ -176,15 +176,15 @@ int ssl_derive_keys(ssl_context * ssl)
      * Determine the appropriate key, IV and MAC length.
      */
     switch (ssl->session->cipher) {
-#if BIT_RC4
-    case SSL_RSA_RC4_128_MD5:
+#if BIT_EST_RC4
+    case TLS_RSA_WITH_RC4_128_MD5:
         ssl->keylen = 16;
         ssl->minlen = 16;
         ssl->ivlen = 0;
         ssl->maclen = 16;
         break;
 
-    case SSL_RSA_RC4_128_SHA:
+    case TLS_RSA_WITH_RC4_128_SHA:
         ssl->keylen = 16;
         ssl->minlen = 20;
         ssl->ivlen = 0;
@@ -192,9 +192,9 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if BIT_DES
-    case SSL_RSA_DES_168_SHA:
-    case SSL_EDH_RSA_DES_168_SHA:
+#if BIT_EST_DES
+    case TLS_RSA_WITH_3DES_EDE_CBC_SHA:
+    case TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA:
         ssl->keylen = 24;
         ssl->minlen = 24;
         ssl->ivlen = 8;
@@ -202,16 +202,16 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if BIT_AES
-    case SSL_RSA_AES_128_SHA:
+#if BIT_EST_AES
+    case TLS_RSA_WITH_AES_128_CBC_SHA:
         ssl->keylen = 16;
         ssl->minlen = 32;
         ssl->ivlen = 16;
         ssl->maclen = 20;
         break;
 
-    case SSL_RSA_AES_256_SHA:
-    case SSL_EDH_RSA_AES_256_SHA:
+    case TLS_RSA_WITH_AES_256_CBC_SHA:
+    case TLS_DHE_RSA_WITH_AES_256_CBC_SHA:
         ssl->keylen = 32;
         ssl->minlen = 32;
         ssl->ivlen = 16;
@@ -219,16 +219,16 @@ int ssl_derive_keys(ssl_context * ssl)
         break;
 #endif
 
-#if BIT_CAMELLIA
-    case SSL_RSA_CAMELLIA_128_SHA:
+#if BIT_EST_CAMELLIA
+    case TLS_RSA_WITH_CAMELLIA_128_CBC_SHA:
         ssl->keylen = 16;
         ssl->minlen = 32;
         ssl->ivlen = 16;
         ssl->maclen = 20;
         break;
 
-    case SSL_RSA_CAMELLIA_256_SHA:
-    case SSL_EDH_RSA_CAMELLIA_256_SHA:
+    case TLS_RSA_WITH_CAMELLIA_256_CBC_SHA:
+    case TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA:
         ssl->keylen = 32;
         ssl->minlen = 32;
         ssl->ivlen = 16;
@@ -271,45 +271,45 @@ int ssl_derive_keys(ssl_context * ssl)
     }
 
     switch (ssl->session->cipher) {
-#if BIT_RC4
-    case SSL_RSA_RC4_128_MD5:
-    case SSL_RSA_RC4_128_SHA:
+#if BIT_EST_RC4
+    case TLS_RSA_WITH_RC4_128_MD5:
+    case TLS_RSA_WITH_RC4_128_SHA:
         arc4_setup((arc4_context *) ssl->ctx_enc, key1, ssl->keylen);
         arc4_setup((arc4_context *) ssl->ctx_dec, key2, ssl->keylen);
         break;
 #endif
 
-#if BIT_DES
-    case SSL_RSA_DES_168_SHA:
-    case SSL_EDH_RSA_DES_168_SHA:
+#if BIT_EST_DES
+    case TLS_RSA_WITH_3DES_EDE_CBC_SHA:
+    case TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA:
         des3_set3key_enc((des3_context *) ssl->ctx_enc, key1);
         des3_set3key_dec((des3_context *) ssl->ctx_dec, key2);
         break;
 #endif
 
-#if BIT_AES
-    case SSL_RSA_AES_128_SHA:
+#if BIT_EST_AES
+    case TLS_RSA_WITH_AES_128_CBC_SHA:
         aes_setkey_enc((aes_context *) ssl->ctx_enc, key1, 128);
         aes_setkey_dec((aes_context *) ssl->ctx_dec, key2, 128);
         break;
 
-    case SSL_RSA_AES_256_SHA:
-    case SSL_EDH_RSA_AES_256_SHA:
+    case TLS_RSA_WITH_AES_256_CBC_SHA:
+    case TLS_DHE_RSA_WITH_AES_256_CBC_SHA:
         aes_setkey_enc((aes_context *) ssl->ctx_enc, key1, 256);
         aes_setkey_dec((aes_context *) ssl->ctx_dec, key2, 256);
         break;
 #endif
 
-#if BIT_CAMELLIA
-    case SSL_RSA_CAMELLIA_128_SHA:
+#if BIT_EST_CAMELLIA
+    case TLS_RSA_WITH_CAMELLIA_128_CBC_SHA:
         camellia_setkey_enc((camellia_context *) ssl->ctx_enc, key1,
                     128);
         camellia_setkey_dec((camellia_context *) ssl->ctx_dec, key2,
                     128);
         break;
 
-    case SSL_RSA_CAMELLIA_256_SHA:
-    case SSL_EDH_RSA_CAMELLIA_256_SHA:
+    case TLS_RSA_WITH_CAMELLIA_256_CBC_SHA:
+    case TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA:
         camellia_setkey_enc((camellia_context *) ssl->ctx_enc, key1,
                     256);
         camellia_setkey_dec((camellia_context *) ssl->ctx_dec, key2,
@@ -468,7 +468,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
             break;
 
     if (ssl->ivlen == 0) {
-#if BIT_RC4
+#if BIT_EST_RC4
         padlen = 0;
 
         SSL_DEBUG_MSG(3, ("before encrypt: msglen = %d, " "including %d bytes of padding", ssl->out_msglen, 0));
@@ -495,28 +495,28 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 
         switch (ssl->ivlen) {
         case 8:
-#if BIT_DES
+#if BIT_EST_DES
             des3_crypt_cbc((des3_context *) ssl->ctx_enc, DES_ENCRYPT, ssl->out_msglen,
                 ssl->iv_enc, ssl->out_msg, ssl->out_msg);
             break;
 #endif
 
         case 16:
-#if BIT_AES
-            if (ssl->session->cipher == SSL_RSA_AES_128_SHA ||
-                ssl->session->cipher == SSL_RSA_AES_256_SHA ||
-                ssl->session->cipher == SSL_EDH_RSA_AES_256_SHA) {
+#if BIT_EST_AES
+            if (ssl->session->cipher == TLS_RSA_WITH_AES_128_CBC_SHA ||
+                ssl->session->cipher == TLS_RSA_WITH_AES_256_CBC_SHA ||
+                ssl->session->cipher == TLS_DHE_RSA_WITH_AES_256_CBC_SHA) {
                 aes_crypt_cbc((aes_context *) ssl->ctx_enc, AES_ENCRYPT, ssl->out_msglen, ssl->iv_enc, ssl->out_msg,
                           ssl->out_msg);
                 break;
             }
 #endif
 
-#if BIT_CAMELLIA
-            if (ssl->session->cipher == SSL_RSA_CAMELLIA_128_SHA ||
-                ssl->session->cipher == SSL_RSA_CAMELLIA_256_SHA ||
+#if BIT_EST_CAMELLIA
+            if (ssl->session->cipher == TLS_RSA_WITH_CAMELLIA_128_CBC_SHA ||
+                ssl->session->cipher == TLS_RSA_WITH_CAMELLIA_256_CBC_SHA ||
                 ssl->session->cipher ==
-                SSL_EDH_RSA_CAMELLIA_256_SHA) {
+                TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA) {
                 camellia_crypt_cbc((camellia_context *) ssl->ctx_enc, CAMELLIA_ENCRYPT,
                    ssl->out_msglen, ssl->iv_enc, ssl->out_msg, ssl->out_msg);
                 break;
@@ -546,7 +546,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
     }
 
     if (ssl->ivlen == 0) {
-#if BIT_RC4
+#if BIT_EST_RC4
         padlen = 0;
         arc4_crypt((arc4_context *) ssl->ctx_dec, ssl->in_msg, ssl->in_msglen);
 #else
@@ -562,7 +562,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
         }
 
         switch (ssl->ivlen) {
-#if BIT_DES
+#if BIT_EST_DES
         case 8:
             des3_crypt_cbc((des3_context *) ssl->ctx_dec, DES_DECRYPT, ssl->in_msglen,
                        ssl->iv_dec, ssl->in_msg, ssl->in_msg);
@@ -570,21 +570,21 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 #endif
 
         case 16:
-#if BIT_AES
-            if (ssl->session->cipher == SSL_RSA_AES_128_SHA ||
-                ssl->session->cipher == SSL_RSA_AES_256_SHA ||
-                ssl->session->cipher == SSL_EDH_RSA_AES_256_SHA) {
+#if BIT_EST_AES
+            if (ssl->session->cipher == TLS_RSA_WITH_AES_128_CBC_SHA ||
+                ssl->session->cipher == TLS_RSA_WITH_AES_256_CBC_SHA ||
+                ssl->session->cipher == TLS_DHE_RSA_WITH_AES_256_CBC_SHA) {
                 aes_crypt_cbc((aes_context *) ssl->ctx_dec, AES_DECRYPT, ssl->in_msglen, ssl->iv_dec, ssl->in_msg,
                           ssl->in_msg);
                 break;
             }
 #endif
 
-#if BIT_CAMELLIA
-            if (ssl->session->cipher == SSL_RSA_CAMELLIA_128_SHA ||
-                ssl->session->cipher == SSL_RSA_CAMELLIA_256_SHA ||
+#if BIT_EST_CAMELLIA
+            if (ssl->session->cipher == TLS_RSA_WITH_CAMELLIA_128_CBC_SHA ||
+                ssl->session->cipher == TLS_RSA_WITH_CAMELLIA_256_CBC_SHA ||
                 ssl->session->cipher ==
-                SSL_EDH_RSA_CAMELLIA_256_SHA) {
+                TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA) {
                 camellia_crypt_cbc((camellia_context *) ssl->ctx_dec, CAMELLIA_DECRYPT,
                    ssl->in_msglen, ssl->iv_dec, ssl->in_msg, ssl->in_msg);
                 break;
@@ -1519,42 +1519,42 @@ int ssl_get_verify_result(ssl_context * ssl)
 char *ssl_get_cipher(ssl_context * ssl)
 {
     switch (ssl->session->cipher) {
-#if BIT_RC4
-    case SSL_RSA_RC4_128_MD5:
-        return ("SSL_RSA_RC4_128_MD5");
+#if BIT_EST_RC4
+    case TLS_RSA_WITH_RC4_128_MD5:
+        return ("TLS_RSA_WITH_RC4_128_MD5");
 
-    case SSL_RSA_RC4_128_SHA:
-        return ("SSL_RSA_RC4_128_SHA");
+    case TLS_RSA_WITH_RC4_128_SHA:
+        return ("TLS_RSA_WITH_RC4_128_SHA");
 #endif
 
-#if BIT_DES
-    case SSL_RSA_DES_168_SHA:
-        return ("SSL_RSA_DES_168_SHA");
+#if BIT_EST_DES
+    case TLS_RSA_WITH_3DES_EDE_CBC_SHA:
+        return ("TLS_RSA_WITH_3DES_EDE_CBC_SHA");
 
-    case SSL_EDH_RSA_DES_168_SHA:
-        return ("SSL_EDH_RSA_DES_168_SHA");
+    case TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA:
+        return ("TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA");
 #endif
 
-#if BIT_AES
-    case SSL_RSA_AES_128_SHA:
-        return ("SSL_RSA_AES_128_SHA");
+#if BIT_EST_AES
+    case TLS_RSA_WITH_AES_128_CBC_SHA:
+        return ("TLS_RSA_WITH_AES_128_CBC_SHA");
 
-    case SSL_RSA_AES_256_SHA:
-        return ("SSL_RSA_AES_256_SHA");
+    case TLS_RSA_WITH_AES_256_CBC_SHA:
+        return ("TLS_RSA_WITH_AES_256_CBC_SHA");
 
-    case SSL_EDH_RSA_AES_256_SHA:
-        return ("SSL_EDH_RSA_AES_256_SHA");
+    case TLS_DHE_RSA_WITH_AES_256_CBC_SHA:
+        return ("TLS_DHE_RSA_WITH_AES_256_CBC_SHA");
 #endif
 
-#if BIT_CAMELLIA
-    case SSL_RSA_CAMELLIA_128_SHA:
-        return ("SSL_RSA_CAMELLIA_128_SHA");
+#if BIT_EST_CAMELLIA
+    case TLS_RSA_WITH_CAMELLIA_128_CBC_SHA:
+        return ("TLS_RSA_WITH_CAMELLIA_128_CBC_SHA");
 
-    case SSL_RSA_CAMELLIA_256_SHA:
-        return ("SSL_RSA_CAMELLIA_256_SHA");
+    case TLS_RSA_WITH_CAMELLIA_256_CBC_SHA:
+        return ("TLS_RSA_WITH_CAMELLIA_256_CBC_SHA");
 
-    case SSL_EDH_RSA_CAMELLIA_256_SHA:
-        return ("SSL_EDH_RSA_CAMELLIA_256_SHA");
+    case TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA:
+        return ("TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA");
 #endif
 
     default:
@@ -1567,32 +1567,31 @@ char *ssl_get_cipher(ssl_context * ssl)
 
 //  MOB - move to top
 int ssl_default_ciphers[] = {
-#if BIT_DHM
-#if BIT_AES
-    SSL_EDH_RSA_AES_256_SHA,
+#if BIT_EST_DHM
+#if BIT_EST_AES
+    TLS_DHE_RSA_WITH_AES_256_CBC_SHA,
 #endif
-#if BIT_CAMELLIA
-    SSL_EDH_RSA_CAMELLIA_256_SHA,
+#if BIT_EST_CAMELLIA
+    TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA,
 #endif
-#if BIT_DES
-    SSL_EDH_RSA_DES_168_SHA,
+#if BIT_EST_DES
+    TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA,
 #endif
 #endif
-
-#if BIT_AES
-    SSL_RSA_AES_128_SHA,
-    SSL_RSA_AES_256_SHA,
+#if BIT_EST_AES
+    TLS_RSA_WITH_AES_128_CBC_SHA,
+    TLS_RSA_WITH_AES_256_CBC_SHA,
 #endif
-#if BIT_CAMELLIA
-    SSL_RSA_CAMELLIA_128_SHA,
-    SSL_RSA_CAMELLIA_256_SHA,
+#if BIT_EST_CAMELLIA
+    TLS_RSA_WITH_CAMELLIA_128_CBC_SHA,
+    TLS_RSA_WITH_CAMELLIA_256_CBC_SHA,
 #endif
-#if BIT_DES
-    SSL_RSA_DES_168_SHA,
+#if BIT_EST_DES
+    TLS_RSA_WITH_3DES_EDE_CBC_SHA,
 #endif
-#if BIT_RC4
-    SSL_RSA_RC4_128_SHA,
-    SSL_RSA_RC4_128_MD5,
+#if BIT_EST_RC4
+    TLS_RSA_WITH_RC4_128_SHA,
+    TLS_RSA_WITH_RC4_128_MD5,
 #endif
     0
 };
@@ -1607,12 +1606,12 @@ int ssl_handshake(ssl_context * ssl)
 
     SSL_DEBUG_MSG(2, ("=> handshake"));
 
-#if BIT_SSL_CLIENT
+#if BIT_EST_CLIENT
     if (ssl->endpoint == SSL_IS_CLIENT)
         ret = ssl_handshake_client(ssl);
 #endif
 
-#if BIT_SSL_SERVER
+#if BIT_EST_SERVER
     if (ssl->endpoint == SSL_IS_SERVER)
         ret = ssl_handshake_server(ssl);
 #endif
@@ -1765,7 +1764,7 @@ void ssl_free(ssl_context * ssl)
         memset(ssl->in_ctr, 0, SSL_BUFFER_LEN);
         free(ssl->in_ctr);
     }
-#if BIT_DHM
+#if BIT_EST_DHM
     dhm_free(&ssl->dhm_ctx);
 #endif
     if (ssl->hostname != NULL) {

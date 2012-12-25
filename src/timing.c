@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if BIT_TIMING
+#if BIT_EST_TIMING
 
 #if defined(WIN32)
 

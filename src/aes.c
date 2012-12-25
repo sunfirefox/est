@@ -10,7 +10,7 @@
  */
 #include "est.h"
 
-#if BIT_AES
+#if BIT_EST_AES
 
 /*
     32-bit integer manipulation macros (little endian)
@@ -39,7 +39,7 @@
 //  MOB - map to a more unique name
 #define FSb AESFSb
 
-#if BIT_ROM_TABLES
+#if BIT_EST_ROM_TABLES
 /*
    Forward S-box
  */
@@ -427,7 +427,7 @@ void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize)
     int i;
     ulong *RK;
 
-#if !BIT_ROM_TABLES
+#if !BIT_EST_ROM_TABLES
     if (aes_init_done == 0) {
         aes_gen_tables();
         aes_init_done = 1;
@@ -630,7 +630,7 @@ void aes_crypt_ecb(aes_context * ctx, int mode, uchar input[16], uchar output[16
     int i;
     ulong *RK, X0, X1, X2, X3, Y0, Y1, Y2, Y3;
 
-#if BIT_PADLOCK && defined(EST_HAVE_X86)
+#if BIT_EST_PADLOCK && defined(EST_HAVE_X86)
     if (padlock_supports(PADLOCK_ACE)) {
         if (padlock_xcryptecb(ctx, mode, input, output) == 0)
             return;
@@ -721,7 +721,7 @@ void aes_crypt_cbc(aes_context *ctx, int mode, int length, uchar iv[16], uchar *
     int i;
     uchar temp[16];
 
-#if BIT_PADLOCK && defined(EST_HAVE_X86)
+#if BIT_EST_PADLOCK && defined(EST_HAVE_X86)
     if (padlock_supports(PADLOCK_ACE)) {
         if (padlock_xcryptcbc(ctx, mode, length, iv, input, output) == 0)
             return;

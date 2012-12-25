@@ -8,7 +8,7 @@
  */
 #include "est.h"
 
-#if BIT_MD5
+#if BIT_EST_MD5
 
 /*
  * 32-bit integer manipulation macros (little endian)

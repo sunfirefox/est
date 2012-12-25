@@ -349,11 +349,11 @@ exit:
     "    session_lifetime=%%d (s)     default: 86400\n"          \
     "    force_cipher=<name>         default: all enabled\n"     \
     " acceptable cipher names:\n"                                \
-    "    SSL_RSA_RC4_128_MD5         SSL_RSA_RC4_128_SHA\n"      \
-    "    SSL_RSA_DES_168_SHA         SSL_EDH_RSA_DES_168_SHA\n"  \
-    "    SSL_RSA_AES_128_SHA         SSL_EDH_RSA_AES_256_SHA\n"  \
-    "    SSL_RSA_AES_256_SHA         SSL_EDH_RSA_CAMELLIA_256_SHA\n" \
-    "    SSL_RSA_CAMELLIA_128_SHA    SSL_RSA_CAMELLIA_256_SHA\n\n"
+    "    TLS_RSA_WITH_RC4_128_MD5         TLS_RSA_WITH_RC4_128_SHA\n"      \
+    "    TLS_RSA_WITH_3DES_EDE_CBC_SHA         TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA\n"  \
+    "    TLS_RSA_WITH_AES_128_CBC_SHA         TLS_DHE_RSA_WITH_AES_256_CBC_SHA\n"  \
+    "    TLS_RSA_WITH_AES_256_CBC_SHA         TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA\n" \
+    "    TLS_RSA_WITH_CAMELLIA_128_CBC_SHA    TLS_RSA_WITH_CAMELLIA_256_CBC_SHA\n\n"
 
 int main(int argc, char *argv[])
 {
@@ -469,35 +469,35 @@ usage:
             opt.force_cipher[0] = -1;
 
             if (strcmp(q, "ssl_rsa_rc4_128_md5") == 0)
-                opt.force_cipher[0] = SSL_RSA_RC4_128_MD5;
+                opt.force_cipher[0] = TLS_RSA_WITH_RC4_128_MD5;
 
             if (strcmp(q, "ssl_rsa_rc4_128_sha") == 0)
-                opt.force_cipher[0] = SSL_RSA_RC4_128_SHA;
+                opt.force_cipher[0] = TLS_RSA_WITH_RC4_128_SHA;
 
             if (strcmp(q, "ssl_rsa_des_168_sha") == 0)
-                opt.force_cipher[0] = SSL_RSA_DES_168_SHA;
+                opt.force_cipher[0] = TLS_RSA_WITH_3DES_EDE_CBC_SHA;
 
             if (strcmp(q, "ssl_edh_rsa_des_168_sha") == 0)
-                opt.force_cipher[0] = SSL_EDH_RSA_DES_168_SHA;
+                opt.force_cipher[0] = TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA;
 
             if (strcmp(q, "ssl_rsa_aes_128_sha") == 0)
-                opt.force_cipher[0] = SSL_RSA_AES_128_SHA;
+                opt.force_cipher[0] = TLS_RSA_WITH_AES_128_CBC_SHA;
 
             if (strcmp(q, "ssl_rsa_aes_256_sha") == 0)
-                opt.force_cipher[0] = SSL_RSA_AES_256_SHA;
+                opt.force_cipher[0] = TLS_RSA_WITH_AES_256_CBC_SHA;
 
             if (strcmp(q, "ssl_edh_rsa_aes_256_sha") == 0)
-                opt.force_cipher[0] = SSL_EDH_RSA_AES_256_SHA;
+                opt.force_cipher[0] = TLS_DHE_RSA_WITH_AES_256_CBC_SHA;
 
             if (strcmp(q, "ssl_rsa_camellia_128_sha") == 0)
-                opt.force_cipher[0] = SSL_RSA_CAMELLIA_128_SHA;
+                opt.force_cipher[0] = TLS_RSA_WITH_CAMELLIA_128_CBC_SHA;
 
             if (strcmp(q, "ssl_rsa_camellia_256_sha") == 0)
-                opt.force_cipher[0] = SSL_RSA_CAMELLIA_256_SHA;
+                opt.force_cipher[0] = TLS_RSA_WITH_CAMELLIA_256_CBC_SHA;
 
             if (strcmp(q, "ssl_edh_rsa_camellia_256_sha") == 0)
                 opt.force_cipher[0] =
-                    SSL_EDH_RSA_CAMELLIA_256_SHA;
+                    TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA;
 
             if (opt.force_cipher[0] < 0)
                 goto usage;

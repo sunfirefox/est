@@ -5,7 +5,7 @@
  */
 #include "est.h"
 
-#if BIT_LOGGING
+#if BIT_EST_LOGGING
 
 #if defined _MSC_VER && !defined  snprintf
 #define  snprintf  _snprintf

@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if BIT_TEST_CERTS
+#if BIT_EST_TEST_CERTS
 
 char test_ca_crt[] =
     "-----BEGIN CERTIFICATE-----\r\n"

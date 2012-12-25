@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if BIT_DHM
+#if BIT_EST_DHM
 /*
    helper to validate the mpi size and import it
  */

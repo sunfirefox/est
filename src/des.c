@@ -10,7 +10,7 @@
  */
 #include "est.h"
 
-#if BIT_DES
+#if BIT_EST_DES
 
 /*
  * 32-bit integer manipulation macros (big endian)

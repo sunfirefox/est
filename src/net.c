@@ -5,47 +5,17 @@
  */
 #include "est.h"
 
-#if BIT_NET
+#if BIT_EST_NET
 
-#if defined(WIN32) || defined(_WIN32_WCE)
-
-#include <winsock2.h>
-#include <windows.h>
-
-#if defined(_WIN32_WCE)
-#pragma comment( lib, "ws2.lib" )
-#else
-#pragma comment( lib, "ws2_32.lib" )
+#if WINDOWS || WINCE
+    #define read(fd,buf,len)        recv(fd,buf,len,0)
+    #define write(fd,buf,len)       send(fd,buf,len,0)
+    #define close(fd)               closesocket(fd)
+    static int wsa_init_done = 0;
 #endif
-
-#define read(fd,buf,len)        recv(fd,buf,len,0)
-#define write(fd,buf,len)       send(fd,buf,len,0)
-#define close(fd)               closesocket(fd)
-
-static int wsa_init_done = 0;
-
-#else
-
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <netdb.h>
-#include <errno.h>
-
-#endif
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
 
 /*
- * htons() is not always available
+    htons() is not always available
  */
 #if defined(__BYTE_ORDER) && defined(__BIG_ENDIAN) && __BYTE_ORDER == __BIG_ENDIAN
     #define SSL_HTONS(n) (n)
@@ -53,46 +23,46 @@ static int wsa_init_done = 0;
     #define SSL_HTONS(n) (((((unsigned short)(n) & 0xFF)) << 8) | (((unsigned short)(n) & 0xFF00) >> 8))
 #endif
 #define net_htons(n) SSL_HTONS(n)
+
 /*
- * Initiate a TCP connection with host:port
+   Initiate a TCP connection with host:port
  */
 int net_connect(int *fd, char *host, int port)
 {
     struct sockaddr_in server_addr;
     struct hostent *server_host;
 
-#if defined(WIN32) || defined(_WIN32_WCE)
+#if WINDOWS || WINCE
     WSADATA wsaData;
 
-    if (wsa_init_done == 0) {
-        if (WSAStartup(MAKEWORD(2, 0), &wsaData) == SOCKET_ERROR)
-            return (EST_ERR_NET_SOCKET_FAILED);
-
+    //  MOB - but where is this done in the MPR
+    if (!wsa_init_done) {
+        if (WSAStartup(MAKEWORD(2, 0), &wsaData) == SOCKET_ERROR) {
+            return EST_ERR_NET_SOCKET_FAILED;
+        }
         wsa_init_done = 1;
     }
 #else
+    //  MOB - clashes with MPR
     signal(SIGPIPE, SIG_IGN);
 #endif
 
-    if ((server_host = gethostbyname(host)) == NULL)
-        return (EST_ERR_NET_UNKNOWN_HOST);
-
-    if ((*fd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP)) < 0)
-        return (EST_ERR_NET_SOCKET_FAILED);
-
-    memcpy((void *)&server_addr.sin_addr,
-           (void *)server_host->h_addr, server_host->h_length);
+    if ((server_host = gethostbyname(host)) == NULL) {
+        return EST_ERR_NET_UNKNOWN_HOST;
+    }
+    if ((*fd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP)) < 0) {
+        return EST_ERR_NET_SOCKET_FAILED;
+    }
+    memcpy((void *)&server_addr.sin_addr, (void *)server_host->h_addr, server_host->h_length);
 
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = net_htons(port);
 
-    if (connect(*fd, (struct sockaddr *)&server_addr,
-            sizeof(server_addr)) < 0) {
+    if (connect(*fd, (struct sockaddr*) &server_addr, sizeof(server_addr)) < 0) {
         close(*fd);
-        return (EST_ERR_NET_CONNECT_FAILED);
+        return EST_ERR_NET_CONNECT_FAILED;
     }
-
-    return (0);
+    return 0;
 }
 
 /*
@@ -108,7 +78,7 @@ int net_bind(int *fd, char *bind_ip, int port)
 
     if (wsa_init_done == 0) {
         if (WSAStartup(MAKEWORD(2, 0), &wsaData) == SOCKET_ERROR)
-            return (EST_ERR_NET_SOCKET_FAILED);
+            return EST_ERR_NET_SOCKET_FAILED;
 
         wsa_init_done = 1;
     }
@@ -117,7 +87,7 @@ int net_bind(int *fd, char *bind_ip, int port)
 #endif
 
     if ((*fd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP)) < 0)
-        return (EST_ERR_NET_SOCKET_FAILED);
+        return EST_ERR_NET_SOCKET_FAILED;
 
     n = 1;
     setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, (cchar *)&n, sizeof(n));
@@ -143,24 +113,22 @@ int net_bind(int *fd, char *bind_ip, int port)
 
     if (bind(*fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         close(*fd);
-        return (EST_ERR_NET_BIND_FAILED);
+        return EST_ERR_NET_BIND_FAILED;
     }
-
     if (listen(*fd, 10) != 0) {
         close(*fd);
-        return (EST_ERR_NET_LISTEN_FAILED);
+        return EST_ERR_NET_LISTEN_FAILED;
     }
-
-    return (0);
+    return 0;
 }
 
 /*
- * Check if the current operation is blocking
+    Check if the current operation is blocking
  */
 static int net_is_blocking(void)
 {
-#if defined(WIN32) || defined(_WIN32_WCE)
-    return (WSAGetLastError() == WSAEWOULDBLOCK);
+#if WINDOWS || WINCE
+    return WSAGetLastError() == WSAEWOULDBLOCK;
 #else
     switch (errno) {
 #if defined EAGAIN
@@ -169,68 +137,68 @@ static int net_is_blocking(void)
 #if defined EWOULDBLOCK && EWOULDBLOCK != EAGAIN
     case EWOULDBLOCK:
 #endif
-        return (1);
+        return 1;
     }
-    return (0);
+    return 0;
 #endif
 }
 
+
 /*
- * Accept a connection from a remote client
+    Accept a connection from a remote client
  */
 int net_accept(int bind_fd, int *client_fd, void *client_ip)
 {
     struct sockaddr_in client_addr;
 
-//  EMBEDTHIS
+//  MOB EMBEDTHIS
 #if defined(__socklen_t_defined) || 1
     socklen_t n = (socklen_t) sizeof(client_addr);
 #else
     int n = (int)sizeof(client_addr);
 #endif
 
-    *client_fd = accept(bind_fd, (struct sockaddr *)
-                &client_addr, &n);
+    *client_fd = accept(bind_fd, (struct sockaddr *) &client_addr, &n);
 
     if (*client_fd < 0) {
         if (net_is_blocking() != 0)
-            return (EST_ERR_NET_TRY_AGAIN);
+            return EST_ERR_NET_TRY_AGAIN;
 
-        return (EST_ERR_NET_ACCEPT_FAILED);
+        return EST_ERR_NET_ACCEPT_FAILED;
     }
-
     if (client_ip != NULL)
-        memcpy(client_ip, &client_addr.sin_addr.s_addr,
-               sizeof(client_addr.sin_addr.s_addr));
-
-    return (0);
+        memcpy(client_ip, &client_addr.sin_addr.s_addr, sizeof(client_addr.sin_addr.s_addr));
+    return 0;
 }
 
+
 /*
- * Set the socket blocking or non-blocking
+    Set the socket blocking or non-blocking
  */
 int net_set_block(int fd)
 {
-#if defined(WIN32) || defined(_WIN32_WCE)
+#if BIT_WIN_LIKE
     long n = 0;
-    return (ioctlsocket(fd, FIONBIO, &n));
+    return ioctlsocket(fd, FIONBIO, &n);
 #else
-    return (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) & ~O_NONBLOCK));
+    return fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) & ~O_NONBLOCK);
 #endif
 }
+
 
 int net_set_nonblock(int fd)
 {
-#if defined(WIN32) || defined(_WIN32_WCE)
+#if BIT_WIN_LIKE
     long n = 1;
-    return (ioctlsocket(fd, FIONBIO, &n));
+    return ioctlsocket(fd, FIONBIO, &n);
 #else
-    return (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK));
+    return fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK);
 #endif
 }
 
+
 /*
- * Portable usleep helper
+    Portable usleep helper
  */
 void net_usleep(ulong usec)
 {
@@ -240,39 +208,40 @@ void net_usleep(ulong usec)
     select(0, NULL, NULL, NULL, &tv);
 }
 
+
 /*
- * Read at most 'len' characters
+    Read at most 'len' characters
  */
 int net_recv(void *ctx, uchar *buf, int len)
 {
     int ret = read(*((int *)ctx), buf, len);
 
     if (len > 0 && ret == 0)
-        return (EST_ERR_NET_CONN_RESET);
+        return EST_ERR_NET_CONN_RESET;
 
     if (ret < 0) {
         if (net_is_blocking() != 0)
-            return (EST_ERR_NET_TRY_AGAIN);
+            return EST_ERR_NET_TRY_AGAIN;
 
 #if defined(WIN32) || defined(_WIN32_WCE)
         if (WSAGetLastError() == WSAECONNRESET)
-            return (EST_ERR_NET_CONN_RESET);
+            return EST_ERR_NET_CONN_RESET;
 #else
         if (errno == EPIPE || errno == ECONNRESET)
-            return (EST_ERR_NET_CONN_RESET);
+            return EST_ERR_NET_CONN_RESET;
 
         if (errno == EINTR)
-            return (EST_ERR_NET_TRY_AGAIN);
+            return EST_ERR_NET_TRY_AGAIN;
 #endif
 
-        return (EST_ERR_NET_RECV_FAILED);
+        return EST_ERR_NET_RECV_FAILED;
     }
-
-    return (ret);
+    return ret;
 }
 
+
 /*
- * Write at most 'len' characters
+    Write at most 'len' characters
  */
 int net_send(void *ctx, uchar *buf, int len)
 {
@@ -280,27 +249,25 @@ int net_send(void *ctx, uchar *buf, int len)
 
     if (ret < 0) {
         if (net_is_blocking() != 0)
-            return (EST_ERR_NET_TRY_AGAIN);
+            return EST_ERR_NET_TRY_AGAIN;
 
 #if defined(WIN32) || defined(_WIN32_WCE)
         if (WSAGetLastError() == WSAECONNRESET)
-            return (EST_ERR_NET_CONN_RESET);
+            return EST_ERR_NET_CONN_RESET;
 #else
         if (errno == EPIPE || errno == ECONNRESET)
-            return (EST_ERR_NET_CONN_RESET);
-
+            return EST_ERR_NET_CONN_RESET;
         if (errno == EINTR)
-            return (EST_ERR_NET_TRY_AGAIN);
+            return EST_ERR_NET_TRY_AGAIN;
 #endif
-
-        return (EST_ERR_NET_SEND_FAILED);
+        return EST_ERR_NET_SEND_FAILED;
     }
-
-    return (ret);
+    return ret;
 }
 
+
 /*
- * Gracefully close the connection
+    Gracefully close the connection
  */
 void net_close(int fd)
 {

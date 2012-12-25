@@ -8,14 +8,14 @@
  */
 #include "est.h"
 
-#if BIT_SHA1
+#if BIT_EST_SHA1
 
 /*
- * 32-bit integer manipulation macros (big endian)
+    32-bit integer manipulation macros (big endian)
  */
 #ifndef GET_ULONG_BE
-#define GET_ULONG_BE(n,b,i)                             \
-    {                                                   \
+#define GET_ULONG_BE(n,b,i)                     \
+    {                                           \
         (n) = ( (ulong) (b)[(i)    ] << 24 )    \
             | ( (ulong) (b)[(i) + 1] << 16 )    \
             | ( (ulong) (b)[(i) + 2] <<  8 )    \
@@ -24,8 +24,8 @@
 #endif
 
 #ifndef PUT_ULONG_BE
-#define PUT_ULONG_BE(n,b,i)                             \
-    {                                                   \
+#define PUT_ULONG_BE(n,b,i)                     \
+    {                                           \
         (b)[(i)    ] = (uchar) ( (n) >> 24 );   \
         (b)[(i) + 1] = (uchar) ( (n) >> 16 );   \
         (b)[(i) + 2] = (uchar) ( (n) >>  8 );   \
@@ -33,20 +33,21 @@
     }
 #endif
 
+
 /*
- * SHA-1 context setup
+    SHA-1 context setup
  */
 void sha1_starts(sha1_context * ctx)
 {
     ctx->total[0] = 0;
     ctx->total[1] = 0;
-
     ctx->state[0] = 0x67452301;
     ctx->state[1] = 0xEFCDAB89;
     ctx->state[2] = 0x98BADCFE;
     ctx->state[3] = 0x10325476;
     ctx->state[4] = 0xC3D2E1F0;
 }
+
 
 static void sha1_process(sha1_context * ctx, uchar data[64])
 {
@@ -204,8 +205,9 @@ static void sha1_process(sha1_context * ctx, uchar data[64])
     ctx->state[4] += E;
 }
 
+
 /*
- * SHA-1 process buffer
+    SHA-1 process buffer
  */
 void sha1_update(sha1_context * ctx, uchar *input, int ilen)
 {
@@ -243,6 +245,7 @@ void sha1_update(sha1_context * ctx, uchar *input, int ilen)
     }
 }
 
+
 static const uchar sha1_padding[64] = {
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -250,8 +253,9 @@ static const uchar sha1_padding[64] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
+
 /*
- * SHA-1 final digest
+    SHA-1 final digest
  */
 void sha1_finish(sha1_context * ctx, uchar output[20])
 {
@@ -259,8 +263,7 @@ void sha1_finish(sha1_context * ctx, uchar output[20])
     ulong high, low;
     uchar msglen[8];
 
-    high = (ctx->total[0] >> 29)
-        | (ctx->total[1] << 3);
+    high = (ctx->total[0] >> 29) | (ctx->total[1] << 3);
     low = (ctx->total[0] << 3);
 
     PUT_ULONG_BE(high, msglen, 0);
@@ -279,8 +282,9 @@ void sha1_finish(sha1_context * ctx, uchar output[20])
     PUT_ULONG_BE(ctx->state[4], output, 16);
 }
 
+
 /*
- * output = SHA-1( input buffer )
+    output = SHA-1( input buffer )
  */
 void sha1(uchar *input, int ilen, uchar output[20])
 {
@@ -289,12 +293,12 @@ void sha1(uchar *input, int ilen, uchar output[20])
     sha1_starts(&ctx);
     sha1_update(&ctx, input, ilen);
     sha1_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha1_context));
 }
 
+
 /*
- * output = SHA-1( file contents )
+    output = SHA-1( file contents )
  */
 int sha1_file(char *path, uchar output[20])
 {
@@ -319,13 +323,13 @@ int sha1_file(char *path, uchar output[20])
         fclose(f);
         return (2);
     }
-
     fclose(f);
     return (0);
 }
 
+
 /*
- * SHA-1 HMAC context setup
+    SHA-1 HMAC context setup
  */
 void sha1_hmac_starts(sha1_context * ctx, uchar *key, int keylen)
 {
@@ -345,23 +349,23 @@ void sha1_hmac_starts(sha1_context * ctx, uchar *key, int keylen)
         ctx->ipad[i] = (uchar)(ctx->ipad[i] ^ key[i]);
         ctx->opad[i] = (uchar)(ctx->opad[i] ^ key[i]);
     }
-
     sha1_starts(ctx);
     sha1_update(ctx, ctx->ipad, 64);
-
     memset(sum, 0, sizeof(sum));
 }
 
+
 /*
- * SHA-1 HMAC process buffer
+    SHA-1 HMAC process buffer
  */
 void sha1_hmac_update(sha1_context * ctx, uchar *input, int ilen)
 {
     sha1_update(ctx, input, ilen);
 }
 
+
 /*
- * SHA-1 HMAC final digest
+    SHA-1 HMAC final digest
  */
 void sha1_hmac_finish(sha1_context * ctx, uchar output[20])
 {
@@ -372,22 +376,20 @@ void sha1_hmac_finish(sha1_context * ctx, uchar output[20])
     sha1_update(ctx, ctx->opad, 64);
     sha1_update(ctx, tmpbuf, 20);
     sha1_finish(ctx, output);
-
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }
 
+
 /*
- * output = HMAC-SHA-1( hmac key, input buffer )
+    output = HMAC-SHA-1( hmac key, input buffer )
  */
-void sha1_hmac(uchar *key, int keylen,
-           uchar *input, int ilen, uchar output[20])
+void sha1_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[20])
 {
     sha1_context ctx;
 
     sha1_hmac_starts(&ctx, key, keylen);
     sha1_hmac_update(&ctx, input, ilen);
     sha1_hmac_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha1_context));
 }
 

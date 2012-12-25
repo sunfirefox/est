@@ -35,7 +35,7 @@
 #define EST_ERR_SSL_BAD_HS_FINISHED                   -0xE000
 
 /*
- * Various constants
+    Various constants
  */
 #define SSL_MAJOR_VERSION_3             3
 #define SSL_MINOR_VERSION_0             0   /*!< SSL v3.0 */
@@ -53,28 +53,26 @@
 #define SSL_MAX_CONTENT_LEN         16384
 
 /*
- * Allow an extra 512 bytes for the record header
- * and encryption overhead (counter + MAC + padding).
+    Allow an extra 512 bytes for the record header and encryption overhead (counter + MAC + padding).
  */
 #define SSL_BUFFER_LEN (SSL_MAX_CONTENT_LEN + 512)
 
 /*
- * Supported ciphersuites
+   Supported ciphersuites
  */
-#define SSL_RSA_RC4_128_MD5             0x4     /* TLS_RSA_WITH_RC4_128_MD5 */
-#define SSL_RSA_RC4_128_SHA             0x5     /* TLS_RSA_WITH_RC4_128_SHA */
-#define SSL_RSA_DES_168_SHA             0xA     /* TLS_RSA_WITH_3DES_EDE_CBC_SHA */
-#define SSL_EDH_RSA_DES_168_SHA         0x16    /* TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA */
-#define SSL_RSA_AES_128_SHA             0x2F    /* TLS_RSA_WITH_AES_128_CBC_SHA */
-#define SSL_RSA_AES_256_SHA             0x35    /* TLS_RSA_WITH_AES_256_CBC_SHA */
-#define SSL_EDH_RSA_AES_256_SHA         0x39    /* TLS_DHE_RSA_WITH_AES_256_CBC_SHA */
-
-#define SSL_RSA_CAMELLIA_128_SHA        0x41    /* TLS_RSA_WITH_CAMELLIA_128_CBC_SHA */
-#define SSL_RSA_CAMELLIA_256_SHA        0x84    /* TLS_RSA_WITH_CAMELLIA_256_CBC_SHA */
-#define SSL_EDH_RSA_CAMELLIA_256_SHA    0x88    /* TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA */
+#define TLS_RSA_WITH_RC4_128_MD5                0x4
+#define TLS_RSA_WITH_RC4_128_SHA                0x5
+#define TLS_RSA_WITH_3DES_EDE_CBC_SHA           0xA
+#define TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA       0x16
+#define TLS_RSA_WITH_AES_128_CBC_SHA            0x2F
+#define TLS_RSA_WITH_AES_256_CBC_SHA            0x35
+#define TLS_DHE_RSA_WITH_AES_256_CBC_SHA        0x39
+#define TLS_RSA_WITH_CAMELLIA_128_CBC_SHA       0x41
+#define TLS_RSA_WITH_CAMELLIA_256_CBC_SHA       0x84
+#define TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA   0x88
 
 /*
- * Message, alert and handshake types
+   Message, alert and handshake types
  */
 #define SSL_MSG_CHANGE_CIPHER_SPEC     20
 #define SSL_MSG_ALERT                  21
@@ -98,13 +96,13 @@
 #define SSL_HS_FINISHED                20
 
 /*
- * TLS extensions
+    TLS extensions
  */
 #define TLS_EXT_SERVERNAME              0
 #define TLS_EXT_SERVERNAME_HOSTNAME     0
 
 /*
- * SSL state machine
+    SSL state machine
  */
 typedef enum {
     SSL_HELLO_REQUEST,
@@ -129,7 +127,7 @@ typedef struct _ssl_session ssl_session;
 typedef struct _ssl_context ssl_context;
 
 /*
- * This structure is used for session resuming.
+    This structure is used for session resuming.
  */
 struct _ssl_session {
     time_t start;       /*!< starting time      */
@@ -142,9 +140,9 @@ struct _ssl_session {
 
 struct _ssl_context {
     /*
-     * Miscellaneous
+        Miscellaneous
      */
-    int state;      /*!< SSL handshake: current state     */
+    int state;          /*!< SSL handshake: current state     */
 
     int major_ver;      /*!< equal to  SSL_MAJOR_VERSION_3    */
     int minor_ver;      /*!< either 0 (SSL3) or 1 (TLS1.0)    */
@@ -153,7 +151,7 @@ struct _ssl_context {
     int max_minor_ver;  /*!< max. minor version from client   */
 
     /*
-     * Callbacks (RNG, debug, I/O)
+        Callbacks (RNG, debug, I/O)
      */
     int (*f_rng) (void *);
     void (*f_dbg) (void *, int, char *);
@@ -166,21 +164,21 @@ struct _ssl_context {
     void *p_send;       /*!< context for writing operations   */
 
     /*
-     * Session layer
+        Session layer
      */
-    int resume;     /*!<  session resuming flag   */
-    int timeout;        /*!<  sess. expiration time   */
-    ssl_session *session;   /*!<  current session data    */
+    int resume;                     /*!<  session resuming flag   */
+    int timeout;                    /*!<  sess. expiration time   */
+    ssl_session *session;           /*!<  current session data    */
     int (*s_get) (ssl_context *);   /*!<  (server) get callback   */
     int (*s_set) (ssl_context *);   /*!<  (server) set callback   */
 
     /*
-     * Record layer (incoming data)
+        Record layer (incoming data)
      */
-    uchar *in_ctr;  /*!< 64-bit incoming message counter  */
-    uchar *in_hdr;  /*!< 5-byte record header (in_ctr+8)  */
-    uchar *in_msg;  /*!< the message contents (in_hdr+5)  */
-    uchar *in_offt; /*!< read offset in application data  */
+    uchar *in_ctr;      /*!< 64-bit incoming message counter  */
+    uchar *in_hdr;      /*!< 5-byte record header (in_ctr+8)  */
+    uchar *in_msg;      /*!< the message contents (in_hdr+5)  */
+    uchar *in_offt;     /*!< read offset in application data  */
 
     int in_msgtype;     /*!< record header: message type      */
     int in_msglen;      /*!< record header: message length    */
@@ -190,7 +188,7 @@ struct _ssl_context {
     int nb_zero;        /*!< # of 0-length encrypted messages */
 
     /*
-     * Record layer (outgoing data)
+        Record layer (outgoing data)
      */
     uchar *out_ctr; /*!< 64-bit outgoing message counter  */
     uchar *out_hdr; /*!< 5-byte record header (out_ctr+8) */
@@ -201,7 +199,7 @@ struct _ssl_context {
     int out_left;       /*!< amount of data not yet written   */
 
     /*
-     * PKI layer
+        PKI layer
      */
     rsa_context *rsa_key;   /*!<  own RSA private key     */
     x509_cert *own_cert;    /*!<  own X.509 certificate   */
@@ -215,7 +213,7 @@ struct _ssl_context {
     int verify_result;  /*!<  verification result     */
 
     /*
-     * Crypto layer
+        Crypto layer
      */
     dhm_context dhm_ctx;    /*!<  DHM key exchange        */
     md5_context fin_md5;    /*!<  Finished MD5 checksum   */
@@ -242,7 +240,7 @@ struct _ssl_context {
     ulong ctx_dec[128]; /*!<  decryption context      */
 
     /*
-     * TLS extensions
+        TLS extensions
      */
     uchar *hostname;
     ulong hostname_len;

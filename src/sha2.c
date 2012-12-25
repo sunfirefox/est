@@ -8,14 +8,14 @@
  */
 #include "est.h"
 
-#if BIT_SHA2
+#if BIT_EST_SHA2
 
 /*
- * 32-bit integer manipulation macros (big endian)
+    32-bit integer manipulation macros (big endian)
  */
 #ifndef GET_ULONG_BE
-#define GET_ULONG_BE(n,b,i)                             \
-    {                                                   \
+#define GET_ULONG_BE(n,b,i)                     \
+    {                                           \
         (n) = ( (ulong) (b)[(i)    ] << 24 )    \
             | ( (ulong) (b)[(i) + 1] << 16 )    \
             | ( (ulong) (b)[(i) + 2] <<  8 )    \
@@ -24,8 +24,8 @@
 #endif
 
 #ifndef PUT_ULONG_BE
-#define PUT_ULONG_BE(n,b,i)                             \
-    {                                                   \
+#define PUT_ULONG_BE(n,b,i)                     \
+    {                                           \
         (b)[(i)    ] = (uchar) ( (n) >> 24 );   \
         (b)[(i) + 1] = (uchar) ( (n) >> 16 );   \
         (b)[(i) + 2] = (uchar) ( (n) >>  8 );   \
@@ -34,7 +34,7 @@
 #endif
 
 /*
- * SHA-256 context setup
+    SHA-256 context setup
  */
 void sha2_starts(sha2_context * ctx, int is224)
 {
@@ -65,6 +65,7 @@ void sha2_starts(sha2_context * ctx, int is224)
 
     ctx->is224 = is224;
 }
+
 
 static void sha2_process(sha2_context * ctx, uchar data[64])
 {
@@ -197,8 +198,9 @@ static void sha2_process(sha2_context * ctx, uchar data[64])
     ctx->state[7] += H;
 }
 
+
 /*
- * SHA-256 process buffer
+    SHA-256 process buffer
  */
 void sha2_update(sha2_context * ctx, uchar *input, int ilen)
 {
@@ -224,17 +226,16 @@ void sha2_update(sha2_context * ctx, uchar *input, int ilen)
         ilen -= fill;
         left = 0;
     }
-
     while (ilen >= 64) {
         sha2_process(ctx, input);
         input += 64;
         ilen -= 64;
     }
-
     if (ilen > 0) {
         memcpy((void *)(ctx->buffer + left), (void *)input, ilen);
     }
 }
+
 
 static const uchar sha2_padding[64] = {
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -243,8 +244,9 @@ static const uchar sha2_padding[64] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
+
 /*
- * SHA-256 final digest
+    SHA-256 final digest
  */
 void sha2_finish(sha2_context * ctx, uchar output[32])
 {
@@ -277,8 +279,9 @@ void sha2_finish(sha2_context * ctx, uchar output[32])
         PUT_ULONG_BE(ctx->state[7], output, 28);
 }
 
+
 /*
- * output = SHA-256( input buffer )
+    output = SHA-256( input buffer )
  */
 void sha2(uchar *input, int ilen, uchar output[32], int is224)
 {
@@ -287,12 +290,12 @@ void sha2(uchar *input, int ilen, uchar output[32], int is224)
     sha2_starts(&ctx, is224);
     sha2_update(&ctx, input, ilen);
     sha2_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha2_context));
 }
 
+
 /*
- * output = SHA-256( file contents )
+    output = SHA-256( file contents )
  */
 int sha2_file(char *path, uchar output[32], int is224)
 {
@@ -310,23 +313,19 @@ int sha2_file(char *path, uchar output[32], int is224)
         sha2_update(&ctx, buf, (int)n);
 
     sha2_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha2_context));
-
     if (ferror(f) != 0) {
         fclose(f);
         return (2);
     }
-
     fclose(f);
     return (0);
 }
 
 /*
- * SHA-256 HMAC context setup
+    SHA-256 HMAC context setup
  */
-void sha2_hmac_starts(sha2_context * ctx, uchar *key, int keylen,
-              int is224)
+void sha2_hmac_starts(sha2_context * ctx, uchar *key, int keylen, int is224)
 {
     int i;
     uchar sum[32];
@@ -336,31 +335,29 @@ void sha2_hmac_starts(sha2_context * ctx, uchar *key, int keylen,
         keylen = (is224) ? 28 : 32;
         key = sum;
     }
-
     memset(ctx->ipad, 0x36, 64);
     memset(ctx->opad, 0x5C, 64);
-
     for (i = 0; i < keylen; i++) {
         ctx->ipad[i] = (uchar)(ctx->ipad[i] ^ key[i]);
         ctx->opad[i] = (uchar)(ctx->opad[i] ^ key[i]);
     }
-
     sha2_starts(ctx, is224);
     sha2_update(ctx, ctx->ipad, 64);
-
     memset(sum, 0, sizeof(sum));
 }
 
+
 /*
- * SHA-256 HMAC process buffer
+    SHA-256 HMAC process buffer
  */
 void sha2_hmac_update(sha2_context * ctx, uchar *input, int ilen)
 {
     sha2_update(ctx, input, ilen);
 }
 
+
 /*
- * SHA-256 HMAC final digest
+    SHA-256 HMAC final digest
  */
 void sha2_hmac_finish(sha2_context * ctx, uchar output[32])
 {
@@ -375,23 +372,20 @@ void sha2_hmac_finish(sha2_context * ctx, uchar output[32])
     sha2_update(ctx, ctx->opad, 64);
     sha2_update(ctx, tmpbuf, hlen);
     sha2_finish(ctx, output);
-
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }
 
+
 /*
- * output = HMAC-SHA-256( hmac key, input buffer )
+    output = HMAC-SHA-256( hmac key, input buffer )
  */
-void sha2_hmac(uchar *key, int keylen,
-           uchar *input, int ilen,
-           uchar output[32], int is224)
+void sha2_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[32], int is224)
 {
     sha2_context ctx;
 
     sha2_hmac_starts(&ctx, key, keylen, is224);
     sha2_hmac_update(&ctx, input, ilen);
     sha2_hmac_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha2_context));
 }
 

@@ -8,14 +8,14 @@
  */
 #include "est.h"
 
-#if BIT_SHA4
+#if BIT_EST_SHA4
 
 /*
- * 64-bit integer manipulation macros (big endian)
+    64-bit integer manipulation macros (big endian)
  */
 #ifndef GET_UINT64_BE
-#define GET_UINT64_BE(n,b,i)                            \
-    {                                                   \
+#define GET_UINT64_BE(n,b,i)                    \
+    {                                           \
         (n) = ( (uint64) (b)[(i)    ] << 56 )   \
             | ( (uint64) (b)[(i) + 1] << 48 )   \
             | ( (uint64) (b)[(i) + 2] << 40 )   \
@@ -28,8 +28,8 @@
 #endif
 
 #ifndef PUT_UINT64_BE
-#define PUT_UINT64_BE(n,b,i)                            \
-    {                                                   \
+#define PUT_UINT64_BE(n,b,i)                    \
+    {                                           \
         (b)[(i)    ] = (uchar) ( (n) >> 56 );   \
         (b)[(i) + 1] = (uchar) ( (n) >> 48 );   \
         (b)[(i) + 2] = (uchar) ( (n) >> 40 );   \
@@ -42,7 +42,7 @@
 #endif
 
 /*
- * Round constants
+    Round constants
  */
 static const uint64 K[80] = {
     UL64(0x428A2F98D728AE22), UL64(0x7137449123EF65CD),
@@ -87,8 +87,9 @@ static const uint64 K[80] = {
     UL64(0x5FCB6FAB3AD6FAEC), UL64(0x6C44198C4A475817)
 };
 
+
 /*
- * SHA-512 context setup
+    SHA-512 context setup
  */
 void sha4_starts(sha4_context * ctx, int is384)
 {
@@ -120,7 +121,8 @@ void sha4_starts(sha4_context * ctx, int is384)
     ctx->is384 = is384;
 }
 
-static void sha4_process(sha4_context * ctx, uchar data[128])
+
+static void sha4_process(sha4_context *ctx, uchar data[128])
 {
     int i;
     uint64 temp1, temp2, W[80];
@@ -192,8 +194,9 @@ static void sha4_process(sha4_context * ctx, uchar data[128])
     ctx->state[7] += H;
 }
 
+
 /*
- * SHA-512 process buffer
+    SHA-512 process buffer
  */
 void sha4_update(sha4_context * ctx, uchar *input, int ilen)
 {
@@ -218,17 +221,16 @@ void sha4_update(sha4_context * ctx, uchar *input, int ilen)
         ilen -= fill;
         left = 0;
     }
-
     while (ilen >= 128) {
         sha4_process(ctx, input);
         input += 128;
         ilen -= 128;
     }
-
     if (ilen > 0) {
         memcpy((void *)(ctx->buffer + left), (void *)input, ilen);
     }
 }
+
 
 static const uchar sha4_padding[128] = {
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -241,8 +243,9 @@ static const uchar sha4_padding[128] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
+
 /*
- * SHA-512 final digest
+    SHA-512 final digest
  */
 void sha4_finish(sha4_context * ctx, uchar output[64])
 {
@@ -250,8 +253,7 @@ void sha4_finish(sha4_context * ctx, uchar output[64])
     uint64 high, low;
     uchar msglen[16];
 
-    high = (ctx->total[0] >> 61)
-        | (ctx->total[1] << 3);
+    high = (ctx->total[0] >> 61) | (ctx->total[1] << 3);
     low = (ctx->total[0] << 3);
 
     PUT_UINT64_BE(high, msglen, 0);
@@ -276,8 +278,9 @@ void sha4_finish(sha4_context * ctx, uchar output[64])
     }
 }
 
+
 /*
- * output = SHA-512( input buffer )
+    output = SHA-512( input buffer )
  */
 void sha4(uchar *input, int ilen, uchar output[64], int is384)
 {
@@ -286,12 +289,12 @@ void sha4(uchar *input, int ilen, uchar output[64], int is384)
     sha4_starts(&ctx, is384);
     sha4_update(&ctx, input, ilen);
     sha4_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha4_context));
 }
 
+
 /*
- * output = SHA-512( file contents )
+    output = SHA-512( file contents )
  */
 int sha4_file(char *path, uchar output[64], int is384)
 {
@@ -316,16 +319,15 @@ int sha4_file(char *path, uchar output[64], int is384)
         fclose(f);
         return (2);
     }
-
     fclose(f);
     return (0);
 }
 
+
 /*
- * SHA-512 HMAC context setup
+    SHA-512 HMAC context setup
  */
-void sha4_hmac_starts(sha4_context * ctx, uchar *key, int keylen,
-              int is384)
+void sha4_hmac_starts(sha4_context * ctx, uchar *key, int keylen, int is384)
 {
     int i;
     uchar sum[64];
@@ -335,31 +337,29 @@ void sha4_hmac_starts(sha4_context * ctx, uchar *key, int keylen,
         keylen = (is384) ? 48 : 64;
         key = sum;
     }
-
     memset(ctx->ipad, 0x36, 128);
     memset(ctx->opad, 0x5C, 128);
-
     for (i = 0; i < keylen; i++) {
         ctx->ipad[i] = (uchar)(ctx->ipad[i] ^ key[i]);
         ctx->opad[i] = (uchar)(ctx->opad[i] ^ key[i]);
     }
-
     sha4_starts(ctx, is384);
     sha4_update(ctx, ctx->ipad, 128);
-
     memset(sum, 0, sizeof(sum));
 }
 
+
 /*
- * SHA-512 HMAC process buffer
+    SHA-512 HMAC process buffer
  */
 void sha4_hmac_update(sha4_context * ctx, uchar *input, int ilen)
 {
     sha4_update(ctx, input, ilen);
 }
 
+
 /*
- * SHA-512 HMAC final digest
+    SHA-512 HMAC final digest
  */
 void sha4_hmac_finish(sha4_context * ctx, uchar output[64])
 {
@@ -368,29 +368,25 @@ void sha4_hmac_finish(sha4_context * ctx, uchar output[64])
 
     is384 = ctx->is384;
     hlen = (is384 == 0) ? 64 : 48;
-
     sha4_finish(ctx, tmpbuf);
     sha4_starts(ctx, is384);
     sha4_update(ctx, ctx->opad, 128);
     sha4_update(ctx, tmpbuf, hlen);
     sha4_finish(ctx, output);
-
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }
 
+
 /*
- * output = HMAC-SHA-512( hmac key, input buffer )
+    output = HMAC-SHA-512( hmac key, input buffer )
  */
-void sha4_hmac(uchar *key, int keylen,
-           uchar *input, int ilen,
-           uchar output[64], int is384)
+void sha4_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[64], int is384)
 {
     sha4_context ctx;
 
     sha4_hmac_starts(&ctx, key, keylen, is384);
     sha4_hmac_update(&ctx, input, ilen);
     sha4_hmac_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha4_context));
 }
 

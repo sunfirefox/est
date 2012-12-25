@@ -7,7 +7,7 @@
  */
 #include "est.h"
 
-#if BIT_XTEA
+#if BIT_EST_XTEA
 
 /*
  * 32-bit integer manipulation macros (big endian)
