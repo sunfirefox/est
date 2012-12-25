@@ -10,6 +10,9 @@
 
 #if BIT_EST_HAVEGE
 
+/*  Undefine for windows */
+#undef IN
+
 /*
    On average, one iteration accesses two 8-word blocks in the havege WALK table, and generates 16 words in the RES array.
   
