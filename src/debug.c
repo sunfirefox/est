@@ -113,8 +113,7 @@ void debug_print_mpi(ssl_context * ssl, int level,
         if (X->p[n] != 0)
             break;
 
-    snprintf(str, maxlen, "%s(%04d): value of '%s' (%lu bits) is:\n",
-         file, line, text, ((n + 1) * sizeof(t_int)) << 3);
+    snprintf(str, maxlen, "%s(%04d): value of '%s' (%u bits) is:\n", file, line, text, ((n + 1) * sizeof(t_int)) << 3);
 
     str[maxlen] = '\0';
     ssl->f_dbg(ssl->p_dbg, level, str);
