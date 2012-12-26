@@ -1,9 +1,0 @@
-/*
-    start.bit -- Startup Bit File for Embedthis Security Transport
- */
-
-Bit.load({
-    platforms: [
-        "vxworks-x86",
-    ],
-})

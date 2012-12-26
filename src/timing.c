@@ -36,7 +36,8 @@ struct _hr_time {
 
 #endif
 
-#if (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
+//  MOB -- fix
+#if UNUSED && (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
 
 ulong hardclock(void)
 {
@@ -180,6 +181,63 @@ void set_alarm(int seconds)
 void m_sleep(int milliseconds)
 {
     Sleep(milliseconds);
+}
+
+
+//  MOB - needed for VxWorks too
+PUBLIC int gettimeofday(struct timeval *tv, struct timezone *tz)
+{
+    #if BIT_WIN_LIKE
+        FILETIME        fileTime;
+        Time            now;
+        static int      tzOnce;
+
+        if (NULL != tv) {
+            /* Convert from 100-nanosec units to microsectonds */
+            GetSystemTimeAsFileTime(&fileTime);
+            now = ((((Time) fileTime.dwHighDateTime) << BITS(uint)) + ((Time) fileTime.dwLowDateTime));
+            now /= 10;
+
+            now -= TIME_GENESIS;
+            tv->tv_sec = (long) (now / 1000000);
+            tv->tv_usec = (long) (now % 1000000);
+        }
+        if (NULL != tz) {
+            TIME_ZONE_INFORMATION   zone;
+            int                     rc, bias;
+            rc = GetTimeZoneInformation(&zone);
+            bias = (int) zone.Bias;
+            if (rc == TIME_ZONE_ID_DAYLIGHT) {
+                tz->tz_dsttime = 1;
+            } else {
+                tz->tz_dsttime = 0;
+            }
+            tz->tz_minuteswest = bias;
+        }
+        return 0;
+
+    #elif VXWORKS
+        struct tm       tm;
+        struct timespec now;
+        time_t          t;
+        char            *tze, *p;
+        int             rc;
+
+        if ((rc = clock_gettime(CLOCK_REALTIME, &now)) == 0) {
+            tv->tv_sec  = now.tv_sec;
+            tv->tv_usec = (now.tv_nsec + 500) / MS_PER_SEC;
+            if ((tze = getenv("TIMEZONE")) != 0) {
+                if ((p = strchr(tze, ':')) != 0) {
+                    if ((p = strchr(tze, ':')) != 0) {
+                        tz->tz_minuteswest = stoi(++p);
+                    }
+                }
+                t = tickGet();
+                tz->tz_dsttime = (localtime_r(&t, &tm) == 0) ? tm.tm_isdst : 0;
+            }
+        }
+        return rc;
+    #endif
 }
 
 #else
