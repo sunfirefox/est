@@ -8,9 +8,9 @@
 #if BIT_EST_NET
 
 #if WINDOWS || WINCE
-    #define read(fd,buf,len)        recv(fd,buf,len,0)
-    #define write(fd,buf,len)       send(fd,buf,len,0)
-    #define close(fd)               closesocket(fd)
+    // #define read(fd,buf,len)        recv(fd,buf,len,0)
+    // #define write(fd,buf,len)       send(fd,buf,len,0)
+    // #define close(fd)               closesocket(fd)
     static int wsa_init_done = 0;
 #endif
 
@@ -59,7 +59,7 @@ int net_connect(int *fd, char *host, int port)
     server_addr.sin_port = net_htons(port);
 
     if (connect(*fd, (struct sockaddr*) &server_addr, sizeof(server_addr)) < 0) {
-        close(*fd);
+        closesocket(*fd);
         return EST_ERR_NET_CONNECT_FAILED;
     }
     return 0;
@@ -112,11 +112,11 @@ int net_bind(int *fd, char *bind_ip, int port)
     }
 
     if (bind(*fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-        close(*fd);
+        closesocket(*fd);
         return EST_ERR_NET_BIND_FAILED;
     }
     if (listen(*fd, 10) != 0) {
-        close(*fd);
+        closesocket(*fd);
         return EST_ERR_NET_LISTEN_FAILED;
     }
     return 0;
@@ -214,7 +214,7 @@ void net_usleep(ulong usec)
  */
 int net_recv(void *ctx, uchar *buf, int len)
 {
-    int ret = read(*((int *)ctx), buf, len);
+    int ret = recv(*((int*)ctx), buf, len, 0);
 
     if (len > 0 && ret == 0)
         return EST_ERR_NET_CONN_RESET;
@@ -245,7 +245,7 @@ int net_recv(void *ctx, uchar *buf, int len)
  */
 int net_send(void *ctx, uchar *buf, int len)
 {
-    int ret = write(*((int *)ctx), buf, len);
+    int ret = send(*((int*)ctx), buf, len, 0);
 
     if (ret < 0) {
         if (net_is_blocking() != 0)
@@ -272,7 +272,7 @@ int net_send(void *ctx, uchar *buf, int len)
 void net_close(int fd)
 {
     shutdown(fd, 2);
-    close(fd);
+    closesocket(fd);
 }
 
 #endif
