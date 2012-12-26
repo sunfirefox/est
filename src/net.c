@@ -90,7 +90,7 @@ int net_bind(int *fd, char *bind_ip, int port)
         return EST_ERR_NET_SOCKET_FAILED;
 
     n = 1;
-    setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, (cchar *)&n, sizeof(n));
+    setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, (char*) &n, sizeof(n));
 
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_family = AF_INET;

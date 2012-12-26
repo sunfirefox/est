@@ -11,8 +11,10 @@
 
 #if defined(WIN32)
 
+#if UNUSED
 #include <windows.h>
 #include <winbase.h>
+#endif
 
 struct _hr_time {
     LARGE_INTEGER start;
@@ -20,11 +22,13 @@ struct _hr_time {
 
 #else
 
+#if UNUSED
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/time.h>
 #include <signal.h>
 #include <time.h>
+#endif
 
 struct _hr_time {
     struct timeval start;

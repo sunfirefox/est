@@ -4,6 +4,6 @@
 
 Bit.load({
     platforms: [
-        "linux-x86",
+        "vxworks-x86",
     ],
 })
