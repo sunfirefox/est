@@ -32,7 +32,8 @@ struct _hr_time {
 
 #endif
 
-#if (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
+//  MOB -- fix
+#if UNUSED && (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
 
 ulong hardclock(void)
 {
