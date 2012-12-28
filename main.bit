@@ -54,8 +54,8 @@ Bit.load({
 
             /*
                 ARC4 is required for the ciphers:
-                    TLS_RSA_RC4_128_MD5                                                                                
-                    TLS_RSA_RC4_128_SHA  
+                    TLS_RSA_RC4_128_MD5
+                    TLS_RSA_RC4_128_SHA
             */
             rc4: true,
 
@@ -136,6 +136,31 @@ Bit.load({
 
     usage: {
         assert: 'Enable program assertions',
+
+        'est.aes':          'Enable AES cipher (true|false)',
+        'est.base64':       'Enable arbitrary precision math (true|false)',
+        'est.rc4':          'Enable the ARC4 cipher (true|false)',
+        'est.camellia':     'Enable the Camellia cipher (true|false)',
+        'est.des':          'Enable the 3DES cipher (true|false)',
+        'est.dhm':          'Enable the DHM (true|false)',
+        'est.genPrime':     'Enable generation of primes (true|false)',
+        'est.havege':       'Enable HAVEGE random generator (true|false)',
+        'est.logging':      'Enable trace logging (true|false)',
+        'est.md2':          'Enable MD2 (true|false)',
+        'est.md4':          'Enable MD4 (true|false)',
+        'est.md5':          'Enable MD5  (true|false)',
+        'est.net':          'Enable network I/O layer (true|false)',
+        'est.padlock':      'Enable VIA Padlock acceleration (true|false)',
+        'est.romTables':    'Enable ROM tables (true|false)',
+        'est.rsa':          'Enable RSA cipher (true|false)',
+        'est.sha1':         'Enable SHA1 (true|false)',
+        'est.sha2':         'Enable SHA2 (true|false)',
+        'est.sha4':         'Enable SHA4 (true|false)',
+        'est.sslClient':    'Enable SSL/TLS client side (true|false)',
+        'est.sslServer':    'Enable SSL/TLS server side (true|false)',
+        'est.testCerts':    'Enable generation of test certificates (true|false)',
+        'est.x509':         'Enable X509 certificate support (true|false)',
+        'est.xtea':         'Enable XTEA (true|false)',
     },
 
     targets: {
