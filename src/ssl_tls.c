@@ -678,7 +678,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 }
 
 /*
- * Fill the input message buffer
+    Fill the input message buffer
  */
 int ssl_fetch_input(ssl_context * ssl, int nb_want)
 {
@@ -690,17 +690,15 @@ int ssl_fetch_input(ssl_context * ssl, int nb_want)
         len = nb_want - ssl->in_left;
         ret = ssl->f_recv(ssl->p_recv, ssl->in_hdr + ssl->in_left, len);
 
-        SSL_DEBUG_MSG(2, ("in_left: %d, nb_want: %d", ssl->in_left, nb_want));
-        SSL_DEBUG_RET(2, "ssl->f_recv", ret);
+        SSL_DEBUG_MSG(4, ("in_left: %d, nb_want: %d", ssl->in_left, nb_want));
+        SSL_DEBUG_RET(4, "ssl->f_recv", ret);
 
-        if (ret < 0)
-            return (ret);
-
+        if (ret < 0) {
+            return ret;
+        }
         ssl->in_left += ret;
     }
-
-    SSL_DEBUG_MSG(2, ("<= fetch input"));
-
+    SSL_DEBUG_MSG(4, ("<= fetch input"));
     return (0);
 }
 
@@ -792,12 +790,11 @@ int ssl_read_record(ssl_context * ssl)
 
     if (ssl->in_hslen != 0 && ssl->in_hslen < ssl->in_msglen) {
         /*
-         * Get next Handshake message in the current record
+            Get next Handshake message in the current record
          */
         ssl->in_msglen -= ssl->in_hslen;
 
-        memcpy(ssl->in_msg, ssl->in_msg + ssl->in_hslen,
-               ssl->in_msglen);
+        memcpy(ssl->in_msg, ssl->in_msg + ssl->in_hslen, ssl->in_msglen);
 
         ssl->in_hslen = 4;
         ssl->in_hslen += (ssl->in_msg[2] << 8) | ssl->in_msg[3];
@@ -809,7 +806,6 @@ int ssl_read_record(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("bad handshake length"));
             return (EST_ERR_SSL_INVALID_RECORD);
         }
-
         if (ssl->in_msglen < ssl->in_hslen) {
             SSL_DEBUG_MSG(1, ("bad handshake length"));
             return (EST_ERR_SSL_INVALID_RECORD);
@@ -822,10 +818,10 @@ int ssl_read_record(ssl_context * ssl)
     ssl->in_hslen = 0;
 
     /*
-     * Read the record header and validate it
+        Read the record header and validate it
      */
     if ((ret = ssl_fetch_input(ssl, 5)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_fetch_input", ret);
+        SSL_DEBUG_RET(3, "ssl_fetch_input", ret);
         return (ret);
     }
 
@@ -880,7 +876,7 @@ int ssl_read_record(ssl_context * ssl)
      * Read and optionally decrypt the message contents
      */
     if ((ret = ssl_fetch_input(ssl, 5 + ssl->in_msglen)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_fetch_input", ret);
+        SSL_DEBUG_RET(3, "ssl_fetch_input", ret);
         return (ret);
     }
 
@@ -1043,7 +1039,7 @@ int ssl_parse_certificate(ssl_context * ssl)
         return (0);
     }
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return (ret);
     }
     ssl->state++;
@@ -1176,7 +1172,7 @@ int ssl_parse_change_cipher_spec(ssl_context * ssl)
     ssl->do_crypt = 0;
 
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return (ret);
     }
     if (ssl->in_msgtype != SSL_MSG_CHANGE_CIPHER_SPEC) {
@@ -1325,7 +1321,7 @@ int ssl_parse_finished(ssl_context * ssl)
     ssl->do_crypt = 1;
 
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return (ret);
     }
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -1637,7 +1633,7 @@ int ssl_read(ssl_context * ssl, uchar *buf, int len)
     }
     if (ssl->in_offt == NULL) {
         if ((ret = ssl_read_record(ssl)) != 0) {
-            SSL_DEBUG_RET(1, "ssl_read_record", ret);
+            SSL_DEBUG_RET(3, "ssl_read_record", ret);
             return (ret);
         }
         if (ssl->in_msglen == 0 &&
@@ -1647,7 +1643,7 @@ int ssl_read(ssl_context * ssl, uchar *buf, int len)
                MOB - why does this matter?
              */
             if ((ret = ssl_read_record(ssl)) != 0) {
-                SSL_DEBUG_RET(1, "ssl_read_record", ret);
+                SSL_DEBUG_RET(3, "ssl_read_record", ret);
                 return (ret);
             }
         }

@@ -149,7 +149,7 @@ static int ssl_parse_server_hello(ssl_context * ssl)
     buf = ssl->in_msg;
 
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return ret;
     }
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -257,7 +257,7 @@ static int ssl_parse_server_key_exchange(ssl_context * ssl)
     return EST_ERR_SSL_FEATURE_UNAVAILABLE;
 #else
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return ret;
     }
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -348,7 +348,7 @@ static int ssl_parse_certificate_request(ssl_context * ssl)
           ... .. ...  length of DN 2, etc.
      */
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return ret;
     }
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -375,7 +375,7 @@ static int ssl_parse_server_hello_done(ssl_context * ssl)
 
     if (ssl->client_auth != 0) {
         if ((ret = ssl_read_record(ssl)) != 0) {
-            SSL_DEBUG_RET(1, "ssl_read_record", ret);
+            SSL_DEBUG_RET(3, "ssl_read_record", ret);
             return ret;
         }
         if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {

@@ -225,15 +225,15 @@ extern "C" {
 
     /**
      * \brief          Store the certificate DN in printable form into buf;
-     *                 no more than (end - buf) characters will be written.
+     *                 no more than (bufsize) characters will be written.
      */
-    int x509parse_dn_gets(char *buf, char *end, x509_name * dn);
+    int x509parse_dn_gets(char *prefix, char *buf, int bufsize, x509_name *dn);
 
     /**
      * \brief          Returns an informational string about the
-     *                 certificate.
+     *                 certificate. 
      */
-    char *x509parse_cert_info(char *prefix, x509_cert * crt);
+    char *x509parse_cert_info(char *prefix, char *buf, int bufsize, x509_cert *crt);
 
     /**
      * \brief          Return 0 if the certificate is still valid,

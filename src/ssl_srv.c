@@ -576,7 +576,7 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
     SSL_DEBUG_MSG(2, ("=> parse client key exchange"));
 
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return (ret);
     }
 
@@ -703,7 +703,7 @@ static int ssl_parse_certificate_verify(ssl_context * ssl)
     ssl_calc_verify(ssl, hash);
 
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return (ret);
     }
 

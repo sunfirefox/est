@@ -47,6 +47,7 @@
 #define SSL_COMPRESS_NULL               0
 
 #define SSL_VERIFY_NO_CHECK             0
+//  MOB - rename VERIFY_MANUAL. Reconsider all names
 #define SSL_VERIFY_OPTIONAL             1
 #define SSL_VERIFY_REQUIRED             2
 
@@ -304,8 +305,7 @@ extern "C" {
      * \param f_dbg    debug function
      * \param p_dbg    debug parameter
      */
-    void ssl_set_dbg(ssl_context * ssl,
-             void (*f_dbg) (void *, int, char *), void *p_dbg);
+    void ssl_set_dbg(ssl_context * ssl, void (*f_dbg) (void *, int, char *), void *p_dbg);
 
     /**
      * \brief          Set the underlying BIO read and write callbacks
@@ -318,8 +318,7 @@ extern "C" {
      */
     void ssl_set_bio(ssl_context * ssl,
              int (*f_recv) (void *, uchar *, int),
-             void *p_recv, int (*f_send) (void *, uchar *,
-                              int), void *p_send);
+             void *p_recv, int (*f_send) (void *, uchar *, int), void *p_send);
 
     /**
      * \brief          Set the session callbacks (server-side only)
@@ -328,9 +327,7 @@ extern "C" {
      * \param s_get    session get callback
      * \param s_set    session set callback
      */
-    void ssl_set_scb(ssl_context * ssl,
-             int (*s_get) (ssl_context *),
-             int (*s_set) (ssl_context *));
+    void ssl_set_scb(ssl_context * ssl, int (*s_get) (ssl_context *), int (*s_set) (ssl_context *));
 
     /**
      * \brief          Set the session resuming flag, timeout and data
@@ -340,8 +337,7 @@ extern "C" {
      * \param timeout  session timeout in seconds, or 0 (no timeout)
      * \param session  session context
      */
-    void ssl_set_session(ssl_context * ssl, int resume, int timeout,
-                 ssl_session * session);
+    void ssl_set_session(ssl_context * ssl, int resume, int timeout, ssl_session * session);
 
     /**
      * \brief          Set the list of allowed ciphersuites
@@ -358,10 +354,9 @@ extern "C" {
      * \param ca_chain trusted CA chain
      * \param peer_cn  expected peer CommonName (or NULL)
      *
-     * \note           TODO: add two more parameters: depth and crl
+     * \note           MOB TODO: add two more parameters: depth and crl
      */
-    void ssl_set_ca_chain(ssl_context * ssl, x509_cert * ca_chain,
-                  char *peer_cn);
+    void ssl_set_ca_chain(ssl_context * ssl, x509_cert * ca_chain, char *peer_cn);
 
     /**
      * \brief          Set own certificate and private key
@@ -370,8 +365,7 @@ extern "C" {
      * \param own_cert own public certificate
      * \param rsa_key  own private RSA key
      */
-    void ssl_set_own_cert(ssl_context * ssl, x509_cert * own_cert,
-                  rsa_context * rsa_key);
+    void ssl_set_own_cert(ssl_context * ssl, x509_cert * own_cert, rsa_context * rsa_key);
 
     /**
      * \brief          Set the Diffie-Hellman public P and G values,
