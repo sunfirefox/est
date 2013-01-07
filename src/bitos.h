@@ -12,13 +12,16 @@
 /******************************* Default Features *****************************/
 
 #ifndef BIT_DEBUG
-    #define BIT_DEBUG 0                 /**< Enable a debug build */
+    #define BIT_DEBUG 0                 /**< Default to a debug build */
 #endif
-#ifndef BIT_ASSERT
+#ifndef BIT_LOGGING
+    #define BIT_LOGGING 1               /**< Default for logging is "on" */
+#endif
+#ifndef BIT_TRACING
     #if BIT_DEBUG
-        #define BIT_ASSERT 1            /**< Turn debug assure assertions on */
+        #define BIT_TRACING 1           /**< Tracing is on in debug builds */
     #else
-        #define BIT_ASSERT 0
+        #define BIT_TRACING 0
     #endif
 #endif
 #ifndef BIT_FLOAT
