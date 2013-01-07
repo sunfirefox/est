@@ -14,16 +14,6 @@
 #ifndef BIT_DEBUG
     #define BIT_DEBUG 0                 /**< Default to a debug build */
 #endif
-#ifndef BIT_LOGGING
-    #define BIT_LOGGING 1               /**< Default for logging is "on" */
-#endif
-#ifndef BIT_TRACING
-    #if BIT_DEBUG
-        #define BIT_TRACING 1           /**< Tracing is on in debug builds */
-    #else
-        #define BIT_TRACING 0
-    #endif
-#endif
 #ifndef BIT_FLOAT
     #define BIT_FLOAT 1                 /**< Build with floating point support */
 #endif
