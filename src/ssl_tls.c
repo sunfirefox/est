@@ -62,16 +62,18 @@ static EstCipher cipherList[] = {
 #if BIT_EST_RSA && BIT_EST_RC4
     { "TLS_RSA_WITH_RC4_128_MD5",               TLS_RSA_WITH_RC4_128_MD5                /* 0x04 */ },
 #endif
-#if BIT_EST_RSA && BIT_EST_AES
+#if BIT_EST_RSA && BIT_EST_AES && BIT_EST_DHM
     { "TLS_DHE_RSA_WITH_AES_256_CBC_SHA",       TLS_DHE_RSA_WITH_AES_256_CBC_SHA        /* 0x39 */ },
 #endif
-#if BIT_EST_RSA && BIT_EST_DES
+#if BIT_EST_RSA && BIT_EST_DES && BIT_EST_DHM
     { "TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA",      TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA       /* 0x16 */ },
 #endif
 #if BIT_EST_RSA && BIT_EST_CAMELLIA
     { "TLS_RSA_WITH_CAMELLIA_128_CBC_SHA",      TLS_RSA_WITH_CAMELLIA_128_CBC_SHA       /* 0x41 */ },
     { "TLS_RSA_WITH_CAMELLIA_256_CBC_SHA",      TLS_RSA_WITH_CAMELLIA_256_CBC_SHA       /* 0x88 */ },
+    #if BIT_EST_DHM
     { "TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA",  TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA   /* 0x84 */ },
+    #endif
 #endif
     { 0, 0 },
 };
