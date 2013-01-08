@@ -256,7 +256,7 @@ struct _ssl_context {
 extern "C" {
 #endif
 
-    PUBLIC int ssl_default_ciphers[];
+    extern int ssl_default_ciphers[];
 
     /**
      * \brief          Initialize an SSL context
