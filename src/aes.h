@@ -29,7 +29,7 @@ extern "C" {
      * \param key      encryption key
      * \param keysize  must be 128, 192 or 256
      */
-    void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize);
+    PUBLIC void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize);
 
     /**
      * \brief          AES key schedule (decryption)
@@ -38,7 +38,7 @@ extern "C" {
      * \param key      decryption key
      * \param keysize  must be 128, 192 or 256
      */
-    void aes_setkey_dec(aes_context * ctx, uchar *key, int keysize);
+    PUBLIC void aes_setkey_dec(aes_context * ctx, uchar *key, int keysize);
 
     /**
      * \brief          AES-ECB block encryption/decryption
@@ -48,9 +48,7 @@ extern "C" {
      * \param input    16-byte input block
      * \param output   16-byte output block
      */
-    void aes_crypt_ecb(aes_context * ctx,
-               int mode,
-               uchar input[16], uchar output[16]);
+    PUBLIC void aes_crypt_ecb(aes_context * ctx, int mode, uchar input[16], uchar output[16]);
 
     /**
      * \brief          AES-CBC buffer encryption/decryption
@@ -62,11 +60,7 @@ extern "C" {
      * \param input    buffer holding the input data
      * \param output   buffer holding the output data
      */
-    void aes_crypt_cbc(aes_context * ctx,
-               int mode,
-               int length,
-               uchar iv[16],
-               uchar *input, uchar *output);
+    PUBLIC void aes_crypt_cbc(aes_context * ctx, int mode, int length, uchar iv[16], uchar *input, uchar *output);
 
     /**
      * \brief          AES-CFB128 buffer encryption/decryption
@@ -79,19 +73,14 @@ extern "C" {
      * \param input    buffer holding the input data
      * \param output   buffer holding the output data
      */
-    void aes_crypt_cfb128(aes_context * ctx,
-                  int mode,
-                  int length,
-                  int *iv_off,
-                  uchar iv[16],
-                  uchar *input, uchar *output);
+    PUBLIC void aes_crypt_cfb128(aes_context * ctx, int mode, int length, int *iv_off, uchar iv[16], uchar *input, uchar *output);
 
     /**
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int aes_self_test(int verbose);
+    PUBLIC int aes_self_test(int verbose);
 
 #ifdef __cplusplus
 }

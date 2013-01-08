@@ -28,8 +28,7 @@ extern "C" {
      * \param key      encryption key
      * \param keysize  must be 128, 192 or 256
      */
-    void camellia_setkey_enc(camellia_context * ctx, uchar *key,
-                 int keysize);
+    PUBLIC void camellia_setkey_enc(camellia_context * ctx, uchar *key, int keysize);
 
     /**
      * \brief          CAMELLIA key schedule (decryption)
@@ -38,8 +37,7 @@ extern "C" {
      * \param key      decryption key
      * \param keysize  must be 128, 192 or 256
      */
-    void camellia_setkey_dec(camellia_context * ctx, uchar *key,
-                 int keysize);
+    PUBLIC void camellia_setkey_dec(camellia_context * ctx, uchar *key, int keysize);
 
     /**
      * \brief          CAMELLIA-ECB block encryption/decryption
@@ -49,10 +47,7 @@ extern "C" {
      * \param input    16-byte input block
      * \param output   16-byte output block
      */
-    void camellia_crypt_ecb(camellia_context * ctx,
-                int mode,
-                uchar input[16],
-                uchar output[16]);
+    PUBLIC void camellia_crypt_ecb(camellia_context * ctx, int mode, uchar input[16], uchar output[16]);
 
     /**
      * \brief          CAMELLIA-CBC buffer encryption/decryption
@@ -64,11 +59,7 @@ extern "C" {
      * \param input    buffer holding the input data
      * \param output   buffer holding the output data
      */
-    void camellia_crypt_cbc(camellia_context * ctx,
-                int mode,
-                int length,
-                uchar iv[16],
-                uchar *input, uchar *output);
+    PUBLIC void camellia_crypt_cbc(camellia_context * ctx, int mode, int length, uchar iv[16], uchar *input, uchar *output);
 
     /**
      * \brief          CAMELLIA-CFB128 buffer encryption/decryption
@@ -81,19 +72,14 @@ extern "C" {
      * \param input    buffer holding the input data
      * \param output   buffer holding the output data
      */
-    void camellia_crypt_cfb128(camellia_context * ctx,
-                   int mode,
-                   int length,
-                   int *iv_off,
-                   uchar iv[16],
-                   uchar *input, uchar *output);
+    PUBLIC void camellia_crypt_cfb128(camellia_context * ctx, int mode, int length, int *iv_off, uchar iv[16], uchar *input, uchar *output);
 
     /**
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int camellia_self_test(int verbose);
+    PUBLIC int camellia_self_test(int verbose);
 
 #ifdef __cplusplus
 }

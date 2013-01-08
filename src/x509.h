@@ -266,14 +266,14 @@ extern "C" {
     /**
      * \brief          Unallocate all certificate data
      */
-    void x509_free(x509_cert * crt);
+    PUBLIC void x509_free(x509_cert * crt);
 
     /**
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int x509_self_test(int verbose);
+    PUBLIC int x509_self_test(int verbose);
 
 #ifdef __cplusplus
 }

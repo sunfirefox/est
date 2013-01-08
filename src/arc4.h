@@ -26,7 +26,7 @@ extern "C" {
      * \param key      the secret key
      * \param keylen   length of the key
      */
-    void arc4_setup(arc4_context * ctx, uchar *key, int keylen);
+    PUBLIC void arc4_setup(arc4_context * ctx, uchar *key, int keylen);
 
     /**
      * \brief          ARC4 cipher function
@@ -35,14 +35,14 @@ extern "C" {
      * \param buf      buffer to be processed
      * \param buflen   amount of data in buf
      */
-    void arc4_crypt(arc4_context * ctx, uchar *buf, int buflen);
+    PUBLIC void arc4_crypt(arc4_context * ctx, uchar *buf, int buflen);
 
     /*
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int arc4_self_test(int verbose);
+    PUBLIC int arc4_self_test(int verbose);
 
 #ifdef __cplusplus
 }

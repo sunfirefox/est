@@ -26,7 +26,7 @@ extern "C" {
      * \param ctx      XTEA context to be initialized
      * \param key      the secret key
      */
-    void xtea_setup(xtea_context * ctx, uchar key[16]);
+    PUBLIC void xtea_setup(xtea_context * ctx, uchar key[16]);
 
     /**
      * \brief          XTEA cipher function
@@ -36,16 +36,14 @@ extern "C" {
      * \param input    8-byte input block
      * \param output   8-byte output block
      */
-    void xtea_crypt(xtea_context * ctx,
-            int mode,
-            uchar input[8], uchar output[8]);
+    PUBLIC void xtea_crypt(xtea_context * ctx, int mode, uchar input[8], uchar output[8]);
 
     /*
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int xtea_self_test(int verbose);
+    PUBLIC int xtea_self_test(int verbose);
 
 #ifdef __cplusplus
 }

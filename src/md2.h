@@ -28,7 +28,7 @@ extern "C" {
      *
      * \param ctx      context to be initialized
      */
-    void md2_starts(md2_context * ctx);
+    PUBLIC void md2_starts(md2_context * ctx);
 
     /**
      * \brief          MD2 process buffer
@@ -37,7 +37,7 @@ extern "C" {
      * \param input    buffer holding the  data
      * \param ilen     length of the input data
      */
-    void md2_update(md2_context * ctx, uchar *input, int ilen);
+    PUBLIC void md2_update(md2_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          MD2 final digest
@@ -45,7 +45,7 @@ extern "C" {
      * \param ctx      MD2 context
      * \param output   MD2 checksum result
      */
-    void md2_finish(md2_context * ctx, uchar output[16]);
+    PUBLIC void md2_finish(md2_context * ctx, uchar output[16]);
 
     /**
      * \brief          Output = MD2( input buffer )
@@ -54,7 +54,7 @@ extern "C" {
      * \param ilen     length of the input data
      * \param output   MD2 checksum result
      */
-    void md2(uchar *input, int ilen, uchar output[16]);
+    PUBLIC void md2(uchar *input, int ilen, uchar output[16]);
 
     /**
      * \brief          Output = MD2( file contents )
@@ -65,7 +65,7 @@ extern "C" {
      * \return         0 if successful, 1 if fopen failed,
      *                 or 2 if fread failed
      */
-    int md2_file(char *path, uchar output[16]);
+    PUBLIC int md2_file(char *path, uchar output[16]);
 
     /**
      * \brief          MD2 HMAC context setup
@@ -74,7 +74,7 @@ extern "C" {
      * \param key      HMAC secret key
      * \param keylen   length of the HMAC key
      */
-    void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen);
+    PUBLIC void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen);
 
     /**
      * \brief          MD2 HMAC process buffer
@@ -83,7 +83,7 @@ extern "C" {
      * \param input    buffer holding the  data
      * \param ilen     length of the input data
      */
-    void md2_hmac_update(md2_context * ctx, uchar *input, int ilen);
+    PUBLIC void md2_hmac_update(md2_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          MD2 HMAC final digest
@@ -91,7 +91,7 @@ extern "C" {
      * \param ctx      HMAC context
      * \param output   MD2 HMAC checksum result
      */
-    void md2_hmac_finish(md2_context * ctx, uchar output[16]);
+    PUBLIC void md2_hmac_finish(md2_context * ctx, uchar output[16]);
 
     /**
      * \brief          Output = HMAC-MD2( hmac key, input buffer )
@@ -102,15 +102,14 @@ extern "C" {
      * \param ilen     length of the input data
      * \param output   HMAC-MD2 result
      */
-    void md2_hmac(uchar *key, int keylen,
-              uchar *input, int ilen, uchar output[16]);
+    PUBLIC void md2_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[16]);
 
     /**
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int md2_self_test(int verbose);
+    PUBLIC int md2_self_test(int verbose);
 
 #ifdef __cplusplus
 }
