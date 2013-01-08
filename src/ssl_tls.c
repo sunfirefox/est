@@ -100,8 +100,8 @@ int *ssl_create_ciphers(cchar *cipherSuite)
     char        *suite, *cipher, *next;
     int         nciphers, i, *ciphers;
 
-    if (!ciphers) {
-        return 0;
+    if (!cipherSuite) {
+        return ssl_default_ciphers;
     }
     nciphers = sizeof(cipherList) / sizeof(EstCipher);
     ciphers = malloc((nciphers + 1) * sizeof(int));
