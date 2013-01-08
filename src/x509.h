@@ -184,7 +184,7 @@ extern "C" {
      *
      * \return         0 if successful, or a specific X509 error code
      */
-    int x509parse_crt(x509_cert * crt, uchar *buf, int buflen);
+    PUBLIC int x509parse_crt(x509_cert * crt, uchar *buf, int buflen);
 
     /**
      * \brief          Load one or more certificates and add them
@@ -195,7 +195,7 @@ extern "C" {
      *
      * \return         0 if successful, or a specific X509 error code
      */
-    int x509parse_crtfile(x509_cert * crt, char *path);
+    PUBLIC int x509parse_crtfile(x509_cert * crt, char *path);
 
     /**
      * \brief          Parse a private RSA key
@@ -208,9 +208,7 @@ extern "C" {
      *
      * \return         0 if successful, or a specific X509 error code
      */
-    int x509parse_key(rsa_context * rsa,
-              uchar *buf, int buflen,
-              uchar *pwd, int pwdlen);
+    PUBLIC int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwdlen);
 
     /**
      * \brief          Load and parse a private RSA key
@@ -221,25 +219,25 @@ extern "C" {
      *
      * \return         0 if successful, or a specific X509 error code
      */
-    int x509parse_keyfile(rsa_context * rsa, char *path, char *password);
+    PUBLIC int x509parse_keyfile(rsa_context * rsa, char *path, char *password);
 
     /**
      * \brief          Store the certificate DN in printable form into buf;
      *                 no more than (bufsize) characters will be written.
      */
-    int x509parse_dn_gets(char *prefix, char *buf, int bufsize, x509_name *dn);
+    PUBLIC int x509parse_dn_gets(char *prefix, char *buf, int bufsize, x509_name *dn);
 
     /**
      * \brief          Returns an informational string about the
      *                 certificate. 
      */
-    char *x509parse_cert_info(char *prefix, char *buf, int bufsize, x509_cert *crt);
+    PUBLIC char *x509parse_cert_info(char *prefix, char *buf, int bufsize, x509_cert *crt);
 
     /**
      * \brief          Return 0 if the certificate is still valid,
      *                 or BADCERT_EXPIRED
      */
-    int x509parse_expired(x509_cert * crt);
+    PUBLIC int x509parse_expired(x509_cert * crt);
 
     /**
      * \brief          Verify the certificate signature
@@ -260,8 +258,7 @@ extern "C" {
      *
      * \note           TODO: add two arguments, depth and crl
      */
-    int x509parse_verify(x509_cert * crt,
-                 x509_cert * trust_ca, char *cn, int *flags);
+    PUBLIC int x509parse_verify(x509_cert * crt, x509_cert * trust_ca, char *cn, int *flags);
 
     /**
      * \brief          Unallocate all certificate data
