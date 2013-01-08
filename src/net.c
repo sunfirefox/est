@@ -8,6 +8,10 @@
 #if BIT_EST_NET
 
 #if WINDOWS || WINCE
+    //  MOB defined in bitos
+    #undef read
+    #undef write
+    #undef close
     #define read(fd,buf,len)        recv(fd,buf,len,0)
     #define write(fd,buf,len)       send(fd,buf,len,0)
     #define close(fd)               closesocket(fd)
@@ -214,6 +218,7 @@ void net_usleep(ulong usec)
  */
 int net_recv(void *ctx, uchar *buf, int len)
 {
+//  MOB - should use recv
     int ret = read(*((int *)ctx), buf, len);
 
     if (len > 0 && ret == 0)

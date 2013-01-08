@@ -7,6 +7,7 @@
  */
 #include "est.h"
 
+//  MOB - MSVC won't work with this.
 #if BIT_EST_TIMING
 
 #if defined(WIN32)
@@ -32,7 +33,16 @@ struct _hr_time {
 
 #endif
 
-#if (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
+#if WINDOWS
+//  MOB  64 bit
+ulong hardclock(void)
+{
+    LARGE_INTEGER  now;
+    QueryPerformanceCounter(&now);
+    return (ulong) (((uint64) now.HighPart) << 32) + now.LowPart;
+}
+
+#elif (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
 
 ulong hardclock(void)
 {
