@@ -37,7 +37,7 @@
     #define BIT_EST_CAMELLIA 0
 #endif
 #ifndef BIT_EST_DES
-    #define BIT_EST_DES 1
+    #define BIT_EST_DES 0
 #endif
 #ifndef BIT_EST_DHM
     #define BIT_EST_DHM 1
@@ -89,8 +89,12 @@
 #endif
 #ifndef BIT_EST_CLIENT
     #define BIT_EST_CLIENT 1
+    #undef BIT_EST_MD5
+    #define BIT_EST_MD5 1
 #endif
 #ifndef BIT_EST_SERVER
+    #undef BIT_EST_MD5
+    #define BIT_EST_MD5 1
     #define BIT_EST_SERVER 1
 #endif
 #ifndef BIT_EST_TEST_CERTS
