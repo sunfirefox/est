@@ -47,8 +47,7 @@ inline int __RSA_Passthrough(void *output, void *input, int size)
     return size;
 }
 
-inline rsa_context *d2i_RSA_PUBKEY(void *ignore, uchar **bufptr,
-                   int len)
+inline rsa_context *d2i_RSA_PUBKEY(void *ignore, uchar **bufptr, int len)
 {
     uchar *buffer = *(uchar **)bufptr;
     rsa_context *rsa;
@@ -107,8 +106,7 @@ inline int RSA_public_decrypt(int size, uchar *input,
         return -1;
 }
 
-inline int RSA_private_decrypt(int size, uchar *input,
-                   uchar *output, RSA * key, int ignore)
+inline int RSA_private_decrypt(int size, uchar *input, uchar *output, RSA * key, int ignore)
 {
     int outsize = size;
     if (!rsa_pkcs1_decrypt(key, RSA_PRIVATE, &outsize, input, output))
@@ -117,8 +115,7 @@ inline int RSA_private_decrypt(int size, uchar *input,
         return -1;
 }
 
-inline int RSA_public_encrypt(int size, uchar *input,
-                  uchar *output, RSA * key, int ignore)
+inline int RSA_public_encrypt(int size, uchar *input, uchar *output, RSA * key, int ignore)
 {
     if (!rsa_pkcs1_encrypt(key, RSA_PUBLIC, size, input, output))
         return RSA_size(key);
@@ -126,8 +123,7 @@ inline int RSA_public_encrypt(int size, uchar *input,
         return -1;
 }
 
-inline int RSA_private_encrypt(int size, uchar *input,
-                   uchar *output, RSA * key, int ignore)
+inline int RSA_private_encrypt(int size, uchar *input, uchar *output, RSA * key, int ignore)
 {
     if (!rsa_pkcs1_encrypt(key, RSA_PRIVATE, size, input, output))
         return RSA_size(key);

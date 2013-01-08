@@ -22,7 +22,7 @@ extern "C" {
     /**
      * \brief          Return the CPU cycle counter value
      */
-    ulong hardclock(void);
+    PUBLIC ulong hardclock(void);
 
     /**
      * \brief          Return the elapsed time in milliseconds
@@ -30,19 +30,19 @@ extern "C" {
      * \param val      points to a timer structure
      * \param reset    if set to 1, the timer is restarted
      */
-    ulong get_timer(struct hr_time *val, int reset);
+    PUBLIC ulong get_timer(struct hr_time *val, int reset);
 
     /**
      * \brief          Setup an alarm clock
      *
      * \param seconds  delay before the "alarmed" flag is set
      */
-    void set_alarm(int seconds);
+    PUBLIC void set_alarm(int seconds);
 
     /**
      * \brief          Sleep for a certain amount of time
      */
-    void m_sleep(int milliseconds);
+    PUBLIC void m_sleep(int milliseconds);
 
 #ifdef __cplusplus
 }

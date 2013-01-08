@@ -26,7 +26,7 @@ extern "C" {
      *
      * \param hs       HAVEGE state to be initialized
      */
-    void havege_init(havege_state * hs);
+    PUBLIC void havege_init(havege_state * hs);
 
     /**
      * \brief          HAVEGE rand function
@@ -35,7 +35,7 @@ extern "C" {
      *
      * \return         A random int
      */
-    int havege_rand(void *p_rng);
+    PUBLIC int havege_rand(void *p_rng);
 
 #ifdef __cplusplus
 }

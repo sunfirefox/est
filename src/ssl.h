@@ -265,7 +265,7 @@ extern "C" {
      *
      * \return         0 if successful, or 1 if memory allocation failed
      */
-    int ssl_init(ssl_context * ssl);
+    PUBLIC int ssl_init(ssl_context * ssl);
 
     /**
      * \brief          Set the current endpoint type
@@ -273,7 +273,7 @@ extern "C" {
      * \param ssl      SSL context
      * \param endpoint must be SSL_IS_CLIENT or SSL_IS_SERVER
      */
-    void ssl_set_endpoint(ssl_context * ssl, int endpoint);
+    PUBLIC void ssl_set_endpoint(ssl_context * ssl, int endpoint);
 
     /**
      * \brief          Set the certificate verification mode
@@ -292,7 +292,7 @@ extern "C" {
      *  SSL_VERIFY_REQUIRED:  peer *must* present a valid certificate,
      *                        handshake is aborted if verification failed.
      */
-    void ssl_set_authmode(ssl_context * ssl, int authmode);
+    PUBLIC void ssl_set_authmode(ssl_context * ssl, int authmode);
 
     /**
      * \brief          Set the random number generator callback
@@ -301,7 +301,7 @@ extern "C" {
      * \param f_rng    RNG function
      * \param p_rng    RNG parameter
      */
-    void ssl_set_rng(ssl_context * ssl, int (*f_rng) (void *), void *p_rng);
+    PUBLIC void ssl_set_rng(ssl_context * ssl, int (*f_rng) (void *), void *p_rng);
 
     /**
      * \brief          Set the debug callback
@@ -310,7 +310,7 @@ extern "C" {
      * \param f_dbg    debug function
      * \param p_dbg    debug parameter
      */
-    void ssl_set_dbg(ssl_context * ssl, void (*f_dbg) (void *, int, char *), void *p_dbg);
+    PUBLIC void ssl_set_dbg(ssl_context * ssl, void (*f_dbg) (void *, int, char *), void *p_dbg);
 
     /**
      * \brief          Set the underlying BIO read and write callbacks
@@ -321,9 +321,7 @@ extern "C" {
      * \param f_send   write callback
      * \param p_send   write parameter
      */
-    void ssl_set_bio(ssl_context * ssl,
-             int (*f_recv) (void *, uchar *, int),
-             void *p_recv, int (*f_send) (void *, uchar *, int), void *p_send);
+    PUBLIC void ssl_set_bio(ssl_context * ssl, int (*f_recv) (void *, uchar *, int), void *p_recv, int (*f_send) (void *, uchar *, int), void *p_send);
 
     /**
      * \brief          Set the session callbacks (server-side only)
@@ -332,7 +330,7 @@ extern "C" {
      * \param s_get    session get callback
      * \param s_set    session set callback
      */
-    void ssl_set_scb(ssl_context * ssl, int (*s_get) (ssl_context *), int (*s_set) (ssl_context *));
+    PUBLIC void ssl_set_scb(ssl_context * ssl, int (*s_get) (ssl_context *), int (*s_set) (ssl_context *));
 
     /**
      * \brief          Set the session resuming flag, timeout and data
@@ -342,7 +340,7 @@ extern "C" {
      * \param timeout  session timeout in seconds, or 0 (no timeout)
      * \param session  session context
      */
-    void ssl_set_session(ssl_context * ssl, int resume, int timeout, ssl_session * session);
+    PUBLIC void ssl_set_session(ssl_context * ssl, int resume, int timeout, ssl_session * session);
 
     /**
      * \brief          Set the list of allowed ciphersuites
@@ -350,7 +348,7 @@ extern "C" {
      * \param ssl      SSL context
      * \param ciphers  0-terminated list of allowed ciphers
      */
-    void ssl_set_ciphers(ssl_context * ssl, int *ciphers);
+    PUBLIC void ssl_set_ciphers(ssl_context * ssl, int *ciphers);
 
     /**
      * \brief          Set the data required to verify peer certificate
@@ -361,7 +359,7 @@ extern "C" {
      *
      * \note           MOB TODO: add two more parameters: depth and crl
      */
-    void ssl_set_ca_chain(ssl_context * ssl, x509_cert * ca_chain, char *peer_cn);
+    PUBLIC void ssl_set_ca_chain(ssl_context * ssl, x509_cert * ca_chain, char *peer_cn);
 
     /**
      * \brief          Set own certificate and private key
@@ -370,7 +368,7 @@ extern "C" {
      * \param own_cert own public certificate
      * \param rsa_key  own private RSA key
      */
-    void ssl_set_own_cert(ssl_context * ssl, x509_cert * own_cert, rsa_context * rsa_key);
+    PUBLIC void ssl_set_own_cert(ssl_context * ssl, x509_cert * own_cert, rsa_context * rsa_key);
 
     /**
      * \brief          Set the Diffie-Hellman public P and G values,
@@ -382,7 +380,7 @@ extern "C" {
      *
      * \return         0 if successful
      */
-    int ssl_set_dh_param(ssl_context * ssl, char *dhm_P, char *dhm_G);
+    PUBLIC int ssl_set_dh_param(ssl_context * ssl, char *dhm_P, char *dhm_G);
 
     /**
      * \brief          Set hostname for ServerName TLS Extension
@@ -393,7 +391,7 @@ extern "C" {
      *
      * \return         0 if successful
      */
-    int ssl_set_hostname(ssl_context * ssl, char *hostname);
+    PUBLIC int ssl_set_hostname(ssl_context * ssl, char *hostname);
 
     /**
      * \brief          Return the number of data bytes available to read
@@ -402,7 +400,7 @@ extern "C" {
      *
      * \return         how many bytes are available in the read buffer
      */
-    int ssl_get_bytes_avail(ssl_context * ssl);
+    PUBLIC int ssl_get_bytes_avail(ssl_context * ssl);
 
     /**
      * \brief          Return the result of the certificate verification
@@ -415,7 +413,7 @@ extern "C" {
      *                      BADCERT_CN_MISMATCH
      *                      BADCERT_NOT_TRUSTED
      */
-    int ssl_get_verify_result(ssl_context * ssl);
+    PUBLIC int ssl_get_verify_result(ssl_context * ssl);
 
     /**
      * \brief          Return the name of the current cipher
@@ -424,7 +422,7 @@ extern "C" {
      *
      * \return         a string containing the cipher name
      */
-    char *ssl_get_cipher(ssl_context * ssl);
+    PUBLIC char *ssl_get_cipher(ssl_context * ssl);
 
     /**
      * \brief          Perform the SSL handshake
@@ -434,7 +432,7 @@ extern "C" {
      * \return         0 if successful, EST_ERR_NET_TRY_AGAIN,
      *                 or a specific SSL error code.
      */
-    int ssl_handshake(ssl_context * ssl);
+    PUBLIC int ssl_handshake(ssl_context * ssl);
 
     /**
      * \brief          Read at most 'len' application data bytes
@@ -446,7 +444,7 @@ extern "C" {
      * \return         This function returns the number of bytes read,
      *                 or a negative error code.
      */
-    int ssl_read(ssl_context * ssl, uchar *buf, int len);
+    PUBLIC int ssl_read(ssl_context * ssl, uchar *buf, int len);
 
     /**
      * \brief          Write exactly 'len' application data bytes
@@ -462,41 +460,41 @@ extern "C" {
      *                 it must be called later with the *same* arguments,
      *                 until it returns a positive value.
      */
-    int ssl_write(ssl_context * ssl, uchar *buf, int len);
+    PUBLIC int ssl_write(ssl_context * ssl, uchar *buf, int len);
 
     /**
      * \brief          Notify the peer that the connection is being closed
      */
-    int ssl_close_notify(ssl_context * ssl);
+    PUBLIC int ssl_close_notify(ssl_context * ssl);
 
     /**
      * \brief          Free an SSL context
      */
-    void ssl_free(ssl_context * ssl);
+    PUBLIC void ssl_free(ssl_context * ssl);
 
     /*
      * Internal functions (do not call directly)
      */
-    int ssl_handshake_client(ssl_context * ssl);
-    int ssl_handshake_server(ssl_context * ssl);
+    PUBLIC int ssl_handshake_client(ssl_context * ssl);
+    PUBLIC int ssl_handshake_server(ssl_context * ssl);
 
-    int ssl_derive_keys(ssl_context * ssl);
-    void ssl_calc_verify(ssl_context * ssl, uchar hash[36]);
+    PUBLIC int ssl_derive_keys(ssl_context * ssl);
+    PUBLIC void ssl_calc_verify(ssl_context * ssl, uchar hash[36]);
 
-    int ssl_read_record(ssl_context * ssl);
-    int ssl_fetch_input(ssl_context * ssl, int nb_want);
+    PUBLIC int ssl_read_record(ssl_context * ssl);
+    PUBLIC int ssl_fetch_input(ssl_context * ssl, int nb_want);
 
-    int ssl_write_record(ssl_context * ssl);
-    int ssl_flush_output(ssl_context * ssl);
+    PUBLIC int ssl_write_record(ssl_context * ssl);
+    PUBLIC int ssl_flush_output(ssl_context * ssl);
 
-    int ssl_parse_certificate(ssl_context * ssl);
-    int ssl_write_certificate(ssl_context * ssl);
+    PUBLIC int ssl_parse_certificate(ssl_context * ssl);
+    PUBLIC int ssl_write_certificate(ssl_context * ssl);
 
-    int ssl_parse_change_cipher_spec(ssl_context * ssl);
-    int ssl_write_change_cipher_spec(ssl_context * ssl);
+    PUBLIC int ssl_parse_change_cipher_spec(ssl_context * ssl);
+    PUBLIC int ssl_write_change_cipher_spec(ssl_context * ssl);
 
-    int ssl_parse_finished(ssl_context * ssl);
-    int ssl_write_finished(ssl_context * ssl);
+    PUBLIC int ssl_parse_finished(ssl_context * ssl);
+    PUBLIC int ssl_write_finished(ssl_context * ssl);
 
 #if EMBEDTHIS || 1
     PUBLIC int *ssl_create_ciphers(cchar *cipherSuite);

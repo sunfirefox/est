@@ -37,7 +37,7 @@ extern "C" {
      * \param ctx      context to be initialized
      * \param is384    0 = use SHA512, 1 = use SHA384
      */
-    void sha4_starts(sha4_context * ctx, int is384);
+    PUBLIC void sha4_starts(sha4_context * ctx, int is384);
 
     /**
      * \brief          SHA-512 process buffer
@@ -46,7 +46,7 @@ extern "C" {
      * \param input    buffer holding the  data
      * \param ilen     length of the input data
      */
-    void sha4_update(sha4_context * ctx, uchar *input, int ilen);
+    PUBLIC void sha4_update(sha4_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          SHA-512 final digest
@@ -54,7 +54,7 @@ extern "C" {
      * \param ctx      SHA-512 context
      * \param output   SHA-384/512 checksum result
      */
-    void sha4_finish(sha4_context * ctx, uchar output[64]);
+    PUBLIC void sha4_finish(sha4_context * ctx, uchar output[64]);
 
     /**
      * \brief          Output = SHA-512( input buffer )
@@ -64,8 +64,7 @@ extern "C" {
      * \param output   SHA-384/512 checksum result
      * \param is384    0 = use SHA512, 1 = use SHA384
      */
-    void sha4(uchar *input, int ilen,
-          uchar output[64], int is384);
+    PUBLIC void sha4(uchar *input, int ilen, uchar output[64], int is384);
 
     /**
      * \brief          Output = SHA-512( file contents )
@@ -77,7 +76,7 @@ extern "C" {
      * \return         0 if successful, 1 if fopen failed,
      *                 or 2 if fread failed
      */
-    int sha4_file(char *path, uchar output[64], int is384);
+    PUBLIC int sha4_file(char *path, uchar output[64], int is384);
 
     /**
      * \brief          SHA-512 HMAC context setup
@@ -87,8 +86,7 @@ extern "C" {
      * \param key      HMAC secret key
      * \param keylen   length of the HMAC key
      */
-    void sha4_hmac_starts(sha4_context * ctx, uchar *key,
-                  int keylen, int is384);
+    PUBLIC void sha4_hmac_starts(sha4_context * ctx, uchar *key, int keylen, int is384);
 
     /**
      * \brief          SHA-512 HMAC process buffer
@@ -97,8 +95,7 @@ extern "C" {
      * \param input    buffer holding the  data
      * \param ilen     length of the input data
      */
-    void sha4_hmac_update(sha4_context * ctx, uchar *input,
-                  int ilen);
+    PUBLIC void sha4_hmac_update(sha4_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          SHA-512 HMAC final digest
@@ -106,7 +103,7 @@ extern "C" {
      * \param ctx      HMAC context
      * \param output   SHA-384/512 HMAC checksum result
      */
-    void sha4_hmac_finish(sha4_context * ctx, uchar output[64]);
+    PUBLIC void sha4_hmac_finish(sha4_context * ctx, uchar output[64]);
 
     /**
      * \brief          Output = HMAC-SHA-512( hmac key, input buffer )
@@ -118,16 +115,14 @@ extern "C" {
      * \param output   HMAC-SHA-384/512 result
      * \param is384    0 = use SHA512, 1 = use SHA384
      */
-    void sha4_hmac(uchar *key, int keylen,
-               uchar *input, int ilen,
-               uchar output[64], int is384);
+    PUBLIC void sha4_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[64], int is384);
 
     /**
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int sha4_self_test(int verbose);
+    PUBLIC int sha4_self_test(int verbose);
 
 #ifdef __cplusplus
 }

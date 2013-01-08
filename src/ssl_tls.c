@@ -1795,7 +1795,7 @@ char *ssl_get_cipher(ssl_context * ssl)
 /*
    Perform the SSL handshake
  */
-int ssl_handshake(ssl_context * ssl)
+PUBLIC int ssl_handshake(ssl_context * ssl)
 {
     char    cbuf[4096];
 

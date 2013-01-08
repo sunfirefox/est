@@ -42,13 +42,13 @@
 extern "C" {
 #endif
     //  MOB - move to an estDep.h
-    int snfmt(char *buf, ssize bufsize, cchar *fmt, ...);
-    char *debug_fmt(const char *format, ...);
-    void debug_print_msg(ssl_context *ssl, int level, char *text);
-    void debug_print_ret(ssl_context *ssl, int level, char *text, int ret);
-    void debug_print_buf(ssl_context *ssl, int level, char *text, uchar *buf, int len);
-    void debug_print_mpi(ssl_context *ssl, int level, char *text, mpi * X);
-    void debug_print_crt(ssl_context *ssl, int level, char *text, x509_cert * crt);
+    PUBLIC int snfmt(char *buf, ssize bufsize, cchar *fmt, ...);
+    PUBLIC char *debug_fmt(const char *format, ...);
+    PUBLIC void debug_print_msg(ssl_context *ssl, int level, char *text);
+    PUBLIC void debug_print_ret(ssl_context *ssl, int level, char *text, int ret);
+    PUBLIC void debug_print_buf(ssl_context *ssl, int level, char *text, uchar *buf, int len);
+    PUBLIC void debug_print_mpi(ssl_context *ssl, int level, char *text, mpi * X);
+    PUBLIC void debug_print_crt(ssl_context *ssl, int level, char *text, x509_cert * crt);
 
 #ifdef __cplusplus
 }

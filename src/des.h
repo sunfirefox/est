@@ -35,7 +35,7 @@ extern "C" {
      * \param ctx      DES context to be initialized
      * \param key      8-byte secret key
      */
-    void des_setkey_enc(des_context * ctx, uchar key[8]);
+    PUBLIC void des_setkey_enc(des_context * ctx, uchar key[8]);
 
     /**
      * \brief          DES key schedule (56-bit, decryption)
@@ -43,7 +43,7 @@ extern "C" {
      * \param ctx      DES context to be initialized
      * \param key      8-byte secret key
      */
-    void des_setkey_dec(des_context * ctx, uchar key[8]);
+    PUBLIC void des_setkey_dec(des_context * ctx, uchar key[8]);
 
     /**
      * \brief          Triple-DES key schedule (112-bit, encryption)
@@ -51,7 +51,7 @@ extern "C" {
      * \param ctx      3DES context to be initialized
      * \param key      16-byte secret key
      */
-    void des3_set2key_enc(des3_context * ctx, uchar key[16]);
+    PUBLIC void des3_set2key_enc(des3_context * ctx, uchar key[16]);
 
     /**
      * \brief          Triple-DES key schedule (112-bit, decryption)
@@ -59,7 +59,7 @@ extern "C" {
      * \param ctx      3DES context to be initialized
      * \param key      16-byte secret key
      */
-    void des3_set2key_dec(des3_context * ctx, uchar key[16]);
+    PUBLIC void des3_set2key_dec(des3_context * ctx, uchar key[16]);
 
     /**
      * \brief          Triple-DES key schedule (168-bit, encryption)
@@ -67,7 +67,7 @@ extern "C" {
      * \param ctx      3DES context to be initialized
      * \param key      24-byte secret key
      */
-    void des3_set3key_enc(des3_context * ctx, uchar key[24]);
+    PUBLIC void des3_set3key_enc(des3_context * ctx, uchar key[24]);
 
     /**
      * \brief          Triple-DES key schedule (168-bit, decryption)
@@ -75,7 +75,7 @@ extern "C" {
      * \param ctx      3DES context to be initialized
      * \param key      24-byte secret key
      */
-    void des3_set3key_dec(des3_context * ctx, uchar key[24]);
+    PUBLIC void des3_set3key_dec(des3_context * ctx, uchar key[24]);
 
     /**
      * \brief          DES-ECB block encryption/decryption
@@ -84,8 +84,7 @@ extern "C" {
      * \param input    64-bit input block
      * \param output   64-bit output block
      */
-    void des_crypt_ecb(des_context * ctx,
-               uchar input[8], uchar output[8]);
+    PUBLIC void des_crypt_ecb(des_context * ctx, uchar input[8], uchar output[8]);
 
     /**
      * \brief          DES-CBC buffer encryption/decryption
@@ -97,11 +96,7 @@ extern "C" {
      * \param input    buffer holding the input data
      * \param output   buffer holding the output data
      */
-    void des_crypt_cbc(des_context * ctx,
-               int mode,
-               int length,
-               uchar iv[8],
-               uchar *input, uchar *output);
+    PUBLIC void des_crypt_cbc(des_context * ctx, int mode, int length, uchar iv[8], uchar *input, uchar *output);
 
     /**
      * \brief          3DES-ECB block encryption/decryption
@@ -110,8 +105,7 @@ extern "C" {
      * \param input    64-bit input block
      * \param output   64-bit output block
      */
-    void des3_crypt_ecb(des3_context * ctx,
-                uchar input[8], uchar output[8]);
+    PUBLIC void des3_crypt_ecb(des3_context * ctx, uchar input[8], uchar output[8]);
 
     /**
      * \brief          3DES-CBC buffer encryption/decryption
@@ -123,18 +117,14 @@ extern "C" {
      * \param input    buffer holding the input data
      * \param output   buffer holding the output data
      */
-    void des3_crypt_cbc(des3_context * ctx,
-                int mode,
-                int length,
-                uchar iv[8],
-                uchar *input, uchar *output);
+    PUBLIC void des3_crypt_cbc(des3_context * ctx, int mode, int length, uchar iv[8], uchar *input, uchar *output);
 
     /*
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int des_self_test(int verbose);
+    PUBLIC int des_self_test(int verbose);
 
 #ifdef __cplusplus
 }

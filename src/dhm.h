@@ -37,8 +37,7 @@ extern "C" {
      *
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
-    int dhm_read_params(dhm_context * ctx,
-                uchar **p, uchar *end);
+    PUBLIC int dhm_read_params(dhm_context * ctx, uchar **p, uchar *end);
 
     /**
      * \brief          Setup and write the ServerKeyExchange parameters
@@ -56,9 +55,7 @@ extern "C" {
      *
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
-    int dhm_make_params(dhm_context * ctx, int s_size,
-                uchar *output, int *olen,
-                int (*f_rng) (void *), void *p_rng);
+    PUBLIC int dhm_make_params(dhm_context * ctx, int s_size, uchar *output, int *olen, int (*f_rng) (void *), void *p_rng);
 
     /**
      * \brief          Import the peer's public value G^Y
@@ -69,7 +66,7 @@ extern "C" {
      *
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
-    int dhm_read_public(dhm_context * ctx, uchar *input, int ilen);
+    PUBLIC int dhm_read_public(dhm_context * ctx, uchar *input, int ilen);
 
     /**
      * \brief          Create own private value X and export G^X
@@ -83,9 +80,7 @@ extern "C" {
      *
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
-    int dhm_make_public(dhm_context * ctx, int s_size,
-                uchar *output, int olen,
-                int (*f_rng) (void *), void *p_rng);
+    PUBLIC int dhm_make_public(dhm_context * ctx, int s_size, uchar *output, int olen, int (*f_rng) (void *), void *p_rng);
 
     /**
      * \brief          Derive and export the shared secret (G^Y)^X mod P
@@ -96,20 +91,19 @@ extern "C" {
      *
      * \return         0 if successful, or an EST_ERR_DHM_XXX error code
      */
-    int dhm_calc_secret(dhm_context * ctx,
-                uchar *output, int *olen);
+    PUBLIC int dhm_calc_secret(dhm_context * ctx, uchar *output, int *olen);
 
     /*
      * \brief          Free the components of a DHM key
      */
-    void dhm_free(dhm_context * ctx);
+    PUBLIC void dhm_free(dhm_context * ctx);
 
     /**
      * \brief          Checkup routine
      *
      * \return         0 if successful, or 1 if the test failed
      */
-    int dhm_self_test(int verbose);
+    PUBLIC int dhm_self_test(int verbose);
 
 #ifdef __cplusplus
 }
