@@ -22,7 +22,7 @@
 static int asn1_get_len(uchar **p, uchar *end, int *len)
 {
     if ((end - *p) < 1)
-        return (EST_ERR_ASN1_OUT_OF_DATA);
+        return EST_ERR_ASN1_OUT_OF_DATA;
 
     if ((**p & 0x80) == 0)
         *len = *(*p)++;
@@ -30,7 +30,7 @@ static int asn1_get_len(uchar **p, uchar *end, int *len)
         switch (**p & 0x7F) {
         case 1:
             if ((end - *p) < 2)
-                return (EST_ERR_ASN1_OUT_OF_DATA);
+                return EST_ERR_ASN1_OUT_OF_DATA;
 
             *len = (*p)[1];
             (*p) += 2;
@@ -38,86 +38,83 @@ static int asn1_get_len(uchar **p, uchar *end, int *len)
 
         case 2:
             if ((end - *p) < 3)
-                return (EST_ERR_ASN1_OUT_OF_DATA);
+                return EST_ERR_ASN1_OUT_OF_DATA;
 
             *len = ((*p)[1] << 8) | (*p)[2];
             (*p) += 3;
             break;
 
         default:
-            return (EST_ERR_ASN1_INVALID_LENGTH);
+            return EST_ERR_ASN1_INVALID_LENGTH;
             break;
         }
     }
 
     if (*len > (int)(end - *p))
-        return (EST_ERR_ASN1_OUT_OF_DATA);
+        return EST_ERR_ASN1_OUT_OF_DATA;
 
     return 0;
 }
 
-static int asn1_get_tag(uchar **p,
-            uchar *end, int *len, int tag)
+
+static int asn1_get_tag(uchar **p, uchar *end, int *len, int tag)
 {
     if ((end - *p) < 1)
-        return (EST_ERR_ASN1_OUT_OF_DATA);
+        return EST_ERR_ASN1_OUT_OF_DATA;
 
-    if (**p != tag)
-        return (EST_ERR_ASN1_UNEXPECTED_TAG);
-
+    if (**p != tag) {
+        return EST_ERR_ASN1_UNEXPECTED_TAG;
+    }
     (*p)++;
-
-    return (asn1_get_len(p, end, len));
+    return asn1_get_len(p, end, len);
 }
+
 
 static int asn1_get_bool(uchar **p, uchar *end, int *val)
 {
     int ret, len;
 
-    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_BOOLEAN)) != 0)
-        return (ret);
-
-    if (len != 1)
-        return (EST_ERR_ASN1_INVALID_LENGTH);
-
+    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_BOOLEAN)) != 0) {
+        return ret;
+    }
+    if (len != 1) {
+        return EST_ERR_ASN1_INVALID_LENGTH;
+    }
     *val = (**p != 0) ? 1 : 0;
     (*p)++;
-
     return 0;
 }
+
 
 static int asn1_get_int(uchar **p, uchar *end, int *val)
 {
     int ret, len;
 
-    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_INTEGER)) != 0)
-        return (ret);
-
-    if (len > (int)sizeof(int) || (**p & 0x80) != 0)
-        return (EST_ERR_ASN1_INVALID_LENGTH);
-
+    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_INTEGER)) != 0) {
+        return ret;
+    }
+    if (len > (int)sizeof(int) || (**p & 0x80) != 0) {
+        return EST_ERR_ASN1_INVALID_LENGTH;
+    }
     *val = 0;
-
     while (len-- > 0) {
         *val = (*val << 8) | **p;
         (*p)++;
     }
-
     return 0;
 }
+
 
 static int asn1_get_mpi(uchar **p, uchar *end, mpi * X)
 {
     int ret, len;
 
-    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_INTEGER)) != 0)
-        return (ret);
-
+    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_INTEGER)) != 0) {
+        return ret;
+    }
     ret = mpi_read_binary(X, *p, len);
-
     *p += len;
-
-    return (ret);
+    return ret;
 }
 
 /*
@@ -131,48 +128,43 @@ static int x509_get_version(uchar **p, uchar *end, int *ver)
                 EST_ASN1_CONTEXT_SPECIFIC | EST_ASN1_CONSTRUCTED | 0))
         != 0) {
         if (ret == EST_ERR_ASN1_UNEXPECTED_TAG)
-            return (*ver = 0);
+            return *ver = 0;
 
-        return (ret);
+        return ret;
     }
-
     end = *p + len;
 
     if ((ret = asn1_get_int(p, end, ver)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_VERSION | ret);
+        return EST_ERR_X509_CERT_INVALID_VERSION | ret;
 
     if (*p != end)
-        return (EST_ERR_X509_CERT_INVALID_VERSION |
-            EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_VERSION | EST_ERR_ASN1_LENGTH_MISMATCH;
 
     return 0;
 }
 
+
 /*
- *  CertificateSerialNumber  ::=  INTEGER
+    CertificateSerialNumber  ::=  INTEGER
  */
-static int x509_get_serial(uchar **p,
-               uchar *end, x509_buf * serial)
+static int x509_get_serial(uchar **p, uchar *end, x509_buf * serial)
 {
     int ret;
 
     if ((end - *p) < 1)
-        return (EST_ERR_X509_CERT_INVALID_SERIAL |
-            EST_ERR_ASN1_OUT_OF_DATA);
+        return EST_ERR_X509_CERT_INVALID_SERIAL | EST_ERR_ASN1_OUT_OF_DATA;
 
     if (**p != (EST_ASN1_CONTEXT_SPECIFIC | EST_ASN1_PRIMITIVE | 2) &&
         **p != EST_ASN1_INTEGER)
-        return (EST_ERR_X509_CERT_INVALID_SERIAL |
-            EST_ERR_ASN1_UNEXPECTED_TAG);
+        return EST_ERR_X509_CERT_INVALID_SERIAL | EST_ERR_ASN1_UNEXPECTED_TAG;
 
     serial->tag = *(*p)++;
 
     if ((ret = asn1_get_len(p, end, &serial->len)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_SERIAL | ret);
+        return EST_ERR_X509_CERT_INVALID_SERIAL | ret;
 
     serial->p = *p;
     *p += serial->len;
-
     return 0;
 }
 
@@ -185,15 +177,14 @@ static int x509_get_alg(uchar **p, uchar *end, x509_buf * alg)
 {
     int ret, len;
 
-    if ((ret = asn1_get_tag(p, end, &len,
-                EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_ALG | ret);
+    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
+        return EST_ERR_X509_CERT_INVALID_ALG | ret;
 
     end = *p + len;
     alg->tag = **p;
 
     if ((ret = asn1_get_tag(p, end, &alg->len, EST_ASN1_OID)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_ALG | ret);
+        return EST_ERR_X509_CERT_INVALID_ALG | ret;
 
     alg->p = *p;
     *p += alg->len;
@@ -205,12 +196,10 @@ static int x509_get_alg(uchar **p, uchar *end, x509_buf * alg)
      * assume the algorithm parameters must be NULL
      */
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_NULL)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_ALG | ret);
+        return EST_ERR_X509_CERT_INVALID_ALG | ret;
 
     if (*p != end)
-        return (EST_ERR_X509_CERT_INVALID_ALG |
-            EST_ERR_ASN1_LENGTH_MISMATCH);
-
+        return EST_ERR_X509_CERT_INVALID_ALG | EST_ERR_ASN1_LENGTH_MISMATCH;
     return 0;
 }
 
@@ -234,39 +223,39 @@ static int x509_get_name(uchar **p, uchar *end, x509_name * cur)
     x509_buf *val;
 
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SET)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_NAME | ret);
+        return EST_ERR_X509_CERT_INVALID_NAME | ret;
 
     end2 = end;
     end = *p + len;
 
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_NAME | ret);
+        return EST_ERR_X509_CERT_INVALID_NAME | ret;
 
     if (*p + len != end)
-        return (EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_LENGTH_MISMATCH;
 
     oid = &cur->oid;
     oid->tag = **p;
 
     if ((ret = asn1_get_tag(p, end, &oid->len, EST_ASN1_OID)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_NAME | ret);
+        return EST_ERR_X509_CERT_INVALID_NAME | ret;
 
     oid->p = *p;
     *p += oid->len;
 
     if ((end - *p) < 1)
-        return (EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_OUT_OF_DATA);
+        return EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_OUT_OF_DATA;
 
     if (**p != EST_ASN1_BMP_STRING && **p != EST_ASN1_UTF8_STRING &&
         **p != EST_ASN1_T61_STRING && **p != EST_ASN1_PRINTABLE_STRING &&
         **p != EST_ASN1_IA5_STRING && **p != EST_ASN1_UNIVERSAL_STRING)
-        return (EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_UNEXPECTED_TAG);
+        return EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_UNEXPECTED_TAG;
 
     val = &cur->val;
     val->tag = *(*p)++;
 
     if ((ret = asn1_get_len(p, end, &val->len)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_NAME | ret);
+        return EST_ERR_X509_CERT_INVALID_NAME | ret;
 
     val->p = *p;
     *p += val->len;
@@ -274,7 +263,7 @@ static int x509_get_name(uchar **p, uchar *end, x509_name * cur)
     cur->next = NULL;
 
     if (*p != end)
-        return (EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_NAME | EST_ERR_ASN1_LENGTH_MISMATCH;
 
     /*
      * recurse until end of SEQUENCE is reached
@@ -284,10 +273,10 @@ static int x509_get_name(uchar **p, uchar *end, x509_name * cur)
 
     cur->next = (x509_name *) malloc(sizeof(x509_name));
 
-    if (cur->next == NULL)
-        return (1);
-
-    return (x509_get_name(p, end2, cur->next));
+    if (cur->next == NULL) {
+        return 1;
+    }
+    return x509_get_name(p, end2, cur->next);
 }
 
 
@@ -306,7 +295,7 @@ static int x509_get_dates(uchar **p, uchar *end, x509_time *from, x509_time *to)
     char date[64];
 
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0) {
-        return (EST_ERR_X509_CERT_INVALID_DATE | ret);
+        return EST_ERR_X509_CERT_INVALID_DATE | ret;
     }
     end = *p + len;
 
@@ -314,33 +303,33 @@ static int x509_get_dates(uchar **p, uchar *end, x509_time *from, x509_time *to)
         TODO: also handle GeneralizedTime
      */
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_UTC_TIME)) != 0) {
-        return (EST_ERR_X509_CERT_INVALID_DATE | ret);
+        return EST_ERR_X509_CERT_INVALID_DATE | ret;
     }
     memset(date, 0, sizeof(date));
     memcpy(date, *p, (len < (int)sizeof(date) - 1) ?  len : (int)sizeof(date) - 1);
 
     if (sscanf(date, "%2d%2d%2d%2d%2d%2d", &from->year, &from->mon, &from->day, &from->hour, &from->min, &from->sec) < 5) {
-        return (EST_ERR_X509_CERT_INVALID_DATE);
+        return EST_ERR_X509_CERT_INVALID_DATE;
     }
     from->year += 100 * (from->year < 90);
     from->year += 1900;
     *p += len;
 
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_UTC_TIME)) != 0) {
-        return (EST_ERR_X509_CERT_INVALID_DATE | ret);
+        return EST_ERR_X509_CERT_INVALID_DATE | ret;
     }
     memset(date, 0, sizeof(date));
     memcpy(date, *p, (len < (int)sizeof(date) - 1) ?  len : (int)sizeof(date) - 1);
 
     if (sscanf(date, "%2d%2d%2d%2d%2d%2d", &to->year, &to->mon, &to->day, &to->hour, &to->min, &to->sec) < 5) {
-        return (EST_ERR_X509_CERT_INVALID_DATE);
+        return EST_ERR_X509_CERT_INVALID_DATE;
     }
     to->year += 100 * (to->year < 90);
     to->year += 1900;
     *p += len;
 
     if (*p != end) {
-        return (EST_ERR_X509_CERT_INVALID_DATE | EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_DATE | EST_ERR_ASN1_LENGTH_MISMATCH;
     }
     return 0;
 }
@@ -351,34 +340,31 @@ static int x509_get_dates(uchar **p, uchar *end, x509_time *from, x509_time *to)
  *       algorithm            AlgorithmIdentifier,
  *       subjectPublicKey     BIT STRING }
  */
-static int x509_get_pubkey(uchar **p,
-               uchar *end,
-               x509_buf * pk_alg_oid, mpi * N, mpi * E)
+static int x509_get_pubkey(uchar **p, uchar *end, x509_buf * pk_alg_oid, mpi * N, mpi * E)
 {
     int ret, len;
     uchar *end2;
 
     if ((ret = x509_get_alg(p, end, pk_alg_oid)) != 0)
-        return (ret);
+        return ret;
 
     /*
      * only RSA public keys handled at this time
      */
     if (pk_alg_oid->len != 9 ||
         memcmp(pk_alg_oid->p, OID_PKCS1_RSA, 9) != 0)
-        return (EST_ERR_X509_CERT_UNKNOWN_PK_ALG);
+        return EST_ERR_X509_CERT_UNKNOWN_PK_ALG;
 
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_BIT_STRING)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_PUBKEY | ret);
+        return EST_ERR_X509_CERT_INVALID_PUBKEY | ret;
 
     if ((end - *p) < 1)
-        return (EST_ERR_X509_CERT_INVALID_PUBKEY |
-            EST_ERR_ASN1_OUT_OF_DATA);
+        return EST_ERR_X509_CERT_INVALID_PUBKEY | EST_ERR_ASN1_OUT_OF_DATA;
 
     end2 = *p + len;
 
     if (*(*p)++ != 0)
-        return (EST_ERR_X509_CERT_INVALID_PUBKEY);
+        return EST_ERR_X509_CERT_INVALID_PUBKEY;
 
     /*
      *      RSAPublicKey ::= SEQUENCE {
@@ -388,22 +374,21 @@ static int x509_get_pubkey(uchar **p,
      */
     if ((ret = asn1_get_tag(p, end2, &len,
                 EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_PUBKEY | ret);
+        return EST_ERR_X509_CERT_INVALID_PUBKEY | ret;
 
     if (*p + len != end2)
-        return (EST_ERR_X509_CERT_INVALID_PUBKEY |
-            EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_PUBKEY | EST_ERR_ASN1_LENGTH_MISMATCH;
 
     if ((ret = asn1_get_mpi(p, end2, N)) != 0 ||
         (ret = asn1_get_mpi(p, end2, E)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_PUBKEY | ret);
+        return EST_ERR_X509_CERT_INVALID_PUBKEY | ret;
 
     if (*p != end)
-        return (EST_ERR_X509_CERT_INVALID_PUBKEY |
-            EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_PUBKEY | EST_ERR_ASN1_LENGTH_MISMATCH;
 
     return 0;
 }
+
 
 static int x509_get_sig(uchar **p, uchar *end, x509_buf * sig)
 {
@@ -412,18 +397,17 @@ static int x509_get_sig(uchar **p, uchar *end, x509_buf * sig)
     sig->tag = **p;
 
     if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_BIT_STRING)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_SIGNATURE | ret);
+        return EST_ERR_X509_CERT_INVALID_SIGNATURE | ret;
 
     if (--len < 1 || *(*p)++ != 0)
-        return (EST_ERR_X509_CERT_INVALID_SIGNATURE);
+        return EST_ERR_X509_CERT_INVALID_SIGNATURE;
 
     sig->len = len;
     sig->p = *p;
-
     *p += len;
-
     return 0;
 }
+
 
 /*
     X.509 v2/v3 unique identifier (not parsed)
@@ -443,7 +427,7 @@ static int x509_get_uid(uchar **p, uchar *end, x509_buf * uid, int n)
         if (ret == EST_ERR_ASN1_UNEXPECTED_TAG)
             return 0;
 
-        return (ret);
+        return ret;
     }
 
     uid->p = *p;
@@ -463,17 +447,14 @@ static int x509_get_ext(uchar **p, uchar *end, x509_buf * ext, int *ca_istrue, i
     uchar *end2;
 
     if (*p == end)
-        return (0);
+        return 0;
 
     ext->tag = **p;
 
-    if ((ret = asn1_get_tag(p, end, &ext->len,
-                EST_ASN1_CONTEXT_SPECIFIC | EST_ASN1_CONSTRUCTED | 3))
-        != 0) {
+    if ((ret = asn1_get_tag(p, end, &ext->len, EST_ASN1_CONTEXT_SPECIFIC | EST_ASN1_CONSTRUCTED | 3)) != 0) {
         if (ret == EST_ERR_ASN1_UNEXPECTED_TAG)
-            return (0);
-
-        return (ret);
+            return 0;
+        return ret;
     }
 
     ext->p = *p;
@@ -487,19 +468,15 @@ static int x509_get_ext(uchar **p, uchar *end, x509_buf * ext, int *ca_istrue, i
      *              critical        BOOLEAN DEFAULT FALSE,
      *              extnValue       OCTET STRING  }
      */
-    if ((ret = asn1_get_tag(p, end, &len,
-                EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
-        return (EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret);
+    if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
+        return EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret;
 
     if (end != *p + len)
-        return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-            EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_EXTENSIONS | EST_ERR_ASN1_LENGTH_MISMATCH;
 
     while (*p < end) {
-        if ((ret = asn1_get_tag(p, end, &len,
-                    EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
-            return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-                ret);
+        if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
+            return EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret;
 
         if (memcmp(*p, "\x06\x03\x55\x1D\x13", 5) != 0) {
             *p += len;
@@ -508,14 +485,11 @@ static int x509_get_ext(uchar **p, uchar *end, x509_buf * ext, int *ca_istrue, i
 
         *p += 5;
 
-        if ((ret = asn1_get_bool(p, end, &is_critical)) != 0 &&
-            (ret != EST_ERR_ASN1_UNEXPECTED_TAG))
-            return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-                ret);
+        if ((ret = asn1_get_bool(p, end, &is_critical)) != 0 && (ret != EST_ERR_ASN1_UNEXPECTED_TAG))
+            return EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret;
 
         if ((ret = asn1_get_tag(p, end, &len, EST_ASN1_OCTET_STRING)) != 0)
-            return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-                ret);
+            return EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret;
 
         /*
          * BasicConstraints ::= SEQUENCE {
@@ -524,10 +498,8 @@ static int x509_get_ext(uchar **p, uchar *end, x509_buf * ext, int *ca_istrue, i
          */
         end2 = *p + len;
 
-        if ((ret = asn1_get_tag(p, end2, &len,
-                    EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
-            return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-                ret);
+        if ((ret = asn1_get_tag(p, end2, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0)
+            return EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret;
 
         if (*p == end2)
             continue;
@@ -537,9 +509,7 @@ static int x509_get_ext(uchar **p, uchar *end, x509_buf * ext, int *ca_istrue, i
                 ret = asn1_get_int(p, end2, &is_cacert);
 
             if (ret != 0)
-                return
-                    (EST_ERR_X509_CERT_INVALID_EXTENSIONS
-                     | ret);
+                return EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret;
 
             if (is_cacert != 0)
                 is_cacert = 1;
@@ -549,23 +519,19 @@ static int x509_get_ext(uchar **p, uchar *end, x509_buf * ext, int *ca_istrue, i
             continue;
 
         if ((ret = asn1_get_int(p, end2, max_pathlen)) != 0)
-            return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-                ret);
+            return EST_ERR_X509_CERT_INVALID_EXTENSIONS | ret;
 
         if (*p != end2)
-            return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-                EST_ERR_ASN1_LENGTH_MISMATCH);
+            return EST_ERR_X509_CERT_INVALID_EXTENSIONS | EST_ERR_ASN1_LENGTH_MISMATCH;
 
         max_pathlen++;
     }
 
     if (*p != end)
-        return (EST_ERR_X509_CERT_INVALID_EXTENSIONS |
-            EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_EXTENSIONS | EST_ERR_ASN1_LENGTH_MISMATCH;
 
     *ca_istrue = is_critical & is_cacert;
-
-    return (0);
+    return 0;
 }
 
 /*
@@ -593,7 +559,7 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
         s2 = (uchar *)strstr((char *)buf, "-----END CERTIFICATE-----");
 
         if (s2 == NULL || s2 <= s1)
-            return (EST_ERR_X509_CERT_INVALID_PEM);
+            return EST_ERR_X509_CERT_INVALID_PEM;
 
         s1 += 27;
         if (*s1 == '\r')
@@ -601,7 +567,7 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
         if (*s1 == '\n')
             s1++;
         else
-            return (EST_ERR_X509_CERT_INVALID_PEM);
+            return EST_ERR_X509_CERT_INVALID_PEM;
 
         /*
          * get the DER data length and decode the buffer
@@ -610,14 +576,14 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
         ret = base64_decode(NULL, &len, s1, s2 - s1);
 
         if (ret == EST_ERR_BASE64_INVALID_CHARACTER)
-            return (EST_ERR_X509_CERT_INVALID_PEM | ret);
+            return EST_ERR_X509_CERT_INVALID_PEM | ret;
 
         if ((p = (uchar *)malloc(len)) == NULL)
-            return (1);
+            return 1;
 
         if ((ret = base64_decode(p, &len, s1, s2 - s1)) != 0) {
             free(p);
-            return (EST_ERR_X509_CERT_INVALID_PEM | ret);
+            return EST_ERR_X509_CERT_INVALID_PEM | ret;
         }
 
         /*
@@ -630,7 +596,7 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
             s2++;
         else {
             free(p);
-            return (EST_ERR_X509_CERT_INVALID_PEM);
+            return EST_ERR_X509_CERT_INVALID_PEM;
         }
 
         oldbuf = buf;
@@ -643,7 +609,7 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
         p = (uchar *)malloc(len = buflen);
 
         if (p == NULL)
-            return (1);
+            return 1;
 
         memcpy(p, buf, buflen);
 
@@ -663,12 +629,12 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
      */
     if ((ret = asn1_get_tag(&p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT);
+        return EST_ERR_X509_CERT_INVALID_FORMAT;
     }
 
     if (len != (int)(end - p)) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT | EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_FORMAT | EST_ERR_ASN1_LENGTH_MISMATCH;
     }
 
     /*
@@ -678,7 +644,7 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
 
     if ((ret = asn1_get_tag(&p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT | ret);
+        return EST_ERR_X509_CERT_INVALID_FORMAT | ret;
     }
 
     end = p + len;
@@ -695,14 +661,14 @@ int x509parse_crt(x509_cert * chain, uchar *buf, int buflen)
         (ret = x509_get_serial(&p, end, &crt->serial)) != 0 ||
         (ret = x509_get_alg(&p, end, &crt->sig_oid1)) != 0) {
         x509_free(crt);
-        return (ret);
+        return ret;
     }
 
     crt->version++;
 
     if (crt->version > 3) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_UNKNOWN_VERSION);
+        return EST_ERR_X509_CERT_UNKNOWN_VERSION;
     }
 
     if (crt->sig_oid1.len != 9 || memcmp(crt->sig_oid1.p, OID_PKCS1, 8) != 0) {
@@ -713,7 +679,7 @@ if (buflen > 0) {
     goto error;
 }
 #endif
-        return (EST_ERR_X509_CERT_UNKNOWN_SIG_ALG);
+        return EST_ERR_X509_CERT_UNKNOWN_SIG_ALG;
     }
 
     if (crt->sig_oid1.p[8] < 2 || crt->sig_oid1.p[8] > 5) {
@@ -724,7 +690,7 @@ if (buflen > 0) {
     goto error;
 }
 #endif
-        return (EST_ERR_X509_CERT_UNKNOWN_SIG_ALG);
+        return EST_ERR_X509_CERT_UNKNOWN_SIG_ALG;
     }
 
     /*
@@ -734,12 +700,12 @@ if (buflen > 0) {
 
     if ((ret = asn1_get_tag(&p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT | ret);
+        return EST_ERR_X509_CERT_INVALID_FORMAT | ret;
     }
 
     if ((ret = x509_get_name(&p, p + len, &crt->issuer)) != 0) {
         x509_free(crt);
-        return (ret);
+        return ret;
     }
 
     crt->issuer_raw.len = p - crt->issuer_raw.p;
@@ -758,7 +724,7 @@ if (buflen > 0) {
     goto error;
 }
 #endif
-        return (ret);
+        return ret;
     }
 
     /*
@@ -768,12 +734,12 @@ if (buflen > 0) {
 
     if ((ret = asn1_get_tag(&p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT | ret);
+        return EST_ERR_X509_CERT_INVALID_FORMAT | ret;
     }
 
     if ((ret = x509_get_name(&p, p + len, &crt->subject)) != 0) {
         x509_free(crt);
-        return (ret);
+        return ret;
     }
 
     crt->subject_raw.len = p - crt->subject_raw.p;
@@ -785,17 +751,17 @@ if (buflen > 0) {
      */
     if ((ret = asn1_get_tag(&p, end, &len, EST_ASN1_CONSTRUCTED | EST_ASN1_SEQUENCE)) != 0) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT | ret);
+        return EST_ERR_X509_CERT_INVALID_FORMAT | ret;
     }
 
     if ((ret = x509_get_pubkey(&p, p + len, &crt->pk_oid, &crt->rsa.N, &crt->rsa.E)) != 0) {
         x509_free(crt);
-        return (ret);
+        return ret;
     }
 
     if ((ret = rsa_check_pubkey(&crt->rsa)) != 0) {
         x509_free(crt);
-        return (ret);
+        return ret;
     }
 
     crt->rsa.len = mpi_size(&crt->rsa.N);
@@ -812,7 +778,7 @@ if (buflen > 0) {
         ret = x509_get_uid(&p, end, &crt->issuer_id, 1);
         if (ret != 0) {
             x509_free(crt);
-            return (ret);
+            return ret;
         }
     }
 
@@ -820,7 +786,7 @@ if (buflen > 0) {
         ret = x509_get_uid(&p, end, &crt->subject_id, 2);
         if (ret != 0) {
             x509_free(crt);
-            return (ret);
+            return ret;
         }
     }
 
@@ -828,13 +794,13 @@ if (buflen > 0) {
         ret = x509_get_ext(&p, end, &crt->v3_ext, &crt->ca_istrue, &crt->max_pathlen);
         if (ret != 0) {
             x509_free(crt);
-            return (ret);
+            return ret;
         }
     }
 
     if (p != end) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT | EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_FORMAT | EST_ERR_ASN1_LENGTH_MISMATCH;
     }
 
     end = crt->raw.p + crt->raw.len;
@@ -845,29 +811,29 @@ if (buflen > 0) {
      */
     if ((ret = x509_get_alg(&p, end, &crt->sig_oid2)) != 0) {
         x509_free(crt);
-        return (ret);
+        return ret;
     }
 
     if (memcmp(crt->sig_oid1.p, crt->sig_oid2.p, 9) != 0) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_SIG_MISMATCH);
+        return EST_ERR_X509_CERT_SIG_MISMATCH;
     }
 
     if ((ret = x509_get_sig(&p, end, &crt->sig)) != 0) {
         x509_free(crt);
-        return (ret);
+        return ret;
     }
 
     if (p != end) {
         x509_free(crt);
-        return (EST_ERR_X509_CERT_INVALID_FORMAT | EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_CERT_INVALID_FORMAT | EST_ERR_ASN1_LENGTH_MISMATCH;
     }
 
     crt->next = (x509_cert *) malloc(sizeof(x509_cert));
 
     if (crt->next == NULL) {
         x509_free(crt);
-        return (1);
+        return 1;
     }
 
     crt = crt->next;
@@ -882,7 +848,7 @@ more:
         //  MOB - return true
         return 0;
     }
-    return (0);
+    return 0;
 
 #if UNUSED && MOB
     //  MOB
@@ -912,19 +878,19 @@ int x509parse_crtfile(x509_cert * chain, char *path)
     uchar *buf;
 
     if ((f = fopen(path, "rb")) == NULL)
-        return (1);
+        return 1;
 
     fseek(f, 0, SEEK_END);
     n = (size_t) ftell(f);
     fseek(f, 0, SEEK_SET);
 
     if ((buf = (uchar *)malloc(n + 1)) == NULL)
-        return (1);
+        return 1;
 
     if (fread(buf, 1, n, f) != n) {
         fclose(f);
         free(buf);
-        return (1);
+        return 1;
     }
     buf[n] = '\0';
 
@@ -934,7 +900,7 @@ int x509parse_crtfile(x509_cert * chain, char *path)
     free(buf);
     fclose(f);
 
-    return (ret);
+    return ret;
 }
 
 #if BIT_EST_DES
@@ -955,14 +921,14 @@ static int x509_get_iv(uchar *s, uchar iv[8])
         else if (*s >= 'a' && *s <= 'f')
             j = *s - 'W';
         else
-            return (EST_ERR_X509_KEY_INVALID_ENC_IV);
+            return EST_ERR_X509_KEY_INVALID_ENC_IV;
 
         k = ((i & 1) != 0) ? j : j << 4;
 
         iv[i >> 1] = (uchar)(iv[i >> 1] | k);
     }
 
-    return (0);
+    return 0;
 }
 
 /*
@@ -1020,7 +986,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
         s2 = (uchar *)strstr((char *)buf, "-----END RSA PRIVATE KEY-----");
 
         if (s2 == NULL || s2 <= s1)
-            return (EST_ERR_X509_KEY_INVALID_PEM);
+            return EST_ERR_X509_KEY_INVALID_PEM;
 
         s1 += 31;
         if (*s1 == '\r')
@@ -1028,7 +994,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
         if (*s1 == '\n')
             s1++;
         else
-            return (EST_ERR_X509_KEY_INVALID_PEM);
+            return EST_ERR_X509_KEY_INVALID_PEM;
 
         enc = 0;
 
@@ -1042,14 +1008,14 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             if (*s1 == '\n')
                 s1++;
             else
-                return (EST_ERR_X509_KEY_INVALID_PEM);
+                return EST_ERR_X509_KEY_INVALID_PEM;
 
             if (memcmp(s1, "DEK-Info: DES-EDE3-CBC,", 23) != 0)
-                return (EST_ERR_X509_KEY_UNKNOWN_ENC_ALG);
+                return EST_ERR_X509_KEY_UNKNOWN_ENC_ALG;
 
             s1 += 23;
             if (x509_get_iv(s1, des3_iv) != 0)
-                return (EST_ERR_X509_KEY_INVALID_ENC_IV);
+                return EST_ERR_X509_KEY_INVALID_ENC_IV;
 
             s1 += 16;
             if (*s1 == '\r')
@@ -1057,9 +1023,9 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             if (*s1 == '\n')
                 s1++;
             else
-                return (EST_ERR_X509_KEY_INVALID_PEM);
+                return EST_ERR_X509_KEY_INVALID_PEM;
 #else
-            return (EST_ERR_X509_FEATURE_UNAVAILABLE);
+            return EST_ERR_X509_FEATURE_UNAVAILABLE;
 #endif
         }
 
@@ -1067,14 +1033,14 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
         ret = base64_decode(NULL, &len, s1, s2 - s1);
 
         if (ret == EST_ERR_BASE64_INVALID_CHARACTER)
-            return (ret | EST_ERR_X509_KEY_INVALID_PEM);
+            return ret | EST_ERR_X509_KEY_INVALID_PEM;
 
         if ((buf = (uchar *)malloc(len)) == NULL)
-            return (1);
+            return 1;
 
         if ((ret = base64_decode(buf, &len, s1, s2 - s1)) != 0) {
             free(buf);
-            return (ret | EST_ERR_X509_KEY_INVALID_PEM);
+            return ret | EST_ERR_X509_KEY_INVALID_PEM;
         }
 
         buflen = len;
@@ -1096,7 +1062,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
                     (EST_ERR_X509_KEY_PASSWORD_MISMATCH);
             }
 #else
-            return (EST_ERR_X509_FEATURE_UNAVAILABLE);
+            return EST_ERR_X509_FEATURE_UNAVAILABLE;
 #endif
         }
     }
@@ -1126,7 +1092,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             free(buf);
 
         rsa_free(rsa);
-        return (EST_ERR_X509_KEY_INVALID_FORMAT | ret);
+        return EST_ERR_X509_KEY_INVALID_FORMAT | ret;
     }
 
     end = p + len;
@@ -1136,7 +1102,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             free(buf);
 
         rsa_free(rsa);
-        return (EST_ERR_X509_KEY_INVALID_FORMAT | ret);
+        return EST_ERR_X509_KEY_INVALID_FORMAT | ret;
     }
 
     if (rsa->ver != 0) {
@@ -1144,7 +1110,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             free(buf);
 
         rsa_free(rsa);
-        return (ret | EST_ERR_X509_KEY_INVALID_VERSION);
+        return ret | EST_ERR_X509_KEY_INVALID_VERSION;
     }
 
     if ((ret = asn1_get_mpi(&p, end, &rsa->N)) != 0 ||
@@ -1159,7 +1125,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             free(buf);
 
         rsa_free(rsa);
-        return (ret | EST_ERR_X509_KEY_INVALID_FORMAT);
+        return ret | EST_ERR_X509_KEY_INVALID_FORMAT;
     }
 
     rsa->len = mpi_size(&rsa->N);
@@ -1169,8 +1135,7 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             free(buf);
 
         rsa_free(rsa);
-        return (EST_ERR_X509_KEY_INVALID_FORMAT |
-            EST_ERR_ASN1_LENGTH_MISMATCH);
+        return EST_ERR_X509_KEY_INVALID_FORMAT | EST_ERR_ASN1_LENGTH_MISMATCH;
     }
 
     if ((ret = rsa_check_privkey(rsa)) != 0) {
@@ -1178,13 +1143,13 @@ int x509parse_key(rsa_context * rsa, uchar *buf, int buflen, uchar *pwd, int pwd
             free(buf);
 
         rsa_free(rsa);
-        return (ret);
+        return ret;
     }
 
     if (s1 != NULL)
         free(buf);
 
-    return (0);
+    return 0;
 }
 
 /*
@@ -1198,19 +1163,19 @@ int x509parse_keyfile(rsa_context * rsa, char *path, char *pwd)
     uchar *buf;
 
     if ((f = fopen(path, "rb")) == NULL)
-        return (1);
+        return 1;
 
     fseek(f, 0, SEEK_END);
     n = (size_t) ftell(f);
     fseek(f, 0, SEEK_SET);
 
     if ((buf = (uchar *)malloc(n + 1)) == NULL)
-        return (1);
+        return 1;
 
     if (fread(buf, 1, n, f) != n) {
         fclose(f);
         free(buf);
-        return (1);
+        return 1;
     }
 
     buf[n] = '\0';
@@ -1224,7 +1189,7 @@ int x509parse_keyfile(rsa_context * rsa, char *path, char *pwd)
     free(buf);
     fclose(f);
 
-    return (ret);
+    return ret;
 }
 
 
@@ -1304,7 +1269,7 @@ int x509parse_dn_gets(char *prefix, char *buf, int bufsize, x509_name * dn)
         name = name->next;
         p += snfmt(p, end - p, ", ");
     }
-    return (p - buf);
+    return p - buf;
 }
 
 
@@ -1373,13 +1338,13 @@ int x509parse_expired(x509_cert * crt)
     lt = localtime(&tt);
 
     if (lt->tm_year > crt->valid_to.year - 1900) {
-        return (BADCERT_EXPIRED);
+        return BADCERT_EXPIRED;
     }
     if (lt->tm_year == crt->valid_to.year - 1900 && lt->tm_mon > crt->valid_to.mon - 1) {
-        return (BADCERT_EXPIRED);
+        return BADCERT_EXPIRED;
     }
     if (lt->tm_year == crt->valid_to.year - 1900 && lt->tm_mon == crt->valid_to.mon - 1 && lt->tm_mday > crt->valid_to.day) {
-        return (BADCERT_EXPIRED);
+        return BADCERT_EXPIRED;
     }
     return 0;
 }
@@ -1453,7 +1418,7 @@ int x509parse_verify(x509_cert *crt, x509_cert *trust_ca, char *cn, int *flags)
         hash_id = crt->sig_oid1.p[8];
         x509_hash(crt->tbs.p, crt->tbs.len, hash_id, hash);
         if (rsa_pkcs1_verify(&cur->rsa, RSA_PUBLIC, hash_id, 0, hash, crt->sig.p) != 0) {
-            return (EST_ERR_X509_CERT_VERIFY_FAILED);
+            return EST_ERR_X509_CERT_VERIFY_FAILED;
         }
         pathlen++;
         crt = cur;
@@ -1485,7 +1450,7 @@ int x509parse_verify(x509_cert *crt, x509_cert *trust_ca, char *cn, int *flags)
         trust_ca = trust_ca->next;
     }
     if (*flags != 0) {
-        return (EST_ERR_X509_CERT_VERIFY_FAILED);
+        return EST_ERR_X509_CERT_VERIFY_FAILED;
     }
     return 0;
 }

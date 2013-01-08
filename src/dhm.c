@@ -119,12 +119,12 @@ int dhm_read_public(dhm_context * ctx, uchar *input, int ilen)
 {
     int ret;
 
-    if (ctx == NULL || ilen < 1 || ilen > ctx->len)
+    if (ctx == NULL || ilen < 1 || ilen > ctx->len) {
         return EST_ERR_DHM_BAD_INPUT_DATA;
-
-    if ((ret = mpi_read_binary(&ctx->GY, input, ilen)) != 0)
+    }
+    if ((ret = mpi_read_binary(&ctx->GY, input, ilen)) != 0) {
         return EST_ERR_DHM_READ_PUBLIC_FAILED | ret;
-
+    }
     return 0;
 }
 
@@ -132,18 +132,17 @@ int dhm_read_public(dhm_context * ctx, uchar *input, int ilen)
 /*
    Create own private value X and export G^X
  */
-int dhm_make_public(dhm_context * ctx, int x_size,
-            uchar *output, int olen,
-            int (*f_rng) (void *), void *p_rng)
+int dhm_make_public(dhm_context * ctx, int x_size, uchar *output, int olen, int (*f_rng) (void *), void *p_rng)
 {
     int ret, i, n;
     uchar *p;
 
-    if (ctx == NULL || olen < 1 || olen > ctx->len)
+    if (ctx == NULL || olen < 1 || olen > ctx->len) {
         return EST_ERR_DHM_BAD_INPUT_DATA;
+    }
 
     /*
-       generate X and calculate GX = G^X mod P
+        generate X and calculate GX = G^X mod P
      */
     n = x_size / sizeof(t_int);
     MPI_CHK(mpi_grow(&ctx->X, n));
@@ -151,21 +150,19 @@ int dhm_make_public(dhm_context * ctx, int x_size,
 
     n = x_size >> 3;
     p = (uchar *)ctx->X.p;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++) {
         *p++ = (uchar)f_rng(p_rng);
-
-    while (mpi_cmp_mpi(&ctx->X, &ctx->P) >= 0)
+    }
+    while (mpi_cmp_mpi(&ctx->X, &ctx->P) >= 0) {
         mpi_shift_r(&ctx->X, 1);
-
+    }
     MPI_CHK(mpi_exp_mod(&ctx->GX, &ctx->G, &ctx->X, &ctx->P, &ctx->RP));
-
     MPI_CHK(mpi_write_binary(&ctx->GX, output, olen));
 
 cleanup:
-
-    if (ret != 0)
+    if (ret != 0) {
         return EST_ERR_DHM_MAKE_PUBLIC_FAILED | ret;
-
+    }
     return 0;
 }
 
@@ -193,7 +190,7 @@ cleanup:
 
 
 /*
-   Free the components of a DHM key
+    Free the components of a DHM key
  */
 void dhm_free(dhm_context * ctx)
 {

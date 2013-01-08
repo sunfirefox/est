@@ -147,7 +147,7 @@ int md2_file(char *path, uchar output[16])
     uchar       buf[1024];
 
     if ((f = fopen(path, "rb")) == NULL)
-        return (1);
+        return 1;
 
     md2_starts(&ctx);
 
@@ -159,10 +159,10 @@ int md2_file(char *path, uchar output[16])
 
     if (ferror(f) != 0) {
         fclose(f);
-        return (2);
+        return 2;
     }
     fclose(f);
-    return (0);
+    return 0;
 }
 
 
@@ -227,7 +227,6 @@ void md2_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[16])
     md2_hmac_starts(&ctx, key, keylen);
     md2_hmac_update(&ctx, input, ilen);
     md2_hmac_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(md2_context));
 }
 

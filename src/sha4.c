@@ -304,7 +304,7 @@ int sha4_file(char *path, uchar output[64], int is384)
     uchar buf[1024];
 
     if ((f = fopen(path, "rb")) == NULL)
-        return (1);
+        return 1;
 
     sha4_starts(&ctx, is384);
 
@@ -317,10 +317,10 @@ int sha4_file(char *path, uchar output[64], int is384)
 
     if (ferror(f) != 0) {
         fclose(f);
-        return (2);
+        return 2;
     }
     fclose(f);
-    return (0);
+    return 0;
 }
 
 

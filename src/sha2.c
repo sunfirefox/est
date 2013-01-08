@@ -305,7 +305,7 @@ int sha2_file(char *path, uchar output[32], int is224)
     uchar buf[1024];
 
     if ((f = fopen(path, "rb")) == NULL)
-        return (1);
+        return 1;
 
     sha2_starts(&ctx, is224);
 
@@ -316,10 +316,10 @@ int sha2_file(char *path, uchar output[32], int is224)
     memset(&ctx, 0, sizeof(sha2_context));
     if (ferror(f) != 0) {
         fclose(f);
-        return (2);
+        return 2;
     }
     fclose(f);
-    return (0);
+    return 0;
 }
 
 /*

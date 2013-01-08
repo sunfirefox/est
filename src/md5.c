@@ -245,7 +245,7 @@ void md5_finish(md5_context * ctx, uchar output[16])
 }
 
 /*
- * output = MD5( input buffer )
+    output = MD5( input buffer )
  */
 void md5(uchar *input, int ilen, uchar output[16])
 {
@@ -258,8 +258,9 @@ void md5(uchar *input, int ilen, uchar output[16])
     memset(&ctx, 0, sizeof(md5_context));
 }
 
+
 /*
- * output = MD5( file contents )
+    output = MD5( file contents )
  */
 int md5_file(char *path, uchar output[16])
 {
@@ -269,7 +270,7 @@ int md5_file(char *path, uchar output[16])
     uchar buf[1024];
 
     if ((f = fopen(path, "rb")) == NULL)
-        return (1);
+        return 1;
 
     md5_starts(&ctx);
 
@@ -282,11 +283,10 @@ int md5_file(char *path, uchar output[16])
 
     if (ferror(f) != 0) {
         fclose(f);
-        return (2);
+        return 2;
     }
-
     fclose(f);
-    return (0);
+    return 0;
 }
 
 /*

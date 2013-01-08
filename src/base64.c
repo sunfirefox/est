@@ -41,9 +41,9 @@ int base64_encode(uchar *dst, int *dlen, uchar *src, int slen)
     int C1, C2, C3;
     uchar *p;
 
-    if (slen == 0)
+    if (slen == 0) {
         return 0;
-
+    }
     n = (slen << 3) / 6;
 
     switch ((slen << 3) - (n * 6)) {
@@ -82,14 +82,13 @@ int base64_encode(uchar *dst, int *dlen, uchar *src, int slen)
         *p++ = base64_enc_map[(C1 >> 2) & 0x3F];
         *p++ = base64_enc_map[(((C1 & 3) << 4) + (C2 >> 4)) & 0x3F];
 
-        if ((i + 1) < slen)
+        if ((i + 1) < slen) {
             *p++ = base64_enc_map[((C2 & 15) << 2) & 0x3F];
-        else
+        } else {
             *p++ = '=';
-
+        }
         *p++ = '=';
     }
-
     *dlen = p - dst;
     *p = 0;
 
@@ -97,7 +96,7 @@ int base64_encode(uchar *dst, int *dlen, uchar *src, int slen)
 }
 
 /*
- * Decode a base64-formatted buffer
+    Decode a base64-formatted buffer
  */
 int base64_decode(uchar *dst, int *dlen, uchar *src, int slen)
 {
@@ -106,27 +105,27 @@ int base64_decode(uchar *dst, int *dlen, uchar *src, int slen)
     uchar *p;
 
     for (i = j = n = 0; i < slen; i++) {
-        if ((slen - i) >= 2 && src[i] == '\r' && src[i + 1] == '\n')
+        if ((slen - i) >= 2 && src[i] == '\r' && src[i + 1] == '\n') {
             continue;
-
-        if (src[i] == '\n')
+        }
+        if (src[i] == '\n') {
             continue;
-
-        if (src[i] == '=' && ++j > 2)
+        }
+        if (src[i] == '=' && ++j > 2) {
             return EST_ERR_BASE64_INVALID_CHARACTER;
-
-        if (src[i] > 127 || base64_dec_map[src[i]] == 127)
+        }
+        if (src[i] > 127 || base64_dec_map[src[i]] == 127) {
             return EST_ERR_BASE64_INVALID_CHARACTER;
-
-        if (base64_dec_map[src[i]] < 64 && j != 0)
+        }
+        if (base64_dec_map[src[i]] < 64 && j != 0) {
             return EST_ERR_BASE64_INVALID_CHARACTER;
-
+        }
         n++;
     }
 
-    if (n == 0)
+    if (n == 0) {
         return 0;
-
+    }
     n = ((n * 6) + 7) >> 3;
 
     if (*dlen < n) {
@@ -143,17 +142,18 @@ int base64_decode(uchar *dst, int *dlen, uchar *src, int slen)
 
         if (++n == 4) {
             n = 0;
-            if (j > 0)
+            if (j > 0) {
                 *p++ = (uchar)(x >> 16);
-            if (j > 1)
+            }
+            if (j > 1) {
                 *p++ = (uchar)(x >> 8);
-            if (j > 2)
+            }
+            if (j > 2) {
                 *p++ = (uchar)(x);
+            }
         }
     }
-
     *dlen = p - dst;
-
     return 0;
 }
 

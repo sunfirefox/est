@@ -308,23 +308,22 @@ int sha1_file(char *path, uchar output[20])
     uchar buf[1024];
 
     if ((f = fopen(path, "rb")) == NULL)
-        return (1);
+        return 1;
 
     sha1_starts(&ctx);
 
-    while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
+    while ((n = fread(buf, 1, sizeof(buf), f)) > 0) {
         sha1_update(&ctx, buf, (int)n);
-
+    }
     sha1_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha1_context));
 
     if (ferror(f) != 0) {
         fclose(f);
-        return (2);
+        return 2;
     }
     fclose(f);
-    return (0);
+    return 0;
 }
 
 
@@ -341,7 +340,6 @@ void sha1_hmac_starts(sha1_context * ctx, uchar *key, int keylen)
         keylen = 20;
         key = sum;
     }
-
     memset(ctx->ipad, 0x36, 64);
     memset(ctx->opad, 0x5C, 64);
 

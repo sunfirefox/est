@@ -168,13 +168,12 @@ int havege_rand(void *p_rng)
     int ret;
     havege_state *hs = (havege_state *) p_rng;
 
-    if (hs->offset[1] >= COLLECT_SIZE)
+    if (hs->offset[1] >= COLLECT_SIZE) {
         havege_fill(hs);
-
+    }
     ret = hs->pool[hs->offset[0]++];
     ret ^= hs->pool[hs->offset[1]++];
-
-    return (ret);
+    return ret;
 }
 
 #undef SWAP

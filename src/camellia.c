@@ -14,8 +14,8 @@
  * 32-bit integer manipulation macros (big endian)
  */
 #ifndef GET_ULONG_BE
-#define GET_ULONG_BE(n,b,i)                             \
-    {                                                   \
+#define GET_ULONG_BE(n,b,i)                     \
+    {                                           \
         (n) = ( (ulong) (b)[(i)    ] << 24 )    \
             | ( (ulong) (b)[(i) + 1] << 16 )    \
             | ( (ulong) (b)[(i) + 2] <<  8 )    \
@@ -24,8 +24,8 @@
 #endif
 
 #ifndef PUT_ULONG_BE
-#define PUT_ULONG_BE(n,b,i)                             \
-    {                                                   \
+#define PUT_ULONG_BE(n,b,i)                     \
+    {                                           \
         (b)[(i)    ] = (uchar) ( (n) >> 24 );   \
         (b)[(i) + 1] = (uchar) ( (n) >> 16 );   \
         (b)[(i) + 2] = (uchar) ( (n) >>  8 );   \

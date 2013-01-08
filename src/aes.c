@@ -632,8 +632,9 @@ void aes_crypt_ecb(aes_context * ctx, int mode, uchar input[16], uchar output[16
 
 #if BIT_EST_PADLOCK && defined(EST_HAVE_X86)
     if (padlock_supports(PADLOCK_ACE)) {
-        if (padlock_xcryptecb(ctx, mode, input, output) == 0)
+        if (padlock_xcryptecb(ctx, mode, input, output) == 0) {
             return;
+        }
     }
 #endif
     RK = ctx->rk;
@@ -732,23 +733,21 @@ void aes_crypt_cbc(aes_context *ctx, int mode, int length, uchar iv[16], uchar *
             memcpy(temp, input, 16);
             aes_crypt_ecb(ctx, mode, input, output);
 
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < 16; i++) {
                 output[i] = (uchar)(output[i] ^ iv[i]);
-
+            }
             memcpy(iv, temp, 16);
-
             input += 16;
             output += 16;
             length -= 16;
         }
     } else {
         while (length > 0) {
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < 16; i++) {
                 output[i] = (uchar)(input[i] ^ iv[i]);
-
+            }
             aes_crypt_ecb(ctx, mode, output, output);
             memcpy(iv, output, 16);
-
             input += 16;
             output += 16;
             length -= 16;
@@ -766,22 +765,20 @@ void aes_crypt_cfb128(aes_context *ctx, int mode, int length, int *iv_off, uchar
 
     if (mode == AES_DECRYPT) {
         while (length--) {
-            if (n == 0)
+            if (n == 0) {
                 aes_crypt_ecb(ctx, AES_ENCRYPT, iv, iv);
-
+            }
             c = *input++;
             *output++ = (uchar)(c ^ iv[n]);
             iv[n] = (uchar)c;
-
             n = (n + 1) & 0x0F;
         }
     } else {
         while (length--) {
-            if (n == 0)
+            if (n == 0) {
                 aes_crypt_ecb(ctx, AES_ENCRYPT, iv, iv);
-
+            }
             iv[n] = *output++ = (uchar)(iv[n] ^ *input++);
-
             n = (n + 1) & 0x0F;
         }
     }
