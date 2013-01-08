@@ -1761,7 +1761,7 @@ char *ssl_get_cipher(ssl_context * ssl)
 
 
 //  MOB - move to top
-PUBLIC int ssl_default_ciphers[] = {
+int ssl_default_ciphers[] = {
 #if BIT_EST_DHM
 #if BIT_EST_AES
     TLS_DHE_RSA_WITH_AES_256_CBC_SHA,

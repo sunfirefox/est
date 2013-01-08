@@ -873,8 +873,10 @@ if (buflen > 0) {
     crt = crt->next;
     memset(crt, 0, sizeof(x509_cert));
 
+#if UNUSED
 //MOB
 more:
+#endif
     if (buflen > 0) {
         int rc = x509parse_crt(crt, buf, buflen);
         //  MOB - return true

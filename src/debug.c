@@ -24,7 +24,6 @@
 int snfmt(char *buf, ssize bufsize, cchar *fmt, ...)
 {
     va_list     ap;
-    char        *result;
     int         n;
 
     if (bufsize <= 0) {
