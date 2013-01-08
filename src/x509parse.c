@@ -1325,6 +1325,7 @@ char *x509parse_cert_info(char *prefix, char *buf, int bufsize, x509_cert *crt)
 
     snfmt(pbuf, sizeof(pbuf), "%sS_", prefix);
     p += x509parse_dn_gets(pbuf, p, end - p, &crt->subject);
+
     snfmt(pbuf, sizeof(pbuf), "%sI_", prefix);
     p += x509parse_dn_gets(pbuf, p, end - p, &crt->issuer);
 
@@ -1351,7 +1352,7 @@ char *x509parse_cert_info(char *prefix, char *buf, int bufsize, x509_cert *crt)
         cipher = "RSA";
         break;
     }
-    //  MOB - This is the cipher encrypting the cert. Not the real cipher
+    //  MOB - This is the cipher encrypting the cert
     p += snfmt(p, end - p, "%sCIPHER=%s, ", prefix, cipher);
     p += snfmt(p, end - p, "%sKEYSIZE=%d, ", prefix, crt->rsa.N.n * (int)sizeof(ulong) * 8);
     return buf;
