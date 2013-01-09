@@ -134,12 +134,14 @@ int *ssl_create_ciphers(cchar *cipherSuite)
     char        *suite, *cipher, *next;
     int         nciphers, i, *ciphers;
 
-    if (!cipherSuite) {
-        return ssl_default_ciphers;
-    }
     nciphers = sizeof(cipherList) / sizeof(EstCipher);
     ciphers = malloc((nciphers + 1) * sizeof(int));
-   
+
+    if (!cipherSuite) {
+        memcpy(ciphers, ssl_default_ciphers, nciphers * sizeof(int));
+        ciphers[nciphers] = 0;
+        return ciphers;
+    }
     suite = strdup(cipherSuite);
     i = 0;
     while ((cipher = stok(suite, ":, \t", &next)) != 0) {
@@ -1087,8 +1089,7 @@ int ssl_write_certificate(ssl_context * ssl)
         /*
            If using SSLv3 and got no cert, send an Alert message (otherwise an empty Certificate message will be sent).
          */
-        if (ssl->own_cert == NULL &&
-            ssl->minor_ver == SSL_MINOR_VERSION_0) {
+        if (ssl->own_cert == NULL && ssl->minor_ver == SSL_MINOR_VERSION_0) {
             ssl->out_msglen = 2;
             ssl->out_msgtype = SSL_MSG_ALERT;
             ssl->out_msg[0] = SSL_ALERT_WARNING;
@@ -1257,10 +1258,13 @@ int ssl_parse_certificate(ssl_context * ssl)
             return EST_ERR_SSL_CA_CHAIN_REQUIRED;
         }
         ret = x509parse_verify(ssl->peer_cert, ssl->ca_chain, ssl->peer_cn, &ssl->verify_result);
-        if (ret != 0)
-            SSL_DEBUG_RET(1, "x509_verify_cert", ret);
-        if (ssl->authmode != SSL_VERIFY_REQUIRED)
+        if (ret != 0) {
+            //  MOB - this trace is misleading if not verifying peer or issuer
+            SSL_DEBUG_MSG(3, ("x509_verify_cert %d, verify_result %d", ret, ssl->verify_result));
+        }
+        if (ssl->authmode != SSL_VERIFY_REQUIRED) {
             ret = 0;
+        }
     }
     SSL_DEBUG_MSG(2, ("<= parse certificate"));
     return ret;
@@ -1787,11 +1791,11 @@ PUBLIC int ssl_handshake(ssl_context * ssl)
     SSL_DEBUG_MSG(2, ("<= handshake"));
     
     if (ssl->state == SSL_HANDSHAKE_OVER && old_state != SSL_HANDSHAKE_OVER) {
-        SSL_DEBUG_MSG(1, ("EST using cipher: %s", ssl_get_cipher(ssl)));
+        SSL_DEBUG_MSG(1, ("using cipher: %s", ssl_get_cipher(ssl)));
         if (ssl->peer_cert) {
-            SSL_DEBUG_MSG(2, ("Peer certificate: %s", x509parse_cert_info("", cbuf, sizeof(cbuf), ssl->peer_cert)));
+            SSL_DEBUG_MSG(1, ("Peer certificate: %s", x509parse_cert_info("", cbuf, sizeof(cbuf), ssl->peer_cert)));
         } else {
-            SSL_DEBUG_MSG(2, ("Peer supplied no certificate"));
+            SSL_DEBUG_MSG(1, ("Peer supplied no certificate"));
         }
     }
     return ret;

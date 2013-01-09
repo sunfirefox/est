@@ -14,13 +14,11 @@
     #define LOG(l, ...) if (1) ; else
     #define RET(l, ...) if (1) ; else
 #endif
-
     #define SSL_DEBUG_MSG(level, args)              debug_print_msg(ssl, level, debug_fmt args);
     #define SSL_DEBUG_RET(level, text, ret)         debug_print_ret(ssl, level, text, ret);
     #define SSL_DEBUG_BUF(level, text, buf, len)    debug_print_buf(ssl, level, text, buf, len);
     #define SSL_DEBUG_MPI(level, text, X)           debug_print_mpi(ssl, level, text, X);
     #define SSL_DEBUG_CRT(level, text, crt)         debug_print_crt(ssl, level, text, crt);
-
 #endif
 
 #if BIT_EST_LOGGING
@@ -30,7 +28,6 @@
     #define SSL_DEBUG_MPI(level, text, X)           debug_print_mpi(ssl, level, text, X);
     #define SSL_DEBUG_CRT(level, text, crt)         debug_print_crt(ssl, level, text, crt);
 #else
-
     #define SSL_DEBUG_MSG(level, args)            do {} while(0)
     #define SSL_DEBUG_RET(level, text, ret)       do {} while(0)
     #define SSL_DEBUG_BUF(level, text, buf, len)  do {} while(0)

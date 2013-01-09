@@ -113,7 +113,6 @@ static int ssl_write_client_hello(ssl_context * ssl)
         *p++ = (uchar)((ssl->hostname_len) & 0xFF);
 
         memcpy(p, ssl->hostname, ssl->hostname_len);
-
         p += ssl->hostname_len;
     }
     ssl->out_msglen = p - buf;

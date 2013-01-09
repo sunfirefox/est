@@ -412,6 +412,7 @@ extern "C" {
      *                      BADCERT_REVOKED
      *                      BADCERT_CN_MISMATCH
      *                      BADCERT_NOT_TRUSTED
+     *                      BADCERT_SELF_SIGNED
      */
     PUBLIC int ssl_get_verify_result(ssl_context * ssl);
 
