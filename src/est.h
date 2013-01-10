@@ -116,6 +116,9 @@
 #define BIT_EST_SSL 1
 #define BIT_EST_TIMING 1
 
+#define EST_CA_CERT "ca.crt"
+
+
 /*
     Include all EST headers
  */
