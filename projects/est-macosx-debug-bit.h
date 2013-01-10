@@ -5,6 +5,7 @@
     configure or define variables in your Makefile to override these default values.
  */
 
+
 /* Settings */
 #ifndef BIT_BUILD_NUMBER
     #define BIT_BUILD_NUMBER "0"
@@ -15,7 +16,6 @@
 #ifndef BIT_DEPTH
     #define BIT_DEPTH 1
 #endif
-/* Settings */
 #ifndef BIT_EST_AES
     #define BIT_EST_AES 1
 #endif
@@ -29,7 +29,7 @@
     #define BIT_EST_CAMELLIA 0
 #endif
 #ifndef BIT_EST_DES
-    #define BIT_EST_DES 1
+    #define BIT_EST_DES 0
 #endif
 #ifndef BIT_EST_DHM
     #define BIT_EST_DHM 1
@@ -50,7 +50,7 @@
     #define BIT_EST_MD4 0
 #endif
 #ifndef BIT_EST_MD5
-    #define BIT_EST_MD5 1
+    #define BIT_EST_MD5 0
 #endif
 #ifndef BIT_EST_NET
     #define BIT_EST_NET 1
@@ -270,7 +270,7 @@
     #define BIT_PACK_LINK_PATH "/usr/bin/ld"
 #endif
 #ifndef BIT_PACK_UTEST_PATH
-    #define BIT_PACK_UTEST_PATH "/Users/mob/git/ejs/macosx-x64-release/bin/utest"
+    #define BIT_PACK_UTEST_PATH "/Users/mob/git/ejs/macosx-x64-debug/bin/utest"
 #endif
 #ifndef BIT_PACK_ZIP_PATH
     #define BIT_PACK_ZIP_PATH "/usr/bin/zip"

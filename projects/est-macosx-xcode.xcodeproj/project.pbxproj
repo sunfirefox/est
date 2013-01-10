@@ -211,7 +211,7 @@
 			shellScript = "PATH=$PATH:/usr/local/bin
 [ ! -x ${INC_DIR} ] && mkdir -p ${INC_DIR} ${OBJ_DIR} ${LIB_DIR} ${BIN_DIR}
 [ ! -f ${INC_DIR}/bit.h ] && cp est-macosx-xcode-bit.h ${INC_DIR}/bit.h
-[ ! -f ${INC_DIR}/bitos.h ] && cp src/bitos.h ${INC_DIR}/bitos.h
+[ ! -f ${INC_DIR}/bitos.h ] && cp ${SRC_DIR}/src/bitos.h ${INC_DIR}/bitos.h
 if ! diff ${INC_DIR}/bit.h est-macosx-xcode-bit.h >/dev/null ; then
 cp est-macosx-xcode-bit.h ${INC_DIR}/bit.h
 fi
