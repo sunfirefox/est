@@ -109,55 +109,55 @@ cp -r src/est.h ${CONFIG}/inc/est.h
 rm -rf ${CONFIG}/inc/openssl.h
 cp -r src/openssl.h ${CONFIG}/inc/openssl.h
 
-"${CC}" -c -Fo${CONFIG}/obj/aes.obj -Fd${CONFIG}/obj/aes.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/aes.c
+"${CC}" -c -Fo${CONFIG}/obj/aes.obj -Fd${CONFIG}/obj/aes.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/aes.c
 
-"${CC}" -c -Fo${CONFIG}/obj/arc4.obj -Fd${CONFIG}/obj/arc4.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/arc4.c
+"${CC}" -c -Fo${CONFIG}/obj/arc4.obj -Fd${CONFIG}/obj/arc4.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/arc4.c
 
-"${CC}" -c -Fo${CONFIG}/obj/base64.obj -Fd${CONFIG}/obj/base64.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/base64.c
+"${CC}" -c -Fo${CONFIG}/obj/base64.obj -Fd${CONFIG}/obj/base64.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/base64.c
 
-"${CC}" -c -Fo${CONFIG}/obj/bignum.obj -Fd${CONFIG}/obj/bignum.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/bignum.c
+"${CC}" -c -Fo${CONFIG}/obj/bignum.obj -Fd${CONFIG}/obj/bignum.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/bignum.c
 
-"${CC}" -c -Fo${CONFIG}/obj/camellia.obj -Fd${CONFIG}/obj/camellia.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/camellia.c
+"${CC}" -c -Fo${CONFIG}/obj/camellia.obj -Fd${CONFIG}/obj/camellia.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/camellia.c
 
-"${CC}" -c -Fo${CONFIG}/obj/certs.obj -Fd${CONFIG}/obj/certs.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/certs.c
+"${CC}" -c -Fo${CONFIG}/obj/certs.obj -Fd${CONFIG}/obj/certs.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/certs.c
 
-"${CC}" -c -Fo${CONFIG}/obj/debug.obj -Fd${CONFIG}/obj/debug.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/debug.c
+"${CC}" -c -Fo${CONFIG}/obj/debug.obj -Fd${CONFIG}/obj/debug.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/debug.c
 
-"${CC}" -c -Fo${CONFIG}/obj/des.obj -Fd${CONFIG}/obj/des.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/des.c
+"${CC}" -c -Fo${CONFIG}/obj/des.obj -Fd${CONFIG}/obj/des.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/des.c
 
-"${CC}" -c -Fo${CONFIG}/obj/dhm.obj -Fd${CONFIG}/obj/dhm.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/dhm.c
+"${CC}" -c -Fo${CONFIG}/obj/dhm.obj -Fd${CONFIG}/obj/dhm.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/dhm.c
 
-"${CC}" -c -Fo${CONFIG}/obj/havege.obj -Fd${CONFIG}/obj/havege.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/havege.c
+"${CC}" -c -Fo${CONFIG}/obj/havege.obj -Fd${CONFIG}/obj/havege.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/havege.c
 
-"${CC}" -c -Fo${CONFIG}/obj/md2.obj -Fd${CONFIG}/obj/md2.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/md2.c
+"${CC}" -c -Fo${CONFIG}/obj/md2.obj -Fd${CONFIG}/obj/md2.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/md2.c
 
-"${CC}" -c -Fo${CONFIG}/obj/md4.obj -Fd${CONFIG}/obj/md4.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/md4.c
+"${CC}" -c -Fo${CONFIG}/obj/md4.obj -Fd${CONFIG}/obj/md4.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/md4.c
 
-"${CC}" -c -Fo${CONFIG}/obj/md5.obj -Fd${CONFIG}/obj/md5.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/md5.c
+"${CC}" -c -Fo${CONFIG}/obj/md5.obj -Fd${CONFIG}/obj/md5.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/md5.c
 
-"${CC}" -c -Fo${CONFIG}/obj/net.obj -Fd${CONFIG}/obj/net.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/net.c
+"${CC}" -c -Fo${CONFIG}/obj/net.obj -Fd${CONFIG}/obj/net.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/net.c
 
-"${CC}" -c -Fo${CONFIG}/obj/padlock.obj -Fd${CONFIG}/obj/padlock.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/padlock.c
+"${CC}" -c -Fo${CONFIG}/obj/padlock.obj -Fd${CONFIG}/obj/padlock.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/padlock.c
 
-"${CC}" -c -Fo${CONFIG}/obj/rsa.obj -Fd${CONFIG}/obj/rsa.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/rsa.c
+"${CC}" -c -Fo${CONFIG}/obj/rsa.obj -Fd${CONFIG}/obj/rsa.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/rsa.c
 
-"${CC}" -c -Fo${CONFIG}/obj/sha1.obj -Fd${CONFIG}/obj/sha1.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/sha1.c
+"${CC}" -c -Fo${CONFIG}/obj/sha1.obj -Fd${CONFIG}/obj/sha1.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/sha1.c
 
-"${CC}" -c -Fo${CONFIG}/obj/sha2.obj -Fd${CONFIG}/obj/sha2.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/sha2.c
+"${CC}" -c -Fo${CONFIG}/obj/sha2.obj -Fd${CONFIG}/obj/sha2.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/sha2.c
 
-"${CC}" -c -Fo${CONFIG}/obj/sha4.obj -Fd${CONFIG}/obj/sha4.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/sha4.c
+"${CC}" -c -Fo${CONFIG}/obj/sha4.obj -Fd${CONFIG}/obj/sha4.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/sha4.c
 
-"${CC}" -c -Fo${CONFIG}/obj/ssl_cli.obj -Fd${CONFIG}/obj/ssl_cli.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/ssl_cli.c
+"${CC}" -c -Fo${CONFIG}/obj/ssl_cli.obj -Fd${CONFIG}/obj/ssl_cli.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/ssl_cli.c
 
-"${CC}" -c -Fo${CONFIG}/obj/ssl_srv.obj -Fd${CONFIG}/obj/ssl_srv.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/ssl_srv.c
+"${CC}" -c -Fo${CONFIG}/obj/ssl_srv.obj -Fd${CONFIG}/obj/ssl_srv.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/ssl_srv.c
 
-"${CC}" -c -Fo${CONFIG}/obj/ssl_tls.obj -Fd${CONFIG}/obj/ssl_tls.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/ssl_tls.c
+"${CC}" -c -Fo${CONFIG}/obj/ssl_tls.obj -Fd${CONFIG}/obj/ssl_tls.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/ssl_tls.c
 
-"${CC}" -c -Fo${CONFIG}/obj/timing.obj -Fd${CONFIG}/obj/timing.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/timing.c
+"${CC}" -c -Fo${CONFIG}/obj/timing.obj -Fd${CONFIG}/obj/timing.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/timing.c
 
-"${CC}" -c -Fo${CONFIG}/obj/x509parse.obj -Fd${CONFIG}/obj/x509parse.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/x509parse.c
+"${CC}" -c -Fo${CONFIG}/obj/x509parse.obj -Fd${CONFIG}/obj/x509parse.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/x509parse.c
 
-"${CC}" -c -Fo${CONFIG}/obj/xtea.obj -Fd${CONFIG}/obj/xtea.pdb ${CFLAGS} -DEMBEDTHIS=1 ${DFLAGS} -I${CONFIG}/inc src/xtea.c
+"${CC}" -c -Fo${CONFIG}/obj/xtea.obj -Fd${CONFIG}/obj/xtea.pdb ${CFLAGS} ${DFLAGS} -I${CONFIG}/inc src/xtea.c
 
 "${LD}" -dll -out:${CONFIG}/bin/libest.dll -entry:_DllMainCRTStartup@12 ${LDFLAGS} ${LIBPATHS} ${CONFIG}/obj/aes.obj ${CONFIG}/obj/arc4.obj ${CONFIG}/obj/base64.obj ${CONFIG}/obj/bignum.obj ${CONFIG}/obj/camellia.obj ${CONFIG}/obj/certs.obj ${CONFIG}/obj/debug.obj ${CONFIG}/obj/des.obj ${CONFIG}/obj/dhm.obj ${CONFIG}/obj/havege.obj ${CONFIG}/obj/md2.obj ${CONFIG}/obj/md4.obj ${CONFIG}/obj/md5.obj ${CONFIG}/obj/net.obj ${CONFIG}/obj/padlock.obj ${CONFIG}/obj/rsa.obj ${CONFIG}/obj/sha1.obj ${CONFIG}/obj/sha2.obj ${CONFIG}/obj/sha4.obj ${CONFIG}/obj/ssl_cli.obj ${CONFIG}/obj/ssl_srv.obj ${CONFIG}/obj/ssl_tls.obj ${CONFIG}/obj/timing.obj ${CONFIG}/obj/x509parse.obj ${CONFIG}/obj/xtea.obj ${LIBS}
 
