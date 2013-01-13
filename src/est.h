@@ -135,7 +135,9 @@
 #include "base64.h"
 #include "bn_mul.h"
 #include "camellia.h"
+#if UNUSED
 #include "certs.h"
+#endif
 #include "debug.h"
 #include "des.h"
 #include "havege.h"

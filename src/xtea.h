@@ -1,5 +1,6 @@
 /*
-    xtea.h -- 
+    xtea.h -- An 32-bit implementation of the XTEA algorithm
+
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
@@ -10,10 +11,10 @@
 #define XTEA_DECRYPT     0
 
 /**
- * \brief          XTEA context structure
+    @brief XTEA context structure
  */
 typedef struct {
-    ulong k[4]; /*!< key */
+    ulong k[4];     /**< key */
 } xtea_context;
 
 #ifdef __cplusplus
@@ -21,27 +22,24 @@ extern "C" {
 #endif
 
     /**
-     * \brief          XTEA key schedule
-     *
-     * \param ctx      XTEA context to be initialized
-     * \param key      the secret key
+       @brief          XTEA key schedule
+       @param ctx      XTEA context to be initialized
+       @param key      the secret key
      */
     PUBLIC void xtea_setup(xtea_context * ctx, uchar key[16]);
 
     /**
-     * \brief          XTEA cipher function
-     *
-     * \param ctx      XTEA context
-     * \param mode     XTEA_ENCRYPT or XTEA_DECRYPT
-     * \param input    8-byte input block
-     * \param output   8-byte output block
+       @brief          XTEA cipher function
+       @param ctx      XTEA context
+       @param mode     XTEA_ENCRYPT or XTEA_DECRYPT
+       @param input    8-byte input block
+       @param output   8-byte output block
      */
     PUBLIC void xtea_crypt(xtea_context * ctx, int mode, uchar input[8], uchar output[8]);
 
     /*
-     * \brief          Checkup routine
-     *
-     * \return         0 if successful, or 1 if the test failed
+       @brief          Checkup routine
+       @return         0 if successful, or 1 if the test failed
      */
     PUBLIC int xtea_self_test(int verbose);
 

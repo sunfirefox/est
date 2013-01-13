@@ -15,27 +15,27 @@ static int dhm_read_bignum(mpi * X, uchar **p, uchar *end)
 {
     int ret, n;
 
-    if (end - *p < 2)
+    if (end - *p < 2) {
         return EST_ERR_DHM_BAD_INPUT_DATA;
-
+    }
     n = ((*p)[0] << 8) | (*p)[1];
     (*p) += 2;
 
-    if ((int)(end - *p) < n)
+    if ((int)(end - *p) < n) {
         return EST_ERR_DHM_BAD_INPUT_DATA;
-
-    if ((ret = mpi_read_binary(X, *p, n)) != 0)
+    }
+    if ((ret = mpi_read_binary(X, *p, n)) != 0) {
         return EST_ERR_DHM_READ_PARAMS_FAILED | ret;
-
+    }
     (*p) += n;
     return 0;
 }
 
 
 /*
-   Parse the ServerKeyExchange parameters
+    Parse the ServerKeyExchange parameters
  */
-int dhm_read_params(dhm_context * ctx, uchar **p, uchar *end)
+int dhm_read_params(dhm_context *ctx, uchar **p, uchar *end)
 {
     int ret, n;
 
@@ -63,7 +63,7 @@ int dhm_read_params(dhm_context * ctx, uchar **p, uchar *end)
 /*
    Setup and write the ServerKeyExchange parameters
  */
-int dhm_make_params(dhm_context * ctx, int x_size, uchar *output, int *olen, int (*f_rng) (void *), void *p_rng)
+int dhm_make_params(dhm_context *ctx, int x_size, uchar *output, int *olen, int (*f_rng) (void *), void *p_rng)
 {
     int i, ret, n, n1, n2, n3;
     uchar *p;
@@ -115,7 +115,7 @@ cleanup:
 /*
    Import the peer's public value G^Y
  */
-int dhm_read_public(dhm_context * ctx, uchar *input, int ilen)
+int dhm_read_public(dhm_context *ctx, uchar *input, int ilen)
 {
     int ret;
 
@@ -132,7 +132,7 @@ int dhm_read_public(dhm_context * ctx, uchar *input, int ilen)
 /*
    Create own private value X and export G^X
  */
-int dhm_make_public(dhm_context * ctx, int x_size, uchar *output, int olen, int (*f_rng) (void *), void *p_rng)
+int dhm_make_public(dhm_context *ctx, int x_size, uchar *output, int olen, int (*f_rng) (void *), void *p_rng)
 {
     int ret, i, n;
     uchar *p;
@@ -170,7 +170,7 @@ cleanup:
 /*
     Derive and export the shared secret (G^Y)^X mod P
  */
-int dhm_calc_secret(dhm_context * ctx, uchar *output, int *olen)
+int dhm_calc_secret(dhm_context *ctx, uchar *output, int *olen)
 {
     int ret;
 

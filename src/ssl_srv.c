@@ -26,10 +26,8 @@ static int ssl_parse_client_hello(ssl_context * ssl)
         SSL_DEBUG_BUF(4, "record header", buf, 5);
 
         SSL_DEBUG_MSG(3, ("client hello v2, message type: %d", buf[2]));
-        SSL_DEBUG_MSG(3, ("client hello v2, message len.: %d",
-                  ((buf[0] & 0x7F) << 8) | buf[1]));
-        SSL_DEBUG_MSG(3, ("client hello v2, max. version: [%d:%d]",
-                  buf[3], buf[4]));
+        SSL_DEBUG_MSG(3, ("client hello v2, message len.: %d", ((buf[0] & 0x7F) << 8) | buf[1]));
+        SSL_DEBUG_MSG(3, ("client hello v2, max. version: [%d:%d]", buf[3], buf[4]));
 
         /*
          * SSLv2 Client Hello
@@ -41,12 +39,10 @@ static int ssl_parse_client_hello(ssl_context * ssl)
          *     2  .   2   message type
          *     3  .   4   protocol version
          */
-        if (buf[2] != SSL_HS_CLIENT_HELLO ||
-            buf[3] != SSL_MAJOR_VERSION_3) {
+        if (buf[2] != SSL_HS_CLIENT_HELLO || buf[3] != SSL_MAJOR_VERSION_3) {
             SSL_DEBUG_MSG(1, ("bad client hello message"));
             return EST_ERR_SSL_BAD_HS_CLIENT_HELLO;
         }
-
         n = ((buf[0] << 8) | buf[1]) & 0x7FFF;
 
         if (n < 17 || n > 512) {
@@ -126,7 +122,6 @@ static int ssl_parse_client_hello(ssl_context * ssl)
         }
     } else {
         SSL_DEBUG_BUF(4, "record header", buf, 5);
-
         SSL_DEBUG_MSG(3, ("client hello v3, message type: %d", buf[0]));
         SSL_DEBUG_MSG(3, ("client hello v3, message len.: %d", (buf[3] << 8) | buf[4]));
         SSL_DEBUG_MSG(3, ("client hello v3, protocol ver: [%d:%d]", buf[1], buf[2]));
@@ -187,7 +182,6 @@ static int ssl_parse_client_hello(ssl_context * ssl)
         }
         ssl->major_ver = SSL_MAJOR_VERSION_3;
         ssl->minor_ver = (buf[5] <= SSL_MINOR_VERSION_1) ? buf[5] : SSL_MINOR_VERSION_1;
-
         ssl->max_major_ver = buf[4];
         ssl->max_minor_ver = buf[5];
 
@@ -209,7 +203,6 @@ static int ssl_parse_client_hello(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("bad client hello message"));
             return EST_ERR_SSL_BAD_HS_CLIENT_HELLO;
         }
-
         ssl->session->length = sess_len;
         memset(ssl->session->id, 0, sizeof(ssl->session->id));
         memcpy(ssl->session->id, buf + 39, ssl->session->length);
@@ -223,7 +216,6 @@ static int ssl_parse_client_hello(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("bad client hello message"));
             return EST_ERR_SSL_BAD_HS_CLIENT_HELLO;
         }
-
         /*
             Check the compression algorithms length
          */
@@ -233,7 +225,6 @@ static int ssl_parse_client_hello(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("bad client hello message"));
             return EST_ERR_SSL_BAD_HS_CLIENT_HELLO;
         }
-
         SSL_DEBUG_BUF(3, "client hello, random bytes", buf + 6, 32);
         SSL_DEBUG_BUF(3, "client hello, session id", buf + 38, sess_len);
         SSL_DEBUG_BUF(3, "client hello, cipherlist", buf + 41 + sess_len, ciph_len);
@@ -250,20 +241,17 @@ static int ssl_parse_client_hello(ssl_context * ssl)
             }
         }
     }
-
     SSL_DEBUG_MSG(1, ("got no ciphers in common"));
-
     return EST_ERR_SSL_NO_CIPHER_CHOSEN;
 
 have_cipher:
-
     ssl->session->cipher = ssl->ciphers[i];
     ssl->in_left = 0;
     ssl->state++;
-
     SSL_DEBUG_MSG(2, ("<= parse client hello"));
     return 0;
 }
+
 
 static int ssl_write_server_hello(ssl_context * ssl)
 {
@@ -296,9 +284,9 @@ static int ssl_write_server_hello(ssl_context * ssl)
 
     SSL_DEBUG_MSG(3, ("server hello, current time: %lu", t));
 
-    for (i = 28; i > 0; i--)
+    for (i = 28; i > 0; i--) {
         *p++ = (uchar)ssl->f_rng(ssl->p_rng);
-
+    }
     memcpy(ssl->randbytes + 32, buf + 6, 32);
 
     SSL_DEBUG_BUF(3, "server hello, random bytes", buf + 6, 32);
@@ -319,8 +307,9 @@ static int ssl_write_server_hello(ssl_context * ssl)
         ssl->resume = 0;
         ssl->state++;
 
-        for (i = 0; i < n; i++)
+        for (i = 0; i < n; i++) {
             ssl->session->id[i] = (uchar)ssl->f_rng(ssl->p_rng);
+        }
     } else {
         /*
          * Found a matching session, resume it
@@ -354,6 +343,7 @@ static int ssl_write_server_hello(ssl_context * ssl)
     return ret;
 }
 
+
 static int ssl_write_certificate_request(ssl_context * ssl)
 {
     int ret, n;
@@ -361,14 +351,12 @@ static int ssl_write_certificate_request(ssl_context * ssl)
     x509_cert *crt;
 
     SSL_DEBUG_MSG(2, ("=> write certificate request"));
-
     ssl->state++;
 
     if (ssl->authmode == SSL_VERIFY_NO_CHECK) {
         SSL_DEBUG_MSG(2, ("<= skip write certificate request"));
         return 0;
     }
-
     /*
      *     0  .   0   handshake type
      *     1  .   3   handshake length
@@ -392,9 +380,9 @@ static int ssl_write_certificate_request(ssl_context * ssl)
     crt = ssl->ca_chain;
 
     while (crt != NULL && crt->next != NULL) {
-        if (p - buf > 4096)
+        if (p - buf > 4096) {
             break;
-
+        }
         n = crt->subject_raw.len;
         *p++ = (uchar)(n >> 8);
         *p++ = (uchar)(n);
@@ -404,7 +392,6 @@ static int ssl_write_certificate_request(ssl_context * ssl)
         p += n;
         crt = crt->next;
     }
-
     ssl->out_msglen = n = p - buf;
     ssl->out_msgtype = SSL_MSG_HANDSHAKE;
     ssl->out_msg[0] = SSL_HS_CERTIFICATE_REQUEST;
@@ -537,17 +524,14 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
         SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return ret;
     }
-
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
         SSL_DEBUG_MSG(1, ("bad client key exchange message"));
         return EST_ERR_SSL_BAD_HS_CLIENT_KEY_EXCHANGE;
     }
-
     if (ssl->in_msg[0] != SSL_HS_CLIENT_KEY_EXCHANGE) {
         SSL_DEBUG_MSG(1, ("bad client key exchange message"));
         return EST_ERR_SSL_BAD_HS_CLIENT_KEY_EXCHANGE;
     }
-
     if (ssl->session->cipher == TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA ||
         ssl->session->cipher == TLS_DHE_RSA_WITH_AES_256_CBC_SHA ||
         ssl->session->cipher == TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA) {
@@ -556,7 +540,7 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
         return EST_ERR_SSL_FEATURE_UNAVAILABLE;
 #else
         /*
-         * Receive G^Y mod P, premaster = (G^Y)^X mod P
+           Receive G^Y mod P, premaster = (G^Y)^X mod P
          */
         n = (ssl->in_msg[4] << 8) | ssl->in_msg[5];
 
@@ -580,7 +564,7 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
 #endif
     } else {
         /*
-         * Decrypt the premaster using own private RSA key
+           Decrypt the premaster using own private RSA key
          */
         i = 4;
         n = ssl->rsa_key->len;
@@ -598,34 +582,28 @@ static int ssl_parse_client_key_exchange(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("bad client key exchange message"));
             return EST_ERR_SSL_BAD_HS_CLIENT_KEY_EXCHANGE;
         }
-
         ret = rsa_pkcs1_decrypt(ssl->rsa_key, RSA_PRIVATE, &ssl->pmslen, ssl->in_msg + i, ssl->premaster,
                 sizeof(ssl->premaster));
 
-        if (ret != 0 || ssl->pmslen != 48 ||
-            ssl->premaster[0] != ssl->max_major_ver ||
-            ssl->premaster[1] != ssl->max_minor_ver) {
+        if (ret != 0 || ssl->pmslen != 48 || ssl->premaster[0] != ssl->max_major_ver ||
+                ssl->premaster[1] != ssl->max_minor_ver) {
             SSL_DEBUG_MSG(1, ("bad client key exchange message"));
 
             /*
-             * Protection against Bleichenbacher's attack:
-             * invalid PKCS#1 v1.5 padding must not cause
-             * the connection to end immediately; instead,
-             * send a bad_record_mac later in the handshake.
+               Protection against Bleichenbacher's attack: invalid PKCS#1 v1.5 padding must not cause
+               the connection to end immediately; instead, send a bad_record_mac later in the handshake.
              */
             ssl->pmslen = 48;
-
-            for (i = 0; i < ssl->pmslen; i++)
-                ssl->premaster[i] =
-                    (uchar)ssl->f_rng(ssl->p_rng);
+            for (i = 0; i < ssl->pmslen; i++) {
+                ssl->premaster[i] = (uchar)ssl->f_rng(ssl->p_rng);
+            }
         }
     }
-
     ssl_derive_keys(ssl);
 
-    if (ssl->s_set != NULL)
+    if (ssl->s_set != NULL) {
         ssl->s_set(ssl);
-
+    }
     ssl->state++;
     SSL_DEBUG_MSG(2, ("<= parse client key exchange"));
     return 0;
@@ -656,12 +634,10 @@ static int ssl_parse_certificate_verify(ssl_context * ssl)
         SSL_DEBUG_MSG(1, ("bad certificate verify message"));
         return EST_ERR_SSL_BAD_HS_CERTIFICATE_VERIFY;
     }
-
     if (ssl->in_msg[0] != SSL_HS_CERTIFICATE_VERIFY) {
         SSL_DEBUG_MSG(1, ("bad certificate verify message"));
         return EST_ERR_SSL_BAD_HS_CERTIFICATE_VERIFY;
     }
-
     n1 = ssl->peer_cert->rsa.len;
     n2 = (ssl->in_msg[4] << 8) | ssl->in_msg[5];
 
@@ -691,28 +667,28 @@ int ssl_handshake_server(ssl_context * ssl)
     while (ssl->state != SSL_HANDSHAKE_OVER) {
         SSL_DEBUG_MSG(2, ("server state: %d", ssl->state));
 
-        if ((ret = ssl_flush_output(ssl)) != 0)
+        if ((ret = ssl_flush_output(ssl)) != 0) {
             break;
-
+        }
         switch (ssl->state) {
         case SSL_HELLO_REQUEST:
             ssl->state = SSL_CLIENT_HELLO;
             break;
 
-            /*
-             *  <==   ClientHello
-             */
+        /*
+            <==   ClientHello
+         */
         case SSL_CLIENT_HELLO:
             ret = ssl_parse_client_hello(ssl);
             break;
 
-            /*
-             *  ==>   ServerHello
-             *        Certificate
-             *      ( ServerKeyExchange  )
-             *      ( CertificateRequest )
-             *        ServerHelloDone
-             */
+        /*
+            ==>   ServerHello
+                  Certificate
+                ( ServerKeyExchange  )
+                ( CertificateRequest )
+                  ServerHelloDone
+         */
         case SSL_SERVER_HELLO:
             ret = ssl_write_server_hello(ssl);
             break;
@@ -733,13 +709,13 @@ int ssl_handshake_server(ssl_context * ssl)
             ret = ssl_write_server_hello_done(ssl);
             break;
 
-            /*
-             *  <== ( Certificate/Alert  )
-             *        ClientKeyExchange
-             *      ( CertificateVerify  )
-             *        ChangeCipherSpec
-             *        Finished
-             */
+        /*
+            <== ( Certificate/Alert  )
+                  ClientKeyExchange
+                ( CertificateVerify  )
+                  ChangeCipherSpec
+                  Finished
+         */
         case SSL_CLIENT_CERTIFICATE:
             ret = ssl_parse_certificate(ssl);
             break;
@@ -760,10 +736,10 @@ int ssl_handshake_server(ssl_context * ssl)
             ret = ssl_parse_finished(ssl);
             break;
 
-            /*
-             *  ==>   ChangeCipherSpec
-             *        Finished
-             */
+        /*
+            ==>   ChangeCipherSpec
+                  Finished
+         */
         case SSL_SERVER_CHANGE_CIPHER_SPEC:
             ret = ssl_write_change_cipher_spec(ssl);
             break;
@@ -781,7 +757,6 @@ int ssl_handshake_server(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("invalid state %d", ssl->state));
             return EST_ERR_SSL_BAD_INPUT_DATA;
         }
-
         if (ret != 0) {
             break;
         }

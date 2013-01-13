@@ -7,6 +7,7 @@
  */
 #include "est.h"
 
+//  MOB - remove
 #if BIT_EST_TEST_CERTS
 
 char test_ca_crt[] =

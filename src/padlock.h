@@ -25,37 +25,32 @@ extern "C" {
 #endif
 
     /**
-     * \brief          PadLock detection routine
-     *
-     * \return         1 if CPU has support for the feature, 0 otherwise
+       @brief          PadLock detection routine
+       @return         1 if CPU has support for the feature, 0 otherwise
      */
     PUBLIC int padlock_supports(int feature);
 
     /**
-     * \brief          PadLock AES-ECB block en(de)cryption
-     *
-     * \param ctx      AES context
-     * \param mode     AES_ENCRYPT or AES_DECRYPT
-     * \param input    16-byte input block
-     * \param output   16-byte output block
-     *
-     * \return         0 if success, 1 if operation failed
+       @brief          PadLock AES-ECB block en(de)cryption
+       @param ctx      AES context
+       @param mode     AES_ENCRYPT or AES_DECRYPT
+       @param input    16-byte input block
+       @param output   16-byte output block
+       @return         0 if success, 1 if operation failed
      */
-    PUBLIC int padlock_xcryptecb(aes_context * ctx, int mode, uchar input[16], uchar output[16]);
+    PUBLIC int padlock_xcryptecb(aes_context *ctx, int mode, uchar input[16], uchar output[16]);
 
     /**
-     * \brief          PadLock AES-CBC buffer en(de)cryption
-     *
-     * \param ctx      AES context
-     * \param mode     AES_ENCRYPT or AES_DECRYPT
-     * \param length   length of the input data
-     * \param iv       initialization vector (updated after use)
-     * \param input    buffer holding the input data
-     * \param output   buffer holding the output data
-     *
-     * \return         0 if success, 1 if operation failed
+       @brief          PadLock AES-CBC buffer en(de)cryption
+       @param ctx      AES context
+       @param mode     AES_ENCRYPT or AES_DECRYPT
+       @param length   length of the input data
+       @param iv       initialization vector (updated after use)
+       @param input    buffer holding the input data
+       @param output   buffer holding the output data
+       @return         0 if success, 1 if operation failed
      */
-    PUBLIC int padlock_xcryptcbc(aes_context * ctx, int mode, int length, uchar iv[16], uchar *input, uchar *output);
+    PUBLIC int padlock_xcryptcbc(aes_context *ctx, int mode, int length, uchar iv[16], uchar *input, uchar *output);
 
 #ifdef __cplusplus
 }

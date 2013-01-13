@@ -13,7 +13,7 @@
 /*
    ARC4 key schedule
  */
-void arc4_setup(arc4_context * ctx, uchar *key, int keylen)
+void arc4_setup(arc4_context *ctx, uchar *key, int keylen)
 {
     int     i, j, k, a;
     uchar   *m;
@@ -26,7 +26,6 @@ void arc4_setup(arc4_context * ctx, uchar *key, int keylen)
         m[i] = (uchar) i;
     }
     j = k = 0;
-
     for (i = 0; i < 256; i++, k++) {
         if (k >= keylen) {
             k = 0;
@@ -42,7 +41,7 @@ void arc4_setup(arc4_context * ctx, uchar *key, int keylen)
 /*
    ARC4 cipher function
  */
-void arc4_crypt(arc4_context * ctx, uchar *buf, int buflen)
+void arc4_crypt(arc4_context *ctx, uchar *buf, int buflen)
 {
     int     i, x, y, a, b;
     uchar   *m;

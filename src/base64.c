@@ -68,7 +68,6 @@ int base64_encode(uchar *dst, int *dlen, uchar *src, int slen)
         C1 = *src++;
         C2 = *src++;
         C3 = *src++;
-
         *p++ = base64_enc_map[(C1 >> 2) & 0x3F];
         *p++ = base64_enc_map[(((C1 & 3) << 4) + (C2 >> 4)) & 0x3F];
         *p++ = base64_enc_map[(((C2 & 15) << 2) + (C3 >> 6)) & 0x3F];
@@ -91,7 +90,6 @@ int base64_encode(uchar *dst, int *dlen, uchar *src, int slen)
     }
     *dlen = p - dst;
     *p = 0;
-
     return 0;
 }
 
@@ -132,7 +130,6 @@ int base64_decode(uchar *dst, int *dlen, uchar *src, int slen)
         *dlen = n;
         return EST_ERR_BASE64_BUFFER_TOO_SMALL;
     }
-
     for (j = 3, n = x = 0, p = dst; i > 0; i--, src++) {
         if (*src == '\r' || *src == '\n')
             continue;

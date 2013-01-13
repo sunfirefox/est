@@ -39,6 +39,7 @@
 extern "C" {
 #endif
     //  MOB - move to an estDep.h
+    //  MOB - doc
     PUBLIC int snfmt(char *buf, ssize bufsize, cchar *fmt, ...);
     PUBLIC char *debug_fmt(const char *format, ...);
     PUBLIC void debug_print_msg(ssl_context *ssl, int level, char *text);

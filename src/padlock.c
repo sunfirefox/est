@@ -39,11 +39,8 @@ asm("movl  %%ebx, %0           \n" "movl  $0xC0000000, %%eax  \n" "cpuid        
  */
 int padlock_xcryptecb(aes_context * ctx, int mode, uchar input[16], uchar output[16])
 {
-    int ebx;
-    ulong *rk;
-    ulong *blk;
-    ulong *ctrl;
-    uchar buf[256];
+    ulong   *rk, *blk, *ctrl, buf[256];
+    int     ebx;
 
     rk = ctx->rk;
     blk = PADLOCK_ALIGN16(buf);
@@ -66,15 +63,12 @@ asm("pushfl; popfl         \n" "movl    %%ebx, %0     \n" "movl    $1, %%ecx    
  */
 int padlock_xcryptcbc(aes_context * ctx, int mode, int length, uchar iv[16], uchar *input, uchar *output)
 {
-    int ebx, count;
-    ulong *rk;
-    ulong *iw;
-    ulong *ctrl;
-    uchar buf[256];
+    ulong   *rk, *iw, *ctrl, buf[256];
+    int     ebx, count;
 
-    if (((long)input & 15) != 0 || ((long)output & 15) != 0)
+    if (((long)input & 15) != 0 || ((long)output & 15) != 0) {
         return 1;
-
+    }
     rk = ctx->rk;
     iw = PADLOCK_ALIGN16(buf);
     memcpy(iw, iv, 16);

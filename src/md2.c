@@ -45,13 +45,13 @@ static const uchar PI_SUBST[256] = {
 /*
     MD2 context setup
  */
-void md2_starts(md2_context * ctx)
+void md2_starts(md2_context *ctx)
 {
     memset(ctx, 0, sizeof(md2_context));
 }
 
 
-static void md2_process(md2_context * ctx)
+static void md2_process(md2_context *ctx)
 {
     int     i, j;
     uchar   t = 0;
@@ -80,16 +80,16 @@ static void md2_process(md2_context * ctx)
 /*
     MD2 process buffer
  */
-void md2_update(md2_context * ctx, uchar *input, int ilen)
+void md2_update(md2_context *ctx, uchar *input, int ilen)
 {
     int fill;
 
     while (ilen > 0) {
-        if (ctx->left + ilen > 16)
+        if (ctx->left + ilen > 16) {
             fill = 16 - ctx->left;
-        else
+        } else {
             fill = ilen;
-
+        }
         memcpy(ctx->buffer + ctx->left, input, fill);
         ctx->left += fill;
         input += fill;
@@ -105,16 +105,15 @@ void md2_update(md2_context * ctx, uchar *input, int ilen)
 /*
     MD2 final digest
  */
-void md2_finish(md2_context * ctx, uchar output[16])
+void md2_finish(md2_context *ctx, uchar output[16])
 {
     uchar   x;
     int     i;
 
     x = (uchar)(16 - ctx->left);
-
-    for (i = ctx->left; i < 16; i++)
+    for (i = ctx->left; i < 16; i++) {
         ctx->buffer[i] = x;
-
+    }
     md2_process(ctx);
     memcpy(ctx->buffer, ctx->cksum, 16);
     md2_process(ctx);
@@ -146,14 +145,14 @@ int md2_file(char *path, uchar output[16])
     md2_context ctx;
     uchar       buf[1024];
 
-    if ((f = fopen(path, "rb")) == NULL)
+    if ((f = fopen(path, "rb")) == NULL) {
         return 1;
-
+    }
     md2_starts(&ctx);
 
-    while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
+    while ((n = fread(buf, 1, sizeof(buf), f)) > 0) {
         md2_update(&ctx, buf, (int)n);
-
+    }
     md2_finish(&ctx, output);
     memset(&ctx, 0, sizeof(md2_context));
 
@@ -169,7 +168,7 @@ int md2_file(char *path, uchar output[16])
 /*
     MD2 HMAC context setup
  */
-void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen)
+void md2_hmac_starts(md2_context *ctx, uchar *key, int keylen)
 {
     uchar   sum[16];
     int     i;
@@ -195,7 +194,7 @@ void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen)
 /*
     MD2 HMAC process buffer
  */
-void md2_hmac_update(md2_context * ctx, uchar *input, int ilen)
+void md2_hmac_update(md2_context *ctx, uchar *input, int ilen)
 {
     md2_update(ctx, input, ilen);
 }
@@ -204,7 +203,7 @@ void md2_hmac_update(md2_context * ctx, uchar *input, int ilen)
 /*
     MD2 HMAC final digest
  */
-void md2_hmac_finish(md2_context * ctx, uchar output[16])
+void md2_hmac_finish(md2_context *ctx, uchar output[16])
 {
     uchar tmpbuf[16];
 

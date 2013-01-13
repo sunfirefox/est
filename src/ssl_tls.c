@@ -199,11 +199,10 @@ static int tls1_prf(uchar *secret, int slen, char *label, uchar *random, int rle
     for (i = 0; i < dlen; i += 16) {
         md5_hmac(S1, hs, 4 + tmp, 16 + nb, h_i);
         md5_hmac(S1, hs, 4 + tmp, 16, 4 + tmp);
-
         k = (i + 16 > dlen) ? dlen % 16 : 16;
-
-        for (j = 0; j < k; j++)
+        for (j = 0; j < k; j++) {
             dstbuf[i + j] = h_i[j];
+        }
     }
 
     /*
@@ -215,8 +214,9 @@ static int tls1_prf(uchar *secret, int slen, char *label, uchar *random, int rle
         sha1_hmac(S2, hs, tmp, 20 + nb, h_i);
         sha1_hmac(S2, hs, tmp, 20, tmp);
         k = (i + 20 > dlen) ? dlen % 20 : 20;
-        for (j = 0; j < k; j++)
+        for (j = 0; j < k; j++) {
             dstbuf[i + j] = (uchar)(dstbuf[i + j] ^ h_i[j]);
+        }
     }
     memset(tmp, 0, sizeof(tmp));
     memset(h_i, 0, sizeof(h_i));
@@ -239,14 +239,14 @@ int ssl_derive_keys(ssl_context * ssl)
     SSL_DEBUG_MSG(2, ("=> derive keys"));
 
     /*
-     * SSLv3:
-     *   master =
-     *     MD5( premaster + SHA1( 'A'   + premaster + randbytes ) ) +
-     *     MD5( premaster + SHA1( 'BB'  + premaster + randbytes ) ) +
-     *     MD5( premaster + SHA1( 'CCC' + premaster + randbytes ) )
-     *
-     * TLSv1:
-     *   master = PRF( premaster, "master secret", randbytes )[0..47]
+       SSLv3:
+         master =
+           MD5(premaster + SHA1( 'A'   + premaster + randbytes)) +
+           MD5(premaster + SHA1( 'BB'  + premaster + randbytes)) +
+           MD5(premaster + SHA1( 'CCC' + premaster + randbytes))
+      
+       TLSv1:
+         master = PRF( premaster, "master secret", randbytes )[0..47]
      */
     if (ssl->resume == 0) {
         int len = ssl->pmslen;
@@ -277,7 +277,7 @@ int ssl_derive_keys(ssl_context * ssl)
     }
 
     /*
-     * Swap the client and server random values.
+       Swap the client and server random values.
      */
     memcpy(tmp, ssl->randbytes, 64);
     memcpy(ssl->randbytes, tmp + 32, 32);
@@ -285,16 +285,15 @@ int ssl_derive_keys(ssl_context * ssl)
     memset(tmp, 0, sizeof(tmp));
 
     /*
-     *  SSLv3:
-     *    key block =
-     *      MD5( master + SHA1( 'A'    + master + randbytes ) ) +
-     *      MD5( master + SHA1( 'BB'   + master + randbytes ) ) +
-     *      MD5( master + SHA1( 'CCC'  + master + randbytes ) ) +
-     *      MD5( master + SHA1( 'DDDD' + master + randbytes ) ) +
-     *      ...
-     *
-     *  TLSv1:
-     *    key block = PRF( master, "key expansion", randbytes )
+        SSLv3:
+          key block =
+            MD5( master + SHA1( 'A'    + master + randbytes ) ) +
+            MD5( master + SHA1( 'BB'   + master + randbytes ) ) +
+            MD5( master + SHA1( 'CCC'  + master + randbytes ) ) +
+            MD5( master + SHA1( 'DDDD' + master + randbytes ) ) +
+            ...
+        TLSv1:
+          key block = PRF( master, "key expansion", randbytes )
      */
     if (ssl->minor_ver == SSL_MINOR_VERSION_0) {
         for (i = 0; i < 16; i++) {
@@ -311,16 +310,13 @@ int ssl_derive_keys(ssl_context * ssl)
             md5_update(&md5, sha1sum, 20);
             md5_finish(&md5, keyblk + i * 16);
         }
-
         memset(&md5, 0, sizeof(md5));
         memset(&sha1, 0, sizeof(sha1));
-
         memset(padding, 0, sizeof(padding));
         memset(sha1sum, 0, sizeof(sha1sum));
     } else {
         tls1_prf(ssl->session->master, 48, "key expansion", ssl->randbytes, 64, keyblk, 256);
     }
-
     SSL_DEBUG_MSG(3, ("cipher = %s", ssl_get_cipher(ssl)));
     SSL_DEBUG_BUF(3, "master secret", ssl->session->master, 48);
     SSL_DEBUG_BUF(4, "random bytes", ssl->randbytes, 64);
@@ -397,11 +393,10 @@ int ssl_derive_keys(ssl_context * ssl)
         return EST_ERR_SSL_FEATURE_UNAVAILABLE;
     }
 
-    SSL_DEBUG_MSG(3, ("keylen: %d, minlen: %d, ivlen: %d, maclen: %d",
-              ssl->keylen, ssl->minlen, ssl->ivlen, ssl->maclen));
+    SSL_DEBUG_MSG(3, ("keylen: %d, minlen: %d, ivlen: %d, maclen: %d", ssl->keylen, ssl->minlen, ssl->ivlen, ssl->maclen));
 
     /*
-     * Finally setup the cipher contexts, IVs and MAC secrets.
+        Finally setup the cipher contexts, IVs and MAC secrets.
      */
     if (ssl->endpoint == SSL_IS_CLIENT) {
         key1 = keyblk + ssl->maclen * 2;
@@ -411,8 +406,8 @@ int ssl_derive_keys(ssl_context * ssl)
         memcpy(ssl->mac_dec, keyblk + ssl->maclen, ssl->maclen);
 
         memcpy(ssl->iv_enc, key2 + ssl->keylen, ssl->ivlen);
-        memcpy(ssl->iv_dec, key2 + ssl->keylen + ssl->ivlen,
-               ssl->ivlen);
+        memcpy(ssl->iv_dec, key2 + ssl->keylen + ssl->ivlen, ssl->ivlen);
+
     } else {
         key1 = keyblk + ssl->maclen * 2 + ssl->keylen;
         key2 = keyblk + ssl->maclen * 2;
@@ -510,14 +505,14 @@ void ssl_calc_verify(ssl_context * ssl, uchar hash[36])
         sha1_update(&sha1, pad_2, 40);
         sha1_update(&sha1, hash + 16, 20);
         sha1_finish(&sha1, hash + 16);
-    } else {        /* TLSv1 */
+
+    } else {
+        /* TLSv1 */
         md5_finish(&md5, hash);
         sha1_finish(&sha1, hash + 16);
     }
-
     SSL_DEBUG_BUF(3, "calculated verify result", hash, 36);
     SSL_DEBUG_MSG(2, ("<= calc verify"));
-
     return;
 }
 
@@ -590,7 +585,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
     SSL_DEBUG_MSG(2, ("=> encrypt buf"));
 
     /*
-     * Add MAC then encrypt
+        Add MAC then encrypt
      */
     if (ssl->minor_ver == SSL_MINOR_VERSION_0) {
         if (ssl->maclen == 16) {
@@ -628,12 +623,12 @@ static int ssl_encrypt_buf(ssl_context * ssl)
 #endif
     } else {
         padlen = ssl->ivlen - (ssl->out_msglen + 1) % ssl->ivlen;
-        if (padlen == ssl->ivlen)
+        if (padlen == ssl->ivlen) {
             padlen = 0;
-
-        for (i = 0; i <= padlen; i++)
+        }
+        for (i = 0; i <= padlen; i++) {
             ssl->out_msg[ssl->out_msglen + i] = (uchar)padlen;
-
+        }
         ssl->out_msglen += padlen + 1;
 
         SSL_DEBUG_MSG(3, ("before encrypt: msglen = %d, " "including %d bytes of padding", ssl->out_msglen, padlen + 1));
@@ -667,7 +662,6 @@ static int ssl_encrypt_buf(ssl_context * ssl)
                 break;
             }
 #endif
-
         default:
             return EST_ERR_SSL_FEATURE_UNAVAILABLE;
         }
@@ -675,6 +669,7 @@ static int ssl_encrypt_buf(ssl_context * ssl)
     SSL_DEBUG_MSG(2, ("<= encrypt buf"));
     return 0;
 }
+
 
 static int ssl_decrypt_buf(ssl_context * ssl)
 {
@@ -687,7 +682,6 @@ static int ssl_decrypt_buf(ssl_context * ssl)
         SSL_DEBUG_MSG(1, ("in_msglen (%d) < minlen (%d)", ssl->in_msglen, ssl->minlen));
         return EST_ERR_SSL_INVALID_MAC;
     }
-
     if (ssl->ivlen == 0) {
 #if BIT_EST_RC4
         padlen = 0;
@@ -697,13 +691,12 @@ static int ssl_decrypt_buf(ssl_context * ssl)
 #endif
     } else {
         /*
-         * Decrypt and check the padding
+            Decrypt and check the padding
          */
         if (ssl->in_msglen % ssl->ivlen != 0) {
             SSL_DEBUG_MSG(1, ("msglen (%d) %% ivlen (%d) != 0", ssl->in_msglen, ssl->ivlen));
             return EST_ERR_SSL_INVALID_MAC;
         }
-
         switch (ssl->ivlen) {
 #if BIT_EST_DES
         case 8:
@@ -732,11 +725,9 @@ static int ssl_decrypt_buf(ssl_context * ssl)
                 break;
             }
 #endif
-
         default:
             return EST_ERR_SSL_FEATURE_UNAVAILABLE;
         }
-
         padlen = 1 + ssl->in_msg[ssl->in_msglen - 1];
 
         if (ssl->minor_ver == SSL_MINOR_VERSION_0) {
@@ -746,7 +737,7 @@ static int ssl_decrypt_buf(ssl_context * ssl)
             }
         } else {
             /*
-             * TLSv1: always check the padding
+                TLSv1: always check the padding
              */
             for (i = 1; i <= padlen; i++) {
                 if (ssl->in_msg[ssl->in_msglen - i] != padlen - 1) {
@@ -770,15 +761,17 @@ static int ssl_decrypt_buf(ssl_context * ssl)
     memcpy(tmp, ssl->in_msg + ssl->in_msglen, 20);
 
     if (ssl->minor_ver == SSL_MINOR_VERSION_0) {
-        if (ssl->maclen == 16)
+        if (ssl->maclen == 16) {
             ssl_mac_md5(ssl->mac_dec, ssl->in_msg, ssl->in_msglen, ssl->in_ctr, ssl->in_msgtype);
-        else
+        } else {
             ssl_mac_sha1(ssl->mac_dec, ssl->in_msg, ssl->in_msglen, ssl->in_ctr, ssl->in_msgtype);
+        }
     } else {
-        if (ssl->maclen == 16)
+        if (ssl->maclen == 16) {
             md5_hmac(ssl->mac_dec, 16, ssl->in_ctr, ssl->in_msglen + 13, ssl->in_msg + ssl->in_msglen);
-        else
+        } else {
             sha1_hmac(ssl->mac_dec, 20, ssl->in_ctr, ssl->in_msglen + 13, ssl->in_msg + ssl->in_msglen);
+        }
     }
     SSL_DEBUG_BUF(4, "message  mac", tmp, ssl->maclen);
     SSL_DEBUG_BUF(4, "computed mac", ssl->in_msg + ssl->in_msglen, ssl->maclen);
@@ -791,12 +784,12 @@ static int ssl_decrypt_buf(ssl_context * ssl)
     /*
         Finally check the padding length; bad padding will produce the same error as an invalid MAC.
      */
-    if (ssl->ivlen != 0 && padlen == 0)
+    if (ssl->ivlen != 0 && padlen == 0) {
         return EST_ERR_SSL_INVALID_MAC;
+    }
 
     if (ssl->in_msglen == 0) {
         ssl->nb_zero++;
-
         /*
             Three or more empty messages may be a DoS attack (excessive CPU consumption).
          */
@@ -807,10 +800,11 @@ static int ssl_decrypt_buf(ssl_context * ssl)
     } else
         ssl->nb_zero = 0;
 
-    for (i = 7; i >= 0; i--)
-        if (++ssl->in_ctr[i] != 0)
+    for (i = 7; i >= 0; i--) {
+        if (++ssl->in_ctr[i] != 0) {
             break;
-
+        }
+    }
     SSL_DEBUG_MSG(2, ("<= decrypt buf"));
     return 0;
 }
@@ -859,9 +853,9 @@ int ssl_flush_output(ssl_context * ssl)
         ret = ssl->f_send(ssl->p_send, buf, ssl->out_left);
         SSL_DEBUG_RET(2, "ssl->f_send", ret);
 
-        if (ret <= 0)
+        if (ret <= 0) {
             return ret;
-
+        }
         ssl->out_left -= ret;
     }
     SSL_DEBUG_MSG(2, ("<= flush output"));
@@ -888,7 +882,6 @@ int ssl_write_record(ssl_context * ssl)
         ssl->out_msg[1] = (uchar)((len - 4) >> 16);
         ssl->out_msg[2] = (uchar)((len - 4) >> 8);
         ssl->out_msg[3] = (uchar)((len - 4));
-
         md5_update(&ssl->fin_md5, ssl->out_msg, len);
         sha1_update(&ssl->fin_sha1, ssl->out_msg, len);
     }
@@ -958,7 +951,6 @@ int ssl_read_record(ssl_context * ssl)
         SSL_DEBUG_RET(3, "ssl_fetch_input", ret);
         return ret;
     }
-
     ssl->in_msgtype = ssl->in_hdr[0];
     ssl->in_msglen = (ssl->in_hdr[3] << 8) | ssl->in_hdr[4];
 
@@ -969,14 +961,12 @@ int ssl_read_record(ssl_context * ssl)
         SSL_DEBUG_MSG(1, ("major version mismatch"));
         return EST_ERR_SSL_INVALID_RECORD;
     }
-
     if (ssl->in_hdr[2] != SSL_MINOR_VERSION_0 && ssl->in_hdr[2] != SSL_MINOR_VERSION_1) {
         SSL_DEBUG_MSG(1, ("minor version mismatch"));
         return EST_ERR_SSL_INVALID_RECORD;
     }
-
     /*
-     * Make sure the message length is acceptable
+        Make sure the message length is acceptable
      */
     if (ssl->do_crypt == 0) {
         if (ssl->in_msglen < 1 || ssl->in_msglen > SSL_MAX_CONTENT_LEN) {
@@ -988,15 +978,12 @@ int ssl_read_record(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("bad message length"));
             return EST_ERR_SSL_INVALID_RECORD;
         }
-
-        if (ssl->minor_ver == SSL_MINOR_VERSION_0 &&
-            ssl->in_msglen > ssl->minlen + SSL_MAX_CONTENT_LEN) {
+        if (ssl->minor_ver == SSL_MINOR_VERSION_0 && ssl->in_msglen > ssl->minlen + SSL_MAX_CONTENT_LEN) {
             SSL_DEBUG_MSG(1, ("bad message length"));
             return EST_ERR_SSL_INVALID_RECORD;
         }
-
         /*
-         * TLS encrypted messages can have up to 256 bytes of padding
+            TLS encrypted messages can have up to 256 bytes of padding
          */
         if (ssl->minor_ver == SSL_MINOR_VERSION_1 &&
             ssl->in_msglen > ssl->minlen + SSL_MAX_CONTENT_LEN + 256) {
@@ -1011,7 +998,6 @@ int ssl_read_record(ssl_context * ssl)
         SSL_DEBUG_RET(3, "ssl_fetch_input", ret);
         return ret;
     }
-
     SSL_DEBUG_BUF(4, "input record from network", ssl->in_hdr, 5 + ssl->in_msglen);
 
     if (ssl->do_crypt != 0) {
@@ -1058,8 +1044,7 @@ int ssl_read_record(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("is a fatal alert message"));
             return EST_ERR_SSL_FATAL_ALERT_MESSAGE | ssl->in_msg[1];
         }
-        if (ssl->in_msg[0] == SSL_ALERT_WARNING &&
-            ssl->in_msg[1] == SSL_ALERT_CLOSE_NOTIFY) {
+        if (ssl->in_msg[0] == SSL_ALERT_WARNING && ssl->in_msg[1] == SSL_ALERT_CLOSE_NOTIFY) {
             SSL_DEBUG_MSG(2, ("is a close notify message"));
             return EST_ERR_SSL_PEER_CLOSE_NOTIFY;
         }
@@ -1108,13 +1093,13 @@ int ssl_write_certificate(ssl_context * ssl)
     SSL_DEBUG_CRT(3, "own certificate", ssl->own_cert);
 
     /*
-     *     0  .  0    handshake type
-     *     1  .  3    handshake length
-     *     4  .  6    length of all certs
-     *     7  .  9    length of cert. 1
-     *    10  . n-1   peer certificate
-     *     n  . n+2   length of cert. 2
-     *    n+3 . ...   upper level cert, etc.
+           0  .  0    handshake type
+           1  .  3    handshake length
+           4  .  6    length of all certs
+           7  .  9    length of cert. 1
+          10  . n-1   peer certificate
+           n  . n+2   length of cert. 2
+          n+3 . ...   upper level cert, etc.
      */
     i = 7;
     crt = ssl->own_cert;
@@ -1143,7 +1128,6 @@ int ssl_write_certificate(ssl_context * ssl)
 
 write_msg:
     ssl->state++;
-
     if ((ret = ssl_write_record(ssl)) != 0) {
         SSL_DEBUG_RET(1, "ssl_write_record", ret);
         return ret;
@@ -1171,43 +1155,40 @@ int ssl_parse_certificate(ssl_context * ssl)
     ssl->state++;
 
     /*
-     * Check if the client sent an empty certificate
+       Check if the client sent an empty certificate
      */
-    if (ssl->endpoint == SSL_IS_SERVER &&
-        ssl->minor_ver == SSL_MINOR_VERSION_0) {
+    if (ssl->endpoint == SSL_IS_SERVER && ssl->minor_ver == SSL_MINOR_VERSION_0) {
         if (ssl->in_msglen == 2 &&
             ssl->in_msgtype == SSL_MSG_ALERT &&
             ssl->in_msg[0] == SSL_ALERT_WARNING &&
             ssl->in_msg[1] == SSL_ALERT_NO_CERTIFICATE) {
             SSL_DEBUG_MSG(1, ("SSLv3 client has no certificate"));
 
-            if (ssl->authmode == SSL_VERIFY_OPTIONAL)
+            if (ssl->authmode == SSL_VERIFY_OPTIONAL) {
                 return 0;
-            else
+            } else {
                 return EST_ERR_SSL_NO_CLIENT_CERTIFICATE;
+            }
         }
     }
-
-    if (ssl->endpoint == SSL_IS_SERVER &&
-        ssl->minor_ver != SSL_MINOR_VERSION_0) {
+    if (ssl->endpoint == SSL_IS_SERVER && ssl->minor_ver != SSL_MINOR_VERSION_0) {
         if (ssl->in_hslen == 7 &&
             ssl->in_msgtype == SSL_MSG_HANDSHAKE &&
             ssl->in_msg[0] == SSL_HS_CERTIFICATE &&
             memcmp(ssl->in_msg + 4, "\0\0\0", 3) == 0) {
             SSL_DEBUG_MSG(1, ("TLSv1 client has no certificate"));
 
-            if (ssl->authmode == SSL_VERIFY_REQUIRED)
+            if (ssl->authmode == SSL_VERIFY_REQUIRED) {
                 return EST_ERR_SSL_NO_CLIENT_CERTIFICATE;
-            else
+            } else {
                 return 0;
+            }
         }
     }
-
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
         SSL_DEBUG_MSG(1, ("bad certificate message"));
         return EST_ERR_SSL_UNEXPECTED_MESSAGE;
     }
-
     if (ssl->in_msg[0] != SSL_HS_CERTIFICATE || ssl->in_hslen < 10) {
         SSL_DEBUG_MSG(1, ("bad certificate message"));
         return EST_ERR_SSL_BAD_HS_CERTIFICATE;
@@ -1222,7 +1203,6 @@ int ssl_parse_certificate(ssl_context * ssl)
         SSL_DEBUG_MSG(1, ("bad certificate message"));
         return EST_ERR_SSL_BAD_HS_CERTIFICATE;
     }
-
     if ((ssl->peer_cert = (x509_cert *) malloc(sizeof(x509_cert))) == NULL) {
         SSL_DEBUG_MSG(1, ("malloc(%d bytes) failed", sizeof(x509_cert)));
         return 1;
@@ -1235,8 +1215,7 @@ int ssl_parse_certificate(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("bad certificate message"));
             return EST_ERR_SSL_BAD_HS_CERTIFICATE;
         }
-        n = ((uint)ssl->in_msg[i + 1] << 8)
-            | (uint)ssl->in_msg[i + 2];
+        n = ((uint)ssl->in_msg[i + 1] << 8) | (uint)ssl->in_msg[i + 2];
         i += 3;
 
         if (n < 128 || i + n > ssl->in_hslen) {
@@ -1280,7 +1259,6 @@ int ssl_write_change_cipher_spec(ssl_context * ssl)
     ssl->out_msgtype = SSL_MSG_CHANGE_CIPHER_SPEC;
     ssl->out_msglen = 1;
     ssl->out_msg[0] = 1;
-
     ssl->do_crypt = 0;
     ssl->state++;
 
@@ -1329,16 +1307,16 @@ static void ssl_calc_finished(ssl_context * ssl, uchar *buf, int from, md5_conte
     SSL_DEBUG_MSG(2, ("=> calc  finished"));
 
     /*
-     * SSLv3:
-     *   hash =
-     *      MD5( master + pad2 +
-     *          MD5( handshake + sender + master + pad1 ) )
-     *   + SHA1( master + pad2 +
-     *         SHA1( handshake + sender + master + pad1 ) )
-     *
-     * TLSv1:
-     *   hash = PRF( master, finished_label,
-     *               MD5( handshake ) + SHA1( handshake ) )[0..11]
+       SSLv3:
+         hash =
+            MD5( master + pad2 +
+                MD5( handshake + sender + master + pad1 ) )
+         + SHA1( master + pad2 +
+               SHA1( handshake + sender + master + pad1 ) )
+      
+       TLSv1:
+         hash = PRF( master, finished_label,
+                     MD5( handshake ) + SHA1( handshake ) )[0..11]
      */
 
     SSL_DEBUG_BUF(4, "finished  md5 state", (uchar *) md5->state, sizeof(md5->state));
@@ -1411,17 +1389,18 @@ int ssl_write_finished(ssl_context * ssl)
     ssl->out_msg[0] = SSL_HS_FINISHED;
 
     /*
-     * In case of session resuming, invert the client and server
-     * ChangeCipherSpec messages order.
+       In case of session resuming, invert the client and server
+       ChangeCipherSpec messages order.
      */
     if (ssl->resume != 0) {
-        if (ssl->endpoint == SSL_IS_CLIENT)
+        if (ssl->endpoint == SSL_IS_CLIENT) {
             ssl->state = SSL_HANDSHAKE_OVER;
-        else
+        } else {
             ssl->state = SSL_CLIENT_CHANGE_CIPHER_SPEC;
-    } else
+        }
+    } else {
         ssl->state++;
-
+    }
     ssl->do_crypt = 1;
 
     if ((ret = ssl_write_record(ssl)) != 0) {
@@ -1470,14 +1449,15 @@ int ssl_parse_finished(ssl_context * ssl)
     }
 
     if (ssl->resume != 0) {
-        if (ssl->endpoint == SSL_IS_CLIENT)
+        if (ssl->endpoint == SSL_IS_CLIENT) {
             ssl->state = SSL_CLIENT_CHANGE_CIPHER_SPEC;
-
-        if (ssl->endpoint == SSL_IS_SERVER)
+        }
+        if (ssl->endpoint == SSL_IS_SERVER) {
             ssl->state = SSL_HANDSHAKE_OVER;
-    } else
+        }
+    } else {
         ssl->state++;
-
+    }
     SSL_DEBUG_MSG(2, ("<= parse finished"));
     return 0;
 }
@@ -1558,7 +1538,7 @@ static int setSession(ssl_context *ssl)
 
 
 /*
-   Initialize an SSL context
+    Initialize an SSL context
  */
 int ssl_init(ssl_context * ssl)
 {
@@ -1628,6 +1608,7 @@ void ssl_set_dbg(ssl_context * ssl, void (*f_dbg) (void *, int, char *), void *p
     ssl->p_dbg = p_dbg;
 }
 
+//  MOB - should have typedefs for the recv, send args
 void ssl_set_bio(ssl_context * ssl,
      int (*f_recv) (void *, uchar *, int), void *p_recv,
      int (*f_send) (void *, uchar *, int), void *p_send)
@@ -1692,9 +1673,9 @@ int ssl_set_dh_param(ssl_context * ssl, char *dhm_P, char *dhm_G)
 
 int ssl_set_hostname(ssl_context * ssl, char *hostname)
 {
-    if (hostname == NULL)
+    if (hostname == NULL) {
         return EST_ERR_SSL_BAD_INPUT_DATA;
-
+    }
     ssl->hostname_len = strlen(hostname);
     ssl->hostname = (uchar *)malloc(ssl->hostname_len + 1);
     memcpy(ssl->hostname, (uchar *)hostname, ssl->hostname_len);
@@ -1703,7 +1684,7 @@ int ssl_set_hostname(ssl_context * ssl, char *hostname)
 
 
 /*
-   SSL get accessors
+    SSL get accessors
  */
 int ssl_get_bytes_avail(ssl_context * ssl)
 {
@@ -1822,8 +1803,7 @@ int ssl_read(ssl_context * ssl, uchar *buf, int len)
             SSL_DEBUG_RET(3, "ssl_read_record", ret);
             return ret;
         }
-        if (ssl->in_msglen == 0 &&
-            ssl->in_msgtype == SSL_MSG_APPLICATION_DATA) {
+        if (ssl->in_msglen == 0 && ssl->in_msgtype == SSL_MSG_APPLICATION_DATA) {
             /*
                OpenSSL sends empty messages to randomize the IV
                MOB - why does this matter?
@@ -1833,27 +1813,24 @@ int ssl_read(ssl_context * ssl, uchar *buf, int len)
                 return ret;
             }
         }
-
         if (ssl->in_msgtype != SSL_MSG_APPLICATION_DATA) {
             SSL_DEBUG_MSG(1, ("bad application data message"));
             return EST_ERR_SSL_UNEXPECTED_MESSAGE;
         }
-
         ssl->in_offt = ssl->in_msg;
     }
-
     n = (len < ssl->in_msglen) ? len : ssl->in_msglen;
 
     memcpy(buf, ssl->in_offt, n);
     ssl->in_msglen -= n;
 
-    if (ssl->in_msglen == 0)
+    if (ssl->in_msglen == 0) {
         /* all bytes consumed  */
         ssl->in_offt = NULL;
-    else
+    } else {
         /* more data available */
         ssl->in_offt += n;
-
+    }
     SSL_DEBUG_MSG(2, ("<= read"));
     return n;
 }

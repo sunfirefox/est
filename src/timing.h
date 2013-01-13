@@ -1,5 +1,5 @@
 /*
-    timing.h -- 
+    timing.h -- Portable interface to the CPU cycle counter
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
@@ -7,7 +7,7 @@
 #define EST_TIMING_H
 
 /**
- * \brief          timer structure
+   @brief          timer structure
  */
 struct hr_time {
     uchar opaque[32];
@@ -17,30 +17,29 @@ struct hr_time {
 extern "C" {
 #endif
 
+    //  MOB - PUBLIC_DATA
     extern int alarmed;
 
     /**
-     * \brief          Return the CPU cycle counter value
+       @brief          Return the CPU cycle counter value
      */
     PUBLIC ulong hardclock(void);
 
     /**
-     * \brief          Return the elapsed time in milliseconds
-     *
-     * \param val      points to a timer structure
-     * \param reset    if set to 1, the timer is restarted
+       @brief          Return the elapsed time in milliseconds
+       @param val      points to a timer structure
+       @param reset    if set to 1, the timer is restarted
      */
     PUBLIC ulong get_timer(struct hr_time *val, int reset);
 
     /**
-     * \brief          Setup an alarm clock
-     *
-     * \param seconds  delay before the "alarmed" flag is set
+       @brief          Setup an alarm clock
+       @param seconds  delay before the "alarmed" flag is set
      */
     PUBLIC void set_alarm(int seconds);
 
     /**
-     * \brief          Sleep for a certain amount of time
+       @brief          Sleep for a certain amount of time
      */
     PUBLIC void m_sleep(int milliseconds);
 

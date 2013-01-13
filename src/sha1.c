@@ -37,7 +37,7 @@
 /*
     SHA-1 context setup
  */
-void sha1_starts(sha1_context * ctx)
+void sha1_starts(sha1_context *ctx)
 {
     ctx->total[0] = 0;
     ctx->total[1] = 0;
@@ -49,7 +49,7 @@ void sha1_starts(sha1_context * ctx)
 }
 
 
-static void sha1_process(sha1_context * ctx, uchar data[64])
+static void sha1_process(sha1_context *ctx, uchar data[64])
 {
     ulong temp, W[16], A, B, C, D, E;
 
@@ -75,7 +75,7 @@ static void sha1_process(sha1_context * ctx, uchar data[64])
 #define R(t)                                            \
     (                                                   \
         temp = W[(t -  3) & 0x0F] ^ W[(t - 8) & 0x0F] ^ \
-        W[(t - 14) & 0x0F] ^ W[ t      & 0x0F],         \
+        W[(t - 14) & 0x0F] ^ W[t & 0x0F],               \
         ( W[t & 0x0F] = S(temp,1) )                     \
         )
 
@@ -209,23 +209,23 @@ static void sha1_process(sha1_context * ctx, uchar data[64])
 /*
     SHA-1 process buffer
  */
-void sha1_update(sha1_context * ctx, uchar *input, int ilen)
+void sha1_update(sha1_context *ctx, uchar *input, int ilen)
 {
     int fill;
     ulong left;
 
-    if (ilen <= 0)
+    if (ilen <= 0) {
         return;
-
+    }
     left = ctx->total[0] & 0x3F;
     fill = 64 - left;
 
     ctx->total[0] += ilen;
     ctx->total[0] &= 0xFFFFFFFF;
 
-    if (ctx->total[0] < (ulong)ilen)
+    if (ctx->total[0] < (ulong) ilen) {
         ctx->total[1]++;
-
+    }
     if (left && ilen >= fill) {
         memcpy((void *)(ctx->buffer + left), (void *)input, fill);
         sha1_process(ctx, ctx->buffer);
@@ -233,13 +233,11 @@ void sha1_update(sha1_context * ctx, uchar *input, int ilen)
         ilen -= fill;
         left = 0;
     }
-
     while (ilen >= 64) {
         sha1_process(ctx, input);
         input += 64;
         ilen -= 64;
     }
-
     if (ilen > 0) {
         memcpy((void *)(ctx->buffer + left), (void *)input, ilen);
     }
@@ -257,10 +255,9 @@ static const uchar sha1_padding[64] = {
 /*
     SHA-1 final digest
  */
-void sha1_finish(sha1_context * ctx, uchar output[20])
+void sha1_finish(sha1_context *ctx, uchar output[20])
 {
-    ulong last, padn;
-    ulong high, low;
+    ulong last, padn, high, low;
     uchar msglen[8];
 
     high = (ctx->total[0] >> 29) | (ctx->total[1] << 3);
@@ -307,9 +304,9 @@ int sha1_file(char *path, uchar output[20])
     sha1_context ctx;
     uchar buf[1024];
 
-    if ((f = fopen(path, "rb")) == NULL)
+    if ((f = fopen(path, "rb")) == NULL) {
         return 1;
-
+    }
     sha1_starts(&ctx);
 
     while ((n = fread(buf, 1, sizeof(buf), f)) > 0) {
@@ -330,7 +327,7 @@ int sha1_file(char *path, uchar output[20])
 /*
     SHA-1 HMAC context setup
  */
-void sha1_hmac_starts(sha1_context * ctx, uchar *key, int keylen)
+void sha1_hmac_starts(sha1_context *ctx, uchar *key, int keylen)
 {
     int i;
     uchar sum[20];
@@ -356,7 +353,7 @@ void sha1_hmac_starts(sha1_context * ctx, uchar *key, int keylen)
 /*
     SHA-1 HMAC process buffer
  */
-void sha1_hmac_update(sha1_context * ctx, uchar *input, int ilen)
+void sha1_hmac_update(sha1_context *ctx, uchar *input, int ilen)
 {
     sha1_update(ctx, input, ilen);
 }
@@ -365,7 +362,7 @@ void sha1_hmac_update(sha1_context * ctx, uchar *input, int ilen)
 /*
     SHA-1 HMAC final digest
  */
-void sha1_hmac_finish(sha1_context * ctx, uchar output[20])
+void sha1_hmac_finish(sha1_context *ctx, uchar output[20])
 {
     uchar tmpbuf[20];
 

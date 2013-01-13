@@ -9,7 +9,7 @@
 #define COLLECT_SIZE 1024
 
 /**
- * \brief          HAVEGE state structure
+   @brief          HAVEGE state structure
  */
 typedef struct {
     int PT1, PT2, offset[2];
@@ -22,25 +22,22 @@ extern "C" {
 #endif
 
     /**
-     * \brief          HAVEGE initialization
-     *
-     * \param hs       HAVEGE state to be initialized
+       @brief          HAVEGE initialization
+       @param hs       HAVEGE state to be initialized
      */
-    PUBLIC void havege_init(havege_state * hs);
+    PUBLIC void havege_init(havege_state *hs);
 
     /**
-     * \brief          HAVEGE rand function
-     *
-     * \param rng_st   points to an HAVEGE state
-     *
-     * \return         A random int
+       @brief          HAVEGE rand function
+       @param rng_st   points to an HAVEGE state
+       @return         A random int
      */
     PUBLIC int havege_rand(void *p_rng);
 
 #ifdef __cplusplus
 }
 #endif
-#endif              /* havege.h */
+#endif 
 
 /*
     @copy   default

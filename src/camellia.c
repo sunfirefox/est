@@ -11,7 +11,8 @@
 #if BIT_EST_CAMELLIA
 
 /*
- * 32-bit integer manipulation macros (big endian)
+    32-bit integer manipulation macros (big endian)
+    MOB - use if/else construct
  */
 #ifndef GET_ULONG_BE
 #define GET_ULONG_BE(n,b,i)                     \
@@ -186,7 +187,6 @@ static const uchar FSb4[256] = {
 #define SBOX2(n) FSb2[(n)]
 #define SBOX3(n) FSb3[(n)]
 #define SBOX4(n) FSb4[(n)]
-
 #endif
 
 static const uchar shifts[2][4][4] = {
@@ -314,8 +314,7 @@ void camellia_feistel(ulong x[2], ulong k[2],
 /*
  * Camellia key schedule (encryption)
  */
-void camellia_setkey_enc(camellia_context * ctx, uchar *key,
-             int keysize)
+void camellia_setkey_enc(camellia_context *ctx, uchar *key, int keysize)
 {
     int i, idx;
     ulong *RK;
@@ -349,7 +348,7 @@ void camellia_setkey_enc(camellia_context * ctx, uchar *key,
     }
 
     /*
-     * Prepare SIGMA values
+       Prepare SIGMA values
      */
     ulong SIGMA[6][2];
     for (i = 0; i < 6; i++) {
@@ -358,8 +357,8 @@ void camellia_setkey_enc(camellia_context * ctx, uchar *key,
     }
 
     /*
-     * Key storage in KC
-     * Order: KL, KR, KA, KB
+       Key storage in KC
+       Order: KL, KR, KA, KB
      */
     ulong KC[16];
     memset(KC, 0, sizeof(KC));
@@ -391,7 +390,7 @@ void camellia_setkey_enc(camellia_context * ctx, uchar *key,
     }
 
     /*
-     * Generating subkeys
+       Generating subkeys
      */
     ulong TK[20];
 
@@ -419,11 +418,11 @@ void camellia_setkey_enc(camellia_context * ctx, uchar *key,
     }
 }
 
+
 /*
- * Camellia key schedule (decryption)
+   Camellia key schedule (decryption)
  */
-void camellia_setkey_dec(camellia_context * ctx, uchar *key,
-             int keysize)
+void camellia_setkey_dec(camellia_context *ctx, uchar *key, int keysize)
 {
     int i, idx;
     camellia_context cty;
@@ -445,9 +444,7 @@ void camellia_setkey_dec(camellia_context * ctx, uchar *key,
     }
 
     RK = ctx->rk;
-
     camellia_setkey_enc(&cty, key, keysize);
-
     SK = cty.rk + 24 * 2 + 8 * idx * 2;
 
     *RK++ = *SK++;
@@ -459,23 +456,19 @@ void camellia_setkey_dec(camellia_context * ctx, uchar *key,
         *RK++ = *SK++;
         *RK++ = *SK++;
     }
-
     SK -= 2;
-
     *RK++ = *SK++;
     *RK++ = *SK++;
     *RK++ = *SK++;
     *RK++ = *SK++;
-
     memset(&cty, 0, sizeof(camellia_context));
 }
 
+
 /*
- * Camellia-ECB block encryption/decryption
+   Camellia-ECB block encryption/decryption
  */
-void camellia_crypt_ecb(camellia_context * ctx,
-            int mode,
-            uchar input[16], uchar output[16])
+void camellia_crypt_ecb(camellia_context *ctx, int mode, uchar input[16], uchar output[16])
 {
     int NR;
     ulong *RK, X[4];
@@ -515,7 +508,6 @@ void camellia_crypt_ecb(camellia_context * ctx,
             RK += 2;
         }
     }
-
     X[2] ^= *RK++;
     X[3] ^= *RK++;
     X[0] ^= *RK++;
@@ -527,14 +519,11 @@ void camellia_crypt_ecb(camellia_context * ctx,
     PUT_ULONG_BE(X[1], output, 12);
 }
 
+
 /*
- * Camellia-CBC buffer encryption/decryption
+   Camellia-CBC buffer encryption/decryption
  */
-void camellia_crypt_cbc(camellia_context * ctx,
-            int mode,
-            int length,
-            uchar iv[16],
-            uchar *input, uchar *output)
+void camellia_crypt_cbc(camellia_context *ctx, int mode, int length, uchar iv[16], uchar *input, uchar *output)
 {
     int i;
     uchar temp[16];
@@ -544,23 +533,21 @@ void camellia_crypt_cbc(camellia_context * ctx,
             memcpy(temp, input, 16);
             camellia_crypt_ecb(ctx, mode, input, output);
 
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < 16; i++) {
                 output[i] = (uchar)(output[i] ^ iv[i]);
-
+            }
             memcpy(iv, temp, 16);
-
             input += 16;
             output += 16;
             length -= 16;
         }
     } else {
         while (length > 0) {
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < 16; i++) {
                 output[i] = (uchar)(input[i] ^ iv[i]);
-
+            }
             camellia_crypt_ecb(ctx, mode, output, output);
             memcpy(iv, output, 16);
-
             input += 16;
             output += 16;
             length -= 16;
@@ -568,38 +555,31 @@ void camellia_crypt_cbc(camellia_context * ctx,
     }
 }
 
+
 /*
- * Camellia-CFB128 buffer encryption/decryption
+   Camellia-CFB128 buffer encryption/decryption
  */
-void camellia_crypt_cfb128(camellia_context * ctx,
-               int mode,
-               int length,
-               int *iv_off,
-               uchar iv[16],
-               uchar *input, uchar *output)
+void camellia_crypt_cfb128(camellia_context *ctx, int mode, int length, int *iv_off, uchar iv[16], uchar *input, 
+        uchar *output)
 {
     int c, n = *iv_off;
 
     if (mode == CAMELLIA_DECRYPT) {
         while (length--) {
-            if (n == 0)
-                camellia_crypt_ecb(ctx, CAMELLIA_ENCRYPT, iv,
-                           iv);
-
+            if (n == 0) {
+                camellia_crypt_ecb(ctx, CAMELLIA_ENCRYPT, iv, iv);
+            }
             c = *input++;
             *output++ = (uchar)(c ^ iv[n]);
             iv[n] = (uchar)c;
-
             n = (n + 1) & 0x0F;
         }
     } else {
         while (length--) {
-            if (n == 0)
-                camellia_crypt_ecb(ctx, CAMELLIA_ENCRYPT, iv,
-                           iv);
-
+            if (n == 0) {
+                camellia_crypt_ecb(ctx, CAMELLIA_ENCRYPT, iv, iv);
+            }
             iv[n] = *output++ = (uchar)(iv[n] ^ *input++);
-
             n = (n + 1) & 0x0F;
         }
     }

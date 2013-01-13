@@ -65,8 +65,9 @@ int net_connect(int *fd, char *host, int port)
     return 0;
 }
 
+
 /*
- * Create a listening socket on bind_ip:port
+   Create a listening socket on bind_ip:port
  */
 int net_bind(int *fd, char *bind_ip, int port)
 {
@@ -76,19 +77,20 @@ int net_bind(int *fd, char *bind_ip, int port)
 #if defined(WIN32) || defined(_WIN32_WCE)
     WSADATA wsaData;
 
+    //  MOB - need some option to bypass WSAStartup. See Mpr.
     if (wsa_init_done == 0) {
-        if (WSAStartup(MAKEWORD(2, 0), &wsaData) == SOCKET_ERROR)
+        if (WSAStartup(MAKEWORD(2, 0), &wsaData) == SOCKET_ERROR) {
             return EST_ERR_NET_SOCKET_FAILED;
-
+        }
         wsa_init_done = 1;
     }
 #else
     signal(SIGPIPE, SIG_IGN);
 #endif
 
-    if ((*fd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP)) < 0)
+    if ((*fd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP)) < 0) {
         return EST_ERR_NET_SOCKET_FAILED;
-
+    }
     n = 1;
     setsockopt(*fd, SOL_SOCKET, SO_REUSEADDR, (char*) &n, sizeof(n));
 
@@ -100,17 +102,15 @@ int net_bind(int *fd, char *bind_ip, int port)
         memset(c, 0, sizeof(c));
         sscanf(bind_ip, "%d.%d.%d.%d", &c[0], &c[1], &c[2], &c[3]);
 
-        for (n = 0; n < 4; n++)
-            if (c[n] < 0 || c[n] > 255)
+        for (n = 0; n < 4; n++) {
+            if (c[n] < 0 || c[n] > 255) {
                 break;
-
-        if (n == 4)
-            server_addr.sin_addr.s_addr =
-                ((ulong)c[0] << 24) |
-                ((ulong)c[1] << 16) |
-                ((ulong)c[2] << 8) | ((ulong)c[3]);
+            }
+        }
+        if (n == 4) {
+            server_addr.sin_addr.s_addr = ((ulong)c[0] << 24) | ((ulong)c[1] << 16) | ((ulong)c[2] << 8) | ((ulong)c[3]);
+        }
     }
-
     if (bind(*fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         closesocket(*fd);
         return EST_ERR_NET_BIND_FAILED;
@@ -121,6 +121,7 @@ int net_bind(int *fd, char *bind_ip, int port)
     }
     return 0;
 }
+
 
 /*
     Check if the current operation is blocking
@@ -161,13 +162,14 @@ int net_accept(int bind_fd, int *client_fd, void *client_ip)
     *client_fd = accept(bind_fd, (struct sockaddr *) &client_addr, &n);
 
     if (*client_fd < 0) {
-        if (net_is_blocking() != 0)
+        if (net_is_blocking() != 0) {
             return EST_ERR_NET_TRY_AGAIN;
-
+        }
         return EST_ERR_NET_ACCEPT_FAILED;
     }
-    if (client_ip != NULL)
+    if (client_ip != NULL) {
         memcpy(client_ip, &client_addr.sin_addr.s_addr, sizeof(client_addr.sin_addr.s_addr));
+    }
     return 0;
 }
 
@@ -216,24 +218,25 @@ int net_recv(void *ctx, uchar *buf, int len)
 {
     int ret = recv(*((int*)ctx), buf, len, 0);
 
-    if (len > 0 && ret == 0)
+    if (len > 0 && ret == 0) {
         return EST_ERR_NET_CONN_RESET;
-
+    }
     if (ret < 0) {
-        if (net_is_blocking() != 0)
+        if (net_is_blocking() != 0) {
             return EST_ERR_NET_TRY_AGAIN;
-
+        }
 #if defined(WIN32) || defined(_WIN32_WCE)
-        if (WSAGetLastError() == WSAECONNRESET)
+        if (WSAGetLastError() == WSAECONNRESET) {
             return EST_ERR_NET_CONN_RESET;
+        }
 #else
-        if (errno == EPIPE || errno == ECONNRESET)
+        if (errno == EPIPE || errno == ECONNRESET) {
             return EST_ERR_NET_CONN_RESET;
-
-        if (errno == EINTR)
+        }
+        if (errno == EINTR) {
             return EST_ERR_NET_TRY_AGAIN;
+        }
 #endif
-
         return EST_ERR_NET_RECV_FAILED;
     }
     return ret;
@@ -248,17 +251,20 @@ int net_send(void *ctx, uchar *buf, int len)
     int ret = send(*((int*)ctx), buf, len, 0);
 
     if (ret < 0) {
-        if (net_is_blocking() != 0)
+        if (net_is_blocking() != 0) {
             return EST_ERR_NET_TRY_AGAIN;
-
+        }
 #if defined(WIN32) || defined(_WIN32_WCE)
-        if (WSAGetLastError() == WSAECONNRESET)
+        if (WSAGetLastError() == WSAECONNRESET) {
             return EST_ERR_NET_CONN_RESET;
+        }
 #else
-        if (errno == EPIPE || errno == ECONNRESET)
+        if (errno == EPIPE || errno == ECONNRESET) {
             return EST_ERR_NET_CONN_RESET;
-        if (errno == EINTR)
+        }
+        if (errno == EINTR) {
             return EST_ERR_NET_TRY_AGAIN;
+        }
 #endif
         return EST_ERR_NET_SEND_FAILED;
     }
