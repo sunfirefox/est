@@ -1,5 +1,5 @@
 /*
-    md5.h -- 
+    md5.h c -- RFC 1321 compliant MD5 implementation
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
@@ -7,15 +7,14 @@
 #define EST_MD5_H
 
 /**
- * \brief          MD5 context structure
+   @brief          MD5 context structure
  */
 typedef struct {
-    ulong total[2]; /*!< number of bytes processed  */
-    ulong state[4]; /*!< intermediate digest state  */
-    uchar buffer[64];   /*!< data block being processed */
-
-    uchar ipad[64]; /*!< HMAC: inner padding        */
-    uchar opad[64]; /*!< HMAC: outer padding        */
+    ulong total[2];     /**< number of bytes processed  */
+    ulong state[4];     /**< intermediate digest state  */
+    uchar buffer[64];   /**< data block being processed */
+    uchar ipad[64];     /**< HMAC: inner padding        */
+    uchar opad[64];     /**< HMAC: outer padding        */
 } md5_context;
 
 #ifdef __cplusplus
@@ -23,98 +22,86 @@ extern "C" {
 #endif
 
     /**
-     * \brief          MD5 context setup
-     *
-     * \param ctx      context to be initialized
+       @brief          MD5 context setup
+       @param ctx      context to be initialized
      */
-    void md5_starts(md5_context * ctx);
+    PUBLIC void md5_starts(md5_context * ctx);
 
     /**
-     * \brief          MD5 process buffer
-     *
-     * \param ctx      MD5 context
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
+       @brief          MD5 process buffer
+       @param ctx      MD5 context
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
      */
-    void md5_update(md5_context * ctx, uchar *input, int ilen);
+    PUBLIC void md5_update(md5_context * ctx, uchar *input, int ilen);
 
     /**
-     * \brief          MD5 final digest
-     *
-     * \param ctx      MD5 context
-     * \param output   MD5 checksum result
+       @brief          MD5 final digest
+       @param ctx      MD5 context
+       @param output   MD5 checksum result
      */
-    void md5_finish(md5_context * ctx, uchar output[16]);
+    PUBLIC void md5_finish(md5_context * ctx, uchar output[16]);
 
     /**
-     * \brief          Output = MD5( input buffer )
-     *
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
-     * \param output   MD5 checksum result
+       @brief          Output = MD5( input buffer )
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
+       @param output   MD5 checksum result
      */
-    void md5(uchar *input, int ilen, uchar output[16]);
+    PUBLIC void md5(uchar *input, int ilen, uchar output[16]);
 
     /**
-     * \brief          Output = MD5( file contents )
-     *
-     * \param path     input file name
-     * \param output   MD5 checksum result
-     *
-     * \return         0 if successful, 1 if fopen failed,
-     *                 or 2 if fread failed
+       @brief          Output = MD5( file contents )
+       @param path     input file name
+       @param output   MD5 checksum result
+      
+       @return         0 if successful, 1 if fopen failed, or 2 if fread failed
      */
-    int md5_file(char *path, uchar output[16]);
+    PUBLIC int md5_file(char *path, uchar output[16]);
 
     /**
-     * \brief          MD5 HMAC context setup
-     *
-     * \param ctx      HMAC context to be initialized
-     * \param key      HMAC secret key
-     * \param keylen   length of the HMAC key
+       @brief          MD5 HMAC context setup
+       @param ctx      HMAC context to be initialized
+       @param key      HMAC secret key
+       @param keylen   length of the HMAC key
      */
-    void md5_hmac_starts(md5_context * ctx, uchar *key, int keylen);
+    PUBLIC void md5_hmac_starts(md5_context * ctx, uchar *key, int keylen);
 
     /**
-     * \brief          MD5 HMAC process buffer
-     *
-     * \param ctx      HMAC context
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
+       @brief          MD5 HMAC process buffer
+       @param ctx      HMAC context
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
      */
-    void md5_hmac_update(md5_context * ctx, uchar *input, int ilen);
+    PUBLIC void md5_hmac_update(md5_context * ctx, uchar *input, int ilen);
 
     /**
-     * \brief          MD5 HMAC final digest
-     *
-     * \param ctx      HMAC context
-     * \param output   MD5 HMAC checksum result
+       @brief          MD5 HMAC final digest
+       @param ctx      HMAC context
+       @param output   MD5 HMAC checksum result
      */
-    void md5_hmac_finish(md5_context * ctx, uchar output[16]);
+    PUBLIC void md5_hmac_finish(md5_context * ctx, uchar output[16]);
 
     /**
-     * \brief          Output = HMAC-MD5( hmac key, input buffer )
-     *
-     * \param key      HMAC secret key
-     * \param keylen   length of the HMAC key
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
-     * \param output   HMAC-MD5 result
+       @brief          Output = HMAC-MD5( hmac key, input buffer )
+       @param key      HMAC secret key
+       @param keylen   length of the HMAC key
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
+       @param output   HMAC-MD5 result
      */
-    void md5_hmac(uchar *key, int keylen,
-              uchar *input, int ilen, uchar output[16]);
+    PUBLIC void md5_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[16]);
 
     /**
-     * \brief          Checkup routine
-     *
-     * \return         0 if successful, or 1 if the test failed
+       @brief          Checkup routine
+       @return         0 if successful, or 1 if the test failed
      */
-    int md5_self_test(int verbose);
+    PUBLIC int md5_self_test(int verbose);
 
 #ifdef __cplusplus
 }
 #endif
-#endif              /* md5.h */
+#endif
 
 /*
     @copy   default

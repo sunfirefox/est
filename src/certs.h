@@ -10,6 +10,8 @@
 extern "C" {
 #endif
 
+//  MOB
+#if UNUSED
     extern char test_ca_crt[];
     extern char test_ca_key[];
     extern char test_ca_pwd[];
@@ -18,6 +20,7 @@ extern "C" {
     extern char test_cli_crt[];
     extern char test_cli_key[];
     extern char xyssl_ca_crt[];
+#endif
 
 #ifdef __cplusplus
 }

@@ -3,10 +3,12 @@
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
 
-    MOB - remove
  */
+
+/ MOB - remove
+#if UNUSED
 /*
- * OpenSSL wrapper contributed by David Barett
+   OpenSSL wrapper contributed by David Barett
  */
 #ifndef EST_OPENSSL_H
 #define EST_OPENSSL_H
@@ -17,29 +19,21 @@
 #define MD5_CTX                 md5_context
 #define SHA_CTX                 sha1_context
 
-#define SHA1_Init( CTX ) \
-        sha1_starts( (CTX) )
-#define SHA1_Update(  CTX, BUF, LEN ) \
-        sha1_update( (CTX), (uchar *)(BUF), (LEN) )
-#define SHA1_Final( OUT, CTX ) \
-        sha1_finish( (CTX), (OUT) )
+#define SHA1_Init(CTX) sha1_starts((CTX))
+#define SHA1_Update(CTX, BUF, LEN) \
+        sha1_update((CTX), (uchar *)(BUF), (LEN))
+#define SHA1_Final(OUT, CTX) sha1_finish((CTX), (OUT))
 
-#define MD5_Init( CTX ) \
-        md5_starts( (CTX) )
-#define MD5_Update( CTX, BUF, LEN ) \
-        md5_update( (CTX), (uchar *)(BUF), (LEN) )
-#define MD5_Final( OUT, CTX ) \
-        md5_finish( (CTX), (OUT) )
+#define MD5_Init(CTX) md5_starts((CTX))
+#define MD5_Update(CTX, BUF, LEN) md5_update((CTX), (uchar *)(BUF), (LEN))
+#define MD5_Final(OUT, CTX) md5_finish((CTX), (OUT))
 
-#define AES_set_encrypt_key( KEY, KEYSIZE, CTX ) \
-        aes_setkey_enc( (CTX), (KEY), (KEYSIZE) )
-#define AES_set_decrypt_key( KEY, KEYSIZE, CTX ) \
-        aes_setkey_dec( (CTX), (KEY), (KEYSIZE) )
-#define AES_cbc_encrypt( INPUT, OUTPUT, LEN, CTX, IV, MODE ) \
-        aes_crypt_cbc( (CTX), (MODE), (LEN), (IV), (INPUT), (OUTPUT) )
+#define AES_set_encrypt_key(KEY, KEYSIZE, CTX) aes_setkey_enc((CTX), (KEY), (KEYSIZE))
+#define AES_set_decrypt_key(KEY, KEYSIZE, CTX) aes_setkey_dec((CTX), (KEY), (KEYSIZE))
+#define AES_cbc_encrypt(INPUT, OUTPUT, LEN, CTX, IV, MODE) aes_crypt_cbc((CTX), (MODE), (LEN), (IV), (INPUT), (OUTPUT))
 
 /*
- * RSA stuff follows. TODO: needs cleanup
+   RSA stuff follows. TODO: needs cleanup
  */
 inline int __RSA_Passthrough(void *output, void *input, int size)
 {
@@ -47,19 +41,18 @@ inline int __RSA_Passthrough(void *output, void *input, int size)
     return size;
 }
 
-inline rsa_context *d2i_RSA_PUBKEY(void *ignore, uchar **bufptr,
-                   int len)
+inline rsa_context *d2i_RSA_PUBKEY(void *ignore, uchar **bufptr, int len)
 {
     uchar *buffer = *(uchar **)bufptr;
     rsa_context *rsa;
 
     /*
-     * Not a general-purpose parser: only parses public key from *exactly*
-     *   openssl genrsa -out privkey.pem 512 (or 1024)
-     *   openssl rsa -in privkey.pem -out privatekey.der -outform der
-     *   openssl rsa -in privkey.pem -out pubkey.der -outform der -pubout
-     *
-     * TODO: make a general-purpose parse
+       Not a general-purpose parser: only parses public key from *exactly*
+         openssl genrsa -out privkey.pem 512 (or 1024)
+         openssl rsa -in privkey.pem -out privatekey.der -outform der
+         openssl rsa -in privkey.pem -out pubkey.der -outform der -pubout
+      
+       TODO: make a general-purpose parse
      */
     if (ignore != 0 || (len != 94 && len != 162))
         return (0);
@@ -90,15 +83,14 @@ inline rsa_context *d2i_RSA_PUBKEY(void *ignore, uchar **bufptr,
 
 #define RSA                     rsa_context
 #define RSA_PKCS1_PADDING       1   /* ignored; always encrypt with this */
-#define RSA_size( CTX )         (CTX)->len
-#define RSA_free( CTX )         rsa_free( CTX )
-#define ERR_get_error( )        "ERR_get_error() not supported"
-#define RSA_blinding_off( IGNORE )
+#define RSA_size(CTX)           (CTX)->len
+#define RSA_free(CTX)           rsa_free(CTX)
+#define ERR_get_error()        "ERR_get_error() not supported"
+#define RSA_blinding_off(IGNORE)
 
-#define d2i_RSAPrivateKey( a, b, c ) new rsa_context    /* TODO: C++ bleh */
+#define d2i_RSAPrivateKey(a, b, c) new rsa_context    /* TODO: C++ bleh */
 
-inline int RSA_public_decrypt(int size, uchar *input,
-                  uchar *output, RSA * key, int ignore)
+inline int RSA_public_decrypt(int size, uchar *input, uchar *output, RSA * key, int ignore)
 {
     int outsize = size;
     if (!rsa_pkcs1_decrypt(key, RSA_PUBLIC, &outsize, input, output))
@@ -107,8 +99,7 @@ inline int RSA_public_decrypt(int size, uchar *input,
         return -1;
 }
 
-inline int RSA_private_decrypt(int size, uchar *input,
-                   uchar *output, RSA * key, int ignore)
+inline int RSA_private_decrypt(int size, uchar *input, uchar *output, RSA * key, int ignore)
 {
     int outsize = size;
     if (!rsa_pkcs1_decrypt(key, RSA_PRIVATE, &outsize, input, output))
@@ -117,8 +108,7 @@ inline int RSA_private_decrypt(int size, uchar *input,
         return -1;
 }
 
-inline int RSA_public_encrypt(int size, uchar *input,
-                  uchar *output, RSA * key, int ignore)
+inline int RSA_public_encrypt(int size, uchar *input, uchar *output, RSA * key, int ignore)
 {
     if (!rsa_pkcs1_encrypt(key, RSA_PUBLIC, size, input, output))
         return RSA_size(key);
@@ -126,8 +116,7 @@ inline int RSA_public_encrypt(int size, uchar *input,
         return -1;
 }
 
-inline int RSA_private_encrypt(int size, uchar *input,
-                   uchar *output, RSA * key, int ignore)
+inline int RSA_private_encrypt(int size, uchar *input, uchar *output, RSA * key, int ignore)
 {
     if (!rsa_pkcs1_encrypt(key, RSA_PRIVATE, size, input, output))
         return RSA_size(key);
@@ -136,6 +125,7 @@ inline int RSA_private_encrypt(int size, uchar *input,
 }
 
 #endif /* openssl.h */
+#endif
 
 /*
     @copy   default

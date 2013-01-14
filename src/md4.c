@@ -171,9 +171,9 @@ void md4_update(md4_context * ctx, uchar *input, int ilen)
     ctx->total[0] += ilen;
     ctx->total[0] &= 0xFFFFFFFF;
 
-    if (ctx->total[0] < (ulong)ilen)
+    if (ctx->total[0] < (ulong) ilen) {
         ctx->total[1]++;
-
+    }
     if (left && ilen >= fill) {
         memcpy((void *)(ctx->buffer + left), (void *)input, fill);
         md4_process(ctx, ctx->buffer);
@@ -181,13 +181,11 @@ void md4_update(md4_context * ctx, uchar *input, int ilen)
         ilen -= fill;
         left = 0;
     }
-
     while (ilen >= 64) {
         md4_process(ctx, input);
         input += 64;
         ilen -= 64;
     }
-
     if (ilen > 0) {
         memcpy((void *)(ctx->buffer + left), (void *)input, ilen);
     }
@@ -211,8 +209,7 @@ void md4_finish(md4_context * ctx, uchar output[16])
     ulong high, low;
     uchar msglen[8];
 
-    high = (ctx->total[0] >> 29)
-        | (ctx->total[1] << 3);
+    high = (ctx->total[0] >> 29) | (ctx->total[1] << 3);
     low = (ctx->total[0] << 3);
 
     PUT_ULONG_LE(low, msglen, 0);
@@ -255,16 +252,15 @@ int md4_file(char *path, uchar output[16])
     md4_context ctx;
     uchar buf[1024];
 
-    if ((f = fopen(path, "rb")) == NULL)
+    if ((f = fopen(path, "rb")) == NULL) {
         return (1);
-
+    }
     md4_starts(&ctx);
 
-    while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
+    while ((n = fread(buf, 1, sizeof(buf), f)) > 0) {
         md4_update(&ctx, buf, (int)n);
-
+    }
     md4_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(md4_context));
 
     if (ferror(f) != 0) {

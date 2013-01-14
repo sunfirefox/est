@@ -11,30 +11,30 @@
 #if BIT_EST_MD5
 
 /*
- * 32-bit integer manipulation macros (little endian)
+    32-bit integer manipulation macros (little endian)
  */
 #ifndef GET_ULONG_LE
-#define GET_ULONG_LE(n,b,i)                             \
-    {                                                   \
-        (n) = ( (ulong) (b)[(i)    ]       )    \
-            | ( (ulong) (b)[(i) + 1] <<  8 )    \
-            | ( (ulong) (b)[(i) + 2] << 16 )    \
-            | ( (ulong) (b)[(i) + 3] << 24 );   \
+#define GET_ULONG_LE(n,b,i)                     \
+    {                                           \
+        (n) = ((ulong) (b)[(i)    ]      )      \
+            | ((ulong) (b)[(i) + 1] <<  8)      \
+            | ((ulong) (b)[(i) + 2] << 16)      \
+            | ((ulong) (b)[(i) + 3] << 24);     \
     }
 #endif
 
 #ifndef PUT_ULONG_LE
-#define PUT_ULONG_LE(n,b,i)                             \
-    {                                                   \
-        (b)[(i)    ] = (uchar) ( (n)       );   \
-        (b)[(i) + 1] = (uchar) ( (n) >>  8 );   \
-        (b)[(i) + 2] = (uchar) ( (n) >> 16 );   \
-        (b)[(i) + 3] = (uchar) ( (n) >> 24 );   \
+#define PUT_ULONG_LE(n,b,i)                     \
+    {                                           \
+        (b)[(i)    ] = (uchar) ((n)      );     \
+        (b)[(i) + 1] = (uchar) ((n) >>  8);     \
+        (b)[(i) + 2] = (uchar) ((n) >> 16);     \
+        (b)[(i) + 3] = (uchar) ((n) >> 24);     \
     }
 #endif
 
 /*
- * MD5 context setup
+    MD5 context setup
  */
 void md5_starts(md5_context * ctx)
 {
@@ -170,26 +170,27 @@ static void md5_process(md5_context * ctx, uchar data[64])
     ctx->state[3] += D;
 }
 
+
 /*
- * MD5 process buffer
+   MD5 process buffer
  */
-void md5_update(md5_context * ctx, uchar *input, int ilen)
+void md5_update(md5_context *ctx, uchar *input, int ilen)
 {
-    int fill;
-    ulong left;
+    ulong   left;
+    int     fill;
 
-    if (ilen <= 0)
+    if (ilen <= 0) {
         return;
-
+    }
     left = ctx->total[0] & 0x3F;
     fill = 64 - left;
 
     ctx->total[0] += ilen;
     ctx->total[0] &= 0xFFFFFFFF;
 
-    if (ctx->total[0] < (ulong)ilen)
+    if (ctx->total[0] < (ulong)ilen) {
         ctx->total[1]++;
-
+    }
     if (left && ilen >= fill) {
         memcpy((void *)(ctx->buffer + left), (void *)input, fill);
         md5_process(ctx, ctx->buffer);
@@ -197,13 +198,11 @@ void md5_update(md5_context * ctx, uchar *input, int ilen)
         ilen -= fill;
         left = 0;
     }
-
     while (ilen >= 64) {
         md5_process(ctx, input);
         input += 64;
         ilen -= 64;
     }
-
     if (ilen > 0) {
         memcpy((void *)(ctx->buffer + left), (void *)input, ilen);
     }
@@ -216,17 +215,16 @@ static const uchar md5_padding[64] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
+
 /*
- * MD5 final digest
+    MD5 final digest
  */
-void md5_finish(md5_context * ctx, uchar output[16])
+void md5_finish(md5_context *ctx, uchar output[16])
 {
-    ulong last, padn;
-    ulong high, low;
+    ulong last, padn, high, low;
     uchar msglen[8];
 
-    high = (ctx->total[0] >> 29)
-        | (ctx->total[1] << 3);
+    high = (ctx->total[0] >> 29) | (ctx->total[1] << 3);
     low = (ctx->total[0] << 3);
 
     PUT_ULONG_LE(low, msglen, 0);
@@ -245,7 +243,7 @@ void md5_finish(md5_context * ctx, uchar output[16])
 }
 
 /*
- * output = MD5( input buffer )
+    output = MD5(input buffer)
  */
 void md5(uchar *input, int ilen, uchar output[16])
 {
@@ -258,19 +256,21 @@ void md5(uchar *input, int ilen, uchar output[16])
     memset(&ctx, 0, sizeof(md5_context));
 }
 
+
 /*
- * output = MD5( file contents )
+    output = MD5(file contents)
+    MOB - is this used
  */
 int md5_file(char *path, uchar output[16])
 {
-    FILE *f;
-    size_t n;
+    FILE        *f;
+    size_t      n;
     md5_context ctx;
-    uchar buf[1024];
+    uchar       buf[1024];
 
-    if ((f = fopen(path, "rb")) == NULL)
-        return (1);
-
+    if ((f = fopen(path, "rb")) == NULL) {
+        return 1;
+    }
     md5_starts(&ctx);
 
     while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
@@ -282,27 +282,26 @@ int md5_file(char *path, uchar output[16])
 
     if (ferror(f) != 0) {
         fclose(f);
-        return (2);
+        return 2;
     }
-
     fclose(f);
-    return (0);
+    return 0;
 }
 
+
 /*
- * MD5 HMAC context setup
+   MD5 HMAC context setup
  */
-void md5_hmac_starts(md5_context * ctx, uchar *key, int keylen)
+void md5_hmac_starts(md5_context *ctx, uchar *key, int keylen)
 {
-    int i;
-    uchar sum[16];
+    uchar   sum[16];
+    int     i;
 
     if (keylen > 64) {
         md5(key, keylen, sum);
         keylen = 16;
         key = sum;
     }
-
     memset(ctx->ipad, 0x36, 64);
     memset(ctx->opad, 0x5C, 64);
 
@@ -310,25 +309,25 @@ void md5_hmac_starts(md5_context * ctx, uchar *key, int keylen)
         ctx->ipad[i] = (uchar)(ctx->ipad[i] ^ key[i]);
         ctx->opad[i] = (uchar)(ctx->opad[i] ^ key[i]);
     }
-
     md5_starts(ctx);
     md5_update(ctx, ctx->ipad, 64);
-
     memset(sum, 0, sizeof(sum));
 }
 
+
 /*
- * MD5 HMAC process buffer
+   MD5 HMAC process buffer
  */
-void md5_hmac_update(md5_context * ctx, uchar *input, int ilen)
+void md5_hmac_update(md5_context *ctx, uchar *input, int ilen)
 {
     md5_update(ctx, input, ilen);
 }
 
+
 /*
- * MD5 HMAC final digest
+    MD5 HMAC final digest
  */
-void md5_hmac_finish(md5_context * ctx, uchar output[16])
+void md5_hmac_finish(md5_context *ctx, uchar output[16])
 {
     uchar tmpbuf[16];
 
@@ -341,11 +340,11 @@ void md5_hmac_finish(md5_context * ctx, uchar output[16])
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }
 
+
 /*
- * output = HMAC-MD5( hmac key, input buffer )
+    output = HMAC-MD5(hmac key, input buffer)
  */
-void md5_hmac(uchar *key, int keylen, uchar *input, int ilen,
-          uchar output[16])
+void md5_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[16])
 {
     md5_context ctx;
 

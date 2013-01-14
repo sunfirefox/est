@@ -135,16 +135,19 @@ static void havege_fill(havege_state * hs)
     WALK = hs->WALK;
     PT1 = hs->PT1;
     PT2 = hs->PT2;
-
     PTX = U1 = 0;
     PTY = U2 = 0;
 
     memset(RES, 0, sizeof(RES));
 
     while (n < COLLECT_SIZE * 4) {
-    ONE_ITERATION ONE_ITERATION ONE_ITERATION ONE_ITERATION} hs->PT1 = PT1;
+        ONE_ITERATION 
+        ONE_ITERATION 
+        ONE_ITERATION 
+        ONE_ITERATION
+    } 
+    hs->PT1 = PT1;
     hs->PT2 = PT2;
-
     hs->offset[0] = 0;
     hs->offset[1] = COLLECT_SIZE / 2;
 }
@@ -165,16 +168,15 @@ void havege_init(havege_state * hs)
  */
 int havege_rand(void *p_rng)
 {
-    int ret;
     havege_state *hs = (havege_state *) p_rng;
+    int     ret;
 
-    if (hs->offset[1] >= COLLECT_SIZE)
+    if (hs->offset[1] >= COLLECT_SIZE) {
         havege_fill(hs);
-
+    }
     ret = hs->pool[hs->offset[0]++];
     ret ^= hs->pool[hs->offset[1]++];
-
-    return (ret);
+    return ret;
 }
 
 #undef SWAP
