@@ -1,4 +1,4 @@
-Embedthis ESSL
+Embedthis Embedded Security Transport (SSL)
 ===
 
 This software is distributed under commercial and open source licenses. You may use the GPLv2 License below License or

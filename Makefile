@@ -1,5 +1,5 @@
 #
-#   Makefile - Makefile for Embedthis EST
+#   Makefile - Makefile for Embedthis Security Transport (SSL)
 #
 #   You can use this Makefile and build via "make" with a pre-selected configuration. Alternatively,
 #	you can build using the "bit" tool for for a fully configurable build. If you wish to 
