@@ -21,3 +21,5 @@ releases
 *-release
 .*.swp
 start.bit
+*-mine
+projects/est-macosx-mine*

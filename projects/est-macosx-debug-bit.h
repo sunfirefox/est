@@ -16,6 +16,9 @@
 #ifndef BIT_DEPTH
     #define BIT_DEPTH 1
 #endif
+#ifndef BIT_DISCOVER
+    #define BIT_DISCOVER "doxygen,dsi,man,man2html,pmaker,utest,zip"
+#endif
 #ifndef BIT_EST_AES
     #define BIT_EST_AES 1
 #endif
@@ -124,9 +127,6 @@
 #ifndef BIT_HAS_UNNAMED_UNIONS
     #define BIT_HAS_UNNAMED_UNIONS 1
 #endif
-#ifndef BIT_OPTIONAL
-    #define BIT_OPTIONAL "doxygen,dsi,ejs,man,man2html,pmaker,utest,zip"
-#endif
 #ifndef BIT_PACKS
     #define BIT_PACKS "bits/packs"
 #endif
@@ -152,7 +152,10 @@
     #define BIT_WARN_UNUSED 1
 #endif
 #ifndef BIT_WITHOUT_ALL
-    #define BIT_WITHOUT_ALL "doxygen,dsi,ejs,man,man2html,pmaker"
+    #define BIT_WITHOUT_ALL "doxygen,dsi,man,man2html,pmaker"
+#endif
+#ifndef BIT_WITHOUT_DEFAULT
+    #define BIT_WITHOUT_DEFAULT "doxygen,dsi,man,man2html,pmaker"
 #endif
 
 /* Prefixes */
@@ -203,7 +206,7 @@
 
 /* Profile */
 #ifndef BIT_CONFIG_CMD
-    #define BIT_CONFIG_CMD "bit -d -q -platform macosx-x64 -without all -configure . -gen sh,make"
+    #define BIT_CONFIG_CMD "bit -d -q -platform macosx-x64 -without default -configure . -gen sh,make"
 #endif
 #ifndef BIT_EST_PRODUCT
     #define BIT_EST_PRODUCT 1
@@ -230,14 +233,14 @@
 #ifndef BIT_PACK_CC
     #define BIT_PACK_CC 1
 #endif
+#ifndef BIT_PACK_DEFAULT
+    #define BIT_PACK_DEFAULT 0
+#endif
 #ifndef BIT_PACK_DOXYGEN
-    #define BIT_PACK_DOXYGEN 0
+    #define BIT_PACK_DOXYGEN 1
 #endif
 #ifndef BIT_PACK_DSI
-    #define BIT_PACK_DSI 0
-#endif
-#ifndef BIT_PACK_EJS
-    #define BIT_PACK_EJS 0
+    #define BIT_PACK_DSI 1
 #endif
 #ifndef BIT_PACK_LIB
     #define BIT_PACK_LIB 1
@@ -246,13 +249,13 @@
     #define BIT_PACK_LINK 1
 #endif
 #ifndef BIT_PACK_MAN
-    #define BIT_PACK_MAN 0
+    #define BIT_PACK_MAN 1
 #endif
 #ifndef BIT_PACK_MAN2HTML
-    #define BIT_PACK_MAN2HTML 0
+    #define BIT_PACK_MAN2HTML 1
 #endif
 #ifndef BIT_PACK_PMAKER
-    #define BIT_PACK_PMAKER 0
+    #define BIT_PACK_PMAKER 1
 #endif
 #ifndef BIT_PACK_UTEST
     #define BIT_PACK_UTEST 1
@@ -263,11 +266,26 @@
 #ifndef BIT_PACK_COMPILER_PATH
     #define BIT_PACK_COMPILER_PATH "/usr/bin/clang"
 #endif
+#ifndef BIT_PACK_DOXYGEN_PATH
+    #define BIT_PACK_DOXYGEN_PATH "/usr/local/bin/doxygen"
+#endif
+#ifndef BIT_PACK_DSI_PATH
+    #define BIT_PACK_DSI_PATH "/opt/bin/dsi"
+#endif
 #ifndef BIT_PACK_LIB_PATH
     #define BIT_PACK_LIB_PATH "/usr/bin/ar"
 #endif
 #ifndef BIT_PACK_LINK_PATH
     #define BIT_PACK_LINK_PATH "/usr/bin/ld"
+#endif
+#ifndef BIT_PACK_MAN_PATH
+    #define BIT_PACK_MAN_PATH "/usr/bin/man"
+#endif
+#ifndef BIT_PACK_MAN2HTML_PATH
+    #define BIT_PACK_MAN2HTML_PATH "/opt/bin/man2html"
+#endif
+#ifndef BIT_PACK_PMAKER_PATH
+    #define BIT_PACK_PMAKER_PATH "/Applications/PackageMaker.app/Contents/MacOS/PackageMaker"
 #endif
 #ifndef BIT_PACK_UTEST_PATH
     #define BIT_PACK_UTEST_PATH "/Users/mob/git/ejs/macosx-x64-debug/bin/utest"
