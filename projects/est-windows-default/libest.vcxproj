@@ -270,7 +270,7 @@ copy /Y src\ssl.h $(IncDir)
 copy /Y src\timing.h $(IncDir)
 copy /Y src\x509.h $(IncDir)
 copy /Y src\xtea.h $(IncDir)
-cd projects\est-windows-vs</Command>
+cd projects\est-windows-default</Command>
     <Outputs>$(BinDir)\libest.dll</Outputs>
   </CustomBuildStep>
   </ItemDefinitionGroup>

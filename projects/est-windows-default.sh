@@ -1,22 +1,25 @@
 #
-#   est-windows-debug.sh -- Build It Shell Script to build Embedthis Security Transport
+#   est-windows-default.sh -- Build It Shell Script to build Embedthis Security Transport
 #
 
 export PATH="$(SDK)/Bin:$(VS)/VC/Bin:$(VS)/Common7/IDE:$(VS)/Common7/Tools:$(VS)/SDK/v3.5/bin:$(VS)/VC/VCPackages;$(PATH)"
 export INCLUDE="$(INCLUDE);$(SDK)/Include:$(VS)/VC/INCLUDE"
 export LIB="$(LIB);$(SDK)/Lib:$(VS)/VC/lib"
 
+PRODUCT="est"
+VERSION="0.1.0"
+BUILD_NUMBER="0"
+PROFILE="default"
 ARCH="x86"
 ARCH="`uname -m | sed 's/i.86/x86/;s/x86_64/x64/;s/arm.*/arm/;s/mips.*/mips/'`"
 OS="windows"
-PROFILE="debug"
 CONFIG="${OS}-${ARCH}-${PROFILE}"
 CC="cl.exe"
 LD="link.exe"
-CFLAGS="-nologo -GR- -W3 -Zi -Od -MDd -w"
-DFLAGS="-D_REENTRANT -D_MT -DBIT_DEBUG"
+CFLAGS="-nologo -GR- -W3 -O2 -MD -w"
+DFLAGS="-D_REENTRANT -D_MT"
 IFLAGS="-I${CONFIG}/inc"
-LDFLAGS="-nologo -nodefaultlib -incremental:no -debug -machine:x86"
+LDFLAGS="-nologo -nodefaultlib -incremental:no -machine:x86"
 LIBPATHS="-libpath:${CONFIG}/bin"
 LIBS="ws2_32.lib advapi32.lib user32.lib kernel32.lib oldnames.lib msvcrt.lib shell32.lib"
 
@@ -161,3 +164,4 @@ cp -r src/openssl.h ${CONFIG}/inc/openssl.h
 
 "${LD}" -dll -out:${CONFIG}/bin/libest.dll -entry:_DllMainCRTStartup@12 ${LDFLAGS} ${LIBPATHS} ${CONFIG}/obj/aes.obj ${CONFIG}/obj/arc4.obj ${CONFIG}/obj/base64.obj ${CONFIG}/obj/bignum.obj ${CONFIG}/obj/camellia.obj ${CONFIG}/obj/certs.obj ${CONFIG}/obj/debug.obj ${CONFIG}/obj/des.obj ${CONFIG}/obj/dhm.obj ${CONFIG}/obj/havege.obj ${CONFIG}/obj/md2.obj ${CONFIG}/obj/md4.obj ${CONFIG}/obj/md5.obj ${CONFIG}/obj/net.obj ${CONFIG}/obj/padlock.obj ${CONFIG}/obj/rsa.obj ${CONFIG}/obj/sha1.obj ${CONFIG}/obj/sha2.obj ${CONFIG}/obj/sha4.obj ${CONFIG}/obj/ssl_cli.obj ${CONFIG}/obj/ssl_srv.obj ${CONFIG}/obj/ssl_tls.obj ${CONFIG}/obj/timing.obj ${CONFIG}/obj/x509parse.obj ${CONFIG}/obj/xtea.obj ${LIBS}
 
+#  Omit build script undefined

@@ -1,8 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "prep", "est-windows-vs\prep.vcxproj", "{D5493BED-E97B-4A75-A226-F4BAEE8119E2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "prep", "est-windows-default\prep.vcxproj", "{D5493BED-E97B-4A75-A226-F4BAEE8119E2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libest", "est-windows-vs\libest.vcxproj", "{4ECDF6CB-2743-4C31-A7B2-5D6941C3F3AE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libest", "est-windows-default\libest.vcxproj", "{4ECDF6CB-2743-4C31-A7B2-5D6941C3F3AE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D5493BED-E97B-4A75-A226-F4BAEE8119E2} = {D5493BED-E97B-4A75-A226-F4BAEE8119E2}
 	EndProjectSection

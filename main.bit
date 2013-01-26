@@ -147,8 +147,6 @@ Bit.load({
     },
 
     usage: {
-        assert: 'Enable program assertions',
-
         'est.aes':          'Enable AES cipher (true|false)',
         'est.base64':       'Enable arbitrary precision math (true|false)',
         'est.rc4':          'Enable the ARC4 cipher (true|false)',
