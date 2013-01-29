@@ -1,1 +1,1 @@
-projects\windows x86 -f projects/est-windows-default.nmake all
+projects\windows -f projects/est-windows-default.nmake all

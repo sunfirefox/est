@@ -50,10 +50,13 @@ BIN 	:= $(OS)-$(ARCH)-$(PROFILE)/bin
 .EXPORT_ALL_VARIABLES:
 
 all compile:
-	$(MAKE) -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
+	$(MAKE) --no-print-directory -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
 
 clean clobber install uninstall run:
-	$(MAKE) -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
+	$(MAKE) --no-print-directory -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
+
+version:
+	@$(MAKE) --no-print-directory -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
 
 help:
 	@echo '' >&2
