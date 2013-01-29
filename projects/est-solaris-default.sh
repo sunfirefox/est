@@ -12,10 +12,10 @@ OS="solaris"
 CONFIG="${OS}-${ARCH}-${PROFILE}"
 CC="/usr/bin/gcc"
 LD="/usr/bin/ld"
-CFLAGS="-fPIC -O2 -w"
-DFLAGS="-D_REENTRANT -DPIC"
+CFLAGS="-fPIC  -w"
+DFLAGS="-D_REENTRANT -DPIC -DBIT_DEBUG"
 IFLAGS="-I${CONFIG}/inc"
-LDFLAGS=""
+LDFLAGS="-g"
 LIBPATHS="-L${CONFIG}/bin"
 LIBS="-llxnet -lrt -lsocket -lpthread -lm -ldl"
 
@@ -108,56 +108,56 @@ cp -r src/est.h ${CONFIG}/inc/est.h
 rm -rf ${CONFIG}/inc/openssl.h
 cp -r src/openssl.h ${CONFIG}/inc/openssl.h
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/aes.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/aes.c
+${CC} -c -o ${CONFIG}/obj/aes.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/aes.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/arc4.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/arc4.c
+${CC} -c -o ${CONFIG}/obj/arc4.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/arc4.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/base64.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/base64.c
+${CC} -c -o ${CONFIG}/obj/base64.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/base64.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/bignum.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/bignum.c
+${CC} -c -o ${CONFIG}/obj/bignum.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/bignum.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/camellia.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/camellia.c
+${CC} -c -o ${CONFIG}/obj/camellia.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/camellia.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/certs.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/certs.c
+${CC} -c -o ${CONFIG}/obj/certs.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/certs.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/debug.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/debug.c
+${CC} -c -o ${CONFIG}/obj/debug.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/debug.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/des.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/des.c
+${CC} -c -o ${CONFIG}/obj/des.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/des.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/dhm.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/dhm.c
+${CC} -c -o ${CONFIG}/obj/dhm.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/dhm.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/havege.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/havege.c
+${CC} -c -o ${CONFIG}/obj/havege.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/havege.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/md2.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/md2.c
+${CC} -c -o ${CONFIG}/obj/md2.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/md2.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/md4.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/md4.c
+${CC} -c -o ${CONFIG}/obj/md4.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/md4.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/md5.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/md5.c
+${CC} -c -o ${CONFIG}/obj/md5.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/md5.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/net.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/net.c
+${CC} -c -o ${CONFIG}/obj/net.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/net.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/padlock.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/padlock.c
+${CC} -c -o ${CONFIG}/obj/padlock.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/padlock.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/rsa.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/rsa.c
+${CC} -c -o ${CONFIG}/obj/rsa.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/rsa.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/sha1.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/sha1.c
+${CC} -c -o ${CONFIG}/obj/sha1.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/sha1.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/sha2.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/sha2.c
+${CC} -c -o ${CONFIG}/obj/sha2.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/sha2.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/sha4.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/sha4.c
+${CC} -c -o ${CONFIG}/obj/sha4.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/sha4.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/ssl_cli.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/ssl_cli.c
+${CC} -c -o ${CONFIG}/obj/ssl_cli.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/ssl_cli.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/ssl_srv.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/ssl_srv.c
+${CC} -c -o ${CONFIG}/obj/ssl_srv.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/ssl_srv.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/ssl_tls.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/ssl_tls.c
+${CC} -c -o ${CONFIG}/obj/ssl_tls.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/ssl_tls.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/timing.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/timing.c
+${CC} -c -o ${CONFIG}/obj/timing.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/timing.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/x509parse.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/x509parse.c
+${CC} -c -o ${CONFIG}/obj/x509parse.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/x509parse.c
 
-${LDFLAGS}${LDFLAGS}${CC} -c -o ${CONFIG}/obj/xtea.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/xtea.c
+${CC} -c -o ${CONFIG}/obj/xtea.o -fPIC ${LDFLAGS} ${DFLAGS} -I${CONFIG}/inc src/xtea.c
 
-${LDFLAGS}${LDFLAGS}${CC} -shared -o ${CONFIG}/bin/libest.so ${LIBPATHS} ${CONFIG}/obj/aes.o ${CONFIG}/obj/arc4.o ${CONFIG}/obj/base64.o ${CONFIG}/obj/bignum.o ${CONFIG}/obj/camellia.o ${CONFIG}/obj/certs.o ${CONFIG}/obj/debug.o ${CONFIG}/obj/des.o ${CONFIG}/obj/dhm.o ${CONFIG}/obj/havege.o ${CONFIG}/obj/md2.o ${CONFIG}/obj/md4.o ${CONFIG}/obj/md5.o ${CONFIG}/obj/net.o ${CONFIG}/obj/padlock.o ${CONFIG}/obj/rsa.o ${CONFIG}/obj/sha1.o ${CONFIG}/obj/sha2.o ${CONFIG}/obj/sha4.o ${CONFIG}/obj/ssl_cli.o ${CONFIG}/obj/ssl_srv.o ${CONFIG}/obj/ssl_tls.o ${CONFIG}/obj/timing.o ${CONFIG}/obj/x509parse.o ${CONFIG}/obj/xtea.o ${LIBS}
+${CC} -shared -o ${CONFIG}/bin/libest.so ${LDFLAGS} ${LIBPATHS} ${CONFIG}/obj/aes.o ${CONFIG}/obj/arc4.o ${CONFIG}/obj/base64.o ${CONFIG}/obj/bignum.o ${CONFIG}/obj/camellia.o ${CONFIG}/obj/certs.o ${CONFIG}/obj/debug.o ${CONFIG}/obj/des.o ${CONFIG}/obj/dhm.o ${CONFIG}/obj/havege.o ${CONFIG}/obj/md2.o ${CONFIG}/obj/md4.o ${CONFIG}/obj/md5.o ${CONFIG}/obj/net.o ${CONFIG}/obj/padlock.o ${CONFIG}/obj/rsa.o ${CONFIG}/obj/sha1.o ${CONFIG}/obj/sha2.o ${CONFIG}/obj/sha4.o ${CONFIG}/obj/ssl_cli.o ${CONFIG}/obj/ssl_srv.o ${CONFIG}/obj/ssl_tls.o ${CONFIG}/obj/timing.o ${CONFIG}/obj/x509parse.o ${CONFIG}/obj/xtea.o ${LIBS}
 
 #  Omit build script undefined

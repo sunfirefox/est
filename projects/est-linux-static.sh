@@ -12,10 +12,10 @@ OS="linux"
 CONFIG="${OS}-${ARCH}-${PROFILE}"
 CC="/usr/bin/gcc"
 LD="/usr/bin/ld"
-CFLAGS="-fPIC -O2  -w"
-DFLAGS="-D_REENTRANT -DPIC"
+CFLAGS="-fPIC   -w"
+DFLAGS="-D_REENTRANT -DPIC -DBIT_DEBUG"
 IFLAGS="-I${CONFIG}/inc"
-LDFLAGS="-Wl,--enable-new-dtags -Wl,-rpath,\$ORIGIN/ -Wl,-rpath,\$ORIGIN/../bin -rdynamic"
+LDFLAGS="-Wl,--enable-new-dtags -Wl,-rpath,\$ORIGIN/ -Wl,-rpath,\$ORIGIN/../bin -rdynamic -g"
 LIBPATHS="-L${CONFIG}/bin"
 LIBS="-lpthread -lm -lrt -ldl"
 
@@ -108,55 +108,55 @@ cp -r src/est.h ${CONFIG}/inc/est.h
 rm -rf ${CONFIG}/inc/openssl.h
 cp -r src/openssl.h ${CONFIG}/inc/openssl.h
 
-${CC} -c -o ${CONFIG}/obj/aes.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/aes.c
+${CC} -c -o ${CONFIG}/obj/aes.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/aes.c
 
-${CC} -c -o ${CONFIG}/obj/arc4.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/arc4.c
+${CC} -c -o ${CONFIG}/obj/arc4.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/arc4.c
 
-${CC} -c -o ${CONFIG}/obj/base64.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/base64.c
+${CC} -c -o ${CONFIG}/obj/base64.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/base64.c
 
-${CC} -c -o ${CONFIG}/obj/bignum.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/bignum.c
+${CC} -c -o ${CONFIG}/obj/bignum.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/bignum.c
 
-${CC} -c -o ${CONFIG}/obj/camellia.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/camellia.c
+${CC} -c -o ${CONFIG}/obj/camellia.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/camellia.c
 
-${CC} -c -o ${CONFIG}/obj/certs.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/certs.c
+${CC} -c -o ${CONFIG}/obj/certs.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/certs.c
 
-${CC} -c -o ${CONFIG}/obj/debug.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/debug.c
+${CC} -c -o ${CONFIG}/obj/debug.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/debug.c
 
-${CC} -c -o ${CONFIG}/obj/des.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/des.c
+${CC} -c -o ${CONFIG}/obj/des.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/des.c
 
-${CC} -c -o ${CONFIG}/obj/dhm.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/dhm.c
+${CC} -c -o ${CONFIG}/obj/dhm.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/dhm.c
 
-${CC} -c -o ${CONFIG}/obj/havege.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/havege.c
+${CC} -c -o ${CONFIG}/obj/havege.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/havege.c
 
-${CC} -c -o ${CONFIG}/obj/md2.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/md2.c
+${CC} -c -o ${CONFIG}/obj/md2.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/md2.c
 
-${CC} -c -o ${CONFIG}/obj/md4.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/md4.c
+${CC} -c -o ${CONFIG}/obj/md4.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/md4.c
 
-${CC} -c -o ${CONFIG}/obj/md5.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/md5.c
+${CC} -c -o ${CONFIG}/obj/md5.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/md5.c
 
-${CC} -c -o ${CONFIG}/obj/net.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/net.c
+${CC} -c -o ${CONFIG}/obj/net.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/net.c
 
-${CC} -c -o ${CONFIG}/obj/padlock.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/padlock.c
+${CC} -c -o ${CONFIG}/obj/padlock.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/padlock.c
 
-${CC} -c -o ${CONFIG}/obj/rsa.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/rsa.c
+${CC} -c -o ${CONFIG}/obj/rsa.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/rsa.c
 
-${CC} -c -o ${CONFIG}/obj/sha1.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/sha1.c
+${CC} -c -o ${CONFIG}/obj/sha1.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/sha1.c
 
-${CC} -c -o ${CONFIG}/obj/sha2.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/sha2.c
+${CC} -c -o ${CONFIG}/obj/sha2.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/sha2.c
 
-${CC} -c -o ${CONFIG}/obj/sha4.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/sha4.c
+${CC} -c -o ${CONFIG}/obj/sha4.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/sha4.c
 
-${CC} -c -o ${CONFIG}/obj/ssl_cli.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/ssl_cli.c
+${CC} -c -o ${CONFIG}/obj/ssl_cli.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/ssl_cli.c
 
-${CC} -c -o ${CONFIG}/obj/ssl_srv.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/ssl_srv.c
+${CC} -c -o ${CONFIG}/obj/ssl_srv.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/ssl_srv.c
 
-${CC} -c -o ${CONFIG}/obj/ssl_tls.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/ssl_tls.c
+${CC} -c -o ${CONFIG}/obj/ssl_tls.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/ssl_tls.c
 
-${CC} -c -o ${CONFIG}/obj/timing.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/timing.c
+${CC} -c -o ${CONFIG}/obj/timing.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/timing.c
 
-${CC} -c -o ${CONFIG}/obj/x509parse.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/x509parse.c
+${CC} -c -o ${CONFIG}/obj/x509parse.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/x509parse.c
 
-${CC} -c -o ${CONFIG}/obj/xtea.o -fPIC -O2 ${DFLAGS} -I${CONFIG}/inc src/xtea.c
+${CC} -c -o ${CONFIG}/obj/xtea.o -fPIC ${DFLAGS} -I${CONFIG}/inc src/xtea.c
 
 /usr/bin/ar -cr ${CONFIG}/bin/libest.a ${CONFIG}/obj/aes.o ${CONFIG}/obj/arc4.o ${CONFIG}/obj/base64.o ${CONFIG}/obj/bignum.o ${CONFIG}/obj/camellia.o ${CONFIG}/obj/certs.o ${CONFIG}/obj/debug.o ${CONFIG}/obj/des.o ${CONFIG}/obj/dhm.o ${CONFIG}/obj/havege.o ${CONFIG}/obj/md2.o ${CONFIG}/obj/md4.o ${CONFIG}/obj/md5.o ${CONFIG}/obj/net.o ${CONFIG}/obj/padlock.o ${CONFIG}/obj/rsa.o ${CONFIG}/obj/sha1.o ${CONFIG}/obj/sha2.o ${CONFIG}/obj/sha4.o ${CONFIG}/obj/ssl_cli.o ${CONFIG}/obj/ssl_srv.o ${CONFIG}/obj/ssl_tls.o ${CONFIG}/obj/timing.o ${CONFIG}/obj/x509parse.o ${CONFIG}/obj/xtea.o
 

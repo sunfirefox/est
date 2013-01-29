@@ -12,10 +12,10 @@ OS="macosx"
 CONFIG="${OS}-${ARCH}-${PROFILE}"
 CC="/usr/bin/clang"
 LD="/usr/bin/ld"
-CFLAGS="-O3   -w"
-DFLAGS=""
+CFLAGS="-w"
+DFLAGS="-DBIT_DEBUG"
 IFLAGS="-I${CONFIG}/inc"
-LDFLAGS="-Wl,-rpath,@executable_path/ -Wl,-rpath,@loader_path/"
+LDFLAGS="-Wl,-rpath,@executable_path/ -Wl,-rpath,@loader_path/ -g"
 LIBPATHS="-L${CONFIG}/bin"
 LIBS="-lpthread -lm -ldl"
 
@@ -108,56 +108,56 @@ cp -r src/est.h ${CONFIG}/inc/est.h
 rm -rf ${CONFIG}/inc/openssl.h
 cp -r src/openssl.h ${CONFIG}/inc/openssl.h
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/aes.o -arch x86_64 -O3 -I${CONFIG}/inc src/aes.c
+${CC} -c -o ${CONFIG}/obj/aes.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/aes.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/arc4.o -arch x86_64 -O3 -I${CONFIG}/inc src/arc4.c
+${CC} -c -o ${CONFIG}/obj/arc4.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/arc4.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/base64.o -arch x86_64 -O3 -I${CONFIG}/inc src/base64.c
+${CC} -c -o ${CONFIG}/obj/base64.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/base64.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/bignum.o -arch x86_64 -O3 -I${CONFIG}/inc src/bignum.c
+${CC} -c -o ${CONFIG}/obj/bignum.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/bignum.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/camellia.o -arch x86_64 -O3 -I${CONFIG}/inc src/camellia.c
+${CC} -c -o ${CONFIG}/obj/camellia.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/camellia.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/certs.o -arch x86_64 -O3 -I${CONFIG}/inc src/certs.c
+${CC} -c -o ${CONFIG}/obj/certs.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/certs.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/debug.o -arch x86_64 -O3 -I${CONFIG}/inc src/debug.c
+${CC} -c -o ${CONFIG}/obj/debug.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/debug.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/des.o -arch x86_64 -O3 -I${CONFIG}/inc src/des.c
+${CC} -c -o ${CONFIG}/obj/des.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/des.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/dhm.o -arch x86_64 -O3 -I${CONFIG}/inc src/dhm.c
+${CC} -c -o ${CONFIG}/obj/dhm.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/dhm.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/havege.o -arch x86_64 -O3 -I${CONFIG}/inc src/havege.c
+${CC} -c -o ${CONFIG}/obj/havege.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/havege.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/md2.o -arch x86_64 -O3 -I${CONFIG}/inc src/md2.c
+${CC} -c -o ${CONFIG}/obj/md2.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/md2.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/md4.o -arch x86_64 -O3 -I${CONFIG}/inc src/md4.c
+${CC} -c -o ${CONFIG}/obj/md4.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/md4.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/md5.o -arch x86_64 -O3 -I${CONFIG}/inc src/md5.c
+${CC} -c -o ${CONFIG}/obj/md5.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/md5.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/net.o -arch x86_64 -O3 -I${CONFIG}/inc src/net.c
+${CC} -c -o ${CONFIG}/obj/net.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/net.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/padlock.o -arch x86_64 -O3 -I${CONFIG}/inc src/padlock.c
+${CC} -c -o ${CONFIG}/obj/padlock.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/padlock.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/rsa.o -arch x86_64 -O3 -I${CONFIG}/inc src/rsa.c
+${CC} -c -o ${CONFIG}/obj/rsa.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/rsa.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/sha1.o -arch x86_64 -O3 -I${CONFIG}/inc src/sha1.c
+${CC} -c -o ${CONFIG}/obj/sha1.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/sha1.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/sha2.o -arch x86_64 -O3 -I${CONFIG}/inc src/sha2.c
+${CC} -c -o ${CONFIG}/obj/sha2.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/sha2.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/sha4.o -arch x86_64 -O3 -I${CONFIG}/inc src/sha4.c
+${CC} -c -o ${CONFIG}/obj/sha4.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/sha4.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/ssl_cli.o -arch x86_64 -O3 -I${CONFIG}/inc src/ssl_cli.c
+${CC} -c -o ${CONFIG}/obj/ssl_cli.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/ssl_cli.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/ssl_srv.o -arch x86_64 -O3 -I${CONFIG}/inc src/ssl_srv.c
+${CC} -c -o ${CONFIG}/obj/ssl_srv.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/ssl_srv.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/ssl_tls.o -arch x86_64 -O3 -I${CONFIG}/inc src/ssl_tls.c
+${CC} -c -o ${CONFIG}/obj/ssl_tls.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/ssl_tls.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/timing.o -arch x86_64 -O3 -I${CONFIG}/inc src/timing.c
+${CC} -c -o ${CONFIG}/obj/timing.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/timing.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/x509parse.o -arch x86_64 -O3 -I${CONFIG}/inc src/x509parse.c
+${CC} -c -o ${CONFIG}/obj/x509parse.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/x509parse.c
 
-${DFLAGS}${CC} -c -o ${CONFIG}/obj/xtea.o -arch x86_64 -O3 -I${CONFIG}/inc src/xtea.c
+${CC} -c -o ${CONFIG}/obj/xtea.o -arch x86_64 ${DFLAGS} -I${CONFIG}/inc src/xtea.c
 
-${DFLAGS}/usr/bin/ar -cr ${CONFIG}/bin/libest.a ${CONFIG}/obj/aes.o ${CONFIG}/obj/arc4.o ${CONFIG}/obj/base64.o ${CONFIG}/obj/bignum.o ${CONFIG}/obj/camellia.o ${CONFIG}/obj/certs.o ${CONFIG}/obj/debug.o ${CONFIG}/obj/des.o ${CONFIG}/obj/dhm.o ${CONFIG}/obj/havege.o ${CONFIG}/obj/md2.o ${CONFIG}/obj/md4.o ${CONFIG}/obj/md5.o ${CONFIG}/obj/net.o ${CONFIG}/obj/padlock.o ${CONFIG}/obj/rsa.o ${CONFIG}/obj/sha1.o ${CONFIG}/obj/sha2.o ${CONFIG}/obj/sha4.o ${CONFIG}/obj/ssl_cli.o ${CONFIG}/obj/ssl_srv.o ${CONFIG}/obj/ssl_tls.o ${CONFIG}/obj/timing.o ${CONFIG}/obj/x509parse.o ${CONFIG}/obj/xtea.o
+/usr/bin/ar -cr ${CONFIG}/bin/libest.a ${CONFIG}/obj/aes.o ${CONFIG}/obj/arc4.o ${CONFIG}/obj/base64.o ${CONFIG}/obj/bignum.o ${CONFIG}/obj/camellia.o ${CONFIG}/obj/certs.o ${CONFIG}/obj/debug.o ${CONFIG}/obj/des.o ${CONFIG}/obj/dhm.o ${CONFIG}/obj/havege.o ${CONFIG}/obj/md2.o ${CONFIG}/obj/md4.o ${CONFIG}/obj/md5.o ${CONFIG}/obj/net.o ${CONFIG}/obj/padlock.o ${CONFIG}/obj/rsa.o ${CONFIG}/obj/sha1.o ${CONFIG}/obj/sha2.o ${CONFIG}/obj/sha4.o ${CONFIG}/obj/ssl_cli.o ${CONFIG}/obj/ssl_srv.o ${CONFIG}/obj/ssl_tls.o ${CONFIG}/obj/timing.o ${CONFIG}/obj/x509parse.o ${CONFIG}/obj/xtea.o
 
 #  Omit build script undefined
