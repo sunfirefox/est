@@ -89,9 +89,9 @@ help:
 	@echo '      BIT_EST_X509       # Enable X509 certificate support (true|false)' >&2
 	@echo '      BIT_EST_XTEA       # Enable XTEA (true|false)' >&2
 	@echo '' >&2
-	@echo 'For example, to disable CGI:' >&2
+	@echo 'For example, to disable logging:' >&2
 	@echo '' >&2
-	@echo '      make BIT_PACK_CGI=0' >&2
+	@echo '      make BIT_EST_LOGGING=0' >&2
 	@echo '' >&2
 	@echo 'Other make variables include:' >&2
 	@echo '' >&2
