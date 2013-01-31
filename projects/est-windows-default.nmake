@@ -87,23 +87,19 @@ clean:
 	-if exist $(CONFIG)\obj\x509parse.obj del /Q $(CONFIG)\obj\x509parse.obj
 	-if exist $(CONFIG)\obj\xtea.obj del /Q $(CONFIG)\obj\xtea.obj
 
-$(CONFIG)\inc\aes.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\aes.h: 
 	-if exist $(CONFIG)\inc\aes.h del /Q $(CONFIG)\inc\aes.h
 	copy /Y src\aes.h $(CONFIG)\inc\aes.h
 
-$(CONFIG)\inc\arc4.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\arc4.h: 
 	-if exist $(CONFIG)\inc\arc4.h del /Q $(CONFIG)\inc\arc4.h
 	copy /Y src\arc4.h $(CONFIG)\inc\arc4.h
 
-$(CONFIG)\inc\base64.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\base64.h: 
 	-if exist $(CONFIG)\inc\base64.h del /Q $(CONFIG)\inc\base64.h
 	copy /Y src\base64.h $(CONFIG)\inc\base64.h
 
-$(CONFIG)\inc\bignum.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\bignum.h: 
 	-if exist $(CONFIG)\inc\bignum.h del /Q $(CONFIG)\inc\bignum.h
 	copy /Y src\bignum.h $(CONFIG)\inc\bignum.h
 
@@ -112,108 +108,98 @@ $(CONFIG)\inc\bitos.h:  \
 	-if exist $(CONFIG)\inc\bitos.h del /Q $(CONFIG)\inc\bitos.h
 	copy /Y src\bitos.h $(CONFIG)\inc\bitos.h
 
-$(CONFIG)\inc\bn_mul.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\bn_mul.h: 
 	-if exist $(CONFIG)\inc\bn_mul.h del /Q $(CONFIG)\inc\bn_mul.h
 	copy /Y src\bn_mul.h $(CONFIG)\inc\bn_mul.h
 
-$(CONFIG)\inc\camellia.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\camellia.h: 
 	-if exist $(CONFIG)\inc\camellia.h del /Q $(CONFIG)\inc\camellia.h
 	copy /Y src\camellia.h $(CONFIG)\inc\camellia.h
 
-$(CONFIG)\inc\certs.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\certs.h: 
 	-if exist $(CONFIG)\inc\certs.h del /Q $(CONFIG)\inc\certs.h
 	copy /Y src\certs.h $(CONFIG)\inc\certs.h
 
-$(CONFIG)\inc\debug.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\debug.h: 
 	-if exist $(CONFIG)\inc\debug.h del /Q $(CONFIG)\inc\debug.h
 	copy /Y src\debug.h $(CONFIG)\inc\debug.h
 
-$(CONFIG)\inc\des.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\des.h: 
 	-if exist $(CONFIG)\inc\des.h del /Q $(CONFIG)\inc\des.h
 	copy /Y src\des.h $(CONFIG)\inc\des.h
 
-$(CONFIG)\inc\dhm.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\dhm.h: 
 	-if exist $(CONFIG)\inc\dhm.h del /Q $(CONFIG)\inc\dhm.h
 	copy /Y src\dhm.h $(CONFIG)\inc\dhm.h
 
-$(CONFIG)\inc\net.h:  \
-        $(CONFIG)\inc\bit.h
-	-if exist $(CONFIG)\inc\net.h del /Q $(CONFIG)\inc\net.h
-	copy /Y src\net.h $(CONFIG)\inc\net.h
+$(CONFIG)\inc\est.h: 
+	-if exist $(CONFIG)\inc\est.h del /Q $(CONFIG)\inc\est.h
+	copy /Y src\est.h $(CONFIG)\inc\est.h
 
-$(CONFIG)\inc\rsa.h:  \
-        $(CONFIG)\inc\bit.h
-	-if exist $(CONFIG)\inc\rsa.h del /Q $(CONFIG)\inc\rsa.h
-	copy /Y src\rsa.h $(CONFIG)\inc\rsa.h
-
-$(CONFIG)\inc\md5.h:  \
-        $(CONFIG)\inc\bit.h
-	-if exist $(CONFIG)\inc\md5.h del /Q $(CONFIG)\inc\md5.h
-	copy /Y src\md5.h $(CONFIG)\inc\md5.h
-
-$(CONFIG)\inc\sha1.h:  \
-        $(CONFIG)\inc\bit.h
-	-if exist $(CONFIG)\inc\sha1.h del /Q $(CONFIG)\inc\sha1.h
-	copy /Y src\sha1.h $(CONFIG)\inc\sha1.h
-
-$(CONFIG)\inc\x509.h:  \
-        $(CONFIG)\inc\bit.h
-	-if exist $(CONFIG)\inc\x509.h del /Q $(CONFIG)\inc\x509.h
-	copy /Y src\x509.h $(CONFIG)\inc\x509.h
-
-$(CONFIG)\inc\ssl.h:  \
-        $(CONFIG)\inc\bit.h
-	-if exist $(CONFIG)\inc\ssl.h del /Q $(CONFIG)\inc\ssl.h
-	copy /Y src\ssl.h $(CONFIG)\inc\ssl.h
-
-$(CONFIG)\inc\havege.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\havege.h: 
 	-if exist $(CONFIG)\inc\havege.h del /Q $(CONFIG)\inc\havege.h
 	copy /Y src\havege.h $(CONFIG)\inc\havege.h
 
-$(CONFIG)\inc\md2.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\md2.h: 
 	-if exist $(CONFIG)\inc\md2.h del /Q $(CONFIG)\inc\md2.h
 	copy /Y src\md2.h $(CONFIG)\inc\md2.h
 
-$(CONFIG)\inc\md4.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\md4.h: 
 	-if exist $(CONFIG)\inc\md4.h del /Q $(CONFIG)\inc\md4.h
 	copy /Y src\md4.h $(CONFIG)\inc\md4.h
 
-$(CONFIG)\inc\padlock.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\md5.h: 
+	-if exist $(CONFIG)\inc\md5.h del /Q $(CONFIG)\inc\md5.h
+	copy /Y src\md5.h $(CONFIG)\inc\md5.h
+
+$(CONFIG)\inc\net.h: 
+	-if exist $(CONFIG)\inc\net.h del /Q $(CONFIG)\inc\net.h
+	copy /Y src\net.h $(CONFIG)\inc\net.h
+
+$(CONFIG)\inc\openssl.h: 
+	-if exist $(CONFIG)\inc\openssl.h del /Q $(CONFIG)\inc\openssl.h
+	copy /Y src\openssl.h $(CONFIG)\inc\openssl.h
+
+$(CONFIG)\inc\padlock.h: 
 	-if exist $(CONFIG)\inc\padlock.h del /Q $(CONFIG)\inc\padlock.h
 	copy /Y src\padlock.h $(CONFIG)\inc\padlock.h
 
-$(CONFIG)\inc\sha2.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\rsa.h: 
+	-if exist $(CONFIG)\inc\rsa.h del /Q $(CONFIG)\inc\rsa.h
+	copy /Y src\rsa.h $(CONFIG)\inc\rsa.h
+
+$(CONFIG)\inc\sha1.h: 
+	-if exist $(CONFIG)\inc\sha1.h del /Q $(CONFIG)\inc\sha1.h
+	copy /Y src\sha1.h $(CONFIG)\inc\sha1.h
+
+$(CONFIG)\inc\sha2.h: 
 	-if exist $(CONFIG)\inc\sha2.h del /Q $(CONFIG)\inc\sha2.h
 	copy /Y src\sha2.h $(CONFIG)\inc\sha2.h
 
-$(CONFIG)\inc\sha4.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\sha4.h: 
 	-if exist $(CONFIG)\inc\sha4.h del /Q $(CONFIG)\inc\sha4.h
 	copy /Y src\sha4.h $(CONFIG)\inc\sha4.h
 
-$(CONFIG)\inc\timing.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\ssl.h: 
+	-if exist $(CONFIG)\inc\ssl.h del /Q $(CONFIG)\inc\ssl.h
+	copy /Y src\ssl.h $(CONFIG)\inc\ssl.h
+
+$(CONFIG)\inc\timing.h: 
 	-if exist $(CONFIG)\inc\timing.h del /Q $(CONFIG)\inc\timing.h
 	copy /Y src\timing.h $(CONFIG)\inc\timing.h
 
-$(CONFIG)\inc\xtea.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\x509.h: 
+	-if exist $(CONFIG)\inc\x509.h del /Q $(CONFIG)\inc\x509.h
+	copy /Y src\x509.h $(CONFIG)\inc\x509.h
+
+$(CONFIG)\inc\xtea.h: 
 	-if exist $(CONFIG)\inc\xtea.h del /Q $(CONFIG)\inc\xtea.h
 	copy /Y src\xtea.h $(CONFIG)\inc\xtea.h
 
-$(CONFIG)\inc\est.h:  \
+$(CONFIG)\obj\aes.obj: \
+        src\aes.c \
         $(CONFIG)\inc\bit.h \
+        $(CONFIG)\inc\est.h \
         $(CONFIG)\inc\bitos.h \
         $(CONFIG)\inc\bignum.h \
         $(CONFIG)\inc\net.h \
@@ -239,17 +225,6 @@ $(CONFIG)\inc\est.h:  \
         $(CONFIG)\inc\sha4.h \
         $(CONFIG)\inc\timing.h \
         $(CONFIG)\inc\xtea.h
-	-if exist $(CONFIG)\inc\est.h del /Q $(CONFIG)\inc\est.h
-	copy /Y src\est.h $(CONFIG)\inc\est.h
-
-$(CONFIG)\inc\openssl.h: 
-	-if exist $(CONFIG)\inc\openssl.h del /Q $(CONFIG)\inc\openssl.h
-	copy /Y src\openssl.h $(CONFIG)\inc\openssl.h
-
-$(CONFIG)\obj\aes.obj: \
-        src\aes.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\aes.c
 
 $(CONFIG)\obj\arc4.obj: \

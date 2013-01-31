@@ -94,23 +94,19 @@ clean:
 clobber: clean
 	rm -fr ./$(CONFIG)
 
-$(CONFIG)/inc/aes.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/aes.h: 
 	rm -fr $(CONFIG)/inc/aes.h
 	cp -r src/aes.h $(CONFIG)/inc/aes.h
 
-$(CONFIG)/inc/arc4.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/arc4.h: 
 	rm -fr $(CONFIG)/inc/arc4.h
 	cp -r src/arc4.h $(CONFIG)/inc/arc4.h
 
-$(CONFIG)/inc/base64.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/base64.h: 
 	rm -fr $(CONFIG)/inc/base64.h
 	cp -r src/base64.h $(CONFIG)/inc/base64.h
 
-$(CONFIG)/inc/bignum.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/bignum.h: 
 	rm -fr $(CONFIG)/inc/bignum.h
 	cp -r src/bignum.h $(CONFIG)/inc/bignum.h
 
@@ -119,108 +115,98 @@ $(CONFIG)/inc/bitos.h:  \
 	rm -fr $(CONFIG)/inc/bitos.h
 	cp -r src/bitos.h $(CONFIG)/inc/bitos.h
 
-$(CONFIG)/inc/bn_mul.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/bn_mul.h: 
 	rm -fr $(CONFIG)/inc/bn_mul.h
 	cp -r src/bn_mul.h $(CONFIG)/inc/bn_mul.h
 
-$(CONFIG)/inc/camellia.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/camellia.h: 
 	rm -fr $(CONFIG)/inc/camellia.h
 	cp -r src/camellia.h $(CONFIG)/inc/camellia.h
 
-$(CONFIG)/inc/certs.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/certs.h: 
 	rm -fr $(CONFIG)/inc/certs.h
 	cp -r src/certs.h $(CONFIG)/inc/certs.h
 
-$(CONFIG)/inc/debug.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/debug.h: 
 	rm -fr $(CONFIG)/inc/debug.h
 	cp -r src/debug.h $(CONFIG)/inc/debug.h
 
-$(CONFIG)/inc/des.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/des.h: 
 	rm -fr $(CONFIG)/inc/des.h
 	cp -r src/des.h $(CONFIG)/inc/des.h
 
-$(CONFIG)/inc/dhm.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/dhm.h: 
 	rm -fr $(CONFIG)/inc/dhm.h
 	cp -r src/dhm.h $(CONFIG)/inc/dhm.h
 
-$(CONFIG)/inc/net.h:  \
-        $(CONFIG)/inc/bit.h
-	rm -fr $(CONFIG)/inc/net.h
-	cp -r src/net.h $(CONFIG)/inc/net.h
+$(CONFIG)/inc/est.h: 
+	rm -fr $(CONFIG)/inc/est.h
+	cp -r src/est.h $(CONFIG)/inc/est.h
 
-$(CONFIG)/inc/rsa.h:  \
-        $(CONFIG)/inc/bit.h
-	rm -fr $(CONFIG)/inc/rsa.h
-	cp -r src/rsa.h $(CONFIG)/inc/rsa.h
-
-$(CONFIG)/inc/md5.h:  \
-        $(CONFIG)/inc/bit.h
-	rm -fr $(CONFIG)/inc/md5.h
-	cp -r src/md5.h $(CONFIG)/inc/md5.h
-
-$(CONFIG)/inc/sha1.h:  \
-        $(CONFIG)/inc/bit.h
-	rm -fr $(CONFIG)/inc/sha1.h
-	cp -r src/sha1.h $(CONFIG)/inc/sha1.h
-
-$(CONFIG)/inc/x509.h:  \
-        $(CONFIG)/inc/bit.h
-	rm -fr $(CONFIG)/inc/x509.h
-	cp -r src/x509.h $(CONFIG)/inc/x509.h
-
-$(CONFIG)/inc/ssl.h:  \
-        $(CONFIG)/inc/bit.h
-	rm -fr $(CONFIG)/inc/ssl.h
-	cp -r src/ssl.h $(CONFIG)/inc/ssl.h
-
-$(CONFIG)/inc/havege.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/havege.h: 
 	rm -fr $(CONFIG)/inc/havege.h
 	cp -r src/havege.h $(CONFIG)/inc/havege.h
 
-$(CONFIG)/inc/md2.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/md2.h: 
 	rm -fr $(CONFIG)/inc/md2.h
 	cp -r src/md2.h $(CONFIG)/inc/md2.h
 
-$(CONFIG)/inc/md4.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/md4.h: 
 	rm -fr $(CONFIG)/inc/md4.h
 	cp -r src/md4.h $(CONFIG)/inc/md4.h
 
-$(CONFIG)/inc/padlock.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/md5.h: 
+	rm -fr $(CONFIG)/inc/md5.h
+	cp -r src/md5.h $(CONFIG)/inc/md5.h
+
+$(CONFIG)/inc/net.h: 
+	rm -fr $(CONFIG)/inc/net.h
+	cp -r src/net.h $(CONFIG)/inc/net.h
+
+$(CONFIG)/inc/openssl.h: 
+	rm -fr $(CONFIG)/inc/openssl.h
+	cp -r src/openssl.h $(CONFIG)/inc/openssl.h
+
+$(CONFIG)/inc/padlock.h: 
 	rm -fr $(CONFIG)/inc/padlock.h
 	cp -r src/padlock.h $(CONFIG)/inc/padlock.h
 
-$(CONFIG)/inc/sha2.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/rsa.h: 
+	rm -fr $(CONFIG)/inc/rsa.h
+	cp -r src/rsa.h $(CONFIG)/inc/rsa.h
+
+$(CONFIG)/inc/sha1.h: 
+	rm -fr $(CONFIG)/inc/sha1.h
+	cp -r src/sha1.h $(CONFIG)/inc/sha1.h
+
+$(CONFIG)/inc/sha2.h: 
 	rm -fr $(CONFIG)/inc/sha2.h
 	cp -r src/sha2.h $(CONFIG)/inc/sha2.h
 
-$(CONFIG)/inc/sha4.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/sha4.h: 
 	rm -fr $(CONFIG)/inc/sha4.h
 	cp -r src/sha4.h $(CONFIG)/inc/sha4.h
 
-$(CONFIG)/inc/timing.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/ssl.h: 
+	rm -fr $(CONFIG)/inc/ssl.h
+	cp -r src/ssl.h $(CONFIG)/inc/ssl.h
+
+$(CONFIG)/inc/timing.h: 
 	rm -fr $(CONFIG)/inc/timing.h
 	cp -r src/timing.h $(CONFIG)/inc/timing.h
 
-$(CONFIG)/inc/xtea.h:  \
-        $(CONFIG)/inc/bit.h
+$(CONFIG)/inc/x509.h: 
+	rm -fr $(CONFIG)/inc/x509.h
+	cp -r src/x509.h $(CONFIG)/inc/x509.h
+
+$(CONFIG)/inc/xtea.h: 
 	rm -fr $(CONFIG)/inc/xtea.h
 	cp -r src/xtea.h $(CONFIG)/inc/xtea.h
 
-$(CONFIG)/inc/est.h:  \
+$(CONFIG)/obj/aes.o: \
+        src/aes.c \
         $(CONFIG)/inc/bit.h \
+        $(CONFIG)/inc/est.h \
         $(CONFIG)/inc/bitos.h \
         $(CONFIG)/inc/bignum.h \
         $(CONFIG)/inc/net.h \
@@ -246,17 +232,6 @@ $(CONFIG)/inc/est.h:  \
         $(CONFIG)/inc/sha4.h \
         $(CONFIG)/inc/timing.h \
         $(CONFIG)/inc/xtea.h
-	rm -fr $(CONFIG)/inc/est.h
-	cp -r src/est.h $(CONFIG)/inc/est.h
-
-$(CONFIG)/inc/openssl.h: 
-	rm -fr $(CONFIG)/inc/openssl.h
-	cp -r src/openssl.h $(CONFIG)/inc/openssl.h
-
-$(CONFIG)/obj/aes.o: \
-        src/aes.c \
-        $(CONFIG)/inc/bit.h \
-        $(CONFIG)/inc/est.h
 	$(CC) -c -o $(CONFIG)/obj/aes.o -fPIC $(DFLAGS) -I$(CONFIG)/inc src/aes.c
 
 $(CONFIG)/obj/arc4.o: \

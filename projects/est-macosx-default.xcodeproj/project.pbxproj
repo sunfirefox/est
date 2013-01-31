@@ -81,6 +81,31 @@
 		FC514D60FC51612C0000000C /* aes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = aes.c; path = src/aes.c; sourceTree = "<group>"; };
 		FC514D60FC51612C00000040 /* bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bit.h; path = macosx-x64-default/inc/bit.h; sourceTree = "<group>"; };
 		FC514D60FC51612C00000041 /* est.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = est.h; path = macosx-x64-default/inc/est.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000042 /* bitos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bitos.h; path = macosx-x64-default/inc/bitos.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000043 /* bignum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bignum.h; path = macosx-x64-default/inc/bignum.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000044 /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = net.h; path = macosx-x64-default/inc/net.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000045 /* dhm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dhm.h; path = macosx-x64-default/inc/dhm.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000046 /* rsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rsa.h; path = macosx-x64-default/inc/rsa.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000047 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5.h; path = macosx-x64-default/inc/md5.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000048 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha1.h; path = macosx-x64-default/inc/sha1.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000049 /* x509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = x509.h; path = macosx-x64-default/inc/x509.h; sourceTree = "<group>"; };
+		FC514D60FC51612C0000004A /* ssl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ssl.h; path = macosx-x64-default/inc/ssl.h; sourceTree = "<group>"; };
+		FC514D60FC51612C0000004B /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = aes.h; path = macosx-x64-default/inc/aes.h; sourceTree = "<group>"; };
+		FC514D60FC51612C0000004C /* arc4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arc4.h; path = macosx-x64-default/inc/arc4.h; sourceTree = "<group>"; };
+		FC514D60FC51612C0000004D /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base64.h; path = macosx-x64-default/inc/base64.h; sourceTree = "<group>"; };
+		FC514D60FC51612C0000004E /* bn_mul.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bn_mul.h; path = macosx-x64-default/inc/bn_mul.h; sourceTree = "<group>"; };
+		FC514D60FC51612C0000004F /* camellia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camellia.h; path = macosx-x64-default/inc/camellia.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000050 /* certs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = certs.h; path = macosx-x64-default/inc/certs.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000051 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = macosx-x64-default/inc/debug.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000052 /* des.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = des.h; path = macosx-x64-default/inc/des.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000053 /* havege.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = havege.h; path = macosx-x64-default/inc/havege.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000054 /* md2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md2.h; path = macosx-x64-default/inc/md2.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000055 /* md4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md4.h; path = macosx-x64-default/inc/md4.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000056 /* padlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = padlock.h; path = macosx-x64-default/inc/padlock.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000057 /* sha2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha2.h; path = macosx-x64-default/inc/sha2.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000058 /* sha4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha4.h; path = macosx-x64-default/inc/sha4.h; sourceTree = "<group>"; };
+		FC514D60FC51612C00000059 /* timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timing.h; path = macosx-x64-default/inc/timing.h; sourceTree = "<group>"; };
+		FC514D60FC51612C0000005A /* xtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xtea.h; path = macosx-x64-default/inc/xtea.h; sourceTree = "<group>"; };
 		FC514D60FC51612C0000000E /* arc4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arc4.c; path = src/arc4.c; sourceTree = "<group>"; };
 		FC514D60FC51612C00000010 /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = base64.c; path = src/base64.c; sourceTree = "<group>"; };
 		FC514D60FC51612C00000012 /* bignum.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bignum.c; path = src/bignum.c; sourceTree = "<group>"; };
@@ -105,11 +130,11 @@
 		FC514D60FC51612C00000038 /* timing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timing.c; path = src/timing.c; sourceTree = "<group>"; };
 		FC514D60FC51612C0000003A /* x509parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = x509parse.c; path = src/x509parse.c; sourceTree = "<group>"; };
 		FC514D60FC51612C0000003C /* xtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xtea.c; path = src/xtea.c; sourceTree = "<group>"; };
-		FC514D60FC51612C00000042 /* libest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libest.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC514D60FC51612C0000005B /* libest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libest.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		FC514D60FC51612C00000043 /* Frameworks and Libraries for libest */ = {
+		FC514D60FC51612C0000005C /* Frameworks and Libraries for libest */ = {
             isa = PBXFrameworksBuildPhase;
             buildActionMask = 2147483647;
             files = (
@@ -120,19 +145,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FC514D60FC51612C00000044 /* Top Group */ = {
+		FC514D60FC51612C0000005D /* Top Group */ = {
             isa = PBXGroup;
             children = (
-				FC514D60FC51612C00000045 /* libest */,
-				FC514D60FC51612C00000046 /* Products */,
+				FC514D60FC51612C0000005E /* libest */,
+				FC514D60FC51612C0000005F /* Products */,
 			);
             sourceTree = "<group>";
         };
-		FC514D60FC51612C00000045 /* libest */ = {
+		FC514D60FC51612C0000005E /* libest */ = {
             isa = PBXGroup;
             children = (
 				FC514D60FC51612C00000040 /* bit.h */,
 				FC514D60FC51612C00000041 /* est.h */,
+				FC514D60FC51612C00000042 /* bitos.h */,
+				FC514D60FC51612C00000043 /* bignum.h */,
+				FC514D60FC51612C00000044 /* net.h */,
+				FC514D60FC51612C00000045 /* dhm.h */,
+				FC514D60FC51612C00000046 /* rsa.h */,
+				FC514D60FC51612C00000047 /* md5.h */,
+				FC514D60FC51612C00000048 /* sha1.h */,
+				FC514D60FC51612C00000049 /* x509.h */,
+				FC514D60FC51612C0000004A /* ssl.h */,
+				FC514D60FC51612C0000004B /* aes.h */,
+				FC514D60FC51612C0000004C /* arc4.h */,
+				FC514D60FC51612C0000004D /* base64.h */,
+				FC514D60FC51612C0000004E /* bn_mul.h */,
+				FC514D60FC51612C0000004F /* camellia.h */,
+				FC514D60FC51612C00000050 /* certs.h */,
+				FC514D60FC51612C00000051 /* debug.h */,
+				FC514D60FC51612C00000052 /* des.h */,
+				FC514D60FC51612C00000053 /* havege.h */,
+				FC514D60FC51612C00000054 /* md2.h */,
+				FC514D60FC51612C00000055 /* md4.h */,
+				FC514D60FC51612C00000056 /* padlock.h */,
+				FC514D60FC51612C00000057 /* sha2.h */,
+				FC514D60FC51612C00000058 /* sha4.h */,
+				FC514D60FC51612C00000059 /* timing.h */,
+				FC514D60FC51612C0000005A /* xtea.h */,
 				FC514D60FC51612C0000000C /* aes.c */,
 				FC514D60FC51612C0000000E /* arc4.c */,
 				FC514D60FC51612C00000010 /* base64.c */,
@@ -163,10 +213,10 @@
             path = ..;
             sourceTree = SOURCE_ROOT;
         };
-		FC514D60FC51612C00000046 /* Products */ = {
+		FC514D60FC51612C0000005F /* Products */ = {
             isa = PBXGroup;
             children = (
-				FC514D60FC51612C00000042 /* libest */,
+				FC514D60FC51612C0000005B /* libest */,
 			);
             name = "Products";
             path = ..;
@@ -177,19 +227,19 @@
 /* Begin PBXNativeTarget section */
 		FC514D60FC51612C0000003F /* libest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC514D60FC51612C00000048 /* Build configuration list for PBXNativeTarget "libest" */;
+			buildConfigurationList = FC514D60FC51612C00000061 /* Build configuration list for PBXNativeTarget "libest" */;
 			buildPhases = (
-				FC514D60FC51612C00000047 /* Sources */,
-				FC514D60FC51612C00000043 /* Frameworks */,
+				FC514D60FC51612C00000060 /* Sources */,
+				FC514D60FC51612C0000005C /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FC514D60FC51612C00000049 /* Prep */,				
+				FC514D60FC51612C00000062 /* Prep */,				
 			);
 			name = libest;
 			productName = est;
-			productReference = FC514D60FC51612C00000042 /* libest */;
+			productReference = FC514D60FC51612C0000005B /* libest */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -313,8 +363,8 @@ fi";
 			knownRegions = (
 				en,
 			);
-			mainGroup = FC514D60FC51612C00000044;
-			productRefGroup = FC514D60FC51612C00000046 /* Products */;
+			mainGroup = FC514D60FC51612C0000005D;
+			productRefGroup = FC514D60FC51612C0000005F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -326,7 +376,7 @@ fi";
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		FC514D60FC51612C00000047 /* libest Sources */ = {
+		FC514D60FC51612C00000060 /* libest Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -361,7 +411,7 @@ fi";
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		FC514D60FC51612C00000049 /* PBXTargetDependency libest depends on Prep */ = {
+		FC514D60FC51612C00000062 /* PBXTargetDependency libest depends on Prep */ = {
 			isa = PBXTargetDependency;
 			target = FC514D60FC51612C00000009 /* Prep */;
 			targetProxy = FC514D60FC51612C0000003D /* PBXContainerItemProxy */;
@@ -514,7 +564,7 @@ fi";
 			};
 			name = Release;
 		};
-		FC514D60FC51612C0000004A /* Debug */ = {
+		FC514D60FC51612C00000063 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = libest;
@@ -526,7 +576,7 @@ fi";
 			};
 			name = Debug;
 		};
-		FC514D60FC51612C0000004B /* Release */ = {
+		FC514D60FC51612C00000064 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = libest;
@@ -535,7 +585,7 @@ fi";
 			};
 			name = Release;
 		};
-		FC514D60FC51612C0000004C /* Debug */ = {
+		FC514D60FC51612C00000065 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = All;
@@ -547,7 +597,7 @@ fi";
 			};
 			name = Debug;
 		};
-		FC514D60FC51612C0000004D /* Release */ = {
+		FC514D60FC51612C00000066 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = All;
@@ -556,7 +606,7 @@ fi";
 			};
 			name = Release;
 		};
-		FC514D60FC51612C0000004E /* Debug */ = {
+		FC514D60FC51612C00000067 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = Prep;
@@ -568,7 +618,7 @@ fi";
 			};
 			name = Debug;
 		};
-		FC514D60FC51612C0000004F /* Release */ = {
+		FC514D60FC51612C00000068 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = Prep;
@@ -589,11 +639,11 @@ fi";
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC514D60FC51612C00000048 /* Build configuration list for PBXNativeTarget "libest" */ = {
+		FC514D60FC51612C00000061 /* Build configuration list for PBXNativeTarget "libest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FC514D60FC51612C0000004A /* Debug */,
-				FC514D60FC51612C0000004B /* Release */,
+				FC514D60FC51612C00000063 /* Debug */,
+				FC514D60FC51612C00000064 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -601,8 +651,8 @@ fi";
 		FC514D60FC51612C00000005 /* Build configuration list for PBXNativeTarget "All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FC514D60FC51612C0000004C /* Debug */,
-				FC514D60FC51612C0000004D /* Release */,
+				FC514D60FC51612C00000065 /* Debug */,
+				FC514D60FC51612C00000066 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -610,8 +660,8 @@ fi";
 		FC514D60FC51612C00000008 /* Build configuration list for PBXNativeTarget "Prep" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FC514D60FC51612C0000004E /* Debug */,
-				FC514D60FC51612C0000004F /* Release */,
+				FC514D60FC51612C00000067 /* Debug */,
+				FC514D60FC51612C00000068 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
