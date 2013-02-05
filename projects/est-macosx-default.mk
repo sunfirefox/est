@@ -232,151 +232,151 @@ $(CONFIG)/obj/aes.o: \
     $(CONFIG)/inc/sha4.h \
     $(CONFIG)/inc/timing.h \
     $(CONFIG)/inc/xtea.h
-	$(CC) -c -o $(CONFIG)/obj/aes.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/aes.c
+	$(CC) -c -o $(CONFIG)/obj/aes.o $(DFLAGS) -I$(CONFIG)/inc src/aes.c
 
 $(CONFIG)/obj/arc4.o: \
     src/arc4.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/arc4.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/arc4.c
+	$(CC) -c -o $(CONFIG)/obj/arc4.o $(DFLAGS) -I$(CONFIG)/inc src/arc4.c
 
 $(CONFIG)/obj/base64.o: \
     src/base64.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/base64.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/base64.c
+	$(CC) -c -o $(CONFIG)/obj/base64.o $(DFLAGS) -I$(CONFIG)/inc src/base64.c
 
 $(CONFIG)/obj/bignum.o: \
     src/bignum.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/bignum.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/bignum.c
+	$(CC) -c -o $(CONFIG)/obj/bignum.o $(DFLAGS) -I$(CONFIG)/inc src/bignum.c
 
 $(CONFIG)/obj/camellia.o: \
     src/camellia.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/camellia.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/camellia.c
+	$(CC) -c -o $(CONFIG)/obj/camellia.o $(DFLAGS) -I$(CONFIG)/inc src/camellia.c
 
 $(CONFIG)/obj/certs.o: \
     src/certs.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/certs.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/certs.c
+	$(CC) -c -o $(CONFIG)/obj/certs.o $(DFLAGS) -I$(CONFIG)/inc src/certs.c
 
 $(CONFIG)/obj/debug.o: \
     src/debug.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/debug.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/debug.c
+	$(CC) -c -o $(CONFIG)/obj/debug.o $(DFLAGS) -I$(CONFIG)/inc src/debug.c
 
 $(CONFIG)/obj/des.o: \
     src/des.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/des.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/des.c
+	$(CC) -c -o $(CONFIG)/obj/des.o $(DFLAGS) -I$(CONFIG)/inc src/des.c
 
 $(CONFIG)/obj/dhm.o: \
     src/dhm.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/dhm.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/dhm.c
+	$(CC) -c -o $(CONFIG)/obj/dhm.o $(DFLAGS) -I$(CONFIG)/inc src/dhm.c
 
 $(CONFIG)/obj/havege.o: \
     src/havege.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/havege.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/havege.c
+	$(CC) -c -o $(CONFIG)/obj/havege.o $(DFLAGS) -I$(CONFIG)/inc src/havege.c
 
 $(CONFIG)/obj/md2.o: \
     src/md2.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/md2.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/md2.c
+	$(CC) -c -o $(CONFIG)/obj/md2.o $(DFLAGS) -I$(CONFIG)/inc src/md2.c
 
 $(CONFIG)/obj/md4.o: \
     src/md4.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/md4.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/md4.c
+	$(CC) -c -o $(CONFIG)/obj/md4.o $(DFLAGS) -I$(CONFIG)/inc src/md4.c
 
 $(CONFIG)/obj/md5.o: \
     src/md5.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/md5.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/md5.c
+	$(CC) -c -o $(CONFIG)/obj/md5.o $(DFLAGS) -I$(CONFIG)/inc src/md5.c
 
 $(CONFIG)/obj/net.o: \
     src/net.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/net.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/net.c
+	$(CC) -c -o $(CONFIG)/obj/net.o $(DFLAGS) -I$(CONFIG)/inc src/net.c
 
 $(CONFIG)/obj/padlock.o: \
     src/padlock.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/padlock.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/padlock.c
+	$(CC) -c -o $(CONFIG)/obj/padlock.o $(DFLAGS) -I$(CONFIG)/inc src/padlock.c
 
 $(CONFIG)/obj/rsa.o: \
     src/rsa.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/rsa.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/rsa.c
+	$(CC) -c -o $(CONFIG)/obj/rsa.o $(DFLAGS) -I$(CONFIG)/inc src/rsa.c
 
 $(CONFIG)/obj/sha1.o: \
     src/sha1.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/sha1.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/sha1.c
+	$(CC) -c -o $(CONFIG)/obj/sha1.o $(DFLAGS) -I$(CONFIG)/inc src/sha1.c
 
 $(CONFIG)/obj/sha2.o: \
     src/sha2.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/sha2.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/sha2.c
+	$(CC) -c -o $(CONFIG)/obj/sha2.o $(DFLAGS) -I$(CONFIG)/inc src/sha2.c
 
 $(CONFIG)/obj/sha4.o: \
     src/sha4.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/sha4.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/sha4.c
+	$(CC) -c -o $(CONFIG)/obj/sha4.o $(DFLAGS) -I$(CONFIG)/inc src/sha4.c
 
 $(CONFIG)/obj/ssl_cli.o: \
     src/ssl_cli.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/ssl_cli.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/ssl_cli.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_cli.o $(DFLAGS) -I$(CONFIG)/inc src/ssl_cli.c
 
 $(CONFIG)/obj/ssl_srv.o: \
     src/ssl_srv.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/ssl_srv.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/ssl_srv.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_srv.o $(DFLAGS) -I$(CONFIG)/inc src/ssl_srv.c
 
 $(CONFIG)/obj/ssl_tls.o: \
     src/ssl_tls.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/ssl_tls.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/ssl_tls.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_tls.o $(DFLAGS) -I$(CONFIG)/inc src/ssl_tls.c
 
 $(CONFIG)/obj/timing.o: \
     src/timing.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/timing.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/timing.c
+	$(CC) -c -o $(CONFIG)/obj/timing.o $(DFLAGS) -I$(CONFIG)/inc src/timing.c
 
 $(CONFIG)/obj/x509parse.o: \
     src/x509parse.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/x509parse.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/x509parse.c
+	$(CC) -c -o $(CONFIG)/obj/x509parse.o $(DFLAGS) -I$(CONFIG)/inc src/x509parse.c
 
 $(CONFIG)/obj/xtea.o: \
     src/xtea.c\
     $(CONFIG)/inc/bit.h \
     $(CONFIG)/inc/est.h
-	$(CC) -c -o $(CONFIG)/obj/xtea.o -arch x86_64 $(DFLAGS) -I$(CONFIG)/inc src/xtea.c
+	$(CC) -c -o $(CONFIG)/obj/xtea.o $(DFLAGS) -I$(CONFIG)/inc src/xtea.c
 
 $(CONFIG)/bin/libest.dylib: \
     $(CONFIG)/inc/aes.h \
@@ -431,7 +431,7 @@ $(CONFIG)/bin/libest.dylib: \
     $(CONFIG)/obj/timing.o \
     $(CONFIG)/obj/x509parse.o \
     $(CONFIG)/obj/xtea.o
-	$(CC) -dynamiclib -o $(CONFIG)/bin/libest.dylib -arch x86_64 $(LDFLAGS) -compatibility_version 0.1.0 -current_version 0.1.0 $(LIBPATHS) -install_name @rpath/libest.dylib $(CONFIG)/obj/aes.o $(CONFIG)/obj/arc4.o $(CONFIG)/obj/base64.o $(CONFIG)/obj/bignum.o $(CONFIG)/obj/camellia.o $(CONFIG)/obj/certs.o $(CONFIG)/obj/debug.o $(CONFIG)/obj/des.o $(CONFIG)/obj/dhm.o $(CONFIG)/obj/havege.o $(CONFIG)/obj/md2.o $(CONFIG)/obj/md4.o $(CONFIG)/obj/md5.o $(CONFIG)/obj/net.o $(CONFIG)/obj/padlock.o $(CONFIG)/obj/rsa.o $(CONFIG)/obj/sha1.o $(CONFIG)/obj/sha2.o $(CONFIG)/obj/sha4.o $(CONFIG)/obj/ssl_cli.o $(CONFIG)/obj/ssl_srv.o $(CONFIG)/obj/ssl_tls.o $(CONFIG)/obj/timing.o $(CONFIG)/obj/x509parse.o $(CONFIG)/obj/xtea.o $(LIBS)
+	$(CC) -dynamiclib -o $(CONFIG)/bin/libest.dylib $(LDFLAGS) -compatibility_version 0.1.0 -current_version 0.1.0 $(LIBPATHS) -install_name @rpath/libest.dylib $(CONFIG)/obj/aes.o $(CONFIG)/obj/arc4.o $(CONFIG)/obj/base64.o $(CONFIG)/obj/bignum.o $(CONFIG)/obj/camellia.o $(CONFIG)/obj/certs.o $(CONFIG)/obj/debug.o $(CONFIG)/obj/des.o $(CONFIG)/obj/dhm.o $(CONFIG)/obj/havege.o $(CONFIG)/obj/md2.o $(CONFIG)/obj/md4.o $(CONFIG)/obj/md5.o $(CONFIG)/obj/net.o $(CONFIG)/obj/padlock.o $(CONFIG)/obj/rsa.o $(CONFIG)/obj/sha1.o $(CONFIG)/obj/sha2.o $(CONFIG)/obj/sha4.o $(CONFIG)/obj/ssl_cli.o $(CONFIG)/obj/ssl_srv.o $(CONFIG)/obj/ssl_tls.o $(CONFIG)/obj/timing.o $(CONFIG)/obj/x509parse.o $(CONFIG)/obj/xtea.o $(LIBS)
 
 version: 
 	@echo 0.1.0-0
