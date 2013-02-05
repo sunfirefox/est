@@ -226,151 +226,151 @@ $(CONFIG)\obj\aes.obj: \
     $(CONFIG)\inc\sha4.h \
     $(CONFIG)\inc\timing.h \
     $(CONFIG)\inc\xtea.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\aes.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\aes.c
 
 $(CONFIG)\obj\arc4.obj: \
     src\arc4.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\arc4.obj -Fd$(CONFIG)\obj\arc4.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\arc4.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\arc4.obj -Fd$(CONFIG)\obj\arc4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\arc4.c
 
 $(CONFIG)\obj\base64.obj: \
     src\base64.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\base64.obj -Fd$(CONFIG)\obj\base64.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\base64.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\base64.obj -Fd$(CONFIG)\obj\base64.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\base64.c
 
 $(CONFIG)\obj\bignum.obj: \
     src\bignum.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\bignum.obj -Fd$(CONFIG)\obj\bignum.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\bignum.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\bignum.obj -Fd$(CONFIG)\obj\bignum.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\bignum.c
 
 $(CONFIG)\obj\camellia.obj: \
     src\camellia.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\camellia.obj -Fd$(CONFIG)\obj\camellia.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\camellia.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\camellia.obj -Fd$(CONFIG)\obj\camellia.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\camellia.c
 
 $(CONFIG)\obj\certs.obj: \
     src\certs.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\certs.obj -Fd$(CONFIG)\obj\certs.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\certs.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\certs.obj -Fd$(CONFIG)\obj\certs.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\certs.c
 
 $(CONFIG)\obj\debug.obj: \
     src\debug.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\debug.obj -Fd$(CONFIG)\obj\debug.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\debug.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\debug.obj -Fd$(CONFIG)\obj\debug.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\debug.c
 
 $(CONFIG)\obj\des.obj: \
     src\des.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\des.obj -Fd$(CONFIG)\obj\des.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\des.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\des.obj -Fd$(CONFIG)\obj\des.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\des.c
 
 $(CONFIG)\obj\dhm.obj: \
     src\dhm.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\dhm.obj -Fd$(CONFIG)\obj\dhm.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\dhm.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\dhm.obj -Fd$(CONFIG)\obj\dhm.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\dhm.c
 
 $(CONFIG)\obj\havege.obj: \
     src\havege.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\havege.obj -Fd$(CONFIG)\obj\havege.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\havege.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\havege.obj -Fd$(CONFIG)\obj\havege.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\havege.c
 
 $(CONFIG)\obj\md2.obj: \
     src\md2.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\md2.obj -Fd$(CONFIG)\obj\md2.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\md2.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\md2.obj -Fd$(CONFIG)\obj\md2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md2.c
 
 $(CONFIG)\obj\md4.obj: \
     src\md4.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\md4.obj -Fd$(CONFIG)\obj\md4.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\md4.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\md4.obj -Fd$(CONFIG)\obj\md4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md4.c
 
 $(CONFIG)\obj\md5.obj: \
     src\md5.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\md5.obj -Fd$(CONFIG)\obj\md5.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\md5.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\md5.obj -Fd$(CONFIG)\obj\md5.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md5.c
 
 $(CONFIG)\obj\net.obj: \
     src\net.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\net.obj -Fd$(CONFIG)\obj\net.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\net.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\net.obj -Fd$(CONFIG)\obj\net.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\net.c
 
 $(CONFIG)\obj\padlock.obj: \
     src\padlock.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\padlock.obj -Fd$(CONFIG)\obj\padlock.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\padlock.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\padlock.obj -Fd$(CONFIG)\obj\padlock.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\padlock.c
 
 $(CONFIG)\obj\rsa.obj: \
     src\rsa.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\rsa.obj -Fd$(CONFIG)\obj\rsa.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\rsa.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\rsa.obj -Fd$(CONFIG)\obj\rsa.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\rsa.c
 
 $(CONFIG)\obj\sha1.obj: \
     src\sha1.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\sha1.obj -Fd$(CONFIG)\obj\sha1.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\sha1.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\sha1.obj -Fd$(CONFIG)\obj\sha1.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha1.c
 
 $(CONFIG)\obj\sha2.obj: \
     src\sha2.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\sha2.obj -Fd$(CONFIG)\obj\sha2.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\sha2.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\sha2.obj -Fd$(CONFIG)\obj\sha2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha2.c
 
 $(CONFIG)\obj\sha4.obj: \
     src\sha4.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\sha4.obj -Fd$(CONFIG)\obj\sha4.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\sha4.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\sha4.obj -Fd$(CONFIG)\obj\sha4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha4.c
 
 $(CONFIG)\obj\ssl_cli.obj: \
     src\ssl_cli.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_cli.obj -Fd$(CONFIG)\obj\ssl_cli.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\ssl_cli.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_cli.obj -Fd$(CONFIG)\obj\ssl_cli.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_cli.c
 
 $(CONFIG)\obj\ssl_srv.obj: \
     src\ssl_srv.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_srv.obj -Fd$(CONFIG)\obj\ssl_srv.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\ssl_srv.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_srv.obj -Fd$(CONFIG)\obj\ssl_srv.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_srv.c
 
 $(CONFIG)\obj\ssl_tls.obj: \
     src\ssl_tls.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_tls.obj -Fd$(CONFIG)\obj\ssl_tls.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\ssl_tls.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_tls.obj -Fd$(CONFIG)\obj\ssl_tls.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_tls.c
 
 $(CONFIG)\obj\timing.obj: \
     src\timing.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\timing.obj -Fd$(CONFIG)\obj\timing.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\timing.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\timing.obj -Fd$(CONFIG)\obj\timing.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\timing.c
 
 $(CONFIG)\obj\x509parse.obj: \
     src\x509parse.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\x509parse.obj -Fd$(CONFIG)\obj\x509parse.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\x509parse.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\x509parse.obj -Fd$(CONFIG)\obj\x509parse.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\x509parse.c
 
 $(CONFIG)\obj\xtea.obj: \
     src\xtea.c\
     $(CONFIG)\inc\bit.h \
     $(CONFIG)\inc\est.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\xtea.obj -Fd$(CONFIG)\obj\xtea.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\xtea.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\xtea.obj -Fd$(CONFIG)\obj\xtea.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\xtea.c
 
 $(CONFIG)\bin\libest.dll: \
     $(CONFIG)\inc\aes.h \
