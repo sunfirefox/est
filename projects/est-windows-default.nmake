@@ -5,39 +5,42 @@
 PRODUCT         = est
 VERSION         = 0.1.0
 BUILD_NUMBER    = 0
-PROFILE   = default
-PA        = $(PROCESSOR_ARCHITECTURE)
+PROFILE         = default
+PA              = $(PROCESSOR_ARCHITECTURE)
+
 !IF "$(PA)" == "AMD64"
-ARCH     = x64
-ENTRY    = _DllMainCRTStartup
+ARCH            = x64
+ENTRY           = _DllMainCRTStartup
 !ELSE
-ARCH     = x86
-ENTRY    = _DllMainCRTStartup@12
+ARCH            = x86
+ENTRY           = _DllMainCRTStartup@12
 !ENDIF
 
-OS       = windows
-CONFIG   = $(OS)-$(ARCH)-$(PROFILE)
-CC       = cl
-LD       = link
-RC       = rc
-CFLAGS   = -nologo -GR- -W3 -Zi -Od -MDd
-DFLAGS   = -D_REENTRANT -D_MT -DBIT_DEBUG
-IFLAGS   = -I$(CONFIG)\inc
-LDFLAGS  = -nologo -nodefaultlib -incremental:no -debug -machine:$(ARCH)
-LIBPATHS = -libpath:$(CONFIG)\bin
-LIBS     = ws2_32.lib advapi32.lib user32.lib kernel32.lib oldnames.lib msvcrt.lib shell32.lib
+OS              = windows
+CONFIG          = $(OS)-$(ARCH)-$(PROFILE)
+LBIN            = $(CONFIG)\bin
+CC              = cl
+LD              = link
+RC              = rc
+CFLAGS          = -nologo -GR- -W3 -Zi -Od -MDd
+DFLAGS          = -D_REENTRANT -D_MT -DBIT_DEBUG
+IFLAGS          = -I$(CONFIG)\inc
+LDFLAGS         = -nologo -nodefaultlib -incremental:no -debug -machine:$(ARCH)
+LIBPATHS        = -libpath:$(CONFIG)\bin
+LIBS            = ws2_32.lib advapi32.lib user32.lib kernel32.lib oldnames.lib msvcrt.lib shell32.lib
 
-BIT_PRD_PREFIX  = C:/Program Files/Embedthis Security Transport
-BIT_VER_PREFIX  = $(BIT_PRD_PREFIX)
-BIT_CFG_PREFIX  = $(BIT_PRD_PREFIX)
-BIT_BIN_PREFIX  = $(BIT_PRD_PREFIX)/bin
-BIT_INC_PREFIX  = $(BIT_PRD_PREFIX)/inc
-BIT_LOG_PREFIX  = $(BIT_PRD_PREFIX)/logs
-BIT_SPL_PREFIX  = $(BIT_PRD_PREFIX)/tmp
-BIT_SRC_PREFIX  = $(BIT_PRD_PREFIX)/src
-BIT_WEB_PREFIX  = $(BIT_PRD_PREFIX)/web
-BIT_UBIN_PREFIX = $(BIT_PRD_PREFIX)/bin
-BIT_MAN_PREFIX  = $(BIT_PRD_PREFIX)/man
+BIT_ROOT_PREFIX = C:\
+BIT_PRD_PREFIX  = $(BIT_ROOT_PREFIX)Program Files\Embedthis Security Transport
+BIT_VER_PREFIX  = $(BIT_ROOT_PREFIX)Program Files\Embedthis Security Transport
+BIT_CFG_PREFIX  = $(BIT_VER_PREFIX)
+BIT_BIN_PREFIX  = $(BIT_VER_PREFIX)\bin
+BIT_INC_PREFIX  = $(BIT_VER_PREFIX)\inc
+BIT_LOG_PREFIX  = $(BIT_VER_PREFIX)\logs
+BIT_SPL_PREFIX  = $(BIT_VER_PREFIX)\tmp
+BIT_SRC_PREFIX  = $(BIT_VER_PREFIX)\src
+BIT_WEB_PREFIX  = $(BIT_VER_PREFIX)\web
+BIT_UBIN_PREFIX = $(BIT_VER_PREFIX)\bin
+BIT_MAN_PREFIX  = $(BIT_VER_PREFIX)\man
 
 all compile: prep \
         $(CONFIG)\bin\libest.dll
@@ -56,9 +59,7 @@ prep:
 	@if not exist $(CONFIG)\bin md $(CONFIG)\bin
 	@if not exist $(CONFIG)\inc md $(CONFIG)\inc
 	@if not exist $(CONFIG)\obj md $(CONFIG)\obj
-	@if not exist $(CONFIG)\inc\bit.h copy projects\est-$(OS)-$(PROFILE)-bit.h $(CONFIG)\inc\bit.h
-	@echo $(DFLAGS) $(CFLAGS) >projects/.flags
-
+	@if not exist $(CONFIG)\inc\bit.h copy projects\est-windows-default-bit.h $(CONFIG)\inc\bit.h
 clean:
 	-if exist $(CONFIG)\bin\libest.dll del /Q $(CONFIG)\bin\libest.dll
 	-if exist $(CONFIG)\obj\aes.obj del /Q $(CONFIG)\obj\aes.obj
@@ -103,8 +104,8 @@ $(CONFIG)\inc\bignum.h:
 	-if exist $(CONFIG)\inc\bignum.h del /Q $(CONFIG)\inc\bignum.h
 	copy /Y src\bignum.h $(CONFIG)\inc\bignum.h
 
-$(CONFIG)\inc\bitos.h:  \
-        $(CONFIG)\inc\bit.h
+$(CONFIG)\inc\bitos.h: \
+    $(CONFIG)\inc\bit.h
 	-if exist $(CONFIG)\inc\bitos.h del /Q $(CONFIG)\inc\bitos.h
 	copy /Y src\bitos.h $(CONFIG)\inc\bitos.h
 
@@ -197,233 +198,233 @@ $(CONFIG)\inc\xtea.h:
 	copy /Y src\xtea.h $(CONFIG)\inc\xtea.h
 
 $(CONFIG)\obj\aes.obj: \
-        src\aes.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h \
-        $(CONFIG)\inc\bitos.h \
-        $(CONFIG)\inc\bignum.h \
-        $(CONFIG)\inc\net.h \
-        $(CONFIG)\inc\dhm.h \
-        $(CONFIG)\inc\rsa.h \
-        $(CONFIG)\inc\md5.h \
-        $(CONFIG)\inc\sha1.h \
-        $(CONFIG)\inc\x509.h \
-        $(CONFIG)\inc\ssl.h \
-        $(CONFIG)\inc\aes.h \
-        $(CONFIG)\inc\arc4.h \
-        $(CONFIG)\inc\base64.h \
-        $(CONFIG)\inc\bn_mul.h \
-        $(CONFIG)\inc\camellia.h \
-        $(CONFIG)\inc\certs.h \
-        $(CONFIG)\inc\debug.h \
-        $(CONFIG)\inc\des.h \
-        $(CONFIG)\inc\havege.h \
-        $(CONFIG)\inc\md2.h \
-        $(CONFIG)\inc\md4.h \
-        $(CONFIG)\inc\padlock.h \
-        $(CONFIG)\inc\sha2.h \
-        $(CONFIG)\inc\sha4.h \
-        $(CONFIG)\inc\timing.h \
-        $(CONFIG)\inc\xtea.h
+    src\aes.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h \
+    $(CONFIG)\inc\bitos.h \
+    $(CONFIG)\inc\bignum.h \
+    $(CONFIG)\inc\net.h \
+    $(CONFIG)\inc\dhm.h \
+    $(CONFIG)\inc\rsa.h \
+    $(CONFIG)\inc\md5.h \
+    $(CONFIG)\inc\sha1.h \
+    $(CONFIG)\inc\x509.h \
+    $(CONFIG)\inc\ssl.h \
+    $(CONFIG)\inc\aes.h \
+    $(CONFIG)\inc\arc4.h \
+    $(CONFIG)\inc\base64.h \
+    $(CONFIG)\inc\bn_mul.h \
+    $(CONFIG)\inc\camellia.h \
+    $(CONFIG)\inc\certs.h \
+    $(CONFIG)\inc\debug.h \
+    $(CONFIG)\inc\des.h \
+    $(CONFIG)\inc\havege.h \
+    $(CONFIG)\inc\md2.h \
+    $(CONFIG)\inc\md4.h \
+    $(CONFIG)\inc\padlock.h \
+    $(CONFIG)\inc\sha2.h \
+    $(CONFIG)\inc\sha4.h \
+    $(CONFIG)\inc\timing.h \
+    $(CONFIG)\inc\xtea.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\aes.c
 
 $(CONFIG)\obj\arc4.obj: \
-        src\arc4.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\arc4.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\arc4.obj -Fd$(CONFIG)\obj\arc4.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\arc4.c
 
 $(CONFIG)\obj\base64.obj: \
-        src\base64.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\base64.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\base64.obj -Fd$(CONFIG)\obj\base64.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\base64.c
 
 $(CONFIG)\obj\bignum.obj: \
-        src\bignum.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\bignum.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\bignum.obj -Fd$(CONFIG)\obj\bignum.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\bignum.c
 
 $(CONFIG)\obj\camellia.obj: \
-        src\camellia.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\camellia.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\camellia.obj -Fd$(CONFIG)\obj\camellia.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\camellia.c
 
 $(CONFIG)\obj\certs.obj: \
-        src\certs.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\certs.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\certs.obj -Fd$(CONFIG)\obj\certs.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\certs.c
 
 $(CONFIG)\obj\debug.obj: \
-        src\debug.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\debug.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\debug.obj -Fd$(CONFIG)\obj\debug.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\debug.c
 
 $(CONFIG)\obj\des.obj: \
-        src\des.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\des.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\des.obj -Fd$(CONFIG)\obj\des.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\des.c
 
 $(CONFIG)\obj\dhm.obj: \
-        src\dhm.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\dhm.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\dhm.obj -Fd$(CONFIG)\obj\dhm.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\dhm.c
 
 $(CONFIG)\obj\havege.obj: \
-        src\havege.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\havege.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\havege.obj -Fd$(CONFIG)\obj\havege.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\havege.c
 
 $(CONFIG)\obj\md2.obj: \
-        src\md2.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\md2.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\md2.obj -Fd$(CONFIG)\obj\md2.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\md2.c
 
 $(CONFIG)\obj\md4.obj: \
-        src\md4.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\md4.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\md4.obj -Fd$(CONFIG)\obj\md4.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\md4.c
 
 $(CONFIG)\obj\md5.obj: \
-        src\md5.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\md5.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\md5.obj -Fd$(CONFIG)\obj\md5.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\md5.c
 
 $(CONFIG)\obj\net.obj: \
-        src\net.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\net.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\net.obj -Fd$(CONFIG)\obj\net.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\net.c
 
 $(CONFIG)\obj\padlock.obj: \
-        src\padlock.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\padlock.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\padlock.obj -Fd$(CONFIG)\obj\padlock.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\padlock.c
 
 $(CONFIG)\obj\rsa.obj: \
-        src\rsa.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\rsa.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\rsa.obj -Fd$(CONFIG)\obj\rsa.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\rsa.c
 
 $(CONFIG)\obj\sha1.obj: \
-        src\sha1.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\sha1.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha1.obj -Fd$(CONFIG)\obj\sha1.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\sha1.c
 
 $(CONFIG)\obj\sha2.obj: \
-        src\sha2.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\sha2.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha2.obj -Fd$(CONFIG)\obj\sha2.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\sha2.c
 
 $(CONFIG)\obj\sha4.obj: \
-        src\sha4.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\sha4.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha4.obj -Fd$(CONFIG)\obj\sha4.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\sha4.c
 
 $(CONFIG)\obj\ssl_cli.obj: \
-        src\ssl_cli.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\ssl_cli.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_cli.obj -Fd$(CONFIG)\obj\ssl_cli.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\ssl_cli.c
 
 $(CONFIG)\obj\ssl_srv.obj: \
-        src\ssl_srv.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\ssl_srv.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_srv.obj -Fd$(CONFIG)\obj\ssl_srv.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\ssl_srv.c
 
 $(CONFIG)\obj\ssl_tls.obj: \
-        src\ssl_tls.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\ssl_tls.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_tls.obj -Fd$(CONFIG)\obj\ssl_tls.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\ssl_tls.c
 
 $(CONFIG)\obj\timing.obj: \
-        src\timing.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\timing.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\timing.obj -Fd$(CONFIG)\obj\timing.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\timing.c
 
 $(CONFIG)\obj\x509parse.obj: \
-        src\x509parse.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\x509parse.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\x509parse.obj -Fd$(CONFIG)\obj\x509parse.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\x509parse.c
 
 $(CONFIG)\obj\xtea.obj: \
-        src\xtea.c \
-        $(CONFIG)\inc\bit.h \
-        $(CONFIG)\inc\est.h
+    src\xtea.c\
+    $(CONFIG)\inc\bit.h \
+    $(CONFIG)\inc\est.h
 	"$(CC)" -c -Fo$(CONFIG)\obj\xtea.obj -Fd$(CONFIG)\obj\xtea.pdb $(CFLAGS) $(DFLAGS) -I$(CONFIG)\inc src\xtea.c
 
-$(CONFIG)\bin\libest.dll:  \
-        $(CONFIG)\inc\aes.h \
-        $(CONFIG)\inc\arc4.h \
-        $(CONFIG)\inc\base64.h \
-        $(CONFIG)\inc\bignum.h \
-        $(CONFIG)\inc\bitos.h \
-        $(CONFIG)\inc\bn_mul.h \
-        $(CONFIG)\inc\camellia.h \
-        $(CONFIG)\inc\certs.h \
-        $(CONFIG)\inc\debug.h \
-        $(CONFIG)\inc\des.h \
-        $(CONFIG)\inc\dhm.h \
-        $(CONFIG)\inc\est.h \
-        $(CONFIG)\inc\havege.h \
-        $(CONFIG)\inc\md2.h \
-        $(CONFIG)\inc\md4.h \
-        $(CONFIG)\inc\md5.h \
-        $(CONFIG)\inc\net.h \
-        $(CONFIG)\inc\openssl.h \
-        $(CONFIG)\inc\padlock.h \
-        $(CONFIG)\inc\rsa.h \
-        $(CONFIG)\inc\sha1.h \
-        $(CONFIG)\inc\sha2.h \
-        $(CONFIG)\inc\sha4.h \
-        $(CONFIG)\inc\ssl.h \
-        $(CONFIG)\inc\timing.h \
-        $(CONFIG)\inc\x509.h \
-        $(CONFIG)\inc\xtea.h \
-        $(CONFIG)\obj\aes.obj \
-        $(CONFIG)\obj\arc4.obj \
-        $(CONFIG)\obj\base64.obj \
-        $(CONFIG)\obj\bignum.obj \
-        $(CONFIG)\obj\camellia.obj \
-        $(CONFIG)\obj\certs.obj \
-        $(CONFIG)\obj\debug.obj \
-        $(CONFIG)\obj\des.obj \
-        $(CONFIG)\obj\dhm.obj \
-        $(CONFIG)\obj\havege.obj \
-        $(CONFIG)\obj\md2.obj \
-        $(CONFIG)\obj\md4.obj \
-        $(CONFIG)\obj\md5.obj \
-        $(CONFIG)\obj\net.obj \
-        $(CONFIG)\obj\padlock.obj \
-        $(CONFIG)\obj\rsa.obj \
-        $(CONFIG)\obj\sha1.obj \
-        $(CONFIG)\obj\sha2.obj \
-        $(CONFIG)\obj\sha4.obj \
-        $(CONFIG)\obj\ssl_cli.obj \
-        $(CONFIG)\obj\ssl_srv.obj \
-        $(CONFIG)\obj\ssl_tls.obj \
-        $(CONFIG)\obj\timing.obj \
-        $(CONFIG)\obj\x509parse.obj \
-        $(CONFIG)\obj\xtea.obj
+$(CONFIG)\bin\libest.dll: \
+    $(CONFIG)\inc\aes.h \
+    $(CONFIG)\inc\arc4.h \
+    $(CONFIG)\inc\base64.h \
+    $(CONFIG)\inc\bignum.h \
+    $(CONFIG)\inc\bitos.h \
+    $(CONFIG)\inc\bn_mul.h \
+    $(CONFIG)\inc\camellia.h \
+    $(CONFIG)\inc\certs.h \
+    $(CONFIG)\inc\debug.h \
+    $(CONFIG)\inc\des.h \
+    $(CONFIG)\inc\dhm.h \
+    $(CONFIG)\inc\est.h \
+    $(CONFIG)\inc\havege.h \
+    $(CONFIG)\inc\md2.h \
+    $(CONFIG)\inc\md4.h \
+    $(CONFIG)\inc\md5.h \
+    $(CONFIG)\inc\net.h \
+    $(CONFIG)\inc\openssl.h \
+    $(CONFIG)\inc\padlock.h \
+    $(CONFIG)\inc\rsa.h \
+    $(CONFIG)\inc\sha1.h \
+    $(CONFIG)\inc\sha2.h \
+    $(CONFIG)\inc\sha4.h \
+    $(CONFIG)\inc\ssl.h \
+    $(CONFIG)\inc\timing.h \
+    $(CONFIG)\inc\x509.h \
+    $(CONFIG)\inc\xtea.h \
+    $(CONFIG)\obj\aes.obj \
+    $(CONFIG)\obj\arc4.obj \
+    $(CONFIG)\obj\base64.obj \
+    $(CONFIG)\obj\bignum.obj \
+    $(CONFIG)\obj\camellia.obj \
+    $(CONFIG)\obj\certs.obj \
+    $(CONFIG)\obj\debug.obj \
+    $(CONFIG)\obj\des.obj \
+    $(CONFIG)\obj\dhm.obj \
+    $(CONFIG)\obj\havege.obj \
+    $(CONFIG)\obj\md2.obj \
+    $(CONFIG)\obj\md4.obj \
+    $(CONFIG)\obj\md5.obj \
+    $(CONFIG)\obj\net.obj \
+    $(CONFIG)\obj\padlock.obj \
+    $(CONFIG)\obj\rsa.obj \
+    $(CONFIG)\obj\sha1.obj \
+    $(CONFIG)\obj\sha2.obj \
+    $(CONFIG)\obj\sha4.obj \
+    $(CONFIG)\obj\ssl_cli.obj \
+    $(CONFIG)\obj\ssl_srv.obj \
+    $(CONFIG)\obj\ssl_tls.obj \
+    $(CONFIG)\obj\timing.obj \
+    $(CONFIG)\obj\x509parse.obj \
+    $(CONFIG)\obj\xtea.obj
 	"$(LD)" -dll -out:$(CONFIG)\bin\libest.dll -entry:$(ENTRY) $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\aes.obj $(CONFIG)\obj\arc4.obj $(CONFIG)\obj\base64.obj $(CONFIG)\obj\bignum.obj $(CONFIG)\obj\camellia.obj $(CONFIG)\obj\certs.obj $(CONFIG)\obj\debug.obj $(CONFIG)\obj\des.obj $(CONFIG)\obj\dhm.obj $(CONFIG)\obj\havege.obj $(CONFIG)\obj\md2.obj $(CONFIG)\obj\md4.obj $(CONFIG)\obj\md5.obj $(CONFIG)\obj\net.obj $(CONFIG)\obj\padlock.obj $(CONFIG)\obj\rsa.obj $(CONFIG)\obj\sha1.obj $(CONFIG)\obj\sha2.obj $(CONFIG)\obj\sha4.obj $(CONFIG)\obj\ssl_cli.obj $(CONFIG)\obj\ssl_srv.obj $(CONFIG)\obj\ssl_tls.obj $(CONFIG)\obj\timing.obj $(CONFIG)\obj\x509parse.obj $(CONFIG)\obj\xtea.obj $(LIBS)
 
 version: 
