@@ -265,86 +265,86 @@
 if ! diff ${INC_DIR}/bit.h est-macosx-default-bit.h >/dev/null ; then
 cp est-macosx-default-bit.h ${INC_DIR}/bit.h
 fi
-if [ ../src/aes.h -nt ${CFG_DIR}/inc/aes.h ] ; then
-cp ../src/aes.h ${CFG_DIR}/inc/aes.h
+if [ ../src/aes.h -nt ${OUT_DIR}/inc/aes.h ] ; then
+cp ../src/aes.h ${OUT_DIR}/inc/aes.h
 fi
-if [ ../src/arc4.h -nt ${CFG_DIR}/inc/arc4.h ] ; then
-cp ../src/arc4.h ${CFG_DIR}/inc/arc4.h
+if [ ../src/arc4.h -nt ${OUT_DIR}/inc/arc4.h ] ; then
+cp ../src/arc4.h ${OUT_DIR}/inc/arc4.h
 fi
-if [ ../src/base64.h -nt ${CFG_DIR}/inc/base64.h ] ; then
-cp ../src/base64.h ${CFG_DIR}/inc/base64.h
+if [ ../src/base64.h -nt ${OUT_DIR}/inc/base64.h ] ; then
+cp ../src/base64.h ${OUT_DIR}/inc/base64.h
 fi
-if [ ../src/bignum.h -nt ${CFG_DIR}/inc/bignum.h ] ; then
-cp ../src/bignum.h ${CFG_DIR}/inc/bignum.h
+if [ ../src/bignum.h -nt ${OUT_DIR}/inc/bignum.h ] ; then
+cp ../src/bignum.h ${OUT_DIR}/inc/bignum.h
 fi
-if [ ../src/bitos.h -nt ${CFG_DIR}/inc/bitos.h ] ; then
-cp ../src/bitos.h ${CFG_DIR}/inc/bitos.h
+if [ ../src/bitos.h -nt ${OUT_DIR}/inc/bitos.h ] ; then
+cp ../src/bitos.h ${OUT_DIR}/inc/bitos.h
 fi
-if [ ../src/bn_mul.h -nt ${CFG_DIR}/inc/bn_mul.h ] ; then
-cp ../src/bn_mul.h ${CFG_DIR}/inc/bn_mul.h
+if [ ../src/bn_mul.h -nt ${OUT_DIR}/inc/bn_mul.h ] ; then
+cp ../src/bn_mul.h ${OUT_DIR}/inc/bn_mul.h
 fi
-if [ ../src/camellia.h -nt ${CFG_DIR}/inc/camellia.h ] ; then
-cp ../src/camellia.h ${CFG_DIR}/inc/camellia.h
+if [ ../src/camellia.h -nt ${OUT_DIR}/inc/camellia.h ] ; then
+cp ../src/camellia.h ${OUT_DIR}/inc/camellia.h
 fi
-if [ ../src/certs.h -nt ${CFG_DIR}/inc/certs.h ] ; then
-cp ../src/certs.h ${CFG_DIR}/inc/certs.h
+if [ ../src/certs.h -nt ${OUT_DIR}/inc/certs.h ] ; then
+cp ../src/certs.h ${OUT_DIR}/inc/certs.h
 fi
-if [ ../src/debug.h -nt ${CFG_DIR}/inc/debug.h ] ; then
-cp ../src/debug.h ${CFG_DIR}/inc/debug.h
+if [ ../src/debug.h -nt ${OUT_DIR}/inc/debug.h ] ; then
+cp ../src/debug.h ${OUT_DIR}/inc/debug.h
 fi
-if [ ../src/des.h -nt ${CFG_DIR}/inc/des.h ] ; then
-cp ../src/des.h ${CFG_DIR}/inc/des.h
+if [ ../src/des.h -nt ${OUT_DIR}/inc/des.h ] ; then
+cp ../src/des.h ${OUT_DIR}/inc/des.h
 fi
-if [ ../src/dhm.h -nt ${CFG_DIR}/inc/dhm.h ] ; then
-cp ../src/dhm.h ${CFG_DIR}/inc/dhm.h
+if [ ../src/dhm.h -nt ${OUT_DIR}/inc/dhm.h ] ; then
+cp ../src/dhm.h ${OUT_DIR}/inc/dhm.h
 fi
-if [ ../src/est.h -nt ${CFG_DIR}/inc/est.h ] ; then
-cp ../src/est.h ${CFG_DIR}/inc/est.h
+if [ ../src/est.h -nt ${OUT_DIR}/inc/est.h ] ; then
+cp ../src/est.h ${OUT_DIR}/inc/est.h
 fi
-if [ ../src/havege.h -nt ${CFG_DIR}/inc/havege.h ] ; then
-cp ../src/havege.h ${CFG_DIR}/inc/havege.h
+if [ ../src/havege.h -nt ${OUT_DIR}/inc/havege.h ] ; then
+cp ../src/havege.h ${OUT_DIR}/inc/havege.h
 fi
-if [ ../src/md2.h -nt ${CFG_DIR}/inc/md2.h ] ; then
-cp ../src/md2.h ${CFG_DIR}/inc/md2.h
+if [ ../src/md2.h -nt ${OUT_DIR}/inc/md2.h ] ; then
+cp ../src/md2.h ${OUT_DIR}/inc/md2.h
 fi
-if [ ../src/md4.h -nt ${CFG_DIR}/inc/md4.h ] ; then
-cp ../src/md4.h ${CFG_DIR}/inc/md4.h
+if [ ../src/md4.h -nt ${OUT_DIR}/inc/md4.h ] ; then
+cp ../src/md4.h ${OUT_DIR}/inc/md4.h
 fi
-if [ ../src/md5.h -nt ${CFG_DIR}/inc/md5.h ] ; then
-cp ../src/md5.h ${CFG_DIR}/inc/md5.h
+if [ ../src/md5.h -nt ${OUT_DIR}/inc/md5.h ] ; then
+cp ../src/md5.h ${OUT_DIR}/inc/md5.h
 fi
-if [ ../src/net.h -nt ${CFG_DIR}/inc/net.h ] ; then
-cp ../src/net.h ${CFG_DIR}/inc/net.h
+if [ ../src/net.h -nt ${OUT_DIR}/inc/net.h ] ; then
+cp ../src/net.h ${OUT_DIR}/inc/net.h
 fi
-if [ ../src/openssl.h -nt ${CFG_DIR}/inc/openssl.h ] ; then
-cp ../src/openssl.h ${CFG_DIR}/inc/openssl.h
+if [ ../src/openssl.h -nt ${OUT_DIR}/inc/openssl.h ] ; then
+cp ../src/openssl.h ${OUT_DIR}/inc/openssl.h
 fi
-if [ ../src/padlock.h -nt ${CFG_DIR}/inc/padlock.h ] ; then
-cp ../src/padlock.h ${CFG_DIR}/inc/padlock.h
+if [ ../src/padlock.h -nt ${OUT_DIR}/inc/padlock.h ] ; then
+cp ../src/padlock.h ${OUT_DIR}/inc/padlock.h
 fi
-if [ ../src/rsa.h -nt ${CFG_DIR}/inc/rsa.h ] ; then
-cp ../src/rsa.h ${CFG_DIR}/inc/rsa.h
+if [ ../src/rsa.h -nt ${OUT_DIR}/inc/rsa.h ] ; then
+cp ../src/rsa.h ${OUT_DIR}/inc/rsa.h
 fi
-if [ ../src/sha1.h -nt ${CFG_DIR}/inc/sha1.h ] ; then
-cp ../src/sha1.h ${CFG_DIR}/inc/sha1.h
+if [ ../src/sha1.h -nt ${OUT_DIR}/inc/sha1.h ] ; then
+cp ../src/sha1.h ${OUT_DIR}/inc/sha1.h
 fi
-if [ ../src/sha2.h -nt ${CFG_DIR}/inc/sha2.h ] ; then
-cp ../src/sha2.h ${CFG_DIR}/inc/sha2.h
+if [ ../src/sha2.h -nt ${OUT_DIR}/inc/sha2.h ] ; then
+cp ../src/sha2.h ${OUT_DIR}/inc/sha2.h
 fi
-if [ ../src/sha4.h -nt ${CFG_DIR}/inc/sha4.h ] ; then
-cp ../src/sha4.h ${CFG_DIR}/inc/sha4.h
+if [ ../src/sha4.h -nt ${OUT_DIR}/inc/sha4.h ] ; then
+cp ../src/sha4.h ${OUT_DIR}/inc/sha4.h
 fi
-if [ ../src/ssl.h -nt ${CFG_DIR}/inc/ssl.h ] ; then
-cp ../src/ssl.h ${CFG_DIR}/inc/ssl.h
+if [ ../src/ssl.h -nt ${OUT_DIR}/inc/ssl.h ] ; then
+cp ../src/ssl.h ${OUT_DIR}/inc/ssl.h
 fi
-if [ ../src/timing.h -nt ${CFG_DIR}/inc/timing.h ] ; then
-cp ../src/timing.h ${CFG_DIR}/inc/timing.h
+if [ ../src/timing.h -nt ${OUT_DIR}/inc/timing.h ] ; then
+cp ../src/timing.h ${OUT_DIR}/inc/timing.h
 fi
-if [ ../src/x509.h -nt ${CFG_DIR}/inc/x509.h ] ; then
-cp ../src/x509.h ${CFG_DIR}/inc/x509.h
+if [ ../src/x509.h -nt ${OUT_DIR}/inc/x509.h ] ; then
+cp ../src/x509.h ${OUT_DIR}/inc/x509.h
 fi
-if [ ../src/xtea.h -nt ${CFG_DIR}/inc/xtea.h ] ; then
-cp ../src/xtea.h ${CFG_DIR}/inc/xtea.h
+if [ ../src/xtea.h -nt ${OUT_DIR}/inc/xtea.h ] ; then
+cp ../src/xtea.h ${OUT_DIR}/inc/xtea.h
 fi";
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -441,7 +441,7 @@ fi";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 
-                CFG_DIR = "../macosx-x64-default";
+                OUT_DIR = "../macosx-x64-default";
                 BIN_DIR = "../macosx-x64-default/bin";
                 LIB_DIR = "../macosx-x64-default/bin";
                 INC_DIR = "../macosx-x64-default/inc";
@@ -511,7 +511,7 @@ fi";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 
-                CFG_DIR = "../macosx-x64-default";
+                OUT_DIR = "../macosx-x64-default";
                 BIN_DIR = "../macosx-x64-default/bin";
                 LIB_DIR = "../macosx-x64-default/bin";
                 INC_DIR = "../macosx-x64-default/inc";
