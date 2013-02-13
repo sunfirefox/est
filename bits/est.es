@@ -8,14 +8,16 @@ require ejs.tar
 require ejs.unix
 
 public function packageSourceFiles() {
+    safeRemove(pkg)
+
     if (bit.cross) {
         return
     }
     let s = bit.settings
     let src = bit.dir.pkg.join('src')
     let pkg = src.join(s.product + '-' + s.version)
-    safeRemove(pkg)
     pkg.makeDir()
+
     install(['Makefile', 'start.bit', 'main.bit'], pkg)
     install('bits', pkg)
     install('configure', pkg, {permissions: 0755})

@@ -24,6 +24,12 @@ Bit.load({
         company: 'Embedthis',
 		version: '0.1.0',
 		buildNumber: '0',
+
+        /*
+            Installation prefix set
+         */
+        prefixes: 'embedthis-prefixes',
+
         sync: [ 'bitos' ],
         packs: [ 'bits/packs' ]
 
@@ -172,6 +178,14 @@ Bit.load({
         'est.x509':         'Enable X509 certificate support (true|false)',
         'est.xtea':         'Enable XTEA (true|false)',
     },
+
+    customize: [
+        /* 
+            The optional custom.bit file is loaded after main.bit is fully processed. It can
+            thus override any setting. Feel free to create and customize. 
+         */
+        'custom.bit',
+    ],
 
     targets: {
         libest: {

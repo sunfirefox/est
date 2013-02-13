@@ -133,6 +133,9 @@
 #ifndef BIT_PACKS
     #define BIT_PACKS "bits/packs"
 #endif
+#ifndef BIT_PREFIXES
+    #define BIT_PREFIXES "embedthis-prefixes"
+#endif
 #ifndef BIT_PRODUCT
     #define BIT_PRODUCT "est"
 #endif
@@ -162,38 +165,56 @@
 #endif
 
 /* Prefixes */
-#ifndef BIT_CFG_PREFIX
-    #define BIT_CFG_PREFIX "/etc/est"
+#ifndef BIT_ROOT_PREFIX
+    #define BIT_ROOT_PREFIX "/"
+#endif
+#ifndef BIT_BASE_PREFIX
+    #define BIT_BASE_PREFIX "/usr/local"
+#endif
+#ifndef BIT_DATA_PREFIX
+    #define BIT_DATA_PREFIX "/"
+#endif
+#ifndef BIT_STATE_PREFIX
+    #define BIT_STATE_PREFIX "/var"
+#endif
+#ifndef BIT_APP_PREFIX
+    #define BIT_APP_PREFIX "/usr/local/lib/est"
+#endif
+#ifndef BIT_VAPP_PREFIX
+    #define BIT_VAPP_PREFIX "/usr/local/lib/est/0.1.0"
 #endif
 #ifndef BIT_BIN_PREFIX
-    #define BIT_BIN_PREFIX "/usr/lib/est/0.1.0/bin"
+    #define BIT_BIN_PREFIX "/usr/local/bin"
 #endif
 #ifndef BIT_INC_PREFIX
-    #define BIT_INC_PREFIX "/usr/lib/est/0.1.0/inc"
+    #define BIT_INC_PREFIX "/usr/local/include"
 #endif
-#ifndef BIT_LOG_PREFIX
-    #define BIT_LOG_PREFIX "/var/log/est"
+#ifndef BIT_LIB_PREFIX
+    #define BIT_LIB_PREFIX "/usr/local/lib"
 #endif
-#ifndef BIT_PRD_PREFIX
-    #define BIT_PRD_PREFIX "/usr/lib/est"
+#ifndef BIT_MAN_PREFIX
+    #define BIT_MAN_PREFIX "/usr/local/share/man"
 #endif
-#ifndef BIT_SPL_PREFIX
-    #define BIT_SPL_PREFIX "/var/spool/est"
+#ifndef BIT_SBIN_PREFIX
+    #define BIT_SBIN_PREFIX "/usr/local/sbin"
 #endif
-#ifndef BIT_SRC_PREFIX
-    #define BIT_SRC_PREFIX "/usr/src/est-0.1.0"
-#endif
-#ifndef BIT_VER_PREFIX
-    #define BIT_VER_PREFIX "/usr/lib/est/0.1.0"
+#ifndef BIT_ETC_PREFIX
+    #define BIT_ETC_PREFIX "/etc/est"
 #endif
 #ifndef BIT_WEB_PREFIX
     #define BIT_WEB_PREFIX "/var/www/est-default"
 #endif
-#ifndef BIT_UBIN_PREFIX
-    #define BIT_UBIN_PREFIX "/usr/local/bin"
+#ifndef BIT_LOG_PREFIX
+    #define BIT_LOG_PREFIX "/var/log/est"
 #endif
-#ifndef BIT_MAN_PREFIX
-    #define BIT_MAN_PREFIX "/usr/local/share/man"
+#ifndef BIT_SPOOL_PREFIX
+    #define BIT_SPOOL_PREFIX "/var/spool/est"
+#endif
+#ifndef BIT_CACHE_PREFIX
+    #define BIT_CACHE_PREFIX "/var/cache/est"
+#endif
+#ifndef BIT_SRC_PREFIX
+    #define BIT_SRC_PREFIX "/usr/local/src/est-0.1.0"
 #endif
 
 /* Suffixes */
