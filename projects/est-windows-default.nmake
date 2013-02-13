@@ -3,7 +3,7 @@
 #
 
 PRODUCT         = est
-VERSION         = 0.1.0
+VERSION         = 0.6.0
 BUILD_NUMBER    = 0
 PROFILE         = default
 PA              = $(PROCESSOR_ARCHITECTURE)
@@ -433,5 +433,5 @@ $(CONFIG)\bin\libest.dll: \
 	"$(LD)" -dll -out:$(CONFIG)\bin\libest.dll -entry:$(ENTRY) $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\aes.obj $(CONFIG)\obj\arc4.obj $(CONFIG)\obj\base64.obj $(CONFIG)\obj\bignum.obj $(CONFIG)\obj\camellia.obj $(CONFIG)\obj\certs.obj $(CONFIG)\obj\debug.obj $(CONFIG)\obj\des.obj $(CONFIG)\obj\dhm.obj $(CONFIG)\obj\havege.obj $(CONFIG)\obj\md2.obj $(CONFIG)\obj\md4.obj $(CONFIG)\obj\md5.obj $(CONFIG)\obj\net.obj $(CONFIG)\obj\padlock.obj $(CONFIG)\obj\rsa.obj $(CONFIG)\obj\sha1.obj $(CONFIG)\obj\sha2.obj $(CONFIG)\obj\sha4.obj $(CONFIG)\obj\ssl_cli.obj $(CONFIG)\obj\ssl_srv.obj $(CONFIG)\obj\ssl_tls.obj $(CONFIG)\obj\timing.obj $(CONFIG)\obj\x509parse.obj $(CONFIG)\obj\xtea.obj $(LIBS)
 
 version: 
-	@echo 0.1.0-0
+	@echo 0.6.0-0
 

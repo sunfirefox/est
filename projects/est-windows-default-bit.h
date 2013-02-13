@@ -7,6 +7,9 @@
 
 
 /* Settings */
+#ifndef BIT_BIT
+    #define BIT_BIT "0.8.1"
+#endif
 #ifndef BIT_BUILD_NUMBER
     #define BIT_BUILD_NUMBER "0"
 #endif
@@ -131,7 +134,7 @@
     #define BIT_TITLE "Embedthis Security Transport"
 #endif
 #ifndef BIT_VERSION
-    #define BIT_VERSION "0.1.0"
+    #define BIT_VERSION "0.6.0"
 #endif
 #ifndef BIT_WITHOUT_ALL
     #define BIT_WITHOUT_ALL "doxygen,dsi,man,man2html,pmaker"
@@ -157,7 +160,7 @@
     #define BIT_APP_PREFIX "/usr/local/lib/est"
 #endif
 #ifndef BIT_VAPP_PREFIX
-    #define BIT_VAPP_PREFIX "/usr/local/lib/est/0.1.0"
+    #define BIT_VAPP_PREFIX "/usr/local/lib/est/0.6.0"
 #endif
 #ifndef BIT_BIN_PREFIX
     #define BIT_BIN_PREFIX "/usr/local/bin"
@@ -190,7 +193,7 @@
     #define BIT_CACHE_PREFIX "/var/cache/est"
 #endif
 #ifndef BIT_SRC_PREFIX
-    #define BIT_SRC_PREFIX "/usr/local/src/est-0.1.0"
+    #define BIT_SRC_PREFIX "/usr/local/src/est-0.6.0"
 #endif
 
 /* Suffixes */
@@ -226,13 +229,13 @@
     #define BIT_MAJOR_VERSION 0
 #endif
 #ifndef BIT_MINOR_VERSION
-    #define BIT_MINOR_VERSION 1
+    #define BIT_MINOR_VERSION 6
 #endif
 #ifndef BIT_PATCH_VERSION
     #define BIT_PATCH_VERSION 0
 #endif
 #ifndef BIT_VNUM
-    #define BIT_VNUM 10000
+    #define BIT_VNUM 60000
 #endif
 
 /* Packs */
