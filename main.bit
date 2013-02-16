@@ -215,13 +215,6 @@ Bit.load({
             combo: {
                 inherit:    'embedthis-manifest',
                 prefixes:   [ 'src'],
-                formats:    [ 'tar' ],
-                sets:       [ 'source' ],
-            },
-            flat: {
-                inherit:    'embedthis-manifest',
-                prefixes:   [ 'src'],
-                formats:    [ 'tar' ],
                 sets:       [ 'source' ],
             },
         },
