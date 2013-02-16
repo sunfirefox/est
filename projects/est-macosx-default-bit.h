@@ -214,10 +214,10 @@
     #define BIT_SPOOL_PREFIX "/var/spool/est"
 #endif
 #ifndef BIT_CACHE_PREFIX
-    #define BIT_CACHE_PREFIX "/var/cache/est"
+    #define BIT_CACHE_PREFIX "/var/spool/est/cache"
 #endif
 #ifndef BIT_SRC_PREFIX
-    #define BIT_SRC_PREFIX "/usr/local/src/est-0.6.0"
+    #define BIT_SRC_PREFIX "est-0.6.0"
 #endif
 
 /* Suffixes */

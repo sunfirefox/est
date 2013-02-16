@@ -2,6 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "prep", "est-windows-default\prep.vcxproj", "{D5493BED-E97B-4A75-A226-F4BAEE8119E2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "removeFiles", "est-windows-default\removeFiles.vcxproj", "{A0771749-0FAB-4F13-9E05-4F806D8C28A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5493BED-E97B-4A75-A226-F4BAEE8119E2} = {D5493BED-E97B-4A75-A226-F4BAEE8119E2}
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libest", "est-windows-default\libest.vcxproj", "{4ECDF6CB-2743-4C31-A7B2-5D6941C3F3AE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D5493BED-E97B-4A75-A226-F4BAEE8119E2} = {D5493BED-E97B-4A75-A226-F4BAEE8119E2}
@@ -24,6 +29,14 @@ Global
 {D5493BED-E97B-4A75-A226-F4BAEE8119E2}.Release|Win32.Build.0 = Release|Win32
 {D5493BED-E97B-4A75-A226-F4BAEE8119E2}.Release|x64.ActiveCfg = Release|x64
 {D5493BED-E97B-4A75-A226-F4BAEE8119E2}.Release|x64.Build.0 = Release|x64
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Debug|Win32.ActiveCfg = Debug|Win32
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Debug|Win32.Build.0 = Debug|Win32
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Debug|x64.ActiveCfg = Debug|x64
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Debug|x64.Build.0 = Debug|x64
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Release|Win32.ActiveCfg = Release|Win32
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Release|Win32.Build.0 = Release|Win32
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Release|x64.ActiveCfg = Release|x64
+{A0771749-0FAB-4F13-9E05-4F806D8C28A8}.Release|x64.Build.0 = Release|x64
 {4ECDF6CB-2743-4C31-A7B2-5D6941C3F3AE}.Debug|Win32.ActiveCfg = Debug|Win32
 {4ECDF6CB-2743-4C31-A7B2-5D6941C3F3AE}.Debug|Win32.Build.0 = Debug|Win32
 {4ECDF6CB-2743-4C31-A7B2-5D6941C3F3AE}.Debug|x64.ActiveCfg = Debug|x64
