@@ -98,68 +98,122 @@ clean:
 $(CONFIG)\inc\bit.h: 
 
 $(CONFIG)\obj\removeFiles.obj: \
-    ..\bit\macosx-x64-debug\bin\package\windows\removeFiles.c\
+    ..\bit\macosx-x64-release\bin\package\windows\removeFiles.c\
     $(CONFIG)\inc\bit.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\removeFiles.obj -Fd$(CONFIG)\obj\removeFiles.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) ..\bit\macosx-x64-debug\bin\package\windows\removeFiles.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\removeFiles.obj -Fd$(CONFIG)\obj\removeFiles.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) ..\bit\macosx-x64-release\bin\package\windows\removeFiles.c
 
 $(CONFIG)\bin\removeFiles.exe: \
     $(CONFIG)\obj\removeFiles.obj
 	"$(LD)" -out:$(CONFIG)\bin\removeFiles.exe -entry:WinMainCRTStartup -subsystem:Windows $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\removeFiles.obj $(LIBS)
 
 $(CONFIG)\inc\aes.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\aes.h" "$(CONFIG)\inc\aes.h"
 
 $(CONFIG)\inc\arc4.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\arc4.h" "$(CONFIG)\inc\arc4.h"
 
 $(CONFIG)\inc\base64.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\base64.h" "$(CONFIG)\inc\base64.h"
 
 $(CONFIG)\inc\bignum.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\bignum.h" "$(CONFIG)\inc\bignum.h"
 
 $(CONFIG)\inc\bitos.h: \
     $(CONFIG)\inc\bit.h
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\bitos.h" "$(CONFIG)\inc\bitos.h"
 
 $(CONFIG)\inc\bn_mul.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\bn_mul.h" "$(CONFIG)\inc\bn_mul.h"
 
 $(CONFIG)\inc\camellia.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\camellia.h" "$(CONFIG)\inc\camellia.h"
 
 $(CONFIG)\inc\certs.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\certs.h" "$(CONFIG)\inc\certs.h"
 
 $(CONFIG)\inc\debug.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\debug.h" "$(CONFIG)\inc\debug.h"
 
 $(CONFIG)\inc\des.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\des.h" "$(CONFIG)\inc\des.h"
 
 $(CONFIG)\inc\dhm.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\dhm.h" "$(CONFIG)\inc\dhm.h"
 
 $(CONFIG)\inc\est.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\est.h" "$(CONFIG)\inc\est.h"
 
 $(CONFIG)\inc\havege.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\havege.h" "$(CONFIG)\inc\havege.h"
 
 $(CONFIG)\inc\md2.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\md2.h" "$(CONFIG)\inc\md2.h"
 
 $(CONFIG)\inc\md4.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\md4.h" "$(CONFIG)\inc\md4.h"
 
 $(CONFIG)\inc\md5.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\md5.h" "$(CONFIG)\inc\md5.h"
 
 $(CONFIG)\inc\net.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\net.h" "$(CONFIG)\inc\net.h"
 
 $(CONFIG)\inc\openssl.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\openssl.h" "$(CONFIG)\inc\openssl.h"
 
 $(CONFIG)\inc\padlock.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\padlock.h" "$(CONFIG)\inc\padlock.h"
 
 $(CONFIG)\inc\rsa.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\rsa.h" "$(CONFIG)\inc\rsa.h"
 
 $(CONFIG)\inc\sha1.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\sha1.h" "$(CONFIG)\inc\sha1.h"
 
 $(CONFIG)\inc\sha2.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\sha2.h" "$(CONFIG)\inc\sha2.h"
 
 $(CONFIG)\inc\sha4.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\sha4.h" "$(CONFIG)\inc\sha4.h"
 
 $(CONFIG)\inc\ssl.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\ssl.h" "$(CONFIG)\inc\ssl.h"
 
 $(CONFIG)\inc\timing.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\timing.h" "$(CONFIG)\inc\timing.h"
 
 $(CONFIG)\inc\x509.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\x509.h" "$(CONFIG)\inc\x509.h"
 
 $(CONFIG)\inc\xtea.h: 
+	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
+	copy /Y "src\xtea.h" "$(CONFIG)\inc\xtea.h"
 
 $(CONFIG)\obj\aes.obj: \
     src\aes.c\
