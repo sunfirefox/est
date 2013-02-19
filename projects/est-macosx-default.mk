@@ -101,115 +101,115 @@ clobber: clean
 	rm -fr ./$(CONFIG)
 
 $(CONFIG)/inc/aes.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/aes.h" "/Users/mob/git/est/macosx-x64-default/inc/aes.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/aes.h" "macosx-x64-default/inc/aes.h"
 
 $(CONFIG)/inc/arc4.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/arc4.h" "/Users/mob/git/est/macosx-x64-default/inc/arc4.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/arc4.h" "macosx-x64-default/inc/arc4.h"
 
 $(CONFIG)/inc/base64.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/base64.h" "/Users/mob/git/est/macosx-x64-default/inc/base64.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/base64.h" "macosx-x64-default/inc/base64.h"
 
 $(CONFIG)/inc/bignum.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/bignum.h" "/Users/mob/git/est/macosx-x64-default/inc/bignum.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/bignum.h" "macosx-x64-default/inc/bignum.h"
 
 $(CONFIG)/inc/bit.h: 
 
 $(CONFIG)/inc/bitos.h: \
     $(CONFIG)/inc/bit.h
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/bitos.h" "/Users/mob/git/est/macosx-x64-default/inc/bitos.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/bitos.h" "macosx-x64-default/inc/bitos.h"
 
 $(CONFIG)/inc/bn_mul.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/bn_mul.h" "/Users/mob/git/est/macosx-x64-default/inc/bn_mul.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/bn_mul.h" "macosx-x64-default/inc/bn_mul.h"
 
 $(CONFIG)/inc/camellia.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/camellia.h" "/Users/mob/git/est/macosx-x64-default/inc/camellia.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/camellia.h" "macosx-x64-default/inc/camellia.h"
 
 $(CONFIG)/inc/certs.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/certs.h" "/Users/mob/git/est/macosx-x64-default/inc/certs.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/certs.h" "macosx-x64-default/inc/certs.h"
 
 $(CONFIG)/inc/debug.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/debug.h" "/Users/mob/git/est/macosx-x64-default/inc/debug.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/debug.h" "macosx-x64-default/inc/debug.h"
 
 $(CONFIG)/inc/des.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/des.h" "/Users/mob/git/est/macosx-x64-default/inc/des.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/des.h" "macosx-x64-default/inc/des.h"
 
 $(CONFIG)/inc/dhm.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/dhm.h" "/Users/mob/git/est/macosx-x64-default/inc/dhm.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/dhm.h" "macosx-x64-default/inc/dhm.h"
 
 $(CONFIG)/inc/est.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/est.h" "/Users/mob/git/est/macosx-x64-default/inc/est.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/est.h" "macosx-x64-default/inc/est.h"
 
 $(CONFIG)/inc/havege.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/havege.h" "/Users/mob/git/est/macosx-x64-default/inc/havege.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/havege.h" "macosx-x64-default/inc/havege.h"
 
 $(CONFIG)/inc/md2.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/md2.h" "/Users/mob/git/est/macosx-x64-default/inc/md2.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/md2.h" "macosx-x64-default/inc/md2.h"
 
 $(CONFIG)/inc/md4.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/md4.h" "/Users/mob/git/est/macosx-x64-default/inc/md4.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/md4.h" "macosx-x64-default/inc/md4.h"
 
 $(CONFIG)/inc/md5.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/md5.h" "/Users/mob/git/est/macosx-x64-default/inc/md5.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/md5.h" "macosx-x64-default/inc/md5.h"
 
 $(CONFIG)/inc/net.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/net.h" "/Users/mob/git/est/macosx-x64-default/inc/net.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/net.h" "macosx-x64-default/inc/net.h"
 
 $(CONFIG)/inc/openssl.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/openssl.h" "/Users/mob/git/est/macosx-x64-default/inc/openssl.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/openssl.h" "macosx-x64-default/inc/openssl.h"
 
 $(CONFIG)/inc/padlock.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/padlock.h" "/Users/mob/git/est/macosx-x64-default/inc/padlock.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/padlock.h" "macosx-x64-default/inc/padlock.h"
 
 $(CONFIG)/inc/rsa.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/rsa.h" "/Users/mob/git/est/macosx-x64-default/inc/rsa.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/rsa.h" "macosx-x64-default/inc/rsa.h"
 
 $(CONFIG)/inc/sha1.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/sha1.h" "/Users/mob/git/est/macosx-x64-default/inc/sha1.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/sha1.h" "macosx-x64-default/inc/sha1.h"
 
 $(CONFIG)/inc/sha2.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/sha2.h" "/Users/mob/git/est/macosx-x64-default/inc/sha2.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/sha2.h" "macosx-x64-default/inc/sha2.h"
 
 $(CONFIG)/inc/sha4.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/sha4.h" "/Users/mob/git/est/macosx-x64-default/inc/sha4.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/sha4.h" "macosx-x64-default/inc/sha4.h"
 
 $(CONFIG)/inc/ssl.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/ssl.h" "/Users/mob/git/est/macosx-x64-default/inc/ssl.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/ssl.h" "macosx-x64-default/inc/ssl.h"
 
 $(CONFIG)/inc/timing.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/timing.h" "/Users/mob/git/est/macosx-x64-default/inc/timing.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/timing.h" "macosx-x64-default/inc/timing.h"
 
 $(CONFIG)/inc/x509.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/x509.h" "/Users/mob/git/est/macosx-x64-default/inc/x509.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/x509.h" "macosx-x64-default/inc/x509.h"
 
 $(CONFIG)/inc/xtea.h: 
-	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
-	cp "src/xtea.h" "/Users/mob/git/est/macosx-x64-default/inc/xtea.h"
+	mkdir -p "macosx-x64-default/inc"
+	cp "src/xtea.h" "macosx-x64-default/inc/xtea.h"
 
 $(CONFIG)/obj/aes.o: \
     src/aes.c\

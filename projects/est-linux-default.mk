@@ -101,115 +101,115 @@ clobber: clean
 	rm -fr ./$(CONFIG)
 
 $(CONFIG)/inc/aes.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/aes.h" "/Users/mob/git/est/linux-x86-default/inc/aes.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/aes.h" "linux-x86-default/inc/aes.h"
 
 $(CONFIG)/inc/arc4.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/arc4.h" "/Users/mob/git/est/linux-x86-default/inc/arc4.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/arc4.h" "linux-x86-default/inc/arc4.h"
 
 $(CONFIG)/inc/base64.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/base64.h" "/Users/mob/git/est/linux-x86-default/inc/base64.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/base64.h" "linux-x86-default/inc/base64.h"
 
 $(CONFIG)/inc/bignum.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/bignum.h" "/Users/mob/git/est/linux-x86-default/inc/bignum.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/bignum.h" "linux-x86-default/inc/bignum.h"
 
 $(CONFIG)/inc/bit.h: 
 
 $(CONFIG)/inc/bitos.h: \
     $(CONFIG)/inc/bit.h
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/bitos.h" "/Users/mob/git/est/linux-x86-default/inc/bitos.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/bitos.h" "linux-x86-default/inc/bitos.h"
 
 $(CONFIG)/inc/bn_mul.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/bn_mul.h" "/Users/mob/git/est/linux-x86-default/inc/bn_mul.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/bn_mul.h" "linux-x86-default/inc/bn_mul.h"
 
 $(CONFIG)/inc/camellia.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/camellia.h" "/Users/mob/git/est/linux-x86-default/inc/camellia.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/camellia.h" "linux-x86-default/inc/camellia.h"
 
 $(CONFIG)/inc/certs.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/certs.h" "/Users/mob/git/est/linux-x86-default/inc/certs.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/certs.h" "linux-x86-default/inc/certs.h"
 
 $(CONFIG)/inc/debug.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/debug.h" "/Users/mob/git/est/linux-x86-default/inc/debug.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/debug.h" "linux-x86-default/inc/debug.h"
 
 $(CONFIG)/inc/des.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/des.h" "/Users/mob/git/est/linux-x86-default/inc/des.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/des.h" "linux-x86-default/inc/des.h"
 
 $(CONFIG)/inc/dhm.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/dhm.h" "/Users/mob/git/est/linux-x86-default/inc/dhm.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/dhm.h" "linux-x86-default/inc/dhm.h"
 
 $(CONFIG)/inc/est.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/est.h" "/Users/mob/git/est/linux-x86-default/inc/est.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/est.h" "linux-x86-default/inc/est.h"
 
 $(CONFIG)/inc/havege.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/havege.h" "/Users/mob/git/est/linux-x86-default/inc/havege.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/havege.h" "linux-x86-default/inc/havege.h"
 
 $(CONFIG)/inc/md2.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/md2.h" "/Users/mob/git/est/linux-x86-default/inc/md2.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/md2.h" "linux-x86-default/inc/md2.h"
 
 $(CONFIG)/inc/md4.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/md4.h" "/Users/mob/git/est/linux-x86-default/inc/md4.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/md4.h" "linux-x86-default/inc/md4.h"
 
 $(CONFIG)/inc/md5.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/md5.h" "/Users/mob/git/est/linux-x86-default/inc/md5.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/md5.h" "linux-x86-default/inc/md5.h"
 
 $(CONFIG)/inc/net.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/net.h" "/Users/mob/git/est/linux-x86-default/inc/net.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/net.h" "linux-x86-default/inc/net.h"
 
 $(CONFIG)/inc/openssl.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/openssl.h" "/Users/mob/git/est/linux-x86-default/inc/openssl.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/openssl.h" "linux-x86-default/inc/openssl.h"
 
 $(CONFIG)/inc/padlock.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/padlock.h" "/Users/mob/git/est/linux-x86-default/inc/padlock.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/padlock.h" "linux-x86-default/inc/padlock.h"
 
 $(CONFIG)/inc/rsa.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/rsa.h" "/Users/mob/git/est/linux-x86-default/inc/rsa.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/rsa.h" "linux-x86-default/inc/rsa.h"
 
 $(CONFIG)/inc/sha1.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/sha1.h" "/Users/mob/git/est/linux-x86-default/inc/sha1.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/sha1.h" "linux-x86-default/inc/sha1.h"
 
 $(CONFIG)/inc/sha2.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/sha2.h" "/Users/mob/git/est/linux-x86-default/inc/sha2.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/sha2.h" "linux-x86-default/inc/sha2.h"
 
 $(CONFIG)/inc/sha4.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/sha4.h" "/Users/mob/git/est/linux-x86-default/inc/sha4.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/sha4.h" "linux-x86-default/inc/sha4.h"
 
 $(CONFIG)/inc/ssl.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/ssl.h" "/Users/mob/git/est/linux-x86-default/inc/ssl.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/ssl.h" "linux-x86-default/inc/ssl.h"
 
 $(CONFIG)/inc/timing.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/timing.h" "/Users/mob/git/est/linux-x86-default/inc/timing.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/timing.h" "linux-x86-default/inc/timing.h"
 
 $(CONFIG)/inc/x509.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/x509.h" "/Users/mob/git/est/linux-x86-default/inc/x509.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/x509.h" "linux-x86-default/inc/x509.h"
 
 $(CONFIG)/inc/xtea.h: 
-	mkdir -p "/Users/mob/git/est/linux-x86-default/inc"
-	cp "src/xtea.h" "/Users/mob/git/est/linux-x86-default/inc/xtea.h"
+	mkdir -p "linux-x86-default/inc"
+	cp "src/xtea.h" "linux-x86-default/inc/xtea.h"
 
 $(CONFIG)/obj/aes.o: \
     src/aes.c\

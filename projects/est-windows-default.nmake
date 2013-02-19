@@ -107,113 +107,113 @@ $(CONFIG)\bin\removeFiles.exe: \
 	"$(LD)" -out:$(CONFIG)\bin\removeFiles.exe -entry:WinMainCRTStartup -subsystem:Windows $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\removeFiles.obj $(LIBS)
 
 $(CONFIG)\inc\aes.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\aes.h" "\Users\mob\git\est\windows-x86-default\inc\aes.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\aes.h" "windows-x86-default\inc\aes.h"
 
 $(CONFIG)\inc\arc4.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\arc4.h" "\Users\mob\git\est\windows-x86-default\inc\arc4.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\arc4.h" "windows-x86-default\inc\arc4.h"
 
 $(CONFIG)\inc\base64.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\base64.h" "\Users\mob\git\est\windows-x86-default\inc\base64.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\base64.h" "windows-x86-default\inc\base64.h"
 
 $(CONFIG)\inc\bignum.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\bignum.h" "\Users\mob\git\est\windows-x86-default\inc\bignum.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\bignum.h" "windows-x86-default\inc\bignum.h"
 
 $(CONFIG)\inc\bitos.h: \
     $(CONFIG)\inc\bit.h
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\bitos.h" "\Users\mob\git\est\windows-x86-default\inc\bitos.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\bitos.h" "windows-x86-default\inc\bitos.h"
 
 $(CONFIG)\inc\bn_mul.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\bn_mul.h" "\Users\mob\git\est\windows-x86-default\inc\bn_mul.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\bn_mul.h" "windows-x86-default\inc\bn_mul.h"
 
 $(CONFIG)\inc\camellia.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\camellia.h" "\Users\mob\git\est\windows-x86-default\inc\camellia.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\camellia.h" "windows-x86-default\inc\camellia.h"
 
 $(CONFIG)\inc\certs.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\certs.h" "\Users\mob\git\est\windows-x86-default\inc\certs.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\certs.h" "windows-x86-default\inc\certs.h"
 
 $(CONFIG)\inc\debug.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\debug.h" "\Users\mob\git\est\windows-x86-default\inc\debug.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\debug.h" "windows-x86-default\inc\debug.h"
 
 $(CONFIG)\inc\des.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\des.h" "\Users\mob\git\est\windows-x86-default\inc\des.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\des.h" "windows-x86-default\inc\des.h"
 
 $(CONFIG)\inc\dhm.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\dhm.h" "\Users\mob\git\est\windows-x86-default\inc\dhm.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\dhm.h" "windows-x86-default\inc\dhm.h"
 
 $(CONFIG)\inc\est.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\est.h" "\Users\mob\git\est\windows-x86-default\inc\est.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\est.h" "windows-x86-default\inc\est.h"
 
 $(CONFIG)\inc\havege.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\havege.h" "\Users\mob\git\est\windows-x86-default\inc\havege.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\havege.h" "windows-x86-default\inc\havege.h"
 
 $(CONFIG)\inc\md2.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\md2.h" "\Users\mob\git\est\windows-x86-default\inc\md2.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\md2.h" "windows-x86-default\inc\md2.h"
 
 $(CONFIG)\inc\md4.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\md4.h" "\Users\mob\git\est\windows-x86-default\inc\md4.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\md4.h" "windows-x86-default\inc\md4.h"
 
 $(CONFIG)\inc\md5.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\md5.h" "\Users\mob\git\est\windows-x86-default\inc\md5.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\md5.h" "windows-x86-default\inc\md5.h"
 
 $(CONFIG)\inc\net.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\net.h" "\Users\mob\git\est\windows-x86-default\inc\net.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\net.h" "windows-x86-default\inc\net.h"
 
 $(CONFIG)\inc\openssl.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\openssl.h" "\Users\mob\git\est\windows-x86-default\inc\openssl.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\openssl.h" "windows-x86-default\inc\openssl.h"
 
 $(CONFIG)\inc\padlock.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\padlock.h" "\Users\mob\git\est\windows-x86-default\inc\padlock.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\padlock.h" "windows-x86-default\inc\padlock.h"
 
 $(CONFIG)\inc\rsa.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\rsa.h" "\Users\mob\git\est\windows-x86-default\inc\rsa.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\rsa.h" "windows-x86-default\inc\rsa.h"
 
 $(CONFIG)\inc\sha1.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\sha1.h" "\Users\mob\git\est\windows-x86-default\inc\sha1.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\sha1.h" "windows-x86-default\inc\sha1.h"
 
 $(CONFIG)\inc\sha2.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\sha2.h" "\Users\mob\git\est\windows-x86-default\inc\sha2.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\sha2.h" "windows-x86-default\inc\sha2.h"
 
 $(CONFIG)\inc\sha4.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\sha4.h" "\Users\mob\git\est\windows-x86-default\inc\sha4.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\sha4.h" "windows-x86-default\inc\sha4.h"
 
 $(CONFIG)\inc\ssl.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\ssl.h" "\Users\mob\git\est\windows-x86-default\inc\ssl.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\ssl.h" "windows-x86-default\inc\ssl.h"
 
 $(CONFIG)\inc\timing.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\timing.h" "\Users\mob\git\est\windows-x86-default\inc\timing.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\timing.h" "windows-x86-default\inc\timing.h"
 
 $(CONFIG)\inc\x509.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\x509.h" "\Users\mob\git\est\windows-x86-default\inc\x509.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\x509.h" "windows-x86-default\inc\x509.h"
 
 $(CONFIG)\inc\xtea.h: 
-	if not exist "\Users\mob\git\est\windows-x86-default\inc" md "\Users\mob\git\est\windows-x86-default\inc"
-	copy /Y "src\xtea.h" "\Users\mob\git\est\windows-x86-default\inc\xtea.h"
+	if not exist "windows-x86-default\inc" md "windows-x86-default\inc"
+	copy /Y "src\xtea.h" "windows-x86-default\inc\xtea.h"
 
 $(CONFIG)\obj\aes.obj: \
     src\aes.c\
