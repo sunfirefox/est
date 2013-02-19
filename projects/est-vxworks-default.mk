@@ -72,9 +72,9 @@ prep:
 		echo cp projects/est-vxworks-default-bit.h $(CONFIG)/inc/bit.h  ; \
 		cp projects/est-vxworks-default-bit.h $(CONFIG)/inc/bit.h  ; \
 	fi; true
+
 clean:
 	rm -rf $(CONFIG)/bin/libest.out
-	rm -rf $(CONFIG)/obj/removeFiles.o
 	rm -rf $(CONFIG)/obj/aes.o
 	rm -rf $(CONFIG)/obj/arc4.o
 	rm -rf $(CONFIG)/obj/base64.o

@@ -47,7 +47,6 @@ BIT_CACHE_PREFIX      = $(BIT_VAPP_PREFIX)\cache
 BIT_SRC_PREFIX        = $(BIT_VAPP_PREFIX)\src
 
 all compile: prep \
-        $(CONFIG)\bin\removeFiles.exe \
         $(CONFIG)\bin\libest.dll
 
 .PHONY: prep
@@ -65,10 +64,9 @@ prep:
 	@if not exist $(CONFIG)\inc md $(CONFIG)\inc
 	@if not exist $(CONFIG)\obj md $(CONFIG)\obj
 	@if not exist $(CONFIG)\inc\bit.h copy projects\est-windows-default-bit.h $(CONFIG)\inc\bit.h
+
 clean:
-	-if exist $(CONFIG)\bin\removeFiles.exe del /Q $(CONFIG)\bin\removeFiles.exe
 	-if exist $(CONFIG)\bin\libest.dll del /Q $(CONFIG)\bin\libest.dll
-	-if exist $(CONFIG)\obj\removeFiles.obj del /Q $(CONFIG)\obj\removeFiles.obj
 	-if exist $(CONFIG)\obj\aes.obj del /Q $(CONFIG)\obj\aes.obj
 	-if exist $(CONFIG)\obj\arc4.obj del /Q $(CONFIG)\obj\arc4.obj
 	-if exist $(CONFIG)\obj\base64.obj del /Q $(CONFIG)\obj\base64.obj
@@ -95,17 +93,6 @@ clean:
 	-if exist $(CONFIG)\obj\x509parse.obj del /Q $(CONFIG)\obj\x509parse.obj
 	-if exist $(CONFIG)\obj\xtea.obj del /Q $(CONFIG)\obj\xtea.obj
 
-$(CONFIG)\inc\bit.h: 
-
-$(CONFIG)\obj\removeFiles.obj: \
-    ..\bit\macosx-x64-release\bin\package\windows\removeFiles.c\
-    $(CONFIG)\inc\bit.h
-	"$(CC)" -c -Fo$(CONFIG)\obj\removeFiles.obj -Fd$(CONFIG)\obj\removeFiles.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) ..\bit\macosx-x64-release\bin\package\windows\removeFiles.c
-
-$(CONFIG)\bin\removeFiles.exe: \
-    $(CONFIG)\obj\removeFiles.obj
-	"$(LD)" -out:$(CONFIG)\bin\removeFiles.exe -entry:WinMainCRTStartup -subsystem:Windows $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\removeFiles.obj $(LIBS)
-
 $(CONFIG)\inc\aes.h: 
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\aes.h" "$(CONFIG)\inc\aes.h"
@@ -121,6 +108,8 @@ $(CONFIG)\inc\base64.h:
 $(CONFIG)\inc\bignum.h: 
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\bignum.h" "$(CONFIG)\inc\bignum.h"
+
+$(CONFIG)\inc\bit.h: 
 
 $(CONFIG)\inc\bitos.h: \
     $(CONFIG)\inc\bit.h
