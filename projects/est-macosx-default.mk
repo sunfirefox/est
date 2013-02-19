@@ -101,113 +101,115 @@ clobber: clean
 	rm -fr ./$(CONFIG)
 
 $(CONFIG)/inc/aes.h: 
-	rm -fr $(CONFIG)/inc/aes.h
-	cp -r src/aes.h $(CONFIG)/inc/aes.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/aes.h" "/Users/mob/git/est/macosx-x64-default/inc/aes.h"
 
 $(CONFIG)/inc/arc4.h: 
-	rm -fr $(CONFIG)/inc/arc4.h
-	cp -r src/arc4.h $(CONFIG)/inc/arc4.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/arc4.h" "/Users/mob/git/est/macosx-x64-default/inc/arc4.h"
 
 $(CONFIG)/inc/base64.h: 
-	rm -fr $(CONFIG)/inc/base64.h
-	cp -r src/base64.h $(CONFIG)/inc/base64.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/base64.h" "/Users/mob/git/est/macosx-x64-default/inc/base64.h"
 
 $(CONFIG)/inc/bignum.h: 
-	rm -fr $(CONFIG)/inc/bignum.h
-	cp -r src/bignum.h $(CONFIG)/inc/bignum.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/bignum.h" "/Users/mob/git/est/macosx-x64-default/inc/bignum.h"
+
+$(CONFIG)/inc/bit.h: 
 
 $(CONFIG)/inc/bitos.h: \
     $(CONFIG)/inc/bit.h
-	rm -fr $(CONFIG)/inc/bitos.h
-	cp -r src/bitos.h $(CONFIG)/inc/bitos.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/bitos.h" "/Users/mob/git/est/macosx-x64-default/inc/bitos.h"
 
 $(CONFIG)/inc/bn_mul.h: 
-	rm -fr $(CONFIG)/inc/bn_mul.h
-	cp -r src/bn_mul.h $(CONFIG)/inc/bn_mul.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/bn_mul.h" "/Users/mob/git/est/macosx-x64-default/inc/bn_mul.h"
 
 $(CONFIG)/inc/camellia.h: 
-	rm -fr $(CONFIG)/inc/camellia.h
-	cp -r src/camellia.h $(CONFIG)/inc/camellia.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/camellia.h" "/Users/mob/git/est/macosx-x64-default/inc/camellia.h"
 
 $(CONFIG)/inc/certs.h: 
-	rm -fr $(CONFIG)/inc/certs.h
-	cp -r src/certs.h $(CONFIG)/inc/certs.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/certs.h" "/Users/mob/git/est/macosx-x64-default/inc/certs.h"
 
 $(CONFIG)/inc/debug.h: 
-	rm -fr $(CONFIG)/inc/debug.h
-	cp -r src/debug.h $(CONFIG)/inc/debug.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/debug.h" "/Users/mob/git/est/macosx-x64-default/inc/debug.h"
 
 $(CONFIG)/inc/des.h: 
-	rm -fr $(CONFIG)/inc/des.h
-	cp -r src/des.h $(CONFIG)/inc/des.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/des.h" "/Users/mob/git/est/macosx-x64-default/inc/des.h"
 
 $(CONFIG)/inc/dhm.h: 
-	rm -fr $(CONFIG)/inc/dhm.h
-	cp -r src/dhm.h $(CONFIG)/inc/dhm.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/dhm.h" "/Users/mob/git/est/macosx-x64-default/inc/dhm.h"
 
 $(CONFIG)/inc/est.h: 
-	rm -fr $(CONFIG)/inc/est.h
-	cp -r src/est.h $(CONFIG)/inc/est.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/est.h" "/Users/mob/git/est/macosx-x64-default/inc/est.h"
 
 $(CONFIG)/inc/havege.h: 
-	rm -fr $(CONFIG)/inc/havege.h
-	cp -r src/havege.h $(CONFIG)/inc/havege.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/havege.h" "/Users/mob/git/est/macosx-x64-default/inc/havege.h"
 
 $(CONFIG)/inc/md2.h: 
-	rm -fr $(CONFIG)/inc/md2.h
-	cp -r src/md2.h $(CONFIG)/inc/md2.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/md2.h" "/Users/mob/git/est/macosx-x64-default/inc/md2.h"
 
 $(CONFIG)/inc/md4.h: 
-	rm -fr $(CONFIG)/inc/md4.h
-	cp -r src/md4.h $(CONFIG)/inc/md4.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/md4.h" "/Users/mob/git/est/macosx-x64-default/inc/md4.h"
 
 $(CONFIG)/inc/md5.h: 
-	rm -fr $(CONFIG)/inc/md5.h
-	cp -r src/md5.h $(CONFIG)/inc/md5.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/md5.h" "/Users/mob/git/est/macosx-x64-default/inc/md5.h"
 
 $(CONFIG)/inc/net.h: 
-	rm -fr $(CONFIG)/inc/net.h
-	cp -r src/net.h $(CONFIG)/inc/net.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/net.h" "/Users/mob/git/est/macosx-x64-default/inc/net.h"
 
 $(CONFIG)/inc/openssl.h: 
-	rm -fr $(CONFIG)/inc/openssl.h
-	cp -r src/openssl.h $(CONFIG)/inc/openssl.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/openssl.h" "/Users/mob/git/est/macosx-x64-default/inc/openssl.h"
 
 $(CONFIG)/inc/padlock.h: 
-	rm -fr $(CONFIG)/inc/padlock.h
-	cp -r src/padlock.h $(CONFIG)/inc/padlock.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/padlock.h" "/Users/mob/git/est/macosx-x64-default/inc/padlock.h"
 
 $(CONFIG)/inc/rsa.h: 
-	rm -fr $(CONFIG)/inc/rsa.h
-	cp -r src/rsa.h $(CONFIG)/inc/rsa.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/rsa.h" "/Users/mob/git/est/macosx-x64-default/inc/rsa.h"
 
 $(CONFIG)/inc/sha1.h: 
-	rm -fr $(CONFIG)/inc/sha1.h
-	cp -r src/sha1.h $(CONFIG)/inc/sha1.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/sha1.h" "/Users/mob/git/est/macosx-x64-default/inc/sha1.h"
 
 $(CONFIG)/inc/sha2.h: 
-	rm -fr $(CONFIG)/inc/sha2.h
-	cp -r src/sha2.h $(CONFIG)/inc/sha2.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/sha2.h" "/Users/mob/git/est/macosx-x64-default/inc/sha2.h"
 
 $(CONFIG)/inc/sha4.h: 
-	rm -fr $(CONFIG)/inc/sha4.h
-	cp -r src/sha4.h $(CONFIG)/inc/sha4.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/sha4.h" "/Users/mob/git/est/macosx-x64-default/inc/sha4.h"
 
 $(CONFIG)/inc/ssl.h: 
-	rm -fr $(CONFIG)/inc/ssl.h
-	cp -r src/ssl.h $(CONFIG)/inc/ssl.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/ssl.h" "/Users/mob/git/est/macosx-x64-default/inc/ssl.h"
 
 $(CONFIG)/inc/timing.h: 
-	rm -fr $(CONFIG)/inc/timing.h
-	cp -r src/timing.h $(CONFIG)/inc/timing.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/timing.h" "/Users/mob/git/est/macosx-x64-default/inc/timing.h"
 
 $(CONFIG)/inc/x509.h: 
-	rm -fr $(CONFIG)/inc/x509.h
-	cp -r src/x509.h $(CONFIG)/inc/x509.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/x509.h" "/Users/mob/git/est/macosx-x64-default/inc/x509.h"
 
 $(CONFIG)/inc/xtea.h: 
-	rm -fr $(CONFIG)/inc/xtea.h
-	cp -r src/xtea.h $(CONFIG)/inc/xtea.h
+	mkdir -p "/Users/mob/git/est/macosx-x64-default/inc"
+	cp "src/xtea.h" "/Users/mob/git/est/macosx-x64-default/inc/xtea.h"
 
 $(CONFIG)/obj/aes.o: \
     src/aes.c\
@@ -446,7 +448,6 @@ stop:
 	
 
 installBinary: stop
-	
 
 
 start: 
@@ -456,6 +457,5 @@ install: stop installBinary start
 	
 
 uninstall: stop
-	
 
 
