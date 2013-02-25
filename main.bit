@@ -234,7 +234,8 @@ Bit.load({
                 to:     '${src}/src/deps/est/est.h',
                 cat:    true,
                 filter: /^#include.*\"/mg,
-                header: '#include \"bit.h\"\n#include \"bitos.h\"\n',
+                header: '#include \"bit.h\"\n\n#if BIT_PACK_EST\n\n#include \"bitos.h\"\n',
+                footer: '#endif /* BIT_PACK_EST */'
                 title:  '${settings.title} Library Header',
                 set:    'source',
             },{
@@ -242,7 +243,8 @@ Bit.load({
                 to:     '${src}/src/deps/est/estLib.c',
                 cat:    true,
                 filter: /^#inc.*est.*$|#inc.*config.h.*$|#inc.*ucp.*.h.*$/mg,
-                header: '#include \"est.h\"',
+                header: '#include \"est.h\"\n\n#if BIT_PACK_EST',
+                footer: '#endif /* BIT_PACK_EST */'
                 title:  '${settings.title} Library Source',
                 set:    'source',
             },{
