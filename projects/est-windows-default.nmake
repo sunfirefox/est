@@ -23,7 +23,7 @@ CC              = cl
 LD              = link
 RC              = rc
 CFLAGS          = -nologo -GR- -W3 -Zi -Od -MDd
-DFLAGS          = -D_REENTRANT -D_MT -DBIT_DEBUG
+DFLAGS          = -D_REENTRANT -D_MT -DBIT_DEBUG 
 IFLAGS          = -I$(CONFIG)\inc
 LDFLAGS         = -nologo -nodefaultlib -incremental:no -debug -machine:$(ARCH)
 LIBPATHS        = -libpath:$(CONFIG)\bin
@@ -54,7 +54,7 @@ TARGETS     = $(TARGETS) $(CONFIG)\bin\libest.dll
 .SILENT:
 !ENDIF
 
-all compile: prep $(TARGETS)
+all build compile: prep $(TARGETS)
 
 .PHONY: prep
 
