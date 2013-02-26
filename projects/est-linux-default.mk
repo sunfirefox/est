@@ -1,5 +1,5 @@
 #
-#   est-linux-default.mk -- Makefile to build Embedthis Security Transport for linux
+#   est-linux-default.mk -- Makefile to build Embedded Security Transport for linux
 #
 
 PRODUCT         := est
@@ -112,7 +112,7 @@ clobber: clean
 #   aes.h
 #
 $(CONFIG)/inc/aes.h: $(DEPS_1)
-	@echo '      [File] linux-x86-default/inc/aes.h'
+	@echo '      [File] $(CONFIG)/inc/aes.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/aes.h" "$(CONFIG)/inc/aes.h"
 
@@ -120,7 +120,7 @@ $(CONFIG)/inc/aes.h: $(DEPS_1)
 #   arc4.h
 #
 $(CONFIG)/inc/arc4.h: $(DEPS_2)
-	@echo '      [File] linux-x86-default/inc/arc4.h'
+	@echo '      [File] $(CONFIG)/inc/arc4.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/arc4.h" "$(CONFIG)/inc/arc4.h"
 
@@ -128,7 +128,7 @@ $(CONFIG)/inc/arc4.h: $(DEPS_2)
 #   base64.h
 #
 $(CONFIG)/inc/base64.h: $(DEPS_3)
-	@echo '      [File] linux-x86-default/inc/base64.h'
+	@echo '      [File] $(CONFIG)/inc/base64.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/base64.h" "$(CONFIG)/inc/base64.h"
 
@@ -136,7 +136,7 @@ $(CONFIG)/inc/base64.h: $(DEPS_3)
 #   bignum.h
 #
 $(CONFIG)/inc/bignum.h: $(DEPS_4)
-	@echo '      [File] linux-x86-default/inc/bignum.h'
+	@echo '      [File] $(CONFIG)/inc/bignum.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/bignum.h" "$(CONFIG)/inc/bignum.h"
 
@@ -151,7 +151,7 @@ $(CONFIG)/inc/bit.h: $(DEPS_5)
 DEPS_6 += $(CONFIG)/inc/bit.h
 
 $(CONFIG)/inc/bitos.h: $(DEPS_6)
-	@echo '      [File] linux-x86-default/inc/bitos.h'
+	@echo '      [File] $(CONFIG)/inc/bitos.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/bitos.h" "$(CONFIG)/inc/bitos.h"
 
@@ -159,7 +159,7 @@ $(CONFIG)/inc/bitos.h: $(DEPS_6)
 #   bn_mul.h
 #
 $(CONFIG)/inc/bn_mul.h: $(DEPS_7)
-	@echo '      [File] linux-x86-default/inc/bn_mul.h'
+	@echo '      [File] $(CONFIG)/inc/bn_mul.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/bn_mul.h" "$(CONFIG)/inc/bn_mul.h"
 
@@ -167,7 +167,7 @@ $(CONFIG)/inc/bn_mul.h: $(DEPS_7)
 #   camellia.h
 #
 $(CONFIG)/inc/camellia.h: $(DEPS_8)
-	@echo '      [File] linux-x86-default/inc/camellia.h'
+	@echo '      [File] $(CONFIG)/inc/camellia.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/camellia.h" "$(CONFIG)/inc/camellia.h"
 
@@ -175,7 +175,7 @@ $(CONFIG)/inc/camellia.h: $(DEPS_8)
 #   certs.h
 #
 $(CONFIG)/inc/certs.h: $(DEPS_9)
-	@echo '      [File] linux-x86-default/inc/certs.h'
+	@echo '      [File] $(CONFIG)/inc/certs.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/certs.h" "$(CONFIG)/inc/certs.h"
 
@@ -183,7 +183,7 @@ $(CONFIG)/inc/certs.h: $(DEPS_9)
 #   debug.h
 #
 $(CONFIG)/inc/debug.h: $(DEPS_10)
-	@echo '      [File] linux-x86-default/inc/debug.h'
+	@echo '      [File] $(CONFIG)/inc/debug.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/debug.h" "$(CONFIG)/inc/debug.h"
 
@@ -191,7 +191,7 @@ $(CONFIG)/inc/debug.h: $(DEPS_10)
 #   des.h
 #
 $(CONFIG)/inc/des.h: $(DEPS_11)
-	@echo '      [File] linux-x86-default/inc/des.h'
+	@echo '      [File] $(CONFIG)/inc/des.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/des.h" "$(CONFIG)/inc/des.h"
 
@@ -199,7 +199,7 @@ $(CONFIG)/inc/des.h: $(DEPS_11)
 #   dhm.h
 #
 $(CONFIG)/inc/dhm.h: $(DEPS_12)
-	@echo '      [File] linux-x86-default/inc/dhm.h'
+	@echo '      [File] $(CONFIG)/inc/dhm.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/dhm.h" "$(CONFIG)/inc/dhm.h"
 
@@ -207,7 +207,7 @@ $(CONFIG)/inc/dhm.h: $(DEPS_12)
 #   est.h
 #
 $(CONFIG)/inc/est.h: $(DEPS_13)
-	@echo '      [File] linux-x86-default/inc/est.h'
+	@echo '      [File] $(CONFIG)/inc/est.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/est.h" "$(CONFIG)/inc/est.h"
 
@@ -215,7 +215,7 @@ $(CONFIG)/inc/est.h: $(DEPS_13)
 #   havege.h
 #
 $(CONFIG)/inc/havege.h: $(DEPS_14)
-	@echo '      [File] linux-x86-default/inc/havege.h'
+	@echo '      [File] $(CONFIG)/inc/havege.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/havege.h" "$(CONFIG)/inc/havege.h"
 
@@ -223,7 +223,7 @@ $(CONFIG)/inc/havege.h: $(DEPS_14)
 #   md2.h
 #
 $(CONFIG)/inc/md2.h: $(DEPS_15)
-	@echo '      [File] linux-x86-default/inc/md2.h'
+	@echo '      [File] $(CONFIG)/inc/md2.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/md2.h" "$(CONFIG)/inc/md2.h"
 
@@ -231,7 +231,7 @@ $(CONFIG)/inc/md2.h: $(DEPS_15)
 #   md4.h
 #
 $(CONFIG)/inc/md4.h: $(DEPS_16)
-	@echo '      [File] linux-x86-default/inc/md4.h'
+	@echo '      [File] $(CONFIG)/inc/md4.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/md4.h" "$(CONFIG)/inc/md4.h"
 
@@ -239,7 +239,7 @@ $(CONFIG)/inc/md4.h: $(DEPS_16)
 #   md5.h
 #
 $(CONFIG)/inc/md5.h: $(DEPS_17)
-	@echo '      [File] linux-x86-default/inc/md5.h'
+	@echo '      [File] $(CONFIG)/inc/md5.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/md5.h" "$(CONFIG)/inc/md5.h"
 
@@ -247,7 +247,7 @@ $(CONFIG)/inc/md5.h: $(DEPS_17)
 #   net.h
 #
 $(CONFIG)/inc/net.h: $(DEPS_18)
-	@echo '      [File] linux-x86-default/inc/net.h'
+	@echo '      [File] $(CONFIG)/inc/net.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/net.h" "$(CONFIG)/inc/net.h"
 
@@ -255,7 +255,7 @@ $(CONFIG)/inc/net.h: $(DEPS_18)
 #   openssl.h
 #
 $(CONFIG)/inc/openssl.h: $(DEPS_19)
-	@echo '      [File] linux-x86-default/inc/openssl.h'
+	@echo '      [File] $(CONFIG)/inc/openssl.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/openssl.h" "$(CONFIG)/inc/openssl.h"
 
@@ -263,7 +263,7 @@ $(CONFIG)/inc/openssl.h: $(DEPS_19)
 #   padlock.h
 #
 $(CONFIG)/inc/padlock.h: $(DEPS_20)
-	@echo '      [File] linux-x86-default/inc/padlock.h'
+	@echo '      [File] $(CONFIG)/inc/padlock.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/padlock.h" "$(CONFIG)/inc/padlock.h"
 
@@ -271,7 +271,7 @@ $(CONFIG)/inc/padlock.h: $(DEPS_20)
 #   rsa.h
 #
 $(CONFIG)/inc/rsa.h: $(DEPS_21)
-	@echo '      [File] linux-x86-default/inc/rsa.h'
+	@echo '      [File] $(CONFIG)/inc/rsa.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/rsa.h" "$(CONFIG)/inc/rsa.h"
 
@@ -279,7 +279,7 @@ $(CONFIG)/inc/rsa.h: $(DEPS_21)
 #   sha1.h
 #
 $(CONFIG)/inc/sha1.h: $(DEPS_22)
-	@echo '      [File] linux-x86-default/inc/sha1.h'
+	@echo '      [File] $(CONFIG)/inc/sha1.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/sha1.h" "$(CONFIG)/inc/sha1.h"
 
@@ -287,7 +287,7 @@ $(CONFIG)/inc/sha1.h: $(DEPS_22)
 #   sha2.h
 #
 $(CONFIG)/inc/sha2.h: $(DEPS_23)
-	@echo '      [File] linux-x86-default/inc/sha2.h'
+	@echo '      [File] $(CONFIG)/inc/sha2.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/sha2.h" "$(CONFIG)/inc/sha2.h"
 
@@ -295,7 +295,7 @@ $(CONFIG)/inc/sha2.h: $(DEPS_23)
 #   sha4.h
 #
 $(CONFIG)/inc/sha4.h: $(DEPS_24)
-	@echo '      [File] linux-x86-default/inc/sha4.h'
+	@echo '      [File] $(CONFIG)/inc/sha4.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/sha4.h" "$(CONFIG)/inc/sha4.h"
 
@@ -303,7 +303,7 @@ $(CONFIG)/inc/sha4.h: $(DEPS_24)
 #   ssl.h
 #
 $(CONFIG)/inc/ssl.h: $(DEPS_25)
-	@echo '      [File] linux-x86-default/inc/ssl.h'
+	@echo '      [File] $(CONFIG)/inc/ssl.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/ssl.h" "$(CONFIG)/inc/ssl.h"
 
@@ -311,7 +311,7 @@ $(CONFIG)/inc/ssl.h: $(DEPS_25)
 #   timing.h
 #
 $(CONFIG)/inc/timing.h: $(DEPS_26)
-	@echo '      [File] linux-x86-default/inc/timing.h'
+	@echo '      [File] $(CONFIG)/inc/timing.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/timing.h" "$(CONFIG)/inc/timing.h"
 
@@ -319,7 +319,7 @@ $(CONFIG)/inc/timing.h: $(DEPS_26)
 #   x509.h
 #
 $(CONFIG)/inc/x509.h: $(DEPS_27)
-	@echo '      [File] linux-x86-default/inc/x509.h'
+	@echo '      [File] $(CONFIG)/inc/x509.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/x509.h" "$(CONFIG)/inc/x509.h"
 
@@ -327,7 +327,7 @@ $(CONFIG)/inc/x509.h: $(DEPS_27)
 #   xtea.h
 #
 $(CONFIG)/inc/xtea.h: $(DEPS_28)
-	@echo '      [File] linux-x86-default/inc/xtea.h'
+	@echo '      [File] $(CONFIG)/inc/xtea.h'
 	mkdir -p "$(CONFIG)/inc"
 	cp "src/xtea.h" "$(CONFIG)/inc/xtea.h"
 

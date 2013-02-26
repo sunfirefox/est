@@ -131,7 +131,7 @@
     #define BIT_SYNC "bitos"
 #endif
 #ifndef BIT_TITLE
-    #define BIT_TITLE "Embedthis Security Transport"
+    #define BIT_TITLE "Embedded Security Transport"
 #endif
 #ifndef BIT_VERSION
     #define BIT_VERSION "0.6.0"
@@ -157,46 +157,46 @@
     #define BIT_BASE_PREFIX "C:/Program Files"
 #endif
 #ifndef BIT_APP_PREFIX
-    #define BIT_APP_PREFIX "C:/Program Files/Embedthis Security Transport"
+    #define BIT_APP_PREFIX "C:/Program Files/Embedded Security Transport"
 #endif
 #ifndef BIT_VAPP_PREFIX
-    #define BIT_VAPP_PREFIX "C:/Program Files/Embedthis Security Transport"
+    #define BIT_VAPP_PREFIX "C:/Program Files/Embedded Security Transport"
 #endif
 #ifndef BIT_DATA_PREFIX
-    #define BIT_DATA_PREFIX "C:/Program Files/Embedthis Security Transport"
+    #define BIT_DATA_PREFIX "C:/Program Files/Embedded Security Transport"
 #endif
 #ifndef BIT_STATE_PREFIX
-    #define BIT_STATE_PREFIX "C:/Program Files/Embedthis Security Transport"
+    #define BIT_STATE_PREFIX "C:/Program Files/Embedded Security Transport"
 #endif
 #ifndef BIT_BIN_PREFIX
-    #define BIT_BIN_PREFIX "C:/Program Files/Embedthis Security Transport/bin"
+    #define BIT_BIN_PREFIX "C:/Program Files/Embedded Security Transport/bin"
 #endif
 #ifndef BIT_INC_PREFIX
-    #define BIT_INC_PREFIX "C:/Program Files/Embedthis Security Transport/inc"
+    #define BIT_INC_PREFIX "C:/Program Files/Embedded Security Transport/inc"
 #endif
 #ifndef BIT_LIB_PREFIX
-    #define BIT_LIB_PREFIX "C:/Program Files/Embedthis Security Transport/lib"
+    #define BIT_LIB_PREFIX "C:/Program Files/Embedded Security Transport/lib"
 #endif
 #ifndef BIT_MAN_PREFIX
-    #define BIT_MAN_PREFIX "C:/Program Files/Embedthis Security Transport/man"
+    #define BIT_MAN_PREFIX "C:/Program Files/Embedded Security Transport/man"
 #endif
 #ifndef BIT_ETC_PREFIX
-    #define BIT_ETC_PREFIX "C:/Program Files/Embedthis Security Transport"
+    #define BIT_ETC_PREFIX "C:/Program Files/Embedded Security Transport"
 #endif
 #ifndef BIT_WEB_PREFIX
-    #define BIT_WEB_PREFIX "C:/Program Files/Embedthis Security Transport/web"
+    #define BIT_WEB_PREFIX "C:/Program Files/Embedded Security Transport/web"
 #endif
 #ifndef BIT_LOG_PREFIX
-    #define BIT_LOG_PREFIX "C:/Program Files/Embedthis Security Transport/log"
+    #define BIT_LOG_PREFIX "C:/Program Files/Embedded Security Transport/log"
 #endif
 #ifndef BIT_SPOOL_PREFIX
-    #define BIT_SPOOL_PREFIX "C:/Program Files/Embedthis Security Transport/tmp"
+    #define BIT_SPOOL_PREFIX "C:/Program Files/Embedded Security Transport/tmp"
 #endif
 #ifndef BIT_CACHE_PREFIX
-    #define BIT_CACHE_PREFIX "C:/Program Files/Embedthis Security Transport/cache"
+    #define BIT_CACHE_PREFIX "C:/Program Files/Embedded Security Transport/cache"
 #endif
 #ifndef BIT_SRC_PREFIX
-    #define BIT_SRC_PREFIX "C:/Program Files/Embedthis Security Transport/src"
+    #define BIT_SRC_PREFIX "C:/Program Files/Embedded Security Transport/src"
 #endif
 
 /* Suffixes */

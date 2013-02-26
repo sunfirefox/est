@@ -149,7 +149,7 @@
     #define BIT_SYNC "bitos"
 #endif
 #ifndef BIT_TITLE
-    #define BIT_TITLE "Embedthis Security Transport"
+    #define BIT_TITLE "Embedded Security Transport"
 #endif
 #ifndef BIT_VERSION
     #define BIT_VERSION "0.6.0"
