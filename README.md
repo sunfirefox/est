@@ -1,4 +1,4 @@
-Embedthis Security Transport (SSL)
+Embedded Security Transport (SSL)
 ===
 
 Licensing

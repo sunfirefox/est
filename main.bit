@@ -1,5 +1,5 @@
 /*
-    main.bit -- Main Bit File for the Embedthis Security Transport
+    main.bit -- Main Bit File for the Embedded Security Transport
 
     This file contains the rules for targets to build and default settings for configuration.
     The Bit utility (http://ejscript.org) may be used to build Est instead of make. Bit provides
@@ -20,7 +20,7 @@ Bit.load({
 
     settings: {
 		product: 'est',
-		title: 'Embedthis Security Transport',
+		title: 'Embedded Security Transport',
         company: 'Embedthis',
 		version: '0.6.0',
 		buildNumber: '0',
