@@ -20,7 +20,6 @@ struct _hr_time {
 };
 #endif
 
-<<<<<<< HEAD
 #if WINDOWS
 //  MOB  64 bit
 ulong hardclock(void)
@@ -31,15 +30,6 @@ ulong hardclock(void)
 }
 
 #elif (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
-=======
-#if WINDOWS && BIT_64
-ulong hardclock(void)
-{
-    LARGE_INTEGER   now;
-    QueryPerformanceCounter(&now);
-    return now.LowPart;
-}
->>>>>>> dev
 
 #elif WINDOWS
 ulong hardclock(void)

@@ -10,11 +10,7 @@
 
 #if BIT_EST_HAVEGE
 
-<<<<<<< HEAD
 /*  Undefine for windows */
-=======
-/* Windows */
->>>>>>> dev
 #undef IN
 
 /*
