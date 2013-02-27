@@ -6,56 +6,56 @@ export WIND_BASE := $(WIND_BASE)
 export WIND_HOME := $(WIND_BASE)/..
 export WIND_PLATFORM := $(WIND_PLATFORM)
 
-PRODUCT         := est
-VERSION         := 0.6.0
-BUILD_NUMBER    := 0
-PROFILE         := default
-ARCH            := $(shell uname -m | sed 's/i.86/x86/;s/x86_64/x64/;s/arm.*/arm/;s/mips.*/mips/')
-OS              := vxworks
-CC              := ccpentium
-LD              := /usr/bin/ld
-CONFIG          := $(OS)-$(ARCH)-$(PROFILE)
-LBIN            := $(CONFIG)/bin
-
-CFLAGS          += -fno-builtin -fno-defer-pop -fvolatile -w
-DFLAGS          += -D_REENTRANT -DVXWORKS -DRW_MULTI_THREAD -D_GNU_TOOL -DCPU=PENTIUM $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS)))
-IFLAGS          += -I$(CONFIG)/inc -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/wrn/coreip
-LDFLAGS         += '-Wl,-r'
-LIBPATHS        += -L$(CONFIG)/bin
-LIBS            += 
-
-DEBUG           := debug
-CFLAGS-debug    := -g
-DFLAGS-debug    := -DBIT_DEBUG
-LDFLAGS-debug   := -g
-DFLAGS-release  := 
-CFLAGS-release  := -O2
-LDFLAGS-release := 
-CFLAGS          += $(CFLAGS-$(DEBUG))
-DFLAGS          += $(DFLAGS-$(DEBUG))
-LDFLAGS         += $(LDFLAGS-$(DEBUG))
+PRODUCT           := est
+VERSION           := 0.6.0
+BUILD_NUMBER      := 0
+PROFILE           := default
+ARCH              := $(shell uname -m | sed 's/i.86/x86/;s/x86_64/x64/;s/arm.*/arm/;s/mips.*/mips/')
+OS                := vxworks
+CC                := ccpentium
+LD                := /usr/bin/ld
+CONFIG            := $(OS)-$(ARCH)-$(PROFILE)
+LBIN              := $(CONFIG)/bin
 
 
-BIT_ROOT_PREFIX       := deploy
-BIT_BASE_PREFIX       := $(BIT_ROOT_PREFIX)
-BIT_DATA_PREFIX       := $(BIT_VAPP_PREFIX)
-BIT_STATE_PREFIX      := $(BIT_VAPP_PREFIX)
-BIT_BIN_PREFIX        := $(BIT_VAPP_PREFIX)
-BIT_INC_PREFIX        := $(BIT_VAPP_PREFIX)/inc
-BIT_LIB_PREFIX        := $(BIT_VAPP_PREFIX)
-BIT_MAN_PREFIX        := $(BIT_VAPP_PREFIX)
-BIT_SBIN_PREFIX       := $(BIT_VAPP_PREFIX)
-BIT_ETC_PREFIX        := $(BIT_VAPP_PREFIX)
-BIT_WEB_PREFIX        := $(BIT_VAPP_PREFIX)/web
-BIT_LOG_PREFIX        := $(BIT_VAPP_PREFIX)
-BIT_SPOOL_PREFIX      := $(BIT_VAPP_PREFIX)
-BIT_CACHE_PREFIX      := $(BIT_VAPP_PREFIX)
-BIT_APP_PREFIX        := $(BIT_BASE_PREFIX)
-BIT_VAPP_PREFIX       := $(BIT_APP_PREFIX)
-BIT_SRC_PREFIX        := $(BIT_ROOT_PREFIX)/usr/src/$(PRODUCT)-$(VERSION)
+CFLAGS            += -fno-builtin -fno-defer-pop -fvolatile -w
+DFLAGS            += -D_REENTRANT -DVXWORKS -DRW_MULTI_THREAD -D_GNU_TOOL -DCPU=PENTIUM $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
+IFLAGS            += -I$(CONFIG)/inc -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/wrn/coreip
+LDFLAGS           += '-Wl,-r'
+LIBPATHS          += -L$(CONFIG)/bin
+LIBS              += 
+
+DEBUG             := debug
+CFLAGS-debug      := -g
+DFLAGS-debug      := -DBIT_DEBUG
+LDFLAGS-debug     := -g
+DFLAGS-release    := 
+CFLAGS-release    := -O2
+LDFLAGS-release   := 
+CFLAGS            += $(CFLAGS-$(DEBUG))
+DFLAGS            += $(DFLAGS-$(DEBUG))
+LDFLAGS           += $(LDFLAGS-$(DEBUG))
+
+BIT_ROOT_PREFIX   := deploy
+BIT_BASE_PREFIX   := $(BIT_ROOT_PREFIX)
+BIT_DATA_PREFIX   := $(BIT_VAPP_PREFIX)
+BIT_STATE_PREFIX  := $(BIT_VAPP_PREFIX)
+BIT_BIN_PREFIX    := $(BIT_VAPP_PREFIX)
+BIT_INC_PREFIX    := $(BIT_VAPP_PREFIX)/inc
+BIT_LIB_PREFIX    := $(BIT_VAPP_PREFIX)
+BIT_MAN_PREFIX    := $(BIT_VAPP_PREFIX)
+BIT_SBIN_PREFIX   := $(BIT_VAPP_PREFIX)
+BIT_ETC_PREFIX    := $(BIT_VAPP_PREFIX)
+BIT_WEB_PREFIX    := $(BIT_VAPP_PREFIX)/web
+BIT_LOG_PREFIX    := $(BIT_VAPP_PREFIX)
+BIT_SPOOL_PREFIX  := $(BIT_VAPP_PREFIX)
+BIT_CACHE_PREFIX  := $(BIT_VAPP_PREFIX)
+BIT_APP_PREFIX    := $(BIT_BASE_PREFIX)
+BIT_VAPP_PREFIX   := $(BIT_APP_PREFIX)
+BIT_SRC_PREFIX    := $(BIT_ROOT_PREFIX)/usr/src/$(PRODUCT)-$(VERSION)
 
 
-TARGETS     += $(CONFIG)/bin/libest.out
+TARGETS           += $(CONFIG)/bin/libest.out
 
 unexport CDPATH
 
