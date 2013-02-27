@@ -52,7 +52,7 @@ BIN 	:= $(OS)-$(ARCH)-$(PROFILE)/bin
 all build compile:
 	$(MAKE) -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
 
-clean clobber install uninstall run:
+clean clobber install installBinary uninstall run:
 	$(MAKE) -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
 
 version:
