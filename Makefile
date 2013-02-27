@@ -49,7 +49,7 @@ BIN 	:= $(OS)-$(ARCH)-$(PROFILE)/bin
 
 .EXPORT_ALL_VARIABLES:
 
-all compile:
+all build compile:
 	$(MAKE) -f projects/$(NAME)-$(OS)-$(PROFILE).$(EXT) $@
 
 clean clobber install uninstall run:
