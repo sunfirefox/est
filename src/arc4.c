@@ -13,7 +13,7 @@
 /*
    ARC4 key schedule
  */
-void arc4_setup(arc4_context * ctx, uchar *key, int keylen)
+void arc4_setup(arc4_context *ctx, uchar *key, int keylen)
 {
     int     i, j, k, a;
     uchar   *m;
@@ -22,15 +22,14 @@ void arc4_setup(arc4_context * ctx, uchar *key, int keylen)
     ctx->y = 0;
     m = ctx->m;
 
-    for (i = 0; i < 256; i++)
-        m[i] = (uchar)i;
-
+    for (i = 0; i < 256; i++) {
+        m[i] = (uchar) i;
+    }
     j = k = 0;
-
     for (i = 0; i < 256; i++, k++) {
-        if (k >= keylen)
+        if (k >= keylen) {
             k = 0;
-
+        }
         a = m[i];
         j = (j + a + key[k]) & 0xFF;
         m[i] = m[j];
@@ -42,7 +41,7 @@ void arc4_setup(arc4_context * ctx, uchar *key, int keylen)
 /*
    ARC4 cipher function
  */
-void arc4_crypt(arc4_context * ctx, uchar *buf, int buflen)
+void arc4_crypt(arc4_context *ctx, uchar *buf, int buflen)
 {
     int     i, x, y, a, b;
     uchar   *m;
@@ -60,10 +59,8 @@ void arc4_crypt(arc4_context * ctx, uchar *buf, int buflen)
         m[x] = (uchar)b;
         m[y] = (uchar)a;
 
-        buf[i] = (uchar)
-            (buf[i] ^ m[(uchar)(a + b)]);
+        buf[i] = (uchar) (buf[i] ^ m[(uchar)(a + b)]);
     }
-
     ctx->x = x;
     ctx->y = y;
 }

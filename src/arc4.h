@@ -1,5 +1,5 @@
 /*
-    arc4.h -- 
+    arc4.h -- ARCFOUR algorithm
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
@@ -7,12 +7,12 @@
 #define EST_ARC4_H
 
 /**
- * \brief          ARC4 context structure
+   @brief          ARC4 context structure
  */
 typedef struct {
-    int x;          /*!< permutation index */
-    int y;          /*!< permutation index */
-    uchar m[256];   /*!< permutation table */
+    int     x;          /**< permutation index */
+    int     y;          /**< permutation index */
+    uchar   m[256];     /**< permutation table */
 } arc4_context;
 
 #ifdef __cplusplus
@@ -20,34 +20,33 @@ extern "C" {
 #endif
 
     /**
-     * \brief          ARC4 key schedule
-     *
-     * \param ctx      ARC4 context to be initialized
-     * \param key      the secret key
-     * \param keylen   length of the key
+       @brief          ARC4 key schedule
+       @param ctx      ARC4 context to be initialized
+       @param key      the secret key
+       @param keylen   length of the key
      */
-    void arc4_setup(arc4_context * ctx, uchar *key, int keylen);
+    PUBLIC void arc4_setup(arc4_context *ctx, uchar *key, int keylen);
 
     /**
-     * \brief          ARC4 cipher function
-     *
-     * \param ctx      ARC4 context
-     * \param buf      buffer to be processed
-     * \param buflen   amount of data in buf
+       @brief          ARC4 cipher function
+       @param ctx      ARC4 context
+       @param buf      buffer to be processed
+       @param buflen   amount of data in buf
      */
-    void arc4_crypt(arc4_context * ctx, uchar *buf, int buflen);
+    PUBLIC void arc4_crypt(arc4_context *ctx, uchar *buf, int buflen);
 
+#if UNUSED
     /*
-     * \brief          Checkup routine
-     *
-     * \return         0 if successful, or 1 if the test failed
+       @brief          Checkup routine
+       @return         0 if successful, or 1 if the test failed
      */
-    int arc4_self_test(int verbose);
+    PUBLIC int arc4_self_test(int verbose);
+#endif
 
 #ifdef __cplusplus
 }
 #endif
-#endif              /* arc4.h */
+#endif
 
 /*
     @copy   default

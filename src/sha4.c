@@ -91,7 +91,7 @@ static const uint64 K[80] = {
 /*
     SHA-512 context setup
  */
-void sha4_starts(sha4_context * ctx, int is384)
+void sha4_starts(sha4_context *ctx, int is384)
 {
     ctx->total[0] = 0;
     ctx->total[1] = 0;
@@ -198,7 +198,7 @@ static void sha4_process(sha4_context *ctx, uchar data[128])
 /*
     SHA-512 process buffer
  */
-void sha4_update(sha4_context * ctx, uchar *input, int ilen)
+void sha4_update(sha4_context *ctx, uchar *input, int ilen)
 {
     int fill;
     uint64 left;
@@ -247,7 +247,7 @@ static const uchar sha4_padding[128] = {
 /*
     SHA-512 final digest
  */
-void sha4_finish(sha4_context * ctx, uchar output[64])
+void sha4_finish(sha4_context *ctx, uchar output[64])
 {
     int last, padn;
     uint64 high, low;
@@ -303,31 +303,30 @@ int sha4_file(char *path, uchar output[64], int is384)
     sha4_context ctx;
     uchar buf[1024];
 
-    if ((f = fopen(path, "rb")) == NULL)
-        return (1);
-
+    if ((f = fopen(path, "rb")) == NULL) {
+        return 1;
+    }
     sha4_starts(&ctx, is384);
 
-    while ((n = fread(buf, 1, sizeof(buf), f)) > 0)
+    while ((n = fread(buf, 1, sizeof(buf), f)) > 0) {
         sha4_update(&ctx, buf, (int)n);
-
+    }
     sha4_finish(&ctx, output);
-
     memset(&ctx, 0, sizeof(sha4_context));
 
     if (ferror(f) != 0) {
         fclose(f);
-        return (2);
+        return 2;
     }
     fclose(f);
-    return (0);
+    return 0;
 }
 
 
 /*
     SHA-512 HMAC context setup
  */
-void sha4_hmac_starts(sha4_context * ctx, uchar *key, int keylen, int is384)
+void sha4_hmac_starts(sha4_context *ctx, uchar *key, int keylen, int is384)
 {
     int i;
     uchar sum[64];
@@ -352,7 +351,7 @@ void sha4_hmac_starts(sha4_context * ctx, uchar *key, int keylen, int is384)
 /*
     SHA-512 HMAC process buffer
  */
-void sha4_hmac_update(sha4_context * ctx, uchar *input, int ilen)
+void sha4_hmac_update(sha4_context *ctx, uchar *input, int ilen)
 {
     sha4_update(ctx, input, ilen);
 }
@@ -361,7 +360,7 @@ void sha4_hmac_update(sha4_context * ctx, uchar *input, int ilen)
 /*
     SHA-512 HMAC final digest
  */
-void sha4_hmac_finish(sha4_context * ctx, uchar output[64])
+void sha4_hmac_finish(sha4_context *ctx, uchar output[64])
 {
     int is384, hlen;
     uchar tmpbuf[64];

@@ -37,7 +37,7 @@
     #define BIT_EST_CAMELLIA 0
 #endif
 #ifndef BIT_EST_DES
-    #define BIT_EST_DES 1
+    #define BIT_EST_DES 0
 #endif
 #ifndef BIT_EST_DHM
     #define BIT_EST_DHM 1
@@ -89,8 +89,12 @@
 #endif
 #ifndef BIT_EST_CLIENT
     #define BIT_EST_CLIENT 1
+    #undef BIT_EST_MD5
+    #define BIT_EST_MD5 1
 #endif
 #ifndef BIT_EST_SERVER
+    #undef BIT_EST_MD5
+    #define BIT_EST_MD5 1
     #define BIT_EST_SERVER 1
 #endif
 #ifndef BIT_EST_TEST_CERTS
@@ -112,6 +116,9 @@
 #define BIT_EST_SSL 1
 #define BIT_EST_TIMING 1
 
+#define EST_CA_CERT "ca.crt"
+
+
 /*
     Include all EST headers
  */
@@ -128,7 +135,9 @@
 #include "base64.h"
 #include "bn_mul.h"
 #include "camellia.h"
+#if UNUSED
 #include "certs.h"
+#endif
 #include "debug.h"
 #include "des.h"
 #include "havege.h"
@@ -149,7 +158,7 @@
 /*
     @copy   default
 
-    Copyright (c) Embedthis Software LLC, 2003-2012. All Rights Reserved.
+    Copyright (c) Embedthis Software LLC, 2003-2013. All Rights Reserved.
 
     This software is distributed under commercial and open source licenses.
     You may use the Embedthis Open Source license or you may acquire a 

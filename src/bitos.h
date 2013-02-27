@@ -12,20 +12,17 @@
 /******************************* Default Features *****************************/
 
 #ifndef BIT_DEBUG
-    #define BIT_DEBUG 0                 /**< Enable a debug build */
-#endif
-#ifndef BIT_ASSERT
-    #if BIT_DEBUG
-        #define BIT_ASSERT 1            /**< Turn debug assure assertions on */
-    #else
-        #define BIT_ASSERT 0
-    #endif
+    #define BIT_DEBUG 0                 /**< Default to a debug build */
 #endif
 #ifndef BIT_FLOAT
     #define BIT_FLOAT 1                 /**< Build with floating point support */
 #endif
 #ifndef BIT_ROM
     #define BIT_ROM 0                   /**< Build for execute from ROM */
+#endif
+
+#ifndef BIT_PACK_SSL
+    #define BIT_PACK_SSL 0              /**< Build without SSL support */
 #endif
 
 /********************************* CPU Families *******************************/
@@ -40,6 +37,8 @@
 #define BIT_CPU_MIPS        5           /**< Mips */
 #define BIT_CPU_PPC         6           /**< Power PC */
 #define BIT_CPU_SPARC       7           /**< Sparc */
+#define BIT_CPU_TIDSP       8           /**< TI DSP */
+#define BIT_CPU_SH          9           /**< SuperH */
 
 /*
     Byte orderings
@@ -91,8 +90,19 @@
     #define BIT_CPU_ARCH BIT_CPU_SPARC
     #define CPU_ENDIAN BIT_BIG_ENDIAN
 
+#elif defined(_TMS320C6X)
+    #define TIDSP 1
+    #define BIT_CPU "tidsp"
+    #define BIT_CPU_ARCH BIT_CPU_SPARC
+    #define CPU_ENDIAN BIT_LITTLE_ENDIAN
+
+#elif defined(__sh__)
+    #define BIT_CPU "sh"
+    #define BIT_CPU_ARCH BIT_CPU_SH
+    #define CPU_ENDIAN BIT_LITTLE_ENDIAN
+
 #else
-    #error "Cannot determine CPU type in est.h"
+    #error "Cannot determine CPU type in bitos.h"
 #endif
 
 /*
@@ -111,6 +121,9 @@
     #define MACOSX 1
     #define BIT_UNIX_LIKE 1
     #define BIT_WIN_LIKE 0
+    #define BIT_BSD_LIKE 1
+    #define HAS_USHORT 1
+    #define HAS_UINT 1
 
 #elif defined(__linux__)
     #define BIT_OS "linux"
@@ -123,6 +136,14 @@
     #define FREEBSD 1
     #define BIT_UNIX_LIKE 1
     #define BIT_WIN_LIKE 0
+    #define BIT_BSD_LIKE 1
+
+#elif defined(__OpenBSD__)
+    #define BIT_OS "freebsd"
+    #define OPENBSD 1
+    #define BIT_UNIX_LIKE 1
+    #define BIT_WIN_LIKE 0
+    #define BIT_BSD_LIKE 1
 
 #elif defined(_WIN32)
     #define BIT_OS "windows"
@@ -153,12 +174,14 @@
     #define BSDI 1
     #define BIT_UNIX_LIKE 1
     #define BIT_WIN_LIKE 0
+    #define BIT_BSD_LIKE 1
 
 #elif defined(__NetBSD__)
     #define BIT_OS "netbsd"
     #define NETBSD 1
     #define BIT_UNIX_LIKE 1
     #define BIT_WIN_LIKE 0
+    #define BIT_BSD_LIKE 1
 
 #elif defined(__QNX__)
     #define BIT_OS "qnx"
@@ -195,18 +218,27 @@
     #define BIT_OS "vxworks"
     #define BIT_UNIX_LIKE 0
     #define BIT_WIN_LIKE 0
+    #define HAS_USHORT 1
 
 #elif defined(ECOS)
     /* ECOS may not have a pre-defined symbol */
     #define BIT_OS "ecos"
     #define BIT_UNIX_LIKE 0
     #define BIT_WIN_LIKE 0
+
+#elif defined(TIDSP) 
+    #define BIT_OS "tidsp"
+    #define BIT_UNIX_LIKE 0
+    #define BIT_WIN_LIKE 0
+    #define HAS_INT32 1
+
 #endif
 
 #if __WORDSIZE == 64 || __amd64 || __x86_64 || __x86_64__ || _WIN64
     #define BIT_64 1
     #define BIT_WORDSIZE 64
 #else
+    #define BIT_64 0
     #define BIT_WORDSIZE 32
 #endif
 
@@ -270,12 +302,6 @@
         #define _VSB_CONFIG_FILE "vsbConfig.h"
     #endif
     #include    <vxWorks.h>
-    #define     HAS_USHORT 1
-#endif
-
-#if MACOSX
-    #define     HAS_USHORT 1
-    #define     HAS_UINT 1
 #endif
 
 #if BIT_WIN_LIKE
@@ -300,13 +326,15 @@
     Includes in alphabetic order
  */
     #include    <ctype.h>
+#if !BIT_ROM
 #if BIT_WIN_LIKE
     #include    <direct.h>
 #else
     #include    <dirent.h>
-#if !VXWORKS
-    #include    <dlfcn.h>
 #endif
+#endif
+#if BIT_UNIX_LIKE
+    #include    <dlfcn.h>
 #endif
     #include    <fcntl.h>
     #include    <errno.h>
@@ -352,8 +380,10 @@
 #if BIT_UNIX_LIKE
     #include    <syslog.h>
 #endif
+#if !TIDSP
     #include    <sys/stat.h>
     #include    <sys/types.h>
+#endif
 #if BIT_UNIX_LIKE
     #include    <sys/ioctl.h>
     #include    <sys/mman.h>
@@ -370,6 +400,9 @@
     #include    <unistd.h>
 #endif
     #include    <time.h>
+#if !VXWORKS && !TIDSP
+    #include    <wchar.h>
+#endif
 
 /*
     Extra includes per O/S
@@ -418,8 +451,14 @@
         #include    <symSync.h>
         #include    <vxAtomicLib.h>
     #endif
-#else
-    #include    <wchar.h>
+#endif
+
+#if TIDSP
+    #include    <mathf.h>
+    #include    <netmain.h>
+    #include    <nettools/inc/dnsif.h>
+    #include    <socket.h>
+    #include    <file.h>
 #endif
 
 /************************************** Types *********************************/
@@ -494,6 +533,38 @@
     typedef const void cvoid;
 #endif
 
+#ifndef HAS_INT8
+    #define HAS_INT8 1
+    /**
+        Integer 8 bits data type.
+     */
+    typedef char int8;
+#endif
+
+#ifndef HAS_UINT8
+    #define HAS_UINT8 1
+    /**
+        Unsigned integer 8 bits data type.
+     */
+    typedef unsigned char uint8;
+#endif
+
+#ifndef HAS_INT16
+    #define HAS_INT16 1
+    /**
+        Integer 16 bits data type.
+     */
+    typedef short int16;
+#endif
+
+#ifndef HAS_UINT16
+    #define HAS_UINT16 1
+    /**
+        Unsigned integer 16 bits data type.
+     */
+    typedef unsigned short uint16;
+#endif
+
 #ifndef HAS_INT32
     #define HAS_INT32 1
     /**
@@ -532,6 +603,9 @@
         /**
             Signed integer size field large enough to hold a pointer offset.
          */
+        typedef ssize_t ssize;
+    #elif TIDSP
+        typedef int ssize_t;
         typedef ssize_t ssize;
     #else
         typedef SSIZE_T ssize;
@@ -580,11 +654,26 @@
 typedef int64 Offset;
 
 #if DOXYGEN
+    /** Size to hold the length of a socket address */
     typedef int Socklen;
 #elif VXWORKS
     typedef int Socklen;
 #else
     typedef socklen_t Socklen;
+#endif
+
+#if DOXYGEN || BIT_UNIX_LIKE || VXWORKS
+    /** Argument for sockets */
+    typedef int Socket;
+    #define SOCKET_ERROR -1
+#elif BIT_WIN_LIKE
+    typedef SOCKET Socket;
+#elif TIDSP
+    typedef SOCKET Socket;
+    #define SOCKET_ERROR INVALID_SOCKET
+#else
+    typedef int Socket;
+    #define SOCKET_ERROR -1
 #endif
 
 typedef int64 Time;
@@ -686,13 +775,14 @@ typedef int64 Ticks;
 
 #if BIT_WIN_LIKE
     /*
-        This is the same for static and shared builds so *.exe on windows will have export symbols and
-        GetProcAddress can locate for dynmaic resolution of modules
+        Use PUBLIC on function declarations and definitions (*.c and *.h). 
      */
-    #define PUBLIC      __declspec(dllexport)
+    #define PUBLIC       __declspec(dllexport)
+    #define PUBLIC_DATA __declspec(dllexport)
     #define PRIVATE     static
 #else
     #define PUBLIC
+    #define PUBLIC_DATA extern
     #define PRIVATE     static
 #endif
 
@@ -774,20 +864,46 @@ typedef int64 Ticks;
 #define ARRAY_FLEX
 #endif
 
+/********************************** Tunables *********************************/
+/*
+    These can be defined in main.bit settings (pascal case) to override. E.g.
+
+    settings: {
+        maxPath: 4096
+    }
+ */
+#ifndef BIT_MAX_FNAME
+    #define BIT_MAX_FNAME      256          /**< Reasonable filename size */
+#endif
+#ifndef BIT_MAX_PATH
+    #define BIT_MAX_PATH       1024         /**< Reasonable filename size */
+#endif
+#ifndef BIT_MAX_BUFFER
+    #define BIT_MAX_BUFFER     4096         /**< Reasonable size for buffers */
+#endif
+#ifndef BIT_MAX_ARGC
+    #define BIT_MAX_ARGC       32           /**< Maximum number of command line args if using MAIN()*/
+#endif
+
 /*********************************** Fixups ***********************************/
 
 #if ECOS
     #define     LIBKERN_INLINE          /* to avoid kernel inline functions */
 #endif /* ECOS */
 
-#if BIT_UNIX_LIKE || VXWORKS
+#if BIT_UNIX_LIKE || VXWORKS || TIDSP
     #define FILE_TEXT        ""
     #define FILE_BINARY      ""
 #endif
 
+#if !TIDSP
+    #define BIT_HAS_MACRO_VARARGS 1
+#else
+    #define BIT_HAS_MACRO_VARARGS 1
+#endif
+
 #if BIT_UNIX_LIKE
     #define closesocket(x)  close(x)
-    #define SOCKET_ERROR    -1
     #ifndef PTHREAD_MUTEX_RECURSIVE_NP
         #define PTHREAD_MUTEX_RECURSIVE_NP PTHREAD_MUTEX_RECURSIVE
     #endif
@@ -809,14 +925,6 @@ typedef int64 Ticks;
     #define __WALL          0
     #if !CYGWIN
         #define MSG_NOSIGNAL 0
-    #endif
-    #if UNUSED && !defined(_STRUCT_TIMEVAL)
-        struct timeval
-        {
-            time_t  tv_sec;     /* Seconds.  */
-            time_t  tv_usec;    /* Microseconds.  */
-        };
-        #define _STRUCT_TIMEVAL 1
     #endif
 #endif
 
@@ -951,9 +1059,11 @@ typedef int64 Ticks;
     #define rmdir(a)    _rmdir(a)
     #define stat        _stat
     #define strdup      _strdup
+    #define tempnam     _tempnam
     #define umask       _umask
     #define unlink      _unlink
     #define write       _write
+    PUBLIC void         sleep(int secs);
     #endif
     #define strcasecmp scaselesscmp
     #define strncasecmp sncaselesscmp
@@ -1005,6 +1115,19 @@ typedef int64 Ticks;
     #define gethostbyname2(a,b) gethostbyname(a)
     #pragma comment( lib, "ws2.lib" )
 #endif /* WINCE */
+
+#if TIDSP
+    #define EINTR   4
+    #define EAGAIN  11
+    #define INADDR_NONE 0xFFFFFFFF
+    #define PATHSIZE BIT_MAX_PATH
+    #define NBBY 8
+    #define hostent _hostent
+    #define NFDBITS (sizeof(fd_mask) * NBBY)
+    typedef long fd_mask;
+    typedef int Socklen;
+    struct sockaddr_storage { char pad[1024]; };                                                               
+#endif /* TIDSP */
 
 /*********************************** Externs **********************************/
 
@@ -1153,7 +1276,7 @@ extern "C" {
 /*
     @copy   default
 
-    Copyright (c) Embedthis Software LLC, 2003-2012. All Rights Reserved.
+    Copyright (c) Embedthis Software LLC, 2003-2013. All Rights Reserved.
 
     This software is distributed under commercial and open source licenses.
     You may use the Embedthis Open Source license or you may acquire a 

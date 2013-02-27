@@ -21,3 +21,9 @@ releases
 *-release
 .*.swp
 start.bit
+<<<<<<< HEAD
+=======
+*-mine
+projects/est-macosx-mine*
+*.guid
+>>>>>>> dev

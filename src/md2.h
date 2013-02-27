@@ -1,5 +1,5 @@
 /*
-    md2.h -- 
+    md2.h -- RFC 1115/1319 compliant MD2 implementation
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
  */
@@ -7,16 +7,16 @@
 #define EST_MD2_H
 
 /**
- * \brief          MD2 context structure
+   @brief MD2 context structure
  */
 typedef struct {
-    uchar cksum[16];    /*!< checksum of the data block */
-    uchar state[48];    /*!< intermediate digest state  */
-    uchar buffer[16];   /*!< data block being processed */
+    uchar   cksum[16];      /**< checksum of the data block */
+    uchar   state[48];      /**< intermediate digest state  */
+    uchar   buffer[16];     /**< data block being processed */
 
-    uchar ipad[64]; /*!< HMAC: inner padding        */
-    uchar opad[64]; /*!< HMAC: outer padding        */
-    int left;       /*!< amount of data in buffer   */
+    uchar   ipad[64];       /**< HMAC: inner padding        */
+    uchar   opad[64];       /**< HMAC: outer padding        */
+    int     left;           /**< amount of data in buffer   */
 } md2_context;
 
 #ifdef __cplusplus
@@ -24,93 +24,80 @@ extern "C" {
 #endif
 
     /**
-     * \brief          MD2 context setup
-     *
-     * \param ctx      context to be initialized
+       @brief          MD2 context setup
+       @param ctx      context to be initialized
      */
-    void md2_starts(md2_context * ctx);
+    PUBLIC void md2_starts(md2_context * ctx);
 
     /**
-     * \brief          MD2 process buffer
-     *
-     * \param ctx      MD2 context
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
+       @brief          MD2 process buffer
+       @param ctx      MD2 context
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
      */
-    void md2_update(md2_context * ctx, uchar *input, int ilen);
+    PUBLIC void md2_update(md2_context * ctx, uchar *input, int ilen);
 
     /**
-     * \brief          MD2 final digest
-     *
-     * \param ctx      MD2 context
-     * \param output   MD2 checksum result
+       @brief          MD2 final digest
+       @param ctx      MD2 context
+     * @param output   MD2 checksum result
      */
-    void md2_finish(md2_context * ctx, uchar output[16]);
+    PUBLIC void md2_finish(md2_context * ctx, uchar output[16]);
 
     /**
-     * \brief          Output = MD2( input buffer )
-     *
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
-     * \param output   MD2 checksum result
+       @brief          Output = MD2( input buffer )
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
+       @param output   MD2 checksum result
      */
-    void md2(uchar *input, int ilen, uchar output[16]);
+    PUBLIC void md2(uchar *input, int ilen, uchar output[16]);
 
     /**
-     * \brief          Output = MD2( file contents )
-     *
-     * \param path     input file name
-     * \param output   MD2 checksum result
-     *
-     * \return         0 if successful, 1 if fopen failed,
-     *                 or 2 if fread failed
+       @brief          Output = MD2( file contents )
+       @param path     input file name
+       @param output   MD2 checksum result
+       @return         0 if successful, 1 if fopen failed, or 2 if fread failed
      */
-    int md2_file(char *path, uchar output[16]);
+    PUBLIC int md2_file(char *path, uchar output[16]);
 
     /**
-     * \brief          MD2 HMAC context setup
-     *
-     * \param ctx      HMAC context to be initialized
-     * \param key      HMAC secret key
-     * \param keylen   length of the HMAC key
+       @brief          MD2 HMAC context setup
+       @param ctx      HMAC context to be initialized
+       @param key      HMAC secret key
+       @param keylen   length of the HMAC key
      */
-    void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen);
+    PUBLIC void md2_hmac_starts(md2_context * ctx, uchar *key, int keylen);
 
     /**
-     * \brief          MD2 HMAC process buffer
-     *
-     * \param ctx      HMAC context
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
+       @brief          MD2 HMAC process buffer
+       @param ctx      HMAC context
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
      */
-    void md2_hmac_update(md2_context * ctx, uchar *input, int ilen);
+    PUBLIC void md2_hmac_update(md2_context * ctx, uchar *input, int ilen);
 
     /**
-     * \brief          MD2 HMAC final digest
-     *
-     * \param ctx      HMAC context
-     * \param output   MD2 HMAC checksum result
+       @brief          MD2 HMAC final digest
+       @param ctx      HMAC context
+       @param output   MD2 HMAC checksum result
      */
-    void md2_hmac_finish(md2_context * ctx, uchar output[16]);
+    PUBLIC void md2_hmac_finish(md2_context * ctx, uchar output[16]);
 
     /**
-     * \brief          Output = HMAC-MD2( hmac key, input buffer )
-     *
-     * \param key      HMAC secret key
-     * \param keylen   length of the HMAC key
-     * \param input    buffer holding the  data
-     * \param ilen     length of the input data
-     * \param output   HMAC-MD2 result
+       @brief          Output = HMAC-MD2( hmac key, input buffer )
+       @param key      HMAC secret key
+       @param keylen   length of the HMAC key
+       @param input    buffer holding the  data
+       @param ilen     length of the input data
+       @param output   HMAC-MD2 result
      */
-    void md2_hmac(uchar *key, int keylen,
-              uchar *input, int ilen, uchar output[16]);
+    PUBLIC void md2_hmac(uchar *key, int keylen, uchar *input, int ilen, uchar output[16]);
 
     /**
-     * \brief          Checkup routine
-     *
-     * \return         0 if successful, or 1 if the test failed
+       @brief          Checkup routine
+       @return         0 if successful, or 1 if the test failed
      */
-    int md2_self_test(int verbose);
+    PUBLIC int md2_self_test(int verbose);
 
 #ifdef __cplusplus
 }

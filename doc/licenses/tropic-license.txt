@@ -1,4 +1,5 @@
 TropicSSL License
+Initial code base
 
 Copyright (c) 2009, StackFoundry LLC
 Copyright (c) 2009, Paul Bakker

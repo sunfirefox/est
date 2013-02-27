@@ -46,9 +46,9 @@ static int ssl_write_client_hello(ssl_context * ssl)
 
     SSL_DEBUG_MSG(3, ("client hello, current time: %lu", t));
 
-    for (i = 28; i > 0; i--)
+    for (i = 28; i > 0; i--) {
         *p++ = (uchar)ssl->f_rng(ssl->p_rng);
-
+    }
     memcpy(ssl->randbytes, buf + 6, 32);
 
     SSL_DEBUG_BUF(3, "client hello, random bytes", buf + 6, 32);
@@ -63,18 +63,19 @@ static int ssl_write_client_hello(ssl_context * ssl)
      */
     n = ssl->session->length;
 
-    if (n < 16 || n > 32 || ssl->resume == 0 || t - ssl->session->start > ssl->timeout)
+    if (n < 16 || n > 32 || ssl->resume == 0 || t - ssl->session->start > ssl->timeout) {
         n = 0;
-
+    }
     *p++ = (uchar)n;
 
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++) {
         *p++ = ssl->session->id[i];
-
+    }
     SSL_DEBUG_MSG(3, ("client hello, session id len.: %d", n));
     SSL_DEBUG_BUF(3, "client hello, session id", buf + 39, n);
 
-    for (n = 0; ssl->ciphers[n] != 0; n++) ;
+    for (n = 0; ssl->ciphers[n] != 0; n++) {}
+
     *p++ = (uchar)(n >> 7);
     *p++ = (uchar)(n << 1);
 
@@ -82,7 +83,6 @@ static int ssl_write_client_hello(ssl_context * ssl)
 
     for (i = 0; i < n; i++) {
         SSL_DEBUG_MSG(3, ("client hello, add cipher: %2d", ssl->ciphers[i]));
-
         *p++ = (uchar)(ssl->ciphers[i] >> 8);
         *p++ = (uchar)(ssl->ciphers[i]);
     }
@@ -113,7 +113,6 @@ static int ssl_write_client_hello(ssl_context * ssl)
         *p++ = (uchar)((ssl->hostname_len) & 0xFF);
 
         memcpy(p, ssl->hostname, ssl->hostname_len);
-
         p += ssl->hostname_len;
     }
     ssl->out_msglen = p - buf;
@@ -149,7 +148,7 @@ static int ssl_parse_server_hello(ssl_context * ssl)
     buf = ssl->in_msg;
 
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return ret;
     }
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -257,7 +256,7 @@ static int ssl_parse_server_key_exchange(ssl_context * ssl)
     return EST_ERR_SSL_FEATURE_UNAVAILABLE;
 #else
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return ret;
     }
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -348,7 +347,7 @@ static int ssl_parse_certificate_request(ssl_context * ssl)
           ... .. ...  length of DN 2, etc.
      */
     if ((ret = ssl_read_record(ssl)) != 0) {
-        SSL_DEBUG_RET(1, "ssl_read_record", ret);
+        SSL_DEBUG_RET(3, "ssl_read_record", ret);
         return ret;
     }
     if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -358,9 +357,9 @@ static int ssl_parse_certificate_request(ssl_context * ssl)
     ssl->client_auth = 0;
     ssl->state++;
 
-    if (ssl->in_msg[0] == SSL_HS_CERTIFICATE_REQUEST)
+    if (ssl->in_msg[0] == SSL_HS_CERTIFICATE_REQUEST) {
         ssl->client_auth++;
-
+    }
     SSL_DEBUG_MSG(3, ("got %s certificate request", ssl->client_auth ? "a" : "no"));
     SSL_DEBUG_MSG(2, ("<= parse certificate request"));
     return 0;
@@ -375,7 +374,7 @@ static int ssl_parse_server_hello_done(ssl_context * ssl)
 
     if (ssl->client_auth != 0) {
         if ((ret = ssl_read_record(ssl)) != 0) {
-            SSL_DEBUG_RET(1, "ssl_read_record", ret);
+            SSL_DEBUG_RET(3, "ssl_read_record", ret);
             return ret;
         }
         if (ssl->in_msgtype != SSL_MSG_HANDSHAKE) {
@@ -437,9 +436,9 @@ static int ssl_write_client_key_exchange(ssl_context * ssl)
         ssl->premaster[1] = (uchar)ssl->max_minor_ver;
         ssl->pmslen = 48;
 
-        for (i = 2; i < ssl->pmslen; i++)
+        for (i = 2; i < ssl->pmslen; i++) {
             ssl->premaster[i] = (uchar)ssl->f_rng(ssl->p_rng);
-
+        }
         i = 4;
         n = ssl->peer_cert->rsa.len;
 
@@ -524,9 +523,9 @@ int ssl_handshake_client(ssl_context * ssl)
     while (ssl->state != SSL_HANDSHAKE_OVER) {
         SSL_DEBUG_MSG(2, ("client state: %d", ssl->state));
 
-        if ((ret = ssl_flush_output(ssl)) != 0)
+        if ((ret = ssl_flush_output(ssl)) != 0) {
             break;
-
+        }
         switch (ssl->state) {
         case SSL_HELLO_REQUEST:
             ssl->state = SSL_CLIENT_HELLO;
@@ -567,11 +566,11 @@ int ssl_handshake_client(ssl_context * ssl)
             break;
 
             /*
-                    ==> ( Certificate/Alert  )
-                              ClientKeyExchange
-                            ( CertificateVerify      )
-                              ChangeCipherSpec
-                              Finished
+                ==> ( Certificate/Alert )
+                      ClientKeyExchange
+                    ( CertificateVerify )
+                      ChangeCipherSpec
+                      Finished
              */
         case SSL_CLIENT_CERTIFICATE:
             ret = ssl_write_certificate(ssl);
@@ -594,8 +593,8 @@ int ssl_handshake_client(ssl_context * ssl)
             break;
 
             /*
-                    <==       ChangeCipherSpec
-                              Finished
+                <== ChangeCipherSpec
+                    Finished
              */
         case SSL_SERVER_CHANGE_CIPHER_SPEC:
             ret = ssl_parse_change_cipher_spec(ssl);
@@ -614,9 +613,9 @@ int ssl_handshake_client(ssl_context * ssl)
             SSL_DEBUG_MSG(1, ("invalid state %d", ssl->state));
             return EST_ERR_SSL_BAD_INPUT_DATA;
         }
-
-        if (ret != 0)
+        if (ret != 0) {
             break;
+        }
     }
     SSL_DEBUG_MSG(2, ("<= handshake client"));
     return ret;

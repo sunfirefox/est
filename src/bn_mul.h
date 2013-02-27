@@ -2,23 +2,22 @@
     bn_mul.h -- Header for the Multithreaded Portable Runtime (MPR).
 
     Copyright (c) All Rights Reserved. See details at the end of the file.
- */
-/*
- *      Multiply source vector [s] with b, add result
- *       to destination vector [d] and set carry c.
- *
- *      Currently supports:
- *
- *         . IA-32 (386+)         . AMD64 / EM64T
- *         . IA-32 (SSE2)         . Motorola 68000
- *         . PowerPC, 32-bit      . MicroBlaze
- *         . PowerPC, 64-bit      . TriCore
- *         . SPARC v8             . ARM v3+
- *         . Alpha                . MIPS32
- *         . C, longlong          . C, generic
+
+    Multiply source vector [s] with b, add result to destination vector [d] and set carry c.
+  
+    Currently supports:
+       . IA-32 (386+)         . AMD64 / EM64T
+       . IA-32 (SSE2)         . Motorola 68000
+       . PowerPC, 32-bit      . MicroBlaze
+       . PowerPC, 64-bit      . TriCore
+       . SPARC v8             . ARM v3+
+       . Alpha                . MIPS32
+       . C, longlong          . C, generic
  */
 #ifndef EST_BN_MUL_H
 #define EST_BN_MUL_H
+
+//  MOB - convert to bitos.h
 
 #if defined(EST_HAVE_ASM)
 

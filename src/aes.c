@@ -15,6 +15,7 @@
 /*
     32-bit integer manipulation macros (little endian)
     MOB - what about 64 bit?
+    MOB - use if/else
  */
 #ifndef GET_ULONG_LE
 #define GET_ULONG_LE(n,b,i)                     \
@@ -152,22 +153,18 @@ static const uchar FSb[256] = {
 static const ulong FT0[256] = { FT };
 
 #undef V
-
 #define V(a,b,c,d) 0x##b##c##d##a
 static const ulong FT1[256] = { FT };
 
 #undef V
-
 #define V(a,b,c,d) 0x##c##d##a##b
 static const ulong FT2[256] = { FT };
 
 #undef V
-
 #define V(a,b,c,d) 0x##d##a##b##c
 static const ulong FT3[256] = { FT };
 
 #undef V
-
 #undef FT
 
 /*
@@ -281,22 +278,18 @@ static const uchar RSb[256] = {
 static const ulong RT0[256] = { RT };
 
 #undef V
-
 #define V(a,b,c,d) 0x##b##c##d##a
 static const ulong RT1[256] = { RT };
 
 #undef V
-
 #define V(a,b,c,d) 0x##c##d##a##b
 static const ulong RT2[256] = { RT };
 
 #undef V
-
 #define V(a,b,c,d) 0x##d##a##b##c
 static const ulong RT3[256] = { RT };
 
 #undef V
-
 #undef RT
 
 /*
@@ -336,9 +329,9 @@ static ulong RCON[10];
 /*
    Tables generation code
  */
-#define ROTL8(x) ( ( x << 8 ) & 0xFFFFFFFF ) | ( x >> 24 )
-#define XTIME(x) ( ( x << 1 ) ^ ( ( x & 0x80 ) ? 0x1B : 0x00 ) )
-#define MUL(x,y) ( ( x && y ) ? pow[(log[x]+log[y]) % 255] : 0 )
+#define ROTL8(x) ((x << 8) & 0xFFFFFFFF) | (x >> 24)
+#define XTIME(x) ((x << 1) ^ ((x & 0x80) ? 0x1B : 0x00))
+#define MUL(x,y) ((x && y) ? pow[(log[x]+log[y]) % 255] : 0)
 
 static int aes_init_done = 0;
 
@@ -356,7 +349,6 @@ static void aes_gen_tables(void)
         log[x] = i;
         x = (x ^ XTIME(x)) & 0xFF;
     }
-
     /*
         Calculate the round constants
      */
@@ -364,7 +356,6 @@ static void aes_gen_tables(void)
         RCON[i] = (ulong)x;
         x = XTIME(x) & 0xFF;
     }
-
     /*
         Generate the forward and reverse S-boxes
      */
@@ -373,7 +364,6 @@ static void aes_gen_tables(void)
 
     for (i = 1; i < 256; i++) {
         x = pow[255 - log[i]];
-
         y = x;
         y = ((y << 1) | (y >> 7)) & 0xFF;
         x ^= y;
@@ -383,7 +373,6 @@ static void aes_gen_tables(void)
         x ^= y;
         y = ((y << 1) | (y >> 7)) & 0xFF;
         x ^= y ^ 0x63;
-
         FSb[i] = (uchar)x;
         RSb[x] = (uchar)i;
     }
@@ -396,19 +385,13 @@ static void aes_gen_tables(void)
         y = XTIME(x) & 0xFF;
         z = (y ^ x) & 0xFF;
 
-        FT0[i] = ((ulong)y) ^
-            ((ulong)x << 8) ^
-            ((ulong)x << 16) ^ ((ulong)z << 24);
-
+        FT0[i] = ((ulong)y) ^ ((ulong)x << 8) ^ ((ulong)x << 16) ^ ((ulong)z << 24);
         FT1[i] = ROTL8(FT0[i]);
         FT2[i] = ROTL8(FT1[i]);
         FT3[i] = ROTL8(FT2[i]);
 
         x = RSb[i];
-
-        RT0[i] = ((ulong)MUL(0x0E, x)) ^
-            ((ulong)MUL(0x09, x) << 8) ^
-            ((ulong)MUL(0x0D, x) << 16) ^
+        RT0[i] = ((ulong)MUL(0x0E, x)) ^ ((ulong)MUL(0x09, x) << 8) ^ ((ulong)MUL(0x0D, x) << 16) ^
             ((ulong)MUL(0x0B, x) << 24);
 
         RT1[i] = ROTL8(RT0[i]);
@@ -447,6 +430,8 @@ void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize)
     default:
         return;
     }
+
+    //  MOB - don't use defined
 #if defined(PADLOCK_ALIGN16)
     ctx->rk = RK = PADLOCK_ALIGN16(ctx->buf);
 #else
@@ -458,7 +443,6 @@ void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize)
     }
     switch (ctx->nr) {
     case 10:
-
         for (i = 0; i < 10; i++, RK += 4) {
             RK[4] = RK[0] ^ RCON[i] ^
                 ((ulong)FSb[(RK[3] >> 8) & 0xFF]) ^
@@ -473,7 +457,6 @@ void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize)
         break;
 
     case 12:
-
         for (i = 0; i < 8; i++, RK += 6) {
             RK[6] = RK[0] ^ RCON[i] ^
                 ((ulong)FSb[(RK[5] >> 8) & 0xFF]) ^
@@ -490,7 +473,6 @@ void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize)
         break;
 
     case 14:
-
         for (i = 0; i < 7; i++, RK += 8) {
             RK[8] = RK[0] ^ RCON[i] ^
                 ((ulong)FSb[(RK[7] >> 8) & 0xFF]) ^
@@ -525,10 +507,9 @@ void aes_setkey_enc(aes_context * ctx, uchar *key, int keysize)
  */
 void aes_setkey_dec(aes_context * ctx, uchar *key, int keysize)
 {
-    int i, j;
+    int         i, j;
     aes_context cty;
-    ulong *RK;
-    ulong *SK;
+    ulong       *RK, *SK;
 
     switch (keysize) {
     case 128:
@@ -544,6 +525,7 @@ void aes_setkey_dec(aes_context * ctx, uchar *key, int keysize)
         return;
     }
 
+    //  MOB - don't use defined
 #if defined(PADLOCK_ALIGN16)
     ctx->rk = RK = PADLOCK_ALIGN16(ctx->buf);
 #else
@@ -627,13 +609,15 @@ void aes_setkey_dec(aes_context * ctx, uchar *key, int keysize)
  */
 void aes_crypt_ecb(aes_context * ctx, int mode, uchar input[16], uchar output[16])
 {
-    int i;
-    ulong *RK, X0, X1, X2, X3, Y0, Y1, Y2, Y3;
+    int     i;
+    ulong   *RK, X0, X1, X2, X3, Y0, Y1, Y2, Y3;
 
+//  MOB - don't use EST_HAVE_X86
 #if BIT_EST_PADLOCK && defined(EST_HAVE_X86)
     if (padlock_supports(PADLOCK_ACE)) {
-        if (padlock_xcryptecb(ctx, mode, input, output) == 0)
+        if (padlock_xcryptecb(ctx, mode, input, output) == 0) {
             return;
+        }
     }
 #endif
     RK = ctx->rk;
@@ -718,8 +702,8 @@ void aes_crypt_ecb(aes_context * ctx, int mode, uchar input[16], uchar output[16
  */
 void aes_crypt_cbc(aes_context *ctx, int mode, int length, uchar iv[16], uchar *input, uchar *output)
 {
-    int i;
-    uchar temp[16];
+    int     i;
+    uchar   temp[16];
 
 #if BIT_EST_PADLOCK && defined(EST_HAVE_X86)
     if (padlock_supports(PADLOCK_ACE)) {
@@ -732,23 +716,21 @@ void aes_crypt_cbc(aes_context *ctx, int mode, int length, uchar iv[16], uchar *
             memcpy(temp, input, 16);
             aes_crypt_ecb(ctx, mode, input, output);
 
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < 16; i++) {
                 output[i] = (uchar)(output[i] ^ iv[i]);
-
+            }
             memcpy(iv, temp, 16);
-
             input += 16;
             output += 16;
             length -= 16;
         }
     } else {
         while (length > 0) {
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < 16; i++) {
                 output[i] = (uchar)(input[i] ^ iv[i]);
-
+            }
             aes_crypt_ecb(ctx, mode, output, output);
             memcpy(iv, output, 16);
-
             input += 16;
             output += 16;
             length -= 16;
@@ -762,30 +744,28 @@ void aes_crypt_cbc(aes_context *ctx, int mode, int length, uchar iv[16], uchar *
  */
 void aes_crypt_cfb128(aes_context *ctx, int mode, int length, int *iv_off, uchar iv[16], uchar *input, uchar *output)
 {
-    int c, n = *iv_off;
+    int c, n;
 
+    n = *iv_off;
     if (mode == AES_DECRYPT) {
         while (length--) {
-            if (n == 0)
+            if (n == 0) {
                 aes_crypt_ecb(ctx, AES_ENCRYPT, iv, iv);
-
+            }
             c = *input++;
             *output++ = (uchar)(c ^ iv[n]);
             iv[n] = (uchar)c;
-
             n = (n + 1) & 0x0F;
         }
     } else {
         while (length--) {
-            if (n == 0)
+            if (n == 0) {
                 aes_crypt_ecb(ctx, AES_ENCRYPT, iv, iv);
-
+            }
             iv[n] = *output++ = (uchar)(iv[n] ^ *input++);
-
             n = (n + 1) & 0x0F;
         }
     }
-
     *iv_off = n;
 }
 

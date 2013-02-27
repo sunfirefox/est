@@ -8,14 +8,16 @@ require ejs.tar
 require ejs.unix
 
 public function packageSourceFiles() {
+    safeRemove(pkg)
+
     if (bit.cross) {
         return
     }
     let s = bit.settings
     let src = bit.dir.pkg.join('src')
     let pkg = src.join(s.product + '-' + s.version)
-    safeRemove(pkg)
     pkg.makeDir()
+
     install(['Makefile', 'start.bit', 'main.bit'], pkg)
     install('bits', pkg)
     install('configure', pkg, {permissions: 0755})
@@ -71,7 +73,7 @@ public function packageComboFiles() {
 /*
     @copy   default
   
-    Copyright (c) Embedthis Software LLC, 2003-2012. All Rights Reserved.
+    Copyright (c) Embedthis Software LLC, 2003-2013. All Rights Reserved.
   
     This software is distributed under commercial and open source licenses.
     You may use the Embedthis GoAhead Open Source license or you may acquire a

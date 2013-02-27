@@ -6,40 +6,47 @@
 #ifndef SSL_DEBUG_H
 #define SSL_DEBUG_H
 
-#if BIT_EST_LOGGING
-#define SSL_DEBUG_MSG( level, args )                    \
-    debug_print_msg( ssl, level, __FILE__, __LINE__, debug_fmt args );
-
-#define SSL_DEBUG_RET( level, text, ret )                \
-    debug_print_ret( ssl, level, __FILE__, __LINE__, text, ret );
-
-#define SSL_DEBUG_BUF( level, text, buf, len )           \
-    debug_print_buf( ssl, level, __FILE__, __LINE__, text, buf, len );
-
-#define SSL_DEBUG_MPI( level, text, X )                  \
-    debug_print_mpi( ssl, level, __FILE__, __LINE__, text, X );
-
-#define SSL_DEBUG_CRT( level, text, crt )                \
-    debug_print_crt( ssl, level, __FILE__, __LINE__, text, crt );
+#if FUTURE && BIT_EST_LOGGING
+#if BIT_DEBUG
+    #define LOG(l, ...) if (l <= logLevel) estLog(l, __VA_ARGS__) ; else
+    #define RET(l, ...) if (l <= logLevel) estLog(l, __VA_ARGS__) ; else
 #else
+    #define LOG(l, ...) if (1) ; else
+    #define RET(l, ...) if (1) ; else
+#endif
+    #define SSL_DEBUG_MSG(level, args)              debug_print_msg(ssl, level, debug_fmt args);
+    #define SSL_DEBUG_RET(level, text, ret)         debug_print_ret(ssl, level, text, ret);
+    #define SSL_DEBUG_BUF(level, text, buf, len)    debug_print_buf(ssl, level, text, buf, len);
+    #define SSL_DEBUG_MPI(level, text, X)           debug_print_mpi(ssl, level, text, X);
+    #define SSL_DEBUG_CRT(level, text, crt)         debug_print_crt(ssl, level, text, crt);
+#endif
 
-#define SSL_DEBUG_MSG( level, args )            do { } while( 0 )
-#define SSL_DEBUG_RET( level, text, ret )       do { } while( 0 )
-#define SSL_DEBUG_BUF( level, text, buf, len )  do { } while( 0 )
-#define SSL_DEBUG_MPI( level, text, X )         do { } while( 0 )
-#define SSL_DEBUG_CRT( level, text, crt )       do { } while( 0 )
+#if BIT_EST_LOGGING
+    #define SSL_DEBUG_MSG(level, args)              debug_print_msg(ssl, level, debug_fmt args);
+    #define SSL_DEBUG_RET(level, text, ret)         debug_print_ret(ssl, level, text, ret);
+    #define SSL_DEBUG_BUF(level, text, buf, len)    debug_print_buf(ssl, level, text, buf, len);
+    #define SSL_DEBUG_MPI(level, text, X)           debug_print_mpi(ssl, level, text, X);
+    #define SSL_DEBUG_CRT(level, text, crt)         debug_print_crt(ssl, level, text, crt);
+#else
+    #define SSL_DEBUG_MSG(level, args)            do {} while(0)
+    #define SSL_DEBUG_RET(level, text, ret)       do {} while(0)
+    #define SSL_DEBUG_BUF(level, text, buf, len)  do {} while(0)
+    #define SSL_DEBUG_MPI(level, text, X)         do {} while(0)
+    #define SSL_DEBUG_CRT(level, text, crt)       do {} while(0)
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-    char *debug_fmt(const char *format, ...);
-    void debug_print_msg(ssl_context * ssl, int level, char *file, int line, char *text);
-    void debug_print_ret(ssl_context * ssl, int level, char *file, int line, char *text, int ret);
-    void debug_print_buf(ssl_context * ssl, int level, char *file, int line, char *text, uchar *buf, int len);
-    void debug_print_mpi(ssl_context * ssl, int level, char *file, int line, char *text, mpi * X);
-    void debug_print_crt(ssl_context * ssl, int level, char *file, int line, char *text, x509_cert * crt);
+    //  MOB - move to an estDep.h
+    //  MOB - doc
+    PUBLIC int snfmt(char *buf, ssize bufsize, cchar *fmt, ...);
+    PUBLIC char *debug_fmt(const char *format, ...);
+    PUBLIC void debug_print_msg(ssl_context *ssl, int level, char *text);
+    PUBLIC void debug_print_ret(ssl_context *ssl, int level, char *text, int ret);
+    PUBLIC void debug_print_buf(ssl_context *ssl, int level, char *text, uchar *buf, int len);
+    PUBLIC void debug_print_mpi(ssl_context *ssl, int level, char *text, mpi * X);
+    PUBLIC void debug_print_crt(ssl_context *ssl, int level, char *text, x509_cert * crt);
 
 #ifdef __cplusplus
 }

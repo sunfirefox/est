@@ -6,6 +6,7 @@
 #ifndef EST_BIGNUM_H
 #define EST_BIGNUM_H
 
+//  MOB unify
 #define EST_ERR_MPI_FILE_IO_ERROR                     -0x0002
 #define EST_ERR_MPI_BAD_INPUT_DATA                    -0x0004
 #define EST_ERR_MPI_INVALID_CHARACTER                 -0x0006
@@ -17,9 +18,11 @@
 #define MPI_CHK(f) if( ( ret = f ) != 0 ) goto cleanup
 
 /*
- * Define the base integer type, architecture-wise
+   Define the base integer type, architecture-wise
  */
-//  MOB - change to chained elif
+//  MOB -remove wordsize 8
+//  MOB -remove t_int, t_dbl and use bitos types
+
 #if BIT_WORDSIZE == 8
     typedef uchar t_int;
     typedef ushort t_dbl;
@@ -28,9 +31,11 @@
     typedef ulong t_dbl;
 #else
     typedef ulong t_int;
+    //  MOB #if WINDOWS && #if BIT_CPU_ARCH == BIT_CPU_X86
     #if defined(_MSC_VER) && defined(_M_IX86)
         typedef unsigned __int64 t_dbl;
     #else
+        //  MOB #if BIT_64
         #if defined(__amd64__) || defined(__x86_64__) || defined(__ppc64__) || defined(__powerpc64__) || \
                 defined(__ia64__)  || defined(__alpha__)
             typedef uint t_dbl __attribute__ ((mode(TI)));
@@ -43,12 +48,12 @@
 #endif
 
 /**
- * \brief          MPI structure
+   @brief MPI structure
  */
 typedef struct {
-    int s;          /*!<  integer sign      */
-    int n;          /*!<  total # of limbs  */
-    t_int *p;       /*!<  pointer to limbs  */
+    int     s;          /**< integer sign */
+    int     n;          /**< total # of limbs  */
+    t_int   *p;         /**< pointer to limbs  */
 } mpi;
 
 #ifdef __cplusplus
@@ -56,346 +61,270 @@ extern "C" {
 #endif
 
     /**
-     * \brief          Initialize one or more mpi
+       @brief Initialize one or more mpi
      */
-    void mpi_init(mpi * X, ...);
+    PUBLIC void mpi_init(mpi *X, ...);
 
     /**
-     * \brief          Unallocate one or more mpi
+       @brief Unallocate one or more mpi
      */
-    void mpi_free(mpi * X, ...);
+    PUBLIC void mpi_free(mpi *X, ...);
 
     /**
-     * \brief          Enlarge to the specified number of limbs
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Enlarge to the specified number of limbs
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_grow(mpi * X, int nblimbs);
+    PUBLIC int mpi_grow(mpi *X, int nblimbs);
 
     /**
-     * \brief          Copy the contents of Y into X
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Copy the contents of Y into X
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_copy(mpi * X, mpi * Y);
+    PUBLIC int mpi_copy(mpi *X, mpi *Y);
 
     /**
-     * \brief          Swap the contents of X and Y
+       @brief          Swap the contents of X and Y
      */
-    void mpi_swap(mpi * X, mpi * Y);
+    PUBLIC void mpi_swap(mpi *X, mpi *Y);
 
     /**
-     * \brief          Set value from integer
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Set value from integer
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_lset(mpi * X, int z);
+    PUBLIC int mpi_lset(mpi *X, int z);
 
     /**
-     * \brief          Return the number of least significant bits
+       @brief          Return the number of least significant bits
      */
-    int mpi_lsb(mpi * X);
+    PUBLIC int mpi_lsb(mpi *X);
 
     /**
-     * \brief          Return the number of most significant bits
+       @brief          Return the number of most significant bits
      */
-    int mpi_msb(mpi * X);
+    PUBLIC int mpi_msb(mpi *X);
 
     /**
-     * \brief          Return the total size in bytes
+       @brief          Return the total size in bytes
      */
-    int mpi_size(mpi * X);
+    PUBLIC int mpi_size(mpi *X);
 
     /**
-     * \brief          Import from an ASCII string
-     *
-     * \param X        destination mpi
-     * \param radix    input numeric base
-     * \param s        null-terminated string buffer
-     *
-     * \return         0 if successful, or an EST_ERR_MPI_XXX error code
+       @brief          Import from an ASCII string
+       @param X        destination mpi
+       @param radix    input numeric base
+       @param s        null-terminated string buffer
+       @return         0 if successful, or an EST_ERR_MPI_XXX error code
      */
-    int mpi_read_string(mpi * X, int radix, char *s);
+    PUBLIC int mpi_read_string(mpi *X, int radix, char *s);
 
     /**
-     * \brief          Export into an ASCII string
-     *
-     * \param X        source mpi
-     * \param radix    output numeric base
-     * \param s        string buffer
-     * \param slen     string buffer size
-     *
-     * \return         0 if successful, or an EST_ERR_MPI_XXX error code
-     *
-     * \note           Call this function with *slen = 0 to obtain the
-     *                 minimum required buffer size in *slen.
+       @brief          Export into an ASCII string
+       @param X        source mpi
+       @param radix    output numeric base
+       @param s        string buffer
+       @param slen     string buffer size
+       @return         0 if successful, or an EST_ERR_MPI_XXX error code
+       @note           Call this function with *slen = 0 to obtain the minimum required buffer size in *slen.
      */
-    int mpi_write_string(mpi * X, int radix, char *s, int *slen);
+    PUBLIC int mpi_write_string(mpi *X, int radix, char *s, int *slen);
 
     /**
-     * \brief          Read X from an opened file
-     *
-     * \param X        destination mpi
-     * \param radix    input numeric base
-     * \param fin      input file handle
-     *
-     * \return         0 if successful, or an EST_ERR_MPI_XXX error code
+       @brief          Read X from an opened file
+       @param X        destination mpi
+       @param radix    input numeric base
+       @param fin      input file handle
+       @return         0 if successful, or an EST_ERR_MPI_XXX error code
      */
-    int mpi_read_file(mpi * X, int radix, FILE * fin);
+    PUBLIC int mpi_read_file(mpi *X, int radix, FILE * fin);
 
     /**
-     * \brief          Write X into an opened file, or stdout
-     *
-     * \param p        prefix, can be NULL
-     * \param X        source mpi
-     * \param radix    output numeric base
-     * \param fout     output file handle
-     *
-     * \return         0 if successful, or an EST_ERR_MPI_XXX error code
-     *
-     * \note           Set fout == NULL to print X on the console.
+       @brief          Write X into an opened file, or stdout
+       @param p        prefix, can be NULL
+       @param X        source mpi
+       @param radix    output numeric base
+       @param fout     output file handle
+       @return         0 if successful, or an EST_ERR_MPI_XXX error code
+       @note           Set fout == NULL to print X on the console.
      */
-    int mpi_write_file(char *p, mpi * X, int radix, FILE * fout);
+    PUBLIC int mpi_write_file(char *p, mpi *X, int radix, FILE * fout);
 
     /**
-     * \brief          Import X from unsigned binary data, big endian
-     *
-     * \param X        destination mpi
-     * \param buf      input buffer
-     * \param buflen   input buffer size
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Import X from unsigned binary data, big endian
+       @param X        destination mpi
+       @param buf      input buffer
+       @param buflen   input buffer size
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_read_binary(mpi * X, uchar *buf, int buflen);
+    PUBLIC int mpi_read_binary(mpi *X, uchar *buf, int buflen);
 
     /**
-     * \brief          Export X into unsigned binary data, big endian
-     *
-     * \param X        source mpi
-     * \param buf      output buffer
-     * \param buflen   output buffer size
-     *
-     * \return         0 if successful,
-     *                 EST_ERR_MPI_BUFFER_TOO_SMALL if buf isn't large enough
-     *
-     * \note           Call this function with *buflen = 0 to obtain the
-     *                 minimum required buffer size in *buflen.
+       @brief          Export X into unsigned binary data, big endian
+       @param X        source mpi
+       @param buf      output buffer
+       @param buflen   output buffer size
+       @return         0 if successful, EST_ERR_MPI_BUFFER_TOO_SMALL if buf isn't large enough
+       @note           Call this function with *buflen = 0 to obtain the minimum required buffer size in *buflen.
      */
-    int mpi_write_binary(mpi * X, uchar *buf, int buflen);
+    PUBLIC int mpi_write_binary(mpi *X, uchar *buf, int buflen);
 
     /**
-     * \brief          Left-shift: X <<= count
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Left-shift: X <<= count
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_shift_l(mpi * X, int count);
+    PUBLIC int mpi_shift_l(mpi *X, int count);
 
     /**
-     * \brief          Right-shift: X >>= count
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Right-shift: X >>= count
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_shift_r(mpi * X, int count);
+    PUBLIC int mpi_shift_r(mpi *X, int count);
 
     /**
-     * \brief          Compare unsigned values
-     *
-     * \return         1 if |X| is greater than |Y|,
-     *                -1 if |X| is lesser  than |Y| or
-     *                 0 if |X| is equal to |Y|
+       @brief          Compare unsigned values
+       @return         1 if |X| is greater than |Y|,
+                      -1 if |X| is lesser  than |Y| or
+                       0 if |X| is equal to |Y|
      */
-    int mpi_cmp_abs(mpi * X, mpi * Y);
+    PUBLIC int mpi_cmp_abs(mpi *X, mpi *Y);
 
     /**
-     * \brief          Compare signed values
-     *
-     * \return         1 if X is greater than Y,
-     *                -1 if X is lesser  than Y or
-     *                 0 if X is equal to Y
+       @brief          Compare signed values
+       @return         1 if X is greater than Y,
+                      -1 if X is lesser  than Y or
+                       0 if X is equal to Y
      */
-    int mpi_cmp_mpi(mpi * X, mpi * Y);
+    PUBLIC int mpi_cmp_mpi(mpi *X, mpi *Y);
 
     /**
-     * \brief          Compare signed values
-     *
-     * \return         1 if X is greater than z,
-     *                -1 if X is lesser  than z or
-     *                 0 if X is equal to z
+       @brief          Compare signed values
+       @return         1 if X is greater than z,
+                      -1 if X is lesser  than z or
+                       0 if X is equal to z
      */
-    int mpi_cmp_int(mpi * X, int z);
+    PUBLIC int mpi_cmp_int(mpi *X, int z);
 
     /**
-     * \brief          Unsigned addition: X = |A| + |B|
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Unsigned addition: X = |A| + |B|
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_add_abs(mpi * X, mpi * A, mpi * B);
+    PUBLIC int mpi_add_abs(mpi *X, mpi *A, mpi *B);
 
     /**
-     * \brief          Unsigned substraction: X = |A| - |B|
-     *
-     * \return         0 if successful,
-     *                 EST_ERR_MPI_NEGATIVE_VALUE if B is greater than A
+       @brief          Unsigned substraction: X = |A| - |B|
+       @return         0 if successful, EST_ERR_MPI_NEGATIVE_VALUE if B is greater than A
      */
-    int mpi_sub_abs(mpi * X, mpi * A, mpi * B);
+    PUBLIC int mpi_sub_abs(mpi *X, mpi *A, mpi *B);
 
     /**
-     * \brief          Signed addition: X = A + B
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Signed addition: X = A + B
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_add_mpi(mpi * X, mpi * A, mpi * B);
+    PUBLIC int mpi_add_mpi(mpi *X, mpi *A, mpi *B);
 
     /**
-     * \brief          Signed substraction: X = A - B
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Signed substraction: X = A - B
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_sub_mpi(mpi * X, mpi * A, mpi * B);
+    PUBLIC int mpi_sub_mpi(mpi *X, mpi *A, mpi *B);
 
     /**
-     * \brief          Signed addition: X = A + b
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Signed addition: X = A + b
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_add_int(mpi * X, mpi * A, int b);
+    PUBLIC int mpi_add_int(mpi *X, mpi *A, int b);
 
     /**
-     * \brief          Signed substraction: X = A - b
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Signed substraction: X = A - b
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_sub_int(mpi * X, mpi * A, int b);
+    PUBLIC int mpi_sub_int(mpi *X, mpi *A, int b);
 
     /**
-     * \brief          Baseline multiplication: X = A * B
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Baseline multiplication: X = A * B
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_mul_mpi(mpi * X, mpi * A, mpi * B);
+    PUBLIC int mpi_mul_mpi(mpi *X, mpi *A, mpi *B);
 
     /**
-     * \brief          Baseline multiplication: X = A * b
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Baseline multiplication: X = A * b
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_mul_int(mpi * X, mpi * A, t_int b);
+    PUBLIC int mpi_mul_int(mpi *X, mpi *A, t_int b);
 
     /**
-     * \brief          Division by mpi: A = Q * B + R
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_DIVISION_BY_ZERO if B == 0
-     *
-     * \note           Either Q or R can be NULL.
+       @brief          Division by mpi: A = Q * B + R
+       @return         0 if successful, 1 if memory allocation failed, EST_ERR_MPI_DIVISION_BY_ZERO if B == 0
+       @note           Either Q or R can be NULL.
      */
-    int mpi_div_mpi(mpi * Q, mpi * R, mpi * A, mpi * B);
+    PUBLIC int mpi_div_mpi(mpi *Q, mpi *R, mpi *A, mpi *B);
 
     /**
-     * \brief          Division by int: A = Q * b + R
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_DIVISION_BY_ZERO if b == 0
-     *
-     * \note           Either Q or R can be NULL.
+       @brief          Division by int: A = Q * b + R
+       @return         0 if successful, 1 if memory allocation failed, EST_ERR_MPI_DIVISION_BY_ZERO if b == 0
+       @note           Either Q or R can be NULL.
      */
-    int mpi_div_int(mpi * Q, mpi * R, mpi * A, int b);
+    PUBLIC int mpi_div_int(mpi *Q, mpi *R, mpi *A, int b);
 
     /**
-     * \brief          Modulo: R = A mod B
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_DIVISION_BY_ZERO if B == 0
+       @brief          Modulo: R = A mod B
+       @return         0 if successful, 1 if memory allocation failed, EST_ERR_MPI_DIVISION_BY_ZERO if B == 0
      */
-    int mpi_mod_mpi(mpi * R, mpi * A, mpi * B);
+    PUBLIC int mpi_mod_mpi(mpi *R, mpi *A, mpi *B);
 
     /**
-     * \brief          Modulo: r = A mod b
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_DIVISION_BY_ZERO if b == 0
+       @brief          Modulo: r = A mod b
+       @return         0 if successful, 1 if memory allocation failed, EST_ERR_MPI_DIVISION_BY_ZERO if b == 0
      */
-    int mpi_mod_int(t_int * r, mpi * A, int b);
+    PUBLIC int mpi_mod_int(t_int * r, mpi *A, int b);
 
     /**
-     * \brief          Sliding-window exponentiation: X = A^E mod N
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_BAD_INPUT_DATA if N is negative or even
-     *
-     * \note           _RR is used to avoid re-computing R*R mod N across
-     *                 multiple calls, which speeds up things a bit. It can
-     *                 be set to NULL if the extra performance is unneeded.
+       @brief          Sliding-window exponentiation: X = A^E mod N
+       @return         0 if successful, 1 if memory allocation failed, EST_ERR_MPI_BAD_INPUT_DATA if N is negative or even
+       @note           _RR is used to avoid re-computing R*R mod N across multiple calls, which speeds up things a bit. It
+                       can be set to NULL if the extra performance is unneeded.  
      */
-    int mpi_exp_mod(mpi * X, mpi * A, mpi * E, mpi * N, mpi * _RR);
+    PUBLIC int mpi_exp_mod(mpi *X, mpi *A, mpi *E, mpi *N, mpi *_RR);
 
     /**
-     * \brief          Greatest common divisor: G = gcd(A, B)
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed
+       @brief          Greatest common divisor: G = gcd(A, B)
+       @return         0 if successful, 1 if memory allocation failed
      */
-    int mpi_gcd(mpi * G, mpi * A, mpi * B);
+    PUBLIC int mpi_gcd(mpi *G, mpi *A, mpi *B);
 
     /**
-     * \brief          Modular inverse: X = A^-1 mod N
-     *
-     * \return         0 if successful,
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_BAD_INPUT_DATA if N is negative or nil
-     *                 EST_ERR_MPI_NOT_ACCEPTABLE if A has no inverse mod N
+       @brief          Modular inverse: X = A^-1 mod N
+       @return         0 if successful, 1 if memory allocation failed,
+                       EST_ERR_MPI_BAD_INPUT_DATA if N is negative or nil
+                       EST_ERR_MPI_NOT_ACCEPTABLE if A has no inverse mod N
      */
-    int mpi_inv_mod(mpi * X, mpi * A, mpi * N);
+    PUBLIC int mpi_inv_mod(mpi *X, mpi *A, mpi *N);
 
     /**
-     * \brief          Miller-Rabin primality test
-     *
-     * \return         0 if successful (probably prime),
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_NOT_ACCEPTABLE if X is not prime
+       @brief          Miller-Rabin primality test
+       @return         0 if successful (probably prime), 1 if memory allocation failed,
+                       EST_ERR_MPI_NOT_ACCEPTABLE if X is not prime
      */
-    int mpi_is_prime(mpi * X, int (*f_rng) (void *), void *p_rng);
+    PUBLIC int mpi_is_prime(mpi *X, int (*f_rng) (void *), void *p_rng);
 
     /**
-     * \brief          Prime number generation
-     *
-     * \param X        destination mpi
-     * \param nbits    required size of X in bits
-     * \param dh_flag  if 1, then (X-1)/2 will be prime too
-     * \param f_rng    RNG function
-     * \param p_rng    RNG parameter
-     *
-     * \return         0 if successful (probably prime),
-     *                 1 if memory allocation failed,
-     *                 EST_ERR_MPI_BAD_INPUT_DATA if nbits is < 3
+       @brief          Prime number generation
+       @param X        destination mpi
+       @param nbits    required size of X in bits
+       @param dh_flag  if 1, then (X-1)/2 will be prime too
+       @param f_rng    RNG function
+       @param p_rng    RNG parameter
+       @return         0 if successful (probably prime), 1 if memory allocation failed,
+                       EST_ERR_MPI_BAD_INPUT_DATA if nbits is < 3
      */
-    int mpi_gen_prime(mpi * X, int nbits, int dh_flag,
-              int (*f_rng) (void *), void *p_rng);
+    PUBLIC int mpi_gen_prime(mpi *X, int nbits, int dh_flag, int (*f_rng) (void *), void *p_rng);
 
+#if UNUSED
     /**
-     * \brief          Checkup routine
-     *
-     * \return         0 if successful, or 1 if the test failed
+       @brief          Checkup routine
+       @return         0 if successful, or 1 if the test failed
      */
-    int mpi_self_test(int verbose);
+    PUBLIC int mpi_self_test(int verbose);
+#endif
 
 #ifdef __cplusplus
 }

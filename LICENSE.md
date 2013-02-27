@@ -1,4 +1,4 @@
-Embedthis ESSL
+Embedthis Embedded Security Transport (SSL)
 ===
 
 This software is distributed under commercial and open source licenses. You may use the GPLv2 License below License or
@@ -102,11 +102,13 @@ NO WARRANTY
 
 Trademarks and Copyrights
 ---
-Copyright (c) 2003-2012 Embedthis Software, LLC. All Rights Reserved.
+Copyright (c) 2003-2013 Embedthis Software, LLC. All Rights Reserved.
 Embedthis, Appweb, Ejscript, ESP and Embedthis GoAhead are trademarks of Embedthis Software, LLC. Other brands and their products are trademarks of their respective holders.
 
 Third Party Licenses
 ---
-See doc/licenses for other licenses. Contributors have provided portions of the software that are covered by the Embedthis Contributor license that grants Embedthis sufficient rights to execute this license Agreement.
+
+The Software contains licensed third party software components whoes licenses are compatible with the Appweb commercial and
+open source licenses. See [doc/licenses](https://github.com/embedthis/est/tree/master/doc/licenses) for the licenses. Contributors have provided portions of the software that are covered by the Embedthis Contributor license that grants Embedthis sufficient rights to execute this license Agreement.
 
 -END-
