@@ -30,22 +30,23 @@ LDFLAGS           = -nologo -nodefaultlib -incremental:no -debug -machine:$(ARCH
 LIBPATHS          = -libpath:$(CONFIG)\bin
 LIBS              = ws2_32.lib advapi32.lib user32.lib kernel32.lib oldnames.lib msvcrt.lib shell32.lib
 
-BIT_ROOT_PREFIX   = C:
-BIT_BASE_PREFIX   = $(BIT_ROOT_PREFIX)\Program Files
-BIT_APP_PREFIX    = $(BIT_BASE_PREFIX)\Embedded Security Transport
-BIT_VAPP_PREFIX   = $(BIT_APP_PREFIX)
-BIT_DATA_PREFIX   = $(BIT_VAPP_PREFIX)
-BIT_STATE_PREFIX  = $(BIT_VAPP_PREFIX)
-BIT_BIN_PREFIX    = $(BIT_VAPP_PREFIX)\bin
-BIT_INC_PREFIX    = $(BIT_VAPP_PREFIX)\inc
-BIT_LIB_PREFIX    = $(BIT_VAPP_PREFIX)\lib
-BIT_MAN_PREFIX    = $(BIT_VAPP_PREFIX)\man
-BIT_ETC_PREFIX    = $(BIT_VAPP_PREFIX)
-BIT_WEB_PREFIX    = $(BIT_VAPP_PREFIX)\web
-BIT_LOG_PREFIX    = $(BIT_VAPP_PREFIX)\log
-BIT_SPOOL_PREFIX  = $(BIT_VAPP_PREFIX)\tmp
-BIT_CACHE_PREFIX  = $(BIT_VAPP_PREFIX)\cache
-BIT_SRC_PREFIX    = $(BIT_VAPP_PREFIX)\src
+BIT_ROOT_PREFIX   = 
+BIT_BASE_PREFIX   = $(BIT_ROOT_PREFIX)\usr\local
+BIT_DATA_PREFIX   = $(BIT_ROOT_PREFIX)\
+BIT_STATE_PREFIX  = $(BIT_ROOT_PREFIX)\var
+BIT_APP_PREFIX    = \usr\local\lib\$(PRODUCT)
+BIT_VAPP_PREFIX   = \usr\local\lib\$(PRODUCT)\$(VERSION)
+BIT_BIN_PREFIX    = $(BIT_ROOT_PREFIX)\usr\local\bin
+BIT_INC_PREFIX    = $(BIT_ROOT_PREFIX)\usr\local\include
+BIT_LIB_PREFIX    = $(BIT_ROOT_PREFIX)\usr\local\lib
+BIT_MAN_PREFIX    = $(BIT_ROOT_PREFIX)\usr\local\share\man
+BIT_SBIN_PREFIX   = $(BIT_ROOT_PREFIX)\usr\local\sbin
+BIT_ETC_PREFIX    = $(BIT_ROOT_PREFIX)\etc\$(PRODUCT)
+BIT_WEB_PREFIX    = $(BIT_ROOT_PREFIX)\var\www\$(PRODUCT)-default
+BIT_LOG_PREFIX    = $(BIT_ROOT_PREFIX)\var\log\$(PRODUCT)
+BIT_SPOOL_PREFIX  = $(BIT_ROOT_PREFIX)\var\spool\$(PRODUCT)
+BIT_CACHE_PREFIX  = $(BIT_ROOT_PREFIX)\var\spool\$(PRODUCT)\cache
+BIT_SRC_PREFIX    = $(BIT_ROOT_PREFIX)$(PRODUCT)-$(VERSION)
 
 
 TARGETS           = $(TARGETS) $(CONFIG)\bin\libest.dll
@@ -73,37 +74,45 @@ prep:
 	@if not exist $(CONFIG)\inc\bit.h copy projects\est-windows-default-bit.h $(CONFIG)\inc\bit.h
 
 clean:
-	-if exist $(CONFIG)\bin\libest.dll del /Q $(CONFIG)\bin\libest.dll
-	-if exist $(CONFIG)\obj\aes.obj del /Q $(CONFIG)\obj\aes.obj
-	-if exist $(CONFIG)\obj\arc4.obj del /Q $(CONFIG)\obj\arc4.obj
-	-if exist $(CONFIG)\obj\base64.obj del /Q $(CONFIG)\obj\base64.obj
-	-if exist $(CONFIG)\obj\bignum.obj del /Q $(CONFIG)\obj\bignum.obj
-	-if exist $(CONFIG)\obj\camellia.obj del /Q $(CONFIG)\obj\camellia.obj
-	-if exist $(CONFIG)\obj\certs.obj del /Q $(CONFIG)\obj\certs.obj
-	-if exist $(CONFIG)\obj\debug.obj del /Q $(CONFIG)\obj\debug.obj
-	-if exist $(CONFIG)\obj\des.obj del /Q $(CONFIG)\obj\des.obj
-	-if exist $(CONFIG)\obj\dhm.obj del /Q $(CONFIG)\obj\dhm.obj
-	-if exist $(CONFIG)\obj\havege.obj del /Q $(CONFIG)\obj\havege.obj
-	-if exist $(CONFIG)\obj\md2.obj del /Q $(CONFIG)\obj\md2.obj
-	-if exist $(CONFIG)\obj\md4.obj del /Q $(CONFIG)\obj\md4.obj
-	-if exist $(CONFIG)\obj\md5.obj del /Q $(CONFIG)\obj\md5.obj
-	-if exist $(CONFIG)\obj\net.obj del /Q $(CONFIG)\obj\net.obj
-	-if exist $(CONFIG)\obj\padlock.obj del /Q $(CONFIG)\obj\padlock.obj
-	-if exist $(CONFIG)\obj\rsa.obj del /Q $(CONFIG)\obj\rsa.obj
-	-if exist $(CONFIG)\obj\sha1.obj del /Q $(CONFIG)\obj\sha1.obj
-	-if exist $(CONFIG)\obj\sha2.obj del /Q $(CONFIG)\obj\sha2.obj
-	-if exist $(CONFIG)\obj\sha4.obj del /Q $(CONFIG)\obj\sha4.obj
-	-if exist $(CONFIG)\obj\ssl_cli.obj del /Q $(CONFIG)\obj\ssl_cli.obj
-	-if exist $(CONFIG)\obj\ssl_srv.obj del /Q $(CONFIG)\obj\ssl_srv.obj
-	-if exist $(CONFIG)\obj\ssl_tls.obj del /Q $(CONFIG)\obj\ssl_tls.obj
-	-if exist $(CONFIG)\obj\timing.obj del /Q $(CONFIG)\obj\timing.obj
-	-if exist $(CONFIG)\obj\x509parse.obj del /Q $(CONFIG)\obj\x509parse.obj
-	-if exist $(CONFIG)\obj\xtea.obj del /Q $(CONFIG)\obj\xtea.obj
+	if exist "$(CONFIG)\bin\libest.dll" rd /Q "$(CONFIG)\bin\libest.dll"
+	if exist "$(CONFIG)\obj\aes.obj" rd /Q "$(CONFIG)\obj\aes.obj"
+	if exist "$(CONFIG)\obj\arc4.obj" rd /Q "$(CONFIG)\obj\arc4.obj"
+	if exist "$(CONFIG)\obj\base64.obj" rd /Q "$(CONFIG)\obj\base64.obj"
+	if exist "$(CONFIG)\obj\bignum.obj" rd /Q "$(CONFIG)\obj\bignum.obj"
+	if exist "$(CONFIG)\obj\camellia.obj" rd /Q "$(CONFIG)\obj\camellia.obj"
+	if exist "$(CONFIG)\obj\certs.obj" rd /Q "$(CONFIG)\obj\certs.obj"
+	if exist "$(CONFIG)\obj\debug.obj" rd /Q "$(CONFIG)\obj\debug.obj"
+	if exist "$(CONFIG)\obj\des.obj" rd /Q "$(CONFIG)\obj\des.obj"
+	if exist "$(CONFIG)\obj\dhm.obj" rd /Q "$(CONFIG)\obj\dhm.obj"
+	if exist "$(CONFIG)\obj\havege.obj" rd /Q "$(CONFIG)\obj\havege.obj"
+	if exist "$(CONFIG)\obj\md2.obj" rd /Q "$(CONFIG)\obj\md2.obj"
+	if exist "$(CONFIG)\obj\md4.obj" rd /Q "$(CONFIG)\obj\md4.obj"
+	if exist "$(CONFIG)\obj\md5.obj" rd /Q "$(CONFIG)\obj\md5.obj"
+	if exist "$(CONFIG)\obj\net.obj" rd /Q "$(CONFIG)\obj\net.obj"
+	if exist "$(CONFIG)\obj\padlock.obj" rd /Q "$(CONFIG)\obj\padlock.obj"
+	if exist "$(CONFIG)\obj\rsa.obj" rd /Q "$(CONFIG)\obj\rsa.obj"
+	if exist "$(CONFIG)\obj\sha1.obj" rd /Q "$(CONFIG)\obj\sha1.obj"
+	if exist "$(CONFIG)\obj\sha2.obj" rd /Q "$(CONFIG)\obj\sha2.obj"
+	if exist "$(CONFIG)\obj\sha4.obj" rd /Q "$(CONFIG)\obj\sha4.obj"
+	if exist "$(CONFIG)\obj\ssl_cli.obj" rd /Q "$(CONFIG)\obj\ssl_cli.obj"
+	if exist "$(CONFIG)\obj\ssl_srv.obj" rd /Q "$(CONFIG)\obj\ssl_srv.obj"
+	if exist "$(CONFIG)\obj\ssl_tls.obj" rd /Q "$(CONFIG)\obj\ssl_tls.obj"
+	if exist "$(CONFIG)\obj\timing.obj" rd /Q "$(CONFIG)\obj\timing.obj"
+	if exist "$(CONFIG)\obj\x509parse.obj" rd /Q "$(CONFIG)\obj\x509parse.obj"
+	if exist "$(CONFIG)\obj\xtea.obj" rd /Q "$(CONFIG)\obj\xtea.obj"
+
+
+
+#
+#   version
+#
+version: $(DEPS_1)
+	@echo NN 0.6.0-0
 
 #
 #   aes.h
 #
-$(CONFIG)\inc\aes.h: $(DEPS_1)
+$(CONFIG)\inc\aes.h: $(DEPS_2)
 	@echo '      [Copy] $(CONFIG)/inc/aes.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\aes.h" "$(CONFIG)\inc\aes.h"
@@ -111,7 +120,7 @@ $(CONFIG)\inc\aes.h: $(DEPS_1)
 #
 #   arc4.h
 #
-$(CONFIG)\inc\arc4.h: $(DEPS_2)
+$(CONFIG)\inc\arc4.h: $(DEPS_3)
 	@echo '      [Copy] $(CONFIG)/inc/arc4.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\arc4.h" "$(CONFIG)\inc\arc4.h"
@@ -119,7 +128,7 @@ $(CONFIG)\inc\arc4.h: $(DEPS_2)
 #
 #   base64.h
 #
-$(CONFIG)\inc\base64.h: $(DEPS_3)
+$(CONFIG)\inc\base64.h: $(DEPS_4)
 	@echo '      [Copy] $(CONFIG)/inc/base64.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\base64.h" "$(CONFIG)\inc\base64.h"
@@ -127,7 +136,7 @@ $(CONFIG)\inc\base64.h: $(DEPS_3)
 #
 #   bignum.h
 #
-$(CONFIG)\inc\bignum.h: $(DEPS_4)
+$(CONFIG)\inc\bignum.h: $(DEPS_5)
 	@echo '      [Copy] $(CONFIG)/inc/bignum.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\bignum.h" "$(CONFIG)\inc\bignum.h"
@@ -135,15 +144,15 @@ $(CONFIG)\inc\bignum.h: $(DEPS_4)
 #
 #   bit.h
 #
-$(CONFIG)\inc\bit.h: $(DEPS_5)
+$(CONFIG)\inc\bit.h: $(DEPS_6)
 	@echo '      [Copy] $(CONFIG)/inc/bit.h'
 
 #
 #   bitos.h
 #
-DEPS_6 = $(DEPS_6) $(CONFIG)\inc\bit.h
+DEPS_7 = $(DEPS_7) $(CONFIG)\inc\bit.h
 
-$(CONFIG)\inc\bitos.h: $(DEPS_6)
+$(CONFIG)\inc\bitos.h: $(DEPS_7)
 	@echo '      [Copy] $(CONFIG)/inc/bitos.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\bitos.h" "$(CONFIG)\inc\bitos.h"
@@ -151,7 +160,7 @@ $(CONFIG)\inc\bitos.h: $(DEPS_6)
 #
 #   bn_mul.h
 #
-$(CONFIG)\inc\bn_mul.h: $(DEPS_7)
+$(CONFIG)\inc\bn_mul.h: $(DEPS_8)
 	@echo '      [Copy] $(CONFIG)/inc/bn_mul.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\bn_mul.h" "$(CONFIG)\inc\bn_mul.h"
@@ -159,7 +168,7 @@ $(CONFIG)\inc\bn_mul.h: $(DEPS_7)
 #
 #   camellia.h
 #
-$(CONFIG)\inc\camellia.h: $(DEPS_8)
+$(CONFIG)\inc\camellia.h: $(DEPS_9)
 	@echo '      [Copy] $(CONFIG)/inc/camellia.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\camellia.h" "$(CONFIG)\inc\camellia.h"
@@ -167,7 +176,7 @@ $(CONFIG)\inc\camellia.h: $(DEPS_8)
 #
 #   certs.h
 #
-$(CONFIG)\inc\certs.h: $(DEPS_9)
+$(CONFIG)\inc\certs.h: $(DEPS_10)
 	@echo '      [Copy] $(CONFIG)/inc/certs.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\certs.h" "$(CONFIG)\inc\certs.h"
@@ -175,7 +184,7 @@ $(CONFIG)\inc\certs.h: $(DEPS_9)
 #
 #   debug.h
 #
-$(CONFIG)\inc\debug.h: $(DEPS_10)
+$(CONFIG)\inc\debug.h: $(DEPS_11)
 	@echo '      [Copy] $(CONFIG)/inc/debug.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\debug.h" "$(CONFIG)\inc\debug.h"
@@ -183,7 +192,7 @@ $(CONFIG)\inc\debug.h: $(DEPS_10)
 #
 #   des.h
 #
-$(CONFIG)\inc\des.h: $(DEPS_11)
+$(CONFIG)\inc\des.h: $(DEPS_12)
 	@echo '      [Copy] $(CONFIG)/inc/des.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\des.h" "$(CONFIG)\inc\des.h"
@@ -191,7 +200,7 @@ $(CONFIG)\inc\des.h: $(DEPS_11)
 #
 #   dhm.h
 #
-$(CONFIG)\inc\dhm.h: $(DEPS_12)
+$(CONFIG)\inc\dhm.h: $(DEPS_13)
 	@echo '      [Copy] $(CONFIG)/inc/dhm.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\dhm.h" "$(CONFIG)\inc\dhm.h"
@@ -199,7 +208,7 @@ $(CONFIG)\inc\dhm.h: $(DEPS_12)
 #
 #   est.h
 #
-$(CONFIG)\inc\est.h: $(DEPS_13)
+$(CONFIG)\inc\est.h: $(DEPS_14)
 	@echo '      [Copy] $(CONFIG)/inc/est.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\est.h" "$(CONFIG)\inc\est.h"
@@ -207,7 +216,7 @@ $(CONFIG)\inc\est.h: $(DEPS_13)
 #
 #   havege.h
 #
-$(CONFIG)\inc\havege.h: $(DEPS_14)
+$(CONFIG)\inc\havege.h: $(DEPS_15)
 	@echo '      [Copy] $(CONFIG)/inc/havege.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\havege.h" "$(CONFIG)\inc\havege.h"
@@ -215,7 +224,7 @@ $(CONFIG)\inc\havege.h: $(DEPS_14)
 #
 #   md2.h
 #
-$(CONFIG)\inc\md2.h: $(DEPS_15)
+$(CONFIG)\inc\md2.h: $(DEPS_16)
 	@echo '      [Copy] $(CONFIG)/inc/md2.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\md2.h" "$(CONFIG)\inc\md2.h"
@@ -223,7 +232,7 @@ $(CONFIG)\inc\md2.h: $(DEPS_15)
 #
 #   md4.h
 #
-$(CONFIG)\inc\md4.h: $(DEPS_16)
+$(CONFIG)\inc\md4.h: $(DEPS_17)
 	@echo '      [Copy] $(CONFIG)/inc/md4.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\md4.h" "$(CONFIG)\inc\md4.h"
@@ -231,7 +240,7 @@ $(CONFIG)\inc\md4.h: $(DEPS_16)
 #
 #   md5.h
 #
-$(CONFIG)\inc\md5.h: $(DEPS_17)
+$(CONFIG)\inc\md5.h: $(DEPS_18)
 	@echo '      [Copy] $(CONFIG)/inc/md5.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\md5.h" "$(CONFIG)\inc\md5.h"
@@ -239,7 +248,7 @@ $(CONFIG)\inc\md5.h: $(DEPS_17)
 #
 #   net.h
 #
-$(CONFIG)\inc\net.h: $(DEPS_18)
+$(CONFIG)\inc\net.h: $(DEPS_19)
 	@echo '      [Copy] $(CONFIG)/inc/net.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\net.h" "$(CONFIG)\inc\net.h"
@@ -247,7 +256,7 @@ $(CONFIG)\inc\net.h: $(DEPS_18)
 #
 #   openssl.h
 #
-$(CONFIG)\inc\openssl.h: $(DEPS_19)
+$(CONFIG)\inc\openssl.h: $(DEPS_20)
 	@echo '      [Copy] $(CONFIG)/inc/openssl.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\openssl.h" "$(CONFIG)\inc\openssl.h"
@@ -255,7 +264,7 @@ $(CONFIG)\inc\openssl.h: $(DEPS_19)
 #
 #   padlock.h
 #
-$(CONFIG)\inc\padlock.h: $(DEPS_20)
+$(CONFIG)\inc\padlock.h: $(DEPS_21)
 	@echo '      [Copy] $(CONFIG)/inc/padlock.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\padlock.h" "$(CONFIG)\inc\padlock.h"
@@ -263,7 +272,7 @@ $(CONFIG)\inc\padlock.h: $(DEPS_20)
 #
 #   rsa.h
 #
-$(CONFIG)\inc\rsa.h: $(DEPS_21)
+$(CONFIG)\inc\rsa.h: $(DEPS_22)
 	@echo '      [Copy] $(CONFIG)/inc/rsa.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\rsa.h" "$(CONFIG)\inc\rsa.h"
@@ -271,7 +280,7 @@ $(CONFIG)\inc\rsa.h: $(DEPS_21)
 #
 #   sha1.h
 #
-$(CONFIG)\inc\sha1.h: $(DEPS_22)
+$(CONFIG)\inc\sha1.h: $(DEPS_23)
 	@echo '      [Copy] $(CONFIG)/inc/sha1.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\sha1.h" "$(CONFIG)\inc\sha1.h"
@@ -279,7 +288,7 @@ $(CONFIG)\inc\sha1.h: $(DEPS_22)
 #
 #   sha2.h
 #
-$(CONFIG)\inc\sha2.h: $(DEPS_23)
+$(CONFIG)\inc\sha2.h: $(DEPS_24)
 	@echo '      [Copy] $(CONFIG)/inc/sha2.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\sha2.h" "$(CONFIG)\inc\sha2.h"
@@ -287,7 +296,7 @@ $(CONFIG)\inc\sha2.h: $(DEPS_23)
 #
 #   sha4.h
 #
-$(CONFIG)\inc\sha4.h: $(DEPS_24)
+$(CONFIG)\inc\sha4.h: $(DEPS_25)
 	@echo '      [Copy] $(CONFIG)/inc/sha4.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\sha4.h" "$(CONFIG)\inc\sha4.h"
@@ -295,7 +304,7 @@ $(CONFIG)\inc\sha4.h: $(DEPS_24)
 #
 #   ssl.h
 #
-$(CONFIG)\inc\ssl.h: $(DEPS_25)
+$(CONFIG)\inc\ssl.h: $(DEPS_26)
 	@echo '      [Copy] $(CONFIG)/inc/ssl.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\ssl.h" "$(CONFIG)\inc\ssl.h"
@@ -303,7 +312,7 @@ $(CONFIG)\inc\ssl.h: $(DEPS_25)
 #
 #   timing.h
 #
-$(CONFIG)\inc\timing.h: $(DEPS_26)
+$(CONFIG)\inc\timing.h: $(DEPS_27)
 	@echo '      [Copy] $(CONFIG)/inc/timing.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\timing.h" "$(CONFIG)\inc\timing.h"
@@ -311,7 +320,7 @@ $(CONFIG)\inc\timing.h: $(DEPS_26)
 #
 #   x509.h
 #
-$(CONFIG)\inc\x509.h: $(DEPS_27)
+$(CONFIG)\inc\x509.h: $(DEPS_28)
 	@echo '      [Copy] $(CONFIG)/inc/x509.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\x509.h" "$(CONFIG)\inc\x509.h"
@@ -319,7 +328,7 @@ $(CONFIG)\inc\x509.h: $(DEPS_27)
 #
 #   xtea.h
 #
-$(CONFIG)\inc\xtea.h: $(DEPS_28)
+$(CONFIG)\inc\xtea.h: $(DEPS_29)
 	@echo '      [Copy] $(CONFIG)/inc/xtea.h'
 	if not exist "$(CONFIG)\inc" md "$(CONFIG)\inc"
 	copy /Y "src\xtea.h" "$(CONFIG)\inc\xtea.h"
@@ -327,374 +336,367 @@ $(CONFIG)\inc\xtea.h: $(DEPS_28)
 #
 #   aes.obj
 #
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\bit.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\est.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\bitos.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\bignum.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\net.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\dhm.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\rsa.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\md5.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\sha1.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\x509.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\ssl.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\aes.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\arc4.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\base64.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\bn_mul.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\camellia.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\certs.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\debug.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\des.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\havege.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\md2.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\md4.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\padlock.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\sha2.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\sha4.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\timing.h
-DEPS_29 = $(DEPS_29) $(CONFIG)\inc\xtea.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\bit.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\est.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\bitos.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\bignum.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\net.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\dhm.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\rsa.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\md5.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\sha1.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\x509.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\ssl.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\aes.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\arc4.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\base64.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\bn_mul.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\camellia.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\certs.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\debug.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\des.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\havege.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\md2.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\md4.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\padlock.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\sha2.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\sha4.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\timing.h
+DEPS_30 = $(DEPS_30) $(CONFIG)\inc\xtea.h
 
 $(CONFIG)\obj\aes.obj: \
-    src\aes.c $(DEPS_29)
+    src\aes.c $(DEPS_30)
 	@echo '   [Compile] src/aes.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\aes.c
 
 #
 #   arc4.obj
 #
-DEPS_30 = $(DEPS_30) $(CONFIG)\inc\bit.h
-DEPS_30 = $(DEPS_30) $(CONFIG)\inc\est.h
+DEPS_31 = $(DEPS_31) $(CONFIG)\inc\bit.h
+DEPS_31 = $(DEPS_31) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\arc4.obj: \
-    src\arc4.c $(DEPS_30)
+    src\arc4.c $(DEPS_31)
 	@echo '   [Compile] src/arc4.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\arc4.obj -Fd$(CONFIG)\obj\arc4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\arc4.c
 
 #
 #   base64.obj
 #
-DEPS_31 = $(DEPS_31) $(CONFIG)\inc\bit.h
-DEPS_31 = $(DEPS_31) $(CONFIG)\inc\est.h
+DEPS_32 = $(DEPS_32) $(CONFIG)\inc\bit.h
+DEPS_32 = $(DEPS_32) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\base64.obj: \
-    src\base64.c $(DEPS_31)
+    src\base64.c $(DEPS_32)
 	@echo '   [Compile] src/base64.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\base64.obj -Fd$(CONFIG)\obj\base64.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\base64.c
 
 #
 #   bignum.obj
 #
-DEPS_32 = $(DEPS_32) $(CONFIG)\inc\bit.h
-DEPS_32 = $(DEPS_32) $(CONFIG)\inc\est.h
+DEPS_33 = $(DEPS_33) $(CONFIG)\inc\bit.h
+DEPS_33 = $(DEPS_33) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\bignum.obj: \
-    src\bignum.c $(DEPS_32)
+    src\bignum.c $(DEPS_33)
 	@echo '   [Compile] src/bignum.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\bignum.obj -Fd$(CONFIG)\obj\bignum.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\bignum.c
 
 #
 #   camellia.obj
 #
-DEPS_33 = $(DEPS_33) $(CONFIG)\inc\bit.h
-DEPS_33 = $(DEPS_33) $(CONFIG)\inc\est.h
+DEPS_34 = $(DEPS_34) $(CONFIG)\inc\bit.h
+DEPS_34 = $(DEPS_34) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\camellia.obj: \
-    src\camellia.c $(DEPS_33)
+    src\camellia.c $(DEPS_34)
 	@echo '   [Compile] src/camellia.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\camellia.obj -Fd$(CONFIG)\obj\camellia.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\camellia.c
 
 #
 #   certs.obj
 #
-DEPS_34 = $(DEPS_34) $(CONFIG)\inc\bit.h
-DEPS_34 = $(DEPS_34) $(CONFIG)\inc\est.h
+DEPS_35 = $(DEPS_35) $(CONFIG)\inc\bit.h
+DEPS_35 = $(DEPS_35) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\certs.obj: \
-    src\certs.c $(DEPS_34)
+    src\certs.c $(DEPS_35)
 	@echo '   [Compile] src/certs.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\certs.obj -Fd$(CONFIG)\obj\certs.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\certs.c
 
 #
 #   debug.obj
 #
-DEPS_35 = $(DEPS_35) $(CONFIG)\inc\bit.h
-DEPS_35 = $(DEPS_35) $(CONFIG)\inc\est.h
+DEPS_36 = $(DEPS_36) $(CONFIG)\inc\bit.h
+DEPS_36 = $(DEPS_36) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\debug.obj: \
-    src\debug.c $(DEPS_35)
+    src\debug.c $(DEPS_36)
 	@echo '   [Compile] src/debug.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\debug.obj -Fd$(CONFIG)\obj\debug.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\debug.c
 
 #
 #   des.obj
 #
-DEPS_36 = $(DEPS_36) $(CONFIG)\inc\bit.h
-DEPS_36 = $(DEPS_36) $(CONFIG)\inc\est.h
+DEPS_37 = $(DEPS_37) $(CONFIG)\inc\bit.h
+DEPS_37 = $(DEPS_37) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\des.obj: \
-    src\des.c $(DEPS_36)
+    src\des.c $(DEPS_37)
 	@echo '   [Compile] src/des.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\des.obj -Fd$(CONFIG)\obj\des.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\des.c
 
 #
 #   dhm.obj
 #
-DEPS_37 = $(DEPS_37) $(CONFIG)\inc\bit.h
-DEPS_37 = $(DEPS_37) $(CONFIG)\inc\est.h
+DEPS_38 = $(DEPS_38) $(CONFIG)\inc\bit.h
+DEPS_38 = $(DEPS_38) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\dhm.obj: \
-    src\dhm.c $(DEPS_37)
+    src\dhm.c $(DEPS_38)
 	@echo '   [Compile] src/dhm.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\dhm.obj -Fd$(CONFIG)\obj\dhm.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\dhm.c
 
 #
 #   havege.obj
 #
-DEPS_38 = $(DEPS_38) $(CONFIG)\inc\bit.h
-DEPS_38 = $(DEPS_38) $(CONFIG)\inc\est.h
+DEPS_39 = $(DEPS_39) $(CONFIG)\inc\bit.h
+DEPS_39 = $(DEPS_39) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\havege.obj: \
-    src\havege.c $(DEPS_38)
+    src\havege.c $(DEPS_39)
 	@echo '   [Compile] src/havege.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\havege.obj -Fd$(CONFIG)\obj\havege.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\havege.c
 
 #
 #   md2.obj
 #
-DEPS_39 = $(DEPS_39) $(CONFIG)\inc\bit.h
-DEPS_39 = $(DEPS_39) $(CONFIG)\inc\est.h
+DEPS_40 = $(DEPS_40) $(CONFIG)\inc\bit.h
+DEPS_40 = $(DEPS_40) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\md2.obj: \
-    src\md2.c $(DEPS_39)
+    src\md2.c $(DEPS_40)
 	@echo '   [Compile] src/md2.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\md2.obj -Fd$(CONFIG)\obj\md2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md2.c
 
 #
 #   md4.obj
 #
-DEPS_40 = $(DEPS_40) $(CONFIG)\inc\bit.h
-DEPS_40 = $(DEPS_40) $(CONFIG)\inc\est.h
+DEPS_41 = $(DEPS_41) $(CONFIG)\inc\bit.h
+DEPS_41 = $(DEPS_41) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\md4.obj: \
-    src\md4.c $(DEPS_40)
+    src\md4.c $(DEPS_41)
 	@echo '   [Compile] src/md4.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\md4.obj -Fd$(CONFIG)\obj\md4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md4.c
 
 #
 #   md5.obj
 #
-DEPS_41 = $(DEPS_41) $(CONFIG)\inc\bit.h
-DEPS_41 = $(DEPS_41) $(CONFIG)\inc\est.h
+DEPS_42 = $(DEPS_42) $(CONFIG)\inc\bit.h
+DEPS_42 = $(DEPS_42) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\md5.obj: \
-    src\md5.c $(DEPS_41)
+    src\md5.c $(DEPS_42)
 	@echo '   [Compile] src/md5.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\md5.obj -Fd$(CONFIG)\obj\md5.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md5.c
 
 #
 #   net.obj
 #
-DEPS_42 = $(DEPS_42) $(CONFIG)\inc\bit.h
-DEPS_42 = $(DEPS_42) $(CONFIG)\inc\est.h
+DEPS_43 = $(DEPS_43) $(CONFIG)\inc\bit.h
+DEPS_43 = $(DEPS_43) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\net.obj: \
-    src\net.c $(DEPS_42)
+    src\net.c $(DEPS_43)
 	@echo '   [Compile] src/net.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\net.obj -Fd$(CONFIG)\obj\net.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\net.c
 
 #
 #   padlock.obj
 #
-DEPS_43 = $(DEPS_43) $(CONFIG)\inc\bit.h
-DEPS_43 = $(DEPS_43) $(CONFIG)\inc\est.h
+DEPS_44 = $(DEPS_44) $(CONFIG)\inc\bit.h
+DEPS_44 = $(DEPS_44) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\padlock.obj: \
-    src\padlock.c $(DEPS_43)
+    src\padlock.c $(DEPS_44)
 	@echo '   [Compile] src/padlock.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\padlock.obj -Fd$(CONFIG)\obj\padlock.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\padlock.c
 
 #
 #   rsa.obj
 #
-DEPS_44 = $(DEPS_44) $(CONFIG)\inc\bit.h
-DEPS_44 = $(DEPS_44) $(CONFIG)\inc\est.h
+DEPS_45 = $(DEPS_45) $(CONFIG)\inc\bit.h
+DEPS_45 = $(DEPS_45) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\rsa.obj: \
-    src\rsa.c $(DEPS_44)
+    src\rsa.c $(DEPS_45)
 	@echo '   [Compile] src/rsa.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\rsa.obj -Fd$(CONFIG)\obj\rsa.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\rsa.c
 
 #
 #   sha1.obj
 #
-DEPS_45 = $(DEPS_45) $(CONFIG)\inc\bit.h
-DEPS_45 = $(DEPS_45) $(CONFIG)\inc\est.h
+DEPS_46 = $(DEPS_46) $(CONFIG)\inc\bit.h
+DEPS_46 = $(DEPS_46) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\sha1.obj: \
-    src\sha1.c $(DEPS_45)
+    src\sha1.c $(DEPS_46)
 	@echo '   [Compile] src/sha1.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha1.obj -Fd$(CONFIG)\obj\sha1.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha1.c
 
 #
 #   sha2.obj
 #
-DEPS_46 = $(DEPS_46) $(CONFIG)\inc\bit.h
-DEPS_46 = $(DEPS_46) $(CONFIG)\inc\est.h
+DEPS_47 = $(DEPS_47) $(CONFIG)\inc\bit.h
+DEPS_47 = $(DEPS_47) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\sha2.obj: \
-    src\sha2.c $(DEPS_46)
+    src\sha2.c $(DEPS_47)
 	@echo '   [Compile] src/sha2.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha2.obj -Fd$(CONFIG)\obj\sha2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha2.c
 
 #
 #   sha4.obj
 #
-DEPS_47 = $(DEPS_47) $(CONFIG)\inc\bit.h
-DEPS_47 = $(DEPS_47) $(CONFIG)\inc\est.h
+DEPS_48 = $(DEPS_48) $(CONFIG)\inc\bit.h
+DEPS_48 = $(DEPS_48) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\sha4.obj: \
-    src\sha4.c $(DEPS_47)
+    src\sha4.c $(DEPS_48)
 	@echo '   [Compile] src/sha4.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha4.obj -Fd$(CONFIG)\obj\sha4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha4.c
 
 #
 #   ssl_cli.obj
 #
-DEPS_48 = $(DEPS_48) $(CONFIG)\inc\bit.h
-DEPS_48 = $(DEPS_48) $(CONFIG)\inc\est.h
+DEPS_49 = $(DEPS_49) $(CONFIG)\inc\bit.h
+DEPS_49 = $(DEPS_49) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\ssl_cli.obj: \
-    src\ssl_cli.c $(DEPS_48)
+    src\ssl_cli.c $(DEPS_49)
 	@echo '   [Compile] src/ssl_cli.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_cli.obj -Fd$(CONFIG)\obj\ssl_cli.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_cli.c
 
 #
 #   ssl_srv.obj
 #
-DEPS_49 = $(DEPS_49) $(CONFIG)\inc\bit.h
-DEPS_49 = $(DEPS_49) $(CONFIG)\inc\est.h
+DEPS_50 = $(DEPS_50) $(CONFIG)\inc\bit.h
+DEPS_50 = $(DEPS_50) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\ssl_srv.obj: \
-    src\ssl_srv.c $(DEPS_49)
+    src\ssl_srv.c $(DEPS_50)
 	@echo '   [Compile] src/ssl_srv.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_srv.obj -Fd$(CONFIG)\obj\ssl_srv.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_srv.c
 
 #
 #   ssl_tls.obj
 #
-DEPS_50 = $(DEPS_50) $(CONFIG)\inc\bit.h
-DEPS_50 = $(DEPS_50) $(CONFIG)\inc\est.h
+DEPS_51 = $(DEPS_51) $(CONFIG)\inc\bit.h
+DEPS_51 = $(DEPS_51) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\ssl_tls.obj: \
-    src\ssl_tls.c $(DEPS_50)
+    src\ssl_tls.c $(DEPS_51)
 	@echo '   [Compile] src/ssl_tls.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_tls.obj -Fd$(CONFIG)\obj\ssl_tls.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_tls.c
 
 #
 #   timing.obj
 #
-DEPS_51 = $(DEPS_51) $(CONFIG)\inc\bit.h
-DEPS_51 = $(DEPS_51) $(CONFIG)\inc\est.h
+DEPS_52 = $(DEPS_52) $(CONFIG)\inc\bit.h
+DEPS_52 = $(DEPS_52) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\timing.obj: \
-    src\timing.c $(DEPS_51)
+    src\timing.c $(DEPS_52)
 	@echo '   [Compile] src/timing.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\timing.obj -Fd$(CONFIG)\obj\timing.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\timing.c
 
 #
 #   x509parse.obj
 #
-DEPS_52 = $(DEPS_52) $(CONFIG)\inc\bit.h
-DEPS_52 = $(DEPS_52) $(CONFIG)\inc\est.h
+DEPS_53 = $(DEPS_53) $(CONFIG)\inc\bit.h
+DEPS_53 = $(DEPS_53) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\x509parse.obj: \
-    src\x509parse.c $(DEPS_52)
+    src\x509parse.c $(DEPS_53)
 	@echo '   [Compile] src/x509parse.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\x509parse.obj -Fd$(CONFIG)\obj\x509parse.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\x509parse.c
 
 #
 #   xtea.obj
 #
-DEPS_53 = $(DEPS_53) $(CONFIG)\inc\bit.h
-DEPS_53 = $(DEPS_53) $(CONFIG)\inc\est.h
+DEPS_54 = $(DEPS_54) $(CONFIG)\inc\bit.h
+DEPS_54 = $(DEPS_54) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\xtea.obj: \
-    src\xtea.c $(DEPS_53)
+    src\xtea.c $(DEPS_54)
 	@echo '   [Compile] src/xtea.c'
 	"$(CC)" -c -Fo$(CONFIG)\obj\xtea.obj -Fd$(CONFIG)\obj\xtea.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\xtea.c
 
 #
 #   libest
 #
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\aes.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\arc4.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\base64.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\bignum.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\bitos.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\bn_mul.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\camellia.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\certs.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\debug.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\des.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\dhm.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\est.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\havege.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\md2.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\md4.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\md5.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\net.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\openssl.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\padlock.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\rsa.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\sha1.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\sha2.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\sha4.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\ssl.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\timing.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\x509.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\inc\xtea.h
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\aes.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\arc4.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\base64.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\bignum.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\camellia.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\certs.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\debug.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\des.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\dhm.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\havege.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\md2.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\md4.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\md5.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\net.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\padlock.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\rsa.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\sha1.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\sha2.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\sha4.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\ssl_cli.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\ssl_srv.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\ssl_tls.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\timing.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\x509parse.obj
-DEPS_54 = $(DEPS_54) $(CONFIG)\obj\xtea.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\aes.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\arc4.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\base64.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\bignum.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\bitos.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\bn_mul.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\camellia.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\certs.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\debug.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\des.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\dhm.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\est.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\havege.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\md2.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\md4.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\md5.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\net.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\openssl.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\padlock.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\rsa.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\sha1.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\sha2.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\sha4.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\ssl.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\timing.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\x509.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\inc\xtea.h
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\aes.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\arc4.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\base64.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\bignum.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\camellia.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\certs.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\debug.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\des.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\dhm.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\havege.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\md2.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\md4.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\md5.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\net.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\padlock.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\rsa.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\sha1.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\sha2.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\sha4.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\ssl_cli.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\ssl_srv.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\ssl_tls.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\timing.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\x509parse.obj
+DEPS_55 = $(DEPS_55) $(CONFIG)\obj\xtea.obj
 
-$(CONFIG)\bin\libest.dll: $(DEPS_54)
+$(CONFIG)\bin\libest.dll: $(DEPS_55)
 	@echo '      [Link] libest'
 	"$(LD)" -dll -out:$(CONFIG)\bin\libest.dll -entry:$(ENTRY) $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\aes.obj $(CONFIG)\obj\arc4.obj $(CONFIG)\obj\base64.obj $(CONFIG)\obj\bignum.obj $(CONFIG)\obj\camellia.obj $(CONFIG)\obj\certs.obj $(CONFIG)\obj\debug.obj $(CONFIG)\obj\des.obj $(CONFIG)\obj\dhm.obj $(CONFIG)\obj\havege.obj $(CONFIG)\obj\md2.obj $(CONFIG)\obj\md4.obj $(CONFIG)\obj\md5.obj $(CONFIG)\obj\net.obj $(CONFIG)\obj\padlock.obj $(CONFIG)\obj\rsa.obj $(CONFIG)\obj\sha1.obj $(CONFIG)\obj\sha2.obj $(CONFIG)\obj\sha4.obj $(CONFIG)\obj\ssl_cli.obj $(CONFIG)\obj\ssl_srv.obj $(CONFIG)\obj\ssl_tls.obj $(CONFIG)\obj\timing.obj $(CONFIG)\obj\x509parse.obj $(CONFIG)\obj\xtea.obj $(LIBS)
-
-#
-#   version
-#
-version: $(DEPS_55)
-	@echo 0.6.0-0
 
 #
 #   stop
 #
 stop: $(DEPS_56)
-
 
 #
 #   installBinary
@@ -702,12 +704,12 @@ stop: $(DEPS_56)
 DEPS_57 = $(DEPS_57) stop
 
 installBinary: $(DEPS_57)
+#  Omit build script installBinary
 
 #
 #   start
 #
 start: $(DEPS_58)
-
 
 #
 #   install
@@ -725,4 +727,5 @@ install: $(DEPS_59)
 DEPS_60 = $(DEPS_60) stop
 
 uninstall: $(DEPS_60)
+
 
