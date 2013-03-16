@@ -142,8 +142,8 @@
 #ifndef BIT_PRODUCT
     #define BIT_PRODUCT "est"
 #endif
-#ifndef BIT_REQUIRED
-    #define BIT_REQUIRED "compiler,lib,link"
+#ifndef BIT_REQUIRES
+    #define BIT_REQUIRES "compiler,lib,link"
 #endif
 #ifndef BIT_SYNC
     #define BIT_SYNC "bitos"
