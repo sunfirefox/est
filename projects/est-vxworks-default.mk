@@ -6,56 +6,56 @@ export WIND_BASE := $(WIND_BASE)
 export WIND_HOME := $(WIND_BASE)/..
 export WIND_PLATFORM := $(WIND_PLATFORM)
 
-PRODUCT           := est
-VERSION           := 0.6.0
-BUILD_NUMBER      := 0
-PROFILE           := default
-ARCH              := $(shell uname -m | sed 's/i.86/x86/;s/x86_64/x64/;s/arm.*/arm/;s/mips.*/mips/')
-OS                := vxworks
-CC                := ccpentium
-LD                := /usr/bin/ld
-CONFIG            := $(OS)-$(ARCH)-$(PROFILE)
-LBIN              := $(CONFIG)/bin
+PRODUCT            := est
+VERSION            := 0.6.0
+BUILD_NUMBER       := 0
+PROFILE            := default
+ARCH               := $(shell uname -m | sed 's/i.86/x86/;s/x86_64/x64/;s/arm.*/arm/;s/mips.*/mips/')
+OS                 := vxworks
+CC                 := ccpentium
+LD                 := /usr/bin/ld
+CONFIG             := $(OS)-$(ARCH)-$(PROFILE)
+LBIN               := $(CONFIG)/bin
 
 
-CFLAGS            += -fno-builtin -fno-defer-pop -fvolatile -w
-DFLAGS            += -D_REENTRANT -DVXWORKS -DRW_MULTI_THREAD -D_GNU_TOOL -DCPU=PENTIUM $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
-IFLAGS            += -I$(CONFIG)/inc -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/wrn/coreip
-LDFLAGS           += '-Wl,-r'
-LIBPATHS          += -L$(CONFIG)/bin
-LIBS              += 
+CFLAGS             += -fno-builtin -fno-defer-pop -fvolatile -w
+DFLAGS             += -D_REENTRANT -DVXWORKS -DRW_MULTI_THREAD -D_GNU_TOOL -DCPU=PENTIUM $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
+IFLAGS             += -I$(CONFIG)/inc -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/wrn/coreip
+LDFLAGS            += '-Wl,-r'
+LIBPATHS           += -L$(CONFIG)/bin
+LIBS               += 
 
-DEBUG             := debug
-CFLAGS-debug      := -g
-DFLAGS-debug      := -DBIT_DEBUG
-LDFLAGS-debug     := -g
-DFLAGS-release    := 
-CFLAGS-release    := -O2
-LDFLAGS-release   := 
-CFLAGS            += $(CFLAGS-$(DEBUG))
-DFLAGS            += $(DFLAGS-$(DEBUG))
-LDFLAGS           += $(LDFLAGS-$(DEBUG))
+DEBUG              := debug
+CFLAGS-debug       := -g
+DFLAGS-debug       := -DBIT_DEBUG
+LDFLAGS-debug      := -g
+DFLAGS-release     := 
+CFLAGS-release     := -O2
+LDFLAGS-release    := 
+CFLAGS             += $(CFLAGS-$(DEBUG))
+DFLAGS             += $(DFLAGS-$(DEBUG))
+LDFLAGS            += $(LDFLAGS-$(DEBUG))
 
-BIT_ROOT_PREFIX   := deploy
-BIT_BASE_PREFIX   := $(BIT_ROOT_PREFIX)
-BIT_DATA_PREFIX   := $(BIT_VAPP_PREFIX)
-BIT_STATE_PREFIX  := $(BIT_VAPP_PREFIX)
-BIT_BIN_PREFIX    := $(BIT_VAPP_PREFIX)
-BIT_INC_PREFIX    := $(BIT_VAPP_PREFIX)/inc
-BIT_LIB_PREFIX    := $(BIT_VAPP_PREFIX)
-BIT_MAN_PREFIX    := $(BIT_VAPP_PREFIX)
-BIT_SBIN_PREFIX   := $(BIT_VAPP_PREFIX)
-BIT_ETC_PREFIX    := $(BIT_VAPP_PREFIX)
-BIT_WEB_PREFIX    := $(BIT_VAPP_PREFIX)/web
-BIT_LOG_PREFIX    := $(BIT_VAPP_PREFIX)
-BIT_SPOOL_PREFIX  := $(BIT_VAPP_PREFIX)
-BIT_CACHE_PREFIX  := $(BIT_VAPP_PREFIX)
-BIT_APP_PREFIX    := $(BIT_BASE_PREFIX)
-BIT_VAPP_PREFIX   := $(BIT_APP_PREFIX)
-BIT_SRC_PREFIX    := $(BIT_ROOT_PREFIX)/usr/src/$(PRODUCT)-$(VERSION)
+BIT_ROOT_PREFIX    := deploy
+BIT_BASE_PREFIX    := $(BIT_ROOT_PREFIX)
+BIT_DATA_PREFIX    := $(BIT_VAPP_PREFIX)
+BIT_STATE_PREFIX   := $(BIT_VAPP_PREFIX)
+BIT_BIN_PREFIX     := $(BIT_VAPP_PREFIX)
+BIT_INC_PREFIX     := $(BIT_VAPP_PREFIX)/inc
+BIT_LIB_PREFIX     := $(BIT_VAPP_PREFIX)
+BIT_MAN_PREFIX     := $(BIT_VAPP_PREFIX)
+BIT_SBIN_PREFIX    := $(BIT_VAPP_PREFIX)
+BIT_ETC_PREFIX     := $(BIT_VAPP_PREFIX)
+BIT_WEB_PREFIX     := $(BIT_VAPP_PREFIX)/web
+BIT_LOG_PREFIX     := $(BIT_VAPP_PREFIX)
+BIT_SPOOL_PREFIX   := $(BIT_VAPP_PREFIX)
+BIT_CACHE_PREFIX   := $(BIT_VAPP_PREFIX)
+BIT_APP_PREFIX     := $(BIT_BASE_PREFIX)
+BIT_VAPP_PREFIX    := $(BIT_APP_PREFIX)
+BIT_SRC_PREFIX     := $(BIT_ROOT_PREFIX)/usr/src/$(PRODUCT)-$(VERSION)
 
 
-TARGETS           += $(CONFIG)/bin/libest.out
+TARGETS            += $(CONFIG)/bin/libest.out
 
 unexport CDPATH
 
@@ -701,7 +701,7 @@ DEPS_55 += $(CONFIG)/obj/xtea.o
 
 $(CONFIG)/bin/libest.out: $(DEPS_55)
 	@echo '      [Link] libest'
-	$(CC) -r -o $(CONFIG)/bin/libest.out $(LDFLAGS) $(LIBPATHS) $(CONFIG)/obj/aes.o $(CONFIG)/obj/arc4.o $(CONFIG)/obj/base64.o $(CONFIG)/obj/bignum.o $(CONFIG)/obj/camellia.o $(CONFIG)/obj/certs.o $(CONFIG)/obj/debug.o $(CONFIG)/obj/des.o $(CONFIG)/obj/dhm.o $(CONFIG)/obj/havege.o $(CONFIG)/obj/md2.o $(CONFIG)/obj/md4.o $(CONFIG)/obj/md5.o $(CONFIG)/obj/net.o $(CONFIG)/obj/padlock.o $(CONFIG)/obj/rsa.o $(CONFIG)/obj/sha1.o $(CONFIG)/obj/sha2.o $(CONFIG)/obj/sha4.o $(CONFIG)/obj/ssl_cli.o $(CONFIG)/obj/ssl_srv.o $(CONFIG)/obj/ssl_tls.o $(CONFIG)/obj/timing.o $(CONFIG)/obj/x509parse.o $(CONFIG)/obj/xtea.o 
+	$(CC) -r -o $(CONFIG)/bin/libest.out $(LDFLAGS) $(LIBPATHS) $(CONFIG)/obj/aes.o $(CONFIG)/obj/arc4.o $(CONFIG)/obj/base64.o $(CONFIG)/obj/bignum.o $(CONFIG)/obj/camellia.o $(CONFIG)/obj/certs.o $(CONFIG)/obj/debug.o $(CONFIG)/obj/des.o $(CONFIG)/obj/dhm.o $(CONFIG)/obj/havege.o $(CONFIG)/obj/md2.o $(CONFIG)/obj/md4.o $(CONFIG)/obj/md5.o $(CONFIG)/obj/net.o $(CONFIG)/obj/padlock.o $(CONFIG)/obj/rsa.o $(CONFIG)/obj/sha1.o $(CONFIG)/obj/sha2.o $(CONFIG)/obj/sha4.o $(CONFIG)/obj/ssl_cli.o $(CONFIG)/obj/ssl_srv.o $(CONFIG)/obj/ssl_tls.o $(CONFIG)/obj/timing.o $(CONFIG)/obj/x509parse.o $(CONFIG)/obj/xtea.o  
 
 #
 #   stop
@@ -736,5 +736,4 @@ install: $(DEPS_59)
 DEPS_60 += stop
 
 uninstall: $(DEPS_60)
-	
 
