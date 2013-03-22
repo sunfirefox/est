@@ -14,6 +14,10 @@ CONFIG             := $(OS)-$(ARCH)-$(PROFILE)
 LBIN               := $(CONFIG)/bin
 
 
+ifeq ($(BIT_PACK_LIB),1)
+    BIT_PACK_COMPILER := 1
+endif
+
 CFLAGS             += -fPIC  -w
 DFLAGS             += -D_REENTRANT -DPIC  $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
 IFLAGS             += -I$(CONFIG)/inc
@@ -77,32 +81,32 @@ prep:
 	fi; true
 
 clean:
-	rm -f "$(CONFIG)/bin/libest.so"
-	rm -f "$(CONFIG)/obj/aes.o"
-	rm -f "$(CONFIG)/obj/arc4.o"
-	rm -f "$(CONFIG)/obj/base64.o"
-	rm -f "$(CONFIG)/obj/bignum.o"
-	rm -f "$(CONFIG)/obj/camellia.o"
-	rm -f "$(CONFIG)/obj/certs.o"
-	rm -f "$(CONFIG)/obj/debug.o"
-	rm -f "$(CONFIG)/obj/des.o"
-	rm -f "$(CONFIG)/obj/dhm.o"
-	rm -f "$(CONFIG)/obj/havege.o"
-	rm -f "$(CONFIG)/obj/md2.o"
-	rm -f "$(CONFIG)/obj/md4.o"
-	rm -f "$(CONFIG)/obj/md5.o"
-	rm -f "$(CONFIG)/obj/net.o"
-	rm -f "$(CONFIG)/obj/padlock.o"
-	rm -f "$(CONFIG)/obj/rsa.o"
-	rm -f "$(CONFIG)/obj/sha1.o"
-	rm -f "$(CONFIG)/obj/sha2.o"
-	rm -f "$(CONFIG)/obj/sha4.o"
-	rm -f "$(CONFIG)/obj/ssl_cli.o"
-	rm -f "$(CONFIG)/obj/ssl_srv.o"
-	rm -f "$(CONFIG)/obj/ssl_tls.o"
-	rm -f "$(CONFIG)/obj/timing.o"
-	rm -f "$(CONFIG)/obj/x509parse.o"
-	rm -f "$(CONFIG)/obj/xtea.o"
+	rm -fr "$(CONFIG)/bin/libest.so"
+	rm -fr "$(CONFIG)/obj/aes.o"
+	rm -fr "$(CONFIG)/obj/arc4.o"
+	rm -fr "$(CONFIG)/obj/base64.o"
+	rm -fr "$(CONFIG)/obj/bignum.o"
+	rm -fr "$(CONFIG)/obj/camellia.o"
+	rm -fr "$(CONFIG)/obj/certs.o"
+	rm -fr "$(CONFIG)/obj/debug.o"
+	rm -fr "$(CONFIG)/obj/des.o"
+	rm -fr "$(CONFIG)/obj/dhm.o"
+	rm -fr "$(CONFIG)/obj/havege.o"
+	rm -fr "$(CONFIG)/obj/md2.o"
+	rm -fr "$(CONFIG)/obj/md4.o"
+	rm -fr "$(CONFIG)/obj/md5.o"
+	rm -fr "$(CONFIG)/obj/net.o"
+	rm -fr "$(CONFIG)/obj/padlock.o"
+	rm -fr "$(CONFIG)/obj/rsa.o"
+	rm -fr "$(CONFIG)/obj/sha1.o"
+	rm -fr "$(CONFIG)/obj/sha2.o"
+	rm -fr "$(CONFIG)/obj/sha4.o"
+	rm -fr "$(CONFIG)/obj/ssl_cli.o"
+	rm -fr "$(CONFIG)/obj/ssl_srv.o"
+	rm -fr "$(CONFIG)/obj/ssl_tls.o"
+	rm -fr "$(CONFIG)/obj/timing.o"
+	rm -fr "$(CONFIG)/obj/x509parse.o"
+	rm -fr "$(CONFIG)/obj/xtea.o"
 
 clobber: clean
 	rm -fr ./$(CONFIG)

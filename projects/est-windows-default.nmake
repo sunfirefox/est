@@ -20,6 +20,13 @@ OS                = windows
 CONFIG            = $(OS)-$(ARCH)-$(PROFILE)
 LBIN              = $(CONFIG)\bin
 
+ifeq ($(BIT_PACK_LIB),1)
+    BIT_PACK_COMPILER := 1
+endif
+ifeq ($(BIT_PACK_RC),1)
+    BIT_PACK_WINSDK := 1
+endif
+
 CC                = cl
 LD                = link
 RC                = rc
@@ -73,32 +80,32 @@ prep:
 	@if not exist $(CONFIG)\inc\bit.h copy projects\est-windows-default-bit.h $(CONFIG)\inc\bit.h
 
 clean:
-	if exist "$(CONFIG)\bin\libest.dll" rd /Q "$(CONFIG)\bin\libest.dll"
-	if exist "$(CONFIG)\obj\aes.obj" rd /Q "$(CONFIG)\obj\aes.obj"
-	if exist "$(CONFIG)\obj\arc4.obj" rd /Q "$(CONFIG)\obj\arc4.obj"
-	if exist "$(CONFIG)\obj\base64.obj" rd /Q "$(CONFIG)\obj\base64.obj"
-	if exist "$(CONFIG)\obj\bignum.obj" rd /Q "$(CONFIG)\obj\bignum.obj"
-	if exist "$(CONFIG)\obj\camellia.obj" rd /Q "$(CONFIG)\obj\camellia.obj"
-	if exist "$(CONFIG)\obj\certs.obj" rd /Q "$(CONFIG)\obj\certs.obj"
-	if exist "$(CONFIG)\obj\debug.obj" rd /Q "$(CONFIG)\obj\debug.obj"
-	if exist "$(CONFIG)\obj\des.obj" rd /Q "$(CONFIG)\obj\des.obj"
-	if exist "$(CONFIG)\obj\dhm.obj" rd /Q "$(CONFIG)\obj\dhm.obj"
-	if exist "$(CONFIG)\obj\havege.obj" rd /Q "$(CONFIG)\obj\havege.obj"
-	if exist "$(CONFIG)\obj\md2.obj" rd /Q "$(CONFIG)\obj\md2.obj"
-	if exist "$(CONFIG)\obj\md4.obj" rd /Q "$(CONFIG)\obj\md4.obj"
-	if exist "$(CONFIG)\obj\md5.obj" rd /Q "$(CONFIG)\obj\md5.obj"
-	if exist "$(CONFIG)\obj\net.obj" rd /Q "$(CONFIG)\obj\net.obj"
-	if exist "$(CONFIG)\obj\padlock.obj" rd /Q "$(CONFIG)\obj\padlock.obj"
-	if exist "$(CONFIG)\obj\rsa.obj" rd /Q "$(CONFIG)\obj\rsa.obj"
-	if exist "$(CONFIG)\obj\sha1.obj" rd /Q "$(CONFIG)\obj\sha1.obj"
-	if exist "$(CONFIG)\obj\sha2.obj" rd /Q "$(CONFIG)\obj\sha2.obj"
-	if exist "$(CONFIG)\obj\sha4.obj" rd /Q "$(CONFIG)\obj\sha4.obj"
-	if exist "$(CONFIG)\obj\ssl_cli.obj" rd /Q "$(CONFIG)\obj\ssl_cli.obj"
-	if exist "$(CONFIG)\obj\ssl_srv.obj" rd /Q "$(CONFIG)\obj\ssl_srv.obj"
-	if exist "$(CONFIG)\obj\ssl_tls.obj" rd /Q "$(CONFIG)\obj\ssl_tls.obj"
-	if exist "$(CONFIG)\obj\timing.obj" rd /Q "$(CONFIG)\obj\timing.obj"
-	if exist "$(CONFIG)\obj\x509parse.obj" rd /Q "$(CONFIG)\obj\x509parse.obj"
-	if exist "$(CONFIG)\obj\xtea.obj" rd /Q "$(CONFIG)\obj\xtea.obj"
+	if exist "$(CONFIG)\bin\libest.dll" rd /Q /S"$(CONFIG)\bin\libest.dll"
+	if exist "$(CONFIG)\obj\aes.obj" rd /Q /S"$(CONFIG)\obj\aes.obj"
+	if exist "$(CONFIG)\obj\arc4.obj" rd /Q /S"$(CONFIG)\obj\arc4.obj"
+	if exist "$(CONFIG)\obj\base64.obj" rd /Q /S"$(CONFIG)\obj\base64.obj"
+	if exist "$(CONFIG)\obj\bignum.obj" rd /Q /S"$(CONFIG)\obj\bignum.obj"
+	if exist "$(CONFIG)\obj\camellia.obj" rd /Q /S"$(CONFIG)\obj\camellia.obj"
+	if exist "$(CONFIG)\obj\certs.obj" rd /Q /S"$(CONFIG)\obj\certs.obj"
+	if exist "$(CONFIG)\obj\debug.obj" rd /Q /S"$(CONFIG)\obj\debug.obj"
+	if exist "$(CONFIG)\obj\des.obj" rd /Q /S"$(CONFIG)\obj\des.obj"
+	if exist "$(CONFIG)\obj\dhm.obj" rd /Q /S"$(CONFIG)\obj\dhm.obj"
+	if exist "$(CONFIG)\obj\havege.obj" rd /Q /S"$(CONFIG)\obj\havege.obj"
+	if exist "$(CONFIG)\obj\md2.obj" rd /Q /S"$(CONFIG)\obj\md2.obj"
+	if exist "$(CONFIG)\obj\md4.obj" rd /Q /S"$(CONFIG)\obj\md4.obj"
+	if exist "$(CONFIG)\obj\md5.obj" rd /Q /S"$(CONFIG)\obj\md5.obj"
+	if exist "$(CONFIG)\obj\net.obj" rd /Q /S"$(CONFIG)\obj\net.obj"
+	if exist "$(CONFIG)\obj\padlock.obj" rd /Q /S"$(CONFIG)\obj\padlock.obj"
+	if exist "$(CONFIG)\obj\rsa.obj" rd /Q /S"$(CONFIG)\obj\rsa.obj"
+	if exist "$(CONFIG)\obj\sha1.obj" rd /Q /S"$(CONFIG)\obj\sha1.obj"
+	if exist "$(CONFIG)\obj\sha2.obj" rd /Q /S"$(CONFIG)\obj\sha2.obj"
+	if exist "$(CONFIG)\obj\sha4.obj" rd /Q /S"$(CONFIG)\obj\sha4.obj"
+	if exist "$(CONFIG)\obj\ssl_cli.obj" rd /Q /S"$(CONFIG)\obj\ssl_cli.obj"
+	if exist "$(CONFIG)\obj\ssl_srv.obj" rd /Q /S"$(CONFIG)\obj\ssl_srv.obj"
+	if exist "$(CONFIG)\obj\ssl_tls.obj" rd /Q /S"$(CONFIG)\obj\ssl_tls.obj"
+	if exist "$(CONFIG)\obj\timing.obj" rd /Q /S"$(CONFIG)\obj\timing.obj"
+	if exist "$(CONFIG)\obj\x509parse.obj" rd /Q /S"$(CONFIG)\obj\x509parse.obj"
+	if exist "$(CONFIG)\obj\xtea.obj" rd /Q /S"$(CONFIG)\obj\xtea.obj"
 
 
 

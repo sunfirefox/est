@@ -239,7 +239,7 @@
 
 /* Profile */
 #ifndef BIT_CONFIG_CMD
-    #define BIT_CONFIG_CMD "bit -d -q -platform freebsd-x86-default -configure . --without default -gen make"
+    #define BIT_CONFIG_CMD "bit -d -q -platform freebsd-x86-default -configure . -gen make"
 #endif
 #ifndef BIT_EST_PRODUCT
     #define BIT_EST_PRODUCT 1
@@ -266,14 +266,11 @@
 #ifndef BIT_PACK_CC
     #define BIT_PACK_CC 1
 #endif
-#ifndef BIT_PACK_DEFAULT
-    #define BIT_PACK_DEFAULT 0
-#endif
 #ifndef BIT_PACK_DOXYGEN
-    #define BIT_PACK_DOXYGEN 0
+    #define BIT_PACK_DOXYGEN 1
 #endif
 #ifndef BIT_PACK_DSI
-    #define BIT_PACK_DSI 0
+    #define BIT_PACK_DSI 1
 #endif
 #ifndef BIT_PACK_LIB
     #define BIT_PACK_LIB 1
@@ -282,13 +279,13 @@
     #define BIT_PACK_LINK 1
 #endif
 #ifndef BIT_PACK_MAN
-    #define BIT_PACK_MAN 0
+    #define BIT_PACK_MAN 1
 #endif
 #ifndef BIT_PACK_MAN2HTML
-    #define BIT_PACK_MAN2HTML 0
+    #define BIT_PACK_MAN2HTML 1
 #endif
 #ifndef BIT_PACK_PMAKER
-    #define BIT_PACK_PMAKER 0
+    #define BIT_PACK_PMAKER 1
 #endif
 #ifndef BIT_PACK_UTEST
     #define BIT_PACK_UTEST 1
