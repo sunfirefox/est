@@ -703,6 +703,7 @@ $(CONFIG)\bin\libest.dll: $(DEPS_55)
 #   stop
 #
 stop: $(DEPS_56)
+#  Omit build script stop
 
 #
 #   installBinary
@@ -715,6 +716,7 @@ installBinary: $(DEPS_57)
 #   start
 #
 start: $(DEPS_58)
+#  Omit build script start
 
 #
 #   install

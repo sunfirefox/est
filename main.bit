@@ -45,11 +45,6 @@ Bit.load({
          */
         'without-all': ['doxygen', 'dsi', 'man', 'man2html', 'pmaker' ],
 
-        /*
-            Packs to disable when using --without default (generating packages)
-         */
-        'without-default': ['doxygen', 'dsi', 'man', 'man2html', 'pmaker' ],
-
         est: {
             /*
                 AES is required for the ciphers:

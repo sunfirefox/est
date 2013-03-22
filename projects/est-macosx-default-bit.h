@@ -163,9 +163,6 @@
 #ifndef BIT_WITHOUT_ALL
     #define BIT_WITHOUT_ALL "doxygen,dsi,man,man2html,pmaker"
 #endif
-#ifndef BIT_WITHOUT_DEFAULT
-    #define BIT_WITHOUT_DEFAULT "doxygen,dsi,man,man2html,pmaker"
-#endif
 
 /* Prefixes */
 #ifndef BIT_ROOT_PREFIX
