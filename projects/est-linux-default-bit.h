@@ -282,7 +282,7 @@
     #define BIT_PACK_MAN2HTML 1
 #endif
 #ifndef BIT_PACK_PMAKER
-    #define BIT_PACK_PMAKER 0
+    #define BIT_PACK_PMAKER 1
 #endif
 #ifndef BIT_PACK_UTEST
     #define BIT_PACK_UTEST 1

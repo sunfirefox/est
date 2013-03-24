@@ -711,8 +711,6 @@ stop: $(DEPS_56)
 #
 #   installBinary
 #
-DEPS_57 = $(DEPS_57) stop
-
 installBinary: $(DEPS_57)
 
 #
