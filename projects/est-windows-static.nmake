@@ -1,11 +1,11 @@
 #
-#   est-windows-default.nmake -- Makefile to build Embedded Security Transport for windows
+#   est-windows-static.nmake -- Makefile to build Embedded Security Transport for windows
 #
 
 PRODUCT            = est
 VERSION            = 0.6.0
 BUILD_NUMBER       = 0
-PROFILE            = default
+PROFILE            = static
 PA                 = $(PROCESSOR_ARCHITECTURE)
 
 !IF "$(PA)" == "AMD64"
@@ -71,7 +71,7 @@ BIT_CACHE_PREFIX   = $(BIT_VAPP_PREFIX)\cache
 BIT_SRC_PREFIX     = $(BIT_VAPP_PREFIX)\src
 
 
-TARGETS            = $(TARGETS) $(CONFIG)\bin\libest.dll
+TARGETS            = $(TARGETS) $(CONFIG)\bin\libest.lib
 
 !IFNDEF SHOW
 .SILENT:
@@ -93,10 +93,10 @@ prep:
 	@if not exist $(CONFIG)\bin md $(CONFIG)\bin
 	@if not exist $(CONFIG)\inc md $(CONFIG)\inc
 	@if not exist $(CONFIG)\obj md $(CONFIG)\obj
-	@if not exist $(CONFIG)\inc\bit.h copy projects\est-windows-default-bit.h $(CONFIG)\inc\bit.h
+	@if not exist $(CONFIG)\inc\bit.h copy projects\est-windows-static-bit.h $(CONFIG)\inc\bit.h
 
 clean:
-	if exist "$(CONFIG)\bin\libest.dll" rd /Q /S"$(CONFIG)\bin\libest.dll"
+	if exist "$(CONFIG)\bin\libest.lib" rd /Q /S"$(CONFIG)\bin\libest.lib"
 	if exist "$(CONFIG)\obj\aes.obj" rd /Q /S"$(CONFIG)\obj\aes.obj"
 	if exist "$(CONFIG)\obj\arc4.obj" rd /Q /S"$(CONFIG)\obj\arc4.obj"
 	if exist "$(CONFIG)\obj\base64.obj" rd /Q /S"$(CONFIG)\obj\base64.obj"
@@ -711,9 +711,9 @@ DEPS_55 = $(DEPS_55) $(CONFIG)\obj\timing.obj
 DEPS_55 = $(DEPS_55) $(CONFIG)\obj\x509parse.obj
 DEPS_55 = $(DEPS_55) $(CONFIG)\obj\xtea.obj
 
-$(CONFIG)\bin\libest.dll: $(DEPS_55)
+$(CONFIG)\bin\libest.lib: $(DEPS_55)
 	@echo '      [Link] libest'
-	"$(LD)" -dll -out:$(CONFIG)\bin\libest.dll -entry:$(ENTRY) $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\aes.obj $(CONFIG)\obj\arc4.obj $(CONFIG)\obj\base64.obj $(CONFIG)\obj\bignum.obj $(CONFIG)\obj\camellia.obj $(CONFIG)\obj\certs.obj $(CONFIG)\obj\debug.obj $(CONFIG)\obj\des.obj $(CONFIG)\obj\dhm.obj $(CONFIG)\obj\havege.obj $(CONFIG)\obj\md2.obj $(CONFIG)\obj\md4.obj $(CONFIG)\obj\md5.obj $(CONFIG)\obj\net.obj $(CONFIG)\obj\padlock.obj $(CONFIG)\obj\rsa.obj $(CONFIG)\obj\sha1.obj $(CONFIG)\obj\sha2.obj $(CONFIG)\obj\sha4.obj $(CONFIG)\obj\ssl_cli.obj $(CONFIG)\obj\ssl_srv.obj $(CONFIG)\obj\ssl_tls.obj $(CONFIG)\obj\timing.obj $(CONFIG)\obj\x509parse.obj $(CONFIG)\obj\xtea.obj $(LIBS) 
+	"lib.exe" -nologo -out:$(CONFIG)\bin\libest.lib $(CONFIG)\obj\aes.obj $(CONFIG)\obj\arc4.obj $(CONFIG)\obj\base64.obj $(CONFIG)\obj\bignum.obj $(CONFIG)\obj\camellia.obj $(CONFIG)\obj\certs.obj $(CONFIG)\obj\debug.obj $(CONFIG)\obj\des.obj $(CONFIG)\obj\dhm.obj $(CONFIG)\obj\havege.obj $(CONFIG)\obj\md2.obj $(CONFIG)\obj\md4.obj $(CONFIG)\obj\md5.obj $(CONFIG)\obj\net.obj $(CONFIG)\obj\padlock.obj $(CONFIG)\obj\rsa.obj $(CONFIG)\obj\sha1.obj $(CONFIG)\obj\sha2.obj $(CONFIG)\obj\sha4.obj $(CONFIG)\obj\ssl_cli.obj $(CONFIG)\obj\ssl_srv.obj $(CONFIG)\obj\ssl_tls.obj $(CONFIG)\obj\timing.obj $(CONFIG)\obj\x509parse.obj $(CONFIG)\obj\xtea.obj
 
 #
 #   stop

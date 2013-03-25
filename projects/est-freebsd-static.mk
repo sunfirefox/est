@@ -1,14 +1,14 @@
 #
-#   est-macosx-default.mk -- Makefile to build Embedded Security Transport for macosx
+#   est-freebsd-static.mk -- Makefile to build Embedded Security Transport for freebsd
 #
 
 PRODUCT            := est
 VERSION            := 0.6.0
 BUILD_NUMBER       := 0
-PROFILE            := default
+PROFILE            := static
 ARCH               := $(shell uname -m | sed 's/i.86/x86/;s/x86_64/x64/;s/arm.*/arm/;s/mips.*/mips/')
-OS                 := macosx
-CC                 := clang
+OS                 := freebsd
+CC                 := gcc
 LD                 := link
 CONFIG             := $(OS)-$(ARCH)-$(PROFILE)
 LBIN               := $(CONFIG)/bin
@@ -18,7 +18,7 @@ ifeq ($(BIT_PACK_LIB),1)
     BIT_PACK_COMPILER := 1
 endif
 
-BIT_PACK_COMPILER_PATH    := clang
+BIT_PACK_COMPILER_PATH    := gcc
 BIT_PACK_DOXYGEN_PATH     := doxygen
 BIT_PACK_DSI_PATH         := dsi
 BIT_PACK_LIB_PATH         := ar
@@ -29,10 +29,10 @@ BIT_PACK_PMAKER_PATH      := pmaker
 BIT_PACK_UTEST_PATH       := utest
 BIT_PACK_ZIP_PATH         := zip
 
-CFLAGS             += -w
-DFLAGS             +=  $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
+CFLAGS             += -fPIC  -w
+DFLAGS             += -D_REENTRANT -DPIC  $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
 IFLAGS             += -I$(CONFIG)/inc
-LDFLAGS            += '-Wl,-rpath,@executable_path/' '-Wl,-rpath,@loader_path/'
+LDFLAGS            += '-g'
 LIBPATHS           += -L$(CONFIG)/bin
 LIBS               += -lpthread -lm -ldl
 
@@ -66,7 +66,7 @@ BIT_CACHE_PREFIX   := $(BIT_ROOT_PREFIX)/var/spool/$(PRODUCT)/cache
 BIT_SRC_PREFIX     := $(BIT_ROOT_PREFIX)$(PRODUCT)-$(VERSION)
 
 
-TARGETS            += $(CONFIG)/bin/libest.dylib
+TARGETS            += $(CONFIG)/bin/libest.a
 
 unexport CDPATH
 
@@ -85,13 +85,13 @@ prep:
 	@[ ! -x $(CONFIG)/bin ] && mkdir -p $(CONFIG)/bin; true
 	@[ ! -x $(CONFIG)/inc ] && mkdir -p $(CONFIG)/inc; true
 	@[ ! -x $(CONFIG)/obj ] && mkdir -p $(CONFIG)/obj; true
-	@[ ! -f $(CONFIG)/inc/bit.h ] && cp projects/est-macosx-default-bit.h $(CONFIG)/inc/bit.h ; true
+	@[ ! -f $(CONFIG)/inc/bit.h ] && cp projects/est-freebsd-static-bit.h $(CONFIG)/inc/bit.h ; true
 	@[ ! -f $(CONFIG)/inc/bitos.h ] && cp src/bitos.h $(CONFIG)/inc/bitos.h ; true
 	@if ! diff $(CONFIG)/inc/bitos.h src/bitos.h >/dev/null ; then\
 		cp src/bitos.h $(CONFIG)/inc/bitos.h  ; \
 	fi; true
-	@if ! diff $(CONFIG)/inc/bit.h projects/est-macosx-default-bit.h >/dev/null ; then\
-		cp projects/est-macosx-default-bit.h $(CONFIG)/inc/bit.h  ; \
+	@if ! diff $(CONFIG)/inc/bit.h projects/est-freebsd-static-bit.h >/dev/null ; then\
+		cp projects/est-freebsd-static-bit.h $(CONFIG)/inc/bit.h  ; \
 	fi; true
 	@if [ -f "$(CONFIG)/.makeflags" ] ; then \
 		if [ "$(MAKEFLAGS)" != " ` cat $(CONFIG)/.makeflags`" ] ; then \
@@ -100,7 +100,7 @@ prep:
 	fi
 	@echo $(MAKEFLAGS) >$(CONFIG)/.makeflags
 clean:
-	rm -fr "$(CONFIG)/bin/libest.dylib"
+	rm -fr "$(CONFIG)/bin/libest.a"
 	rm -fr "$(CONFIG)/obj/aes.o"
 	rm -fr "$(CONFIG)/obj/arc4.o"
 	rm -fr "$(CONFIG)/obj/base64.o"
@@ -396,7 +396,7 @@ DEPS_30 += $(CONFIG)/inc/xtea.h
 $(CONFIG)/obj/aes.o: \
     src/aes.c $(DEPS_30)
 	@echo '   [Compile] src/aes.c'
-	$(CC) -c -o $(CONFIG)/obj/aes.o $(DFLAGS) $(IFLAGS) src/aes.c
+	$(CC) -c -o $(CONFIG)/obj/aes.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/aes.c
 
 #
 #   arc4.o
@@ -407,7 +407,7 @@ DEPS_31 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/arc4.o: \
     src/arc4.c $(DEPS_31)
 	@echo '   [Compile] src/arc4.c'
-	$(CC) -c -o $(CONFIG)/obj/arc4.o $(DFLAGS) $(IFLAGS) src/arc4.c
+	$(CC) -c -o $(CONFIG)/obj/arc4.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/arc4.c
 
 #
 #   base64.o
@@ -418,7 +418,7 @@ DEPS_32 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/base64.o: \
     src/base64.c $(DEPS_32)
 	@echo '   [Compile] src/base64.c'
-	$(CC) -c -o $(CONFIG)/obj/base64.o $(DFLAGS) $(IFLAGS) src/base64.c
+	$(CC) -c -o $(CONFIG)/obj/base64.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/base64.c
 
 #
 #   bignum.o
@@ -429,7 +429,7 @@ DEPS_33 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/bignum.o: \
     src/bignum.c $(DEPS_33)
 	@echo '   [Compile] src/bignum.c'
-	$(CC) -c -o $(CONFIG)/obj/bignum.o $(DFLAGS) $(IFLAGS) src/bignum.c
+	$(CC) -c -o $(CONFIG)/obj/bignum.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/bignum.c
 
 #
 #   camellia.o
@@ -440,7 +440,7 @@ DEPS_34 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/camellia.o: \
     src/camellia.c $(DEPS_34)
 	@echo '   [Compile] src/camellia.c'
-	$(CC) -c -o $(CONFIG)/obj/camellia.o $(DFLAGS) $(IFLAGS) src/camellia.c
+	$(CC) -c -o $(CONFIG)/obj/camellia.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/camellia.c
 
 #
 #   certs.o
@@ -451,7 +451,7 @@ DEPS_35 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/certs.o: \
     src/certs.c $(DEPS_35)
 	@echo '   [Compile] src/certs.c'
-	$(CC) -c -o $(CONFIG)/obj/certs.o $(DFLAGS) $(IFLAGS) src/certs.c
+	$(CC) -c -o $(CONFIG)/obj/certs.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/certs.c
 
 #
 #   debug.o
@@ -462,7 +462,7 @@ DEPS_36 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/debug.o: \
     src/debug.c $(DEPS_36)
 	@echo '   [Compile] src/debug.c'
-	$(CC) -c -o $(CONFIG)/obj/debug.o $(DFLAGS) $(IFLAGS) src/debug.c
+	$(CC) -c -o $(CONFIG)/obj/debug.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/debug.c
 
 #
 #   des.o
@@ -473,7 +473,7 @@ DEPS_37 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/des.o: \
     src/des.c $(DEPS_37)
 	@echo '   [Compile] src/des.c'
-	$(CC) -c -o $(CONFIG)/obj/des.o $(DFLAGS) $(IFLAGS) src/des.c
+	$(CC) -c -o $(CONFIG)/obj/des.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/des.c
 
 #
 #   dhm.o
@@ -484,7 +484,7 @@ DEPS_38 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/dhm.o: \
     src/dhm.c $(DEPS_38)
 	@echo '   [Compile] src/dhm.c'
-	$(CC) -c -o $(CONFIG)/obj/dhm.o $(DFLAGS) $(IFLAGS) src/dhm.c
+	$(CC) -c -o $(CONFIG)/obj/dhm.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/dhm.c
 
 #
 #   havege.o
@@ -495,7 +495,7 @@ DEPS_39 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/havege.o: \
     src/havege.c $(DEPS_39)
 	@echo '   [Compile] src/havege.c'
-	$(CC) -c -o $(CONFIG)/obj/havege.o $(DFLAGS) $(IFLAGS) src/havege.c
+	$(CC) -c -o $(CONFIG)/obj/havege.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/havege.c
 
 #
 #   md2.o
@@ -506,7 +506,7 @@ DEPS_40 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/md2.o: \
     src/md2.c $(DEPS_40)
 	@echo '   [Compile] src/md2.c'
-	$(CC) -c -o $(CONFIG)/obj/md2.o $(DFLAGS) $(IFLAGS) src/md2.c
+	$(CC) -c -o $(CONFIG)/obj/md2.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/md2.c
 
 #
 #   md4.o
@@ -517,7 +517,7 @@ DEPS_41 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/md4.o: \
     src/md4.c $(DEPS_41)
 	@echo '   [Compile] src/md4.c'
-	$(CC) -c -o $(CONFIG)/obj/md4.o $(DFLAGS) $(IFLAGS) src/md4.c
+	$(CC) -c -o $(CONFIG)/obj/md4.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/md4.c
 
 #
 #   md5.o
@@ -528,7 +528,7 @@ DEPS_42 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/md5.o: \
     src/md5.c $(DEPS_42)
 	@echo '   [Compile] src/md5.c'
-	$(CC) -c -o $(CONFIG)/obj/md5.o $(DFLAGS) $(IFLAGS) src/md5.c
+	$(CC) -c -o $(CONFIG)/obj/md5.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/md5.c
 
 #
 #   net.o
@@ -539,7 +539,7 @@ DEPS_43 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/net.o: \
     src/net.c $(DEPS_43)
 	@echo '   [Compile] src/net.c'
-	$(CC) -c -o $(CONFIG)/obj/net.o $(DFLAGS) $(IFLAGS) src/net.c
+	$(CC) -c -o $(CONFIG)/obj/net.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/net.c
 
 #
 #   padlock.o
@@ -550,7 +550,7 @@ DEPS_44 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/padlock.o: \
     src/padlock.c $(DEPS_44)
 	@echo '   [Compile] src/padlock.c'
-	$(CC) -c -o $(CONFIG)/obj/padlock.o $(DFLAGS) $(IFLAGS) src/padlock.c
+	$(CC) -c -o $(CONFIG)/obj/padlock.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/padlock.c
 
 #
 #   rsa.o
@@ -561,7 +561,7 @@ DEPS_45 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/rsa.o: \
     src/rsa.c $(DEPS_45)
 	@echo '   [Compile] src/rsa.c'
-	$(CC) -c -o $(CONFIG)/obj/rsa.o $(DFLAGS) $(IFLAGS) src/rsa.c
+	$(CC) -c -o $(CONFIG)/obj/rsa.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/rsa.c
 
 #
 #   sha1.o
@@ -572,7 +572,7 @@ DEPS_46 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/sha1.o: \
     src/sha1.c $(DEPS_46)
 	@echo '   [Compile] src/sha1.c'
-	$(CC) -c -o $(CONFIG)/obj/sha1.o $(DFLAGS) $(IFLAGS) src/sha1.c
+	$(CC) -c -o $(CONFIG)/obj/sha1.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/sha1.c
 
 #
 #   sha2.o
@@ -583,7 +583,7 @@ DEPS_47 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/sha2.o: \
     src/sha2.c $(DEPS_47)
 	@echo '   [Compile] src/sha2.c'
-	$(CC) -c -o $(CONFIG)/obj/sha2.o $(DFLAGS) $(IFLAGS) src/sha2.c
+	$(CC) -c -o $(CONFIG)/obj/sha2.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/sha2.c
 
 #
 #   sha4.o
@@ -594,7 +594,7 @@ DEPS_48 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/sha4.o: \
     src/sha4.c $(DEPS_48)
 	@echo '   [Compile] src/sha4.c'
-	$(CC) -c -o $(CONFIG)/obj/sha4.o $(DFLAGS) $(IFLAGS) src/sha4.c
+	$(CC) -c -o $(CONFIG)/obj/sha4.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/sha4.c
 
 #
 #   ssl_cli.o
@@ -605,7 +605,7 @@ DEPS_49 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/ssl_cli.o: \
     src/ssl_cli.c $(DEPS_49)
 	@echo '   [Compile] src/ssl_cli.c'
-	$(CC) -c -o $(CONFIG)/obj/ssl_cli.o $(DFLAGS) $(IFLAGS) src/ssl_cli.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_cli.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/ssl_cli.c
 
 #
 #   ssl_srv.o
@@ -616,7 +616,7 @@ DEPS_50 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/ssl_srv.o: \
     src/ssl_srv.c $(DEPS_50)
 	@echo '   [Compile] src/ssl_srv.c'
-	$(CC) -c -o $(CONFIG)/obj/ssl_srv.o $(DFLAGS) $(IFLAGS) src/ssl_srv.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_srv.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/ssl_srv.c
 
 #
 #   ssl_tls.o
@@ -627,7 +627,7 @@ DEPS_51 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/ssl_tls.o: \
     src/ssl_tls.c $(DEPS_51)
 	@echo '   [Compile] src/ssl_tls.c'
-	$(CC) -c -o $(CONFIG)/obj/ssl_tls.o $(DFLAGS) $(IFLAGS) src/ssl_tls.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_tls.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/ssl_tls.c
 
 #
 #   timing.o
@@ -638,7 +638,7 @@ DEPS_52 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/timing.o: \
     src/timing.c $(DEPS_52)
 	@echo '   [Compile] src/timing.c'
-	$(CC) -c -o $(CONFIG)/obj/timing.o $(DFLAGS) $(IFLAGS) src/timing.c
+	$(CC) -c -o $(CONFIG)/obj/timing.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/timing.c
 
 #
 #   x509parse.o
@@ -649,7 +649,7 @@ DEPS_53 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/x509parse.o: \
     src/x509parse.c $(DEPS_53)
 	@echo '   [Compile] src/x509parse.c'
-	$(CC) -c -o $(CONFIG)/obj/x509parse.o $(DFLAGS) $(IFLAGS) src/x509parse.c
+	$(CC) -c -o $(CONFIG)/obj/x509parse.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/x509parse.c
 
 #
 #   xtea.o
@@ -660,7 +660,7 @@ DEPS_54 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/xtea.o: \
     src/xtea.c $(DEPS_54)
 	@echo '   [Compile] src/xtea.c'
-	$(CC) -c -o $(CONFIG)/obj/xtea.o $(DFLAGS) $(IFLAGS) src/xtea.c
+	$(CC) -c -o $(CONFIG)/obj/xtea.o -fPIC $(LDFLAGS) $(DFLAGS) $(IFLAGS) src/xtea.c
 
 #
 #   libest
@@ -718,9 +718,9 @@ DEPS_55 += $(CONFIG)/obj/timing.o
 DEPS_55 += $(CONFIG)/obj/x509parse.o
 DEPS_55 += $(CONFIG)/obj/xtea.o
 
-$(CONFIG)/bin/libest.dylib: $(DEPS_55)
+$(CONFIG)/bin/libest.a: $(DEPS_55)
 	@echo '      [Link] libest'
-	$(CC) -dynamiclib -o $(CONFIG)/bin/libest.dylib $(LDFLAGS) $(LIBPATHS) -install_name @rpath/libest.dylib -compatibility_version 0.6.0 -current_version 0.6.0 $(CONFIG)/obj/aes.o $(CONFIG)/obj/arc4.o $(CONFIG)/obj/base64.o $(CONFIG)/obj/bignum.o $(CONFIG)/obj/camellia.o $(CONFIG)/obj/certs.o $(CONFIG)/obj/debug.o $(CONFIG)/obj/des.o $(CONFIG)/obj/dhm.o $(CONFIG)/obj/havege.o $(CONFIG)/obj/md2.o $(CONFIG)/obj/md4.o $(CONFIG)/obj/md5.o $(CONFIG)/obj/net.o $(CONFIG)/obj/padlock.o $(CONFIG)/obj/rsa.o $(CONFIG)/obj/sha1.o $(CONFIG)/obj/sha2.o $(CONFIG)/obj/sha4.o $(CONFIG)/obj/ssl_cli.o $(CONFIG)/obj/ssl_srv.o $(CONFIG)/obj/ssl_tls.o $(CONFIG)/obj/timing.o $(CONFIG)/obj/x509parse.o $(CONFIG)/obj/xtea.o $(LIBS) 
+	ar -cr $(CONFIG)/bin/libest.a $(CONFIG)/obj/aes.o $(CONFIG)/obj/arc4.o $(CONFIG)/obj/base64.o $(CONFIG)/obj/bignum.o $(CONFIG)/obj/camellia.o $(CONFIG)/obj/certs.o $(CONFIG)/obj/debug.o $(CONFIG)/obj/des.o $(CONFIG)/obj/dhm.o $(CONFIG)/obj/havege.o $(CONFIG)/obj/md2.o $(CONFIG)/obj/md4.o $(CONFIG)/obj/md5.o $(CONFIG)/obj/net.o $(CONFIG)/obj/padlock.o $(CONFIG)/obj/rsa.o $(CONFIG)/obj/sha1.o $(CONFIG)/obj/sha2.o $(CONFIG)/obj/sha4.o $(CONFIG)/obj/ssl_cli.o $(CONFIG)/obj/ssl_srv.o $(CONFIG)/obj/ssl_tls.o $(CONFIG)/obj/timing.o $(CONFIG)/obj/x509parse.o $(CONFIG)/obj/xtea.o
 
 #
 #   stop

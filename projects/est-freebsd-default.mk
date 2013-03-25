@@ -18,6 +18,17 @@ ifeq ($(BIT_PACK_LIB),1)
     BIT_PACK_COMPILER := 1
 endif
 
+BIT_PACK_COMPILER_PATH    := gcc
+BIT_PACK_DOXYGEN_PATH     := doxygen
+BIT_PACK_DSI_PATH         := dsi
+BIT_PACK_LIB_PATH         := ar
+BIT_PACK_LINK_PATH        := link
+BIT_PACK_MAN_PATH         := man
+BIT_PACK_MAN2HTML_PATH    := man2html
+BIT_PACK_PMAKER_PATH      := pmaker
+BIT_PACK_UTEST_PATH       := utest
+BIT_PACK_ZIP_PATH         := zip
+
 CFLAGS             += -fPIC  -w
 DFLAGS             += -D_REENTRANT -DPIC  $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
 IFLAGS             += -I$(CONFIG)/inc
@@ -125,7 +136,7 @@ clobber: clean
 #   version
 #
 version: $(DEPS_1)
-	@echo NN 0.6.0-0
+	@echo 0.6.0-0
 
 #
 #   aes.h
@@ -133,7 +144,7 @@ version: $(DEPS_1)
 $(CONFIG)/inc/aes.h: $(DEPS_2)
 	@echo '      [Copy] $(CONFIG)/inc/aes.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/aes.h" "$(CONFIG)/inc/aes.h"
+	cp src/aes.h $(CONFIG)/inc/aes.h
 
 #
 #   arc4.h
@@ -141,7 +152,7 @@ $(CONFIG)/inc/aes.h: $(DEPS_2)
 $(CONFIG)/inc/arc4.h: $(DEPS_3)
 	@echo '      [Copy] $(CONFIG)/inc/arc4.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/arc4.h" "$(CONFIG)/inc/arc4.h"
+	cp src/arc4.h $(CONFIG)/inc/arc4.h
 
 #
 #   base64.h
@@ -149,7 +160,7 @@ $(CONFIG)/inc/arc4.h: $(DEPS_3)
 $(CONFIG)/inc/base64.h: $(DEPS_4)
 	@echo '      [Copy] $(CONFIG)/inc/base64.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/base64.h" "$(CONFIG)/inc/base64.h"
+	cp src/base64.h $(CONFIG)/inc/base64.h
 
 #
 #   bignum.h
@@ -157,7 +168,7 @@ $(CONFIG)/inc/base64.h: $(DEPS_4)
 $(CONFIG)/inc/bignum.h: $(DEPS_5)
 	@echo '      [Copy] $(CONFIG)/inc/bignum.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/bignum.h" "$(CONFIG)/inc/bignum.h"
+	cp src/bignum.h $(CONFIG)/inc/bignum.h
 
 #
 #   bit.h
@@ -173,7 +184,7 @@ DEPS_7 += $(CONFIG)/inc/bit.h
 $(CONFIG)/inc/bitos.h: $(DEPS_7)
 	@echo '      [Copy] $(CONFIG)/inc/bitos.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/bitos.h" "$(CONFIG)/inc/bitos.h"
+	cp src/bitos.h $(CONFIG)/inc/bitos.h
 
 #
 #   bn_mul.h
@@ -181,7 +192,7 @@ $(CONFIG)/inc/bitos.h: $(DEPS_7)
 $(CONFIG)/inc/bn_mul.h: $(DEPS_8)
 	@echo '      [Copy] $(CONFIG)/inc/bn_mul.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/bn_mul.h" "$(CONFIG)/inc/bn_mul.h"
+	cp src/bn_mul.h $(CONFIG)/inc/bn_mul.h
 
 #
 #   camellia.h
@@ -189,7 +200,7 @@ $(CONFIG)/inc/bn_mul.h: $(DEPS_8)
 $(CONFIG)/inc/camellia.h: $(DEPS_9)
 	@echo '      [Copy] $(CONFIG)/inc/camellia.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/camellia.h" "$(CONFIG)/inc/camellia.h"
+	cp src/camellia.h $(CONFIG)/inc/camellia.h
 
 #
 #   certs.h
@@ -197,7 +208,7 @@ $(CONFIG)/inc/camellia.h: $(DEPS_9)
 $(CONFIG)/inc/certs.h: $(DEPS_10)
 	@echo '      [Copy] $(CONFIG)/inc/certs.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/certs.h" "$(CONFIG)/inc/certs.h"
+	cp src/certs.h $(CONFIG)/inc/certs.h
 
 #
 #   debug.h
@@ -205,7 +216,7 @@ $(CONFIG)/inc/certs.h: $(DEPS_10)
 $(CONFIG)/inc/debug.h: $(DEPS_11)
 	@echo '      [Copy] $(CONFIG)/inc/debug.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/debug.h" "$(CONFIG)/inc/debug.h"
+	cp src/debug.h $(CONFIG)/inc/debug.h
 
 #
 #   des.h
@@ -213,7 +224,7 @@ $(CONFIG)/inc/debug.h: $(DEPS_11)
 $(CONFIG)/inc/des.h: $(DEPS_12)
 	@echo '      [Copy] $(CONFIG)/inc/des.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/des.h" "$(CONFIG)/inc/des.h"
+	cp src/des.h $(CONFIG)/inc/des.h
 
 #
 #   dhm.h
@@ -221,7 +232,7 @@ $(CONFIG)/inc/des.h: $(DEPS_12)
 $(CONFIG)/inc/dhm.h: $(DEPS_13)
 	@echo '      [Copy] $(CONFIG)/inc/dhm.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/dhm.h" "$(CONFIG)/inc/dhm.h"
+	cp src/dhm.h $(CONFIG)/inc/dhm.h
 
 #
 #   est.h
@@ -229,7 +240,7 @@ $(CONFIG)/inc/dhm.h: $(DEPS_13)
 $(CONFIG)/inc/est.h: $(DEPS_14)
 	@echo '      [Copy] $(CONFIG)/inc/est.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/est.h" "$(CONFIG)/inc/est.h"
+	cp src/est.h $(CONFIG)/inc/est.h
 
 #
 #   havege.h
@@ -237,7 +248,7 @@ $(CONFIG)/inc/est.h: $(DEPS_14)
 $(CONFIG)/inc/havege.h: $(DEPS_15)
 	@echo '      [Copy] $(CONFIG)/inc/havege.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/havege.h" "$(CONFIG)/inc/havege.h"
+	cp src/havege.h $(CONFIG)/inc/havege.h
 
 #
 #   md2.h
@@ -245,7 +256,7 @@ $(CONFIG)/inc/havege.h: $(DEPS_15)
 $(CONFIG)/inc/md2.h: $(DEPS_16)
 	@echo '      [Copy] $(CONFIG)/inc/md2.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/md2.h" "$(CONFIG)/inc/md2.h"
+	cp src/md2.h $(CONFIG)/inc/md2.h
 
 #
 #   md4.h
@@ -253,7 +264,7 @@ $(CONFIG)/inc/md2.h: $(DEPS_16)
 $(CONFIG)/inc/md4.h: $(DEPS_17)
 	@echo '      [Copy] $(CONFIG)/inc/md4.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/md4.h" "$(CONFIG)/inc/md4.h"
+	cp src/md4.h $(CONFIG)/inc/md4.h
 
 #
 #   md5.h
@@ -261,7 +272,7 @@ $(CONFIG)/inc/md4.h: $(DEPS_17)
 $(CONFIG)/inc/md5.h: $(DEPS_18)
 	@echo '      [Copy] $(CONFIG)/inc/md5.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/md5.h" "$(CONFIG)/inc/md5.h"
+	cp src/md5.h $(CONFIG)/inc/md5.h
 
 #
 #   net.h
@@ -269,7 +280,7 @@ $(CONFIG)/inc/md5.h: $(DEPS_18)
 $(CONFIG)/inc/net.h: $(DEPS_19)
 	@echo '      [Copy] $(CONFIG)/inc/net.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/net.h" "$(CONFIG)/inc/net.h"
+	cp src/net.h $(CONFIG)/inc/net.h
 
 #
 #   openssl.h
@@ -277,7 +288,7 @@ $(CONFIG)/inc/net.h: $(DEPS_19)
 $(CONFIG)/inc/openssl.h: $(DEPS_20)
 	@echo '      [Copy] $(CONFIG)/inc/openssl.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/openssl.h" "$(CONFIG)/inc/openssl.h"
+	cp src/openssl.h $(CONFIG)/inc/openssl.h
 
 #
 #   padlock.h
@@ -285,7 +296,7 @@ $(CONFIG)/inc/openssl.h: $(DEPS_20)
 $(CONFIG)/inc/padlock.h: $(DEPS_21)
 	@echo '      [Copy] $(CONFIG)/inc/padlock.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/padlock.h" "$(CONFIG)/inc/padlock.h"
+	cp src/padlock.h $(CONFIG)/inc/padlock.h
 
 #
 #   rsa.h
@@ -293,7 +304,7 @@ $(CONFIG)/inc/padlock.h: $(DEPS_21)
 $(CONFIG)/inc/rsa.h: $(DEPS_22)
 	@echo '      [Copy] $(CONFIG)/inc/rsa.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/rsa.h" "$(CONFIG)/inc/rsa.h"
+	cp src/rsa.h $(CONFIG)/inc/rsa.h
 
 #
 #   sha1.h
@@ -301,7 +312,7 @@ $(CONFIG)/inc/rsa.h: $(DEPS_22)
 $(CONFIG)/inc/sha1.h: $(DEPS_23)
 	@echo '      [Copy] $(CONFIG)/inc/sha1.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/sha1.h" "$(CONFIG)/inc/sha1.h"
+	cp src/sha1.h $(CONFIG)/inc/sha1.h
 
 #
 #   sha2.h
@@ -309,7 +320,7 @@ $(CONFIG)/inc/sha1.h: $(DEPS_23)
 $(CONFIG)/inc/sha2.h: $(DEPS_24)
 	@echo '      [Copy] $(CONFIG)/inc/sha2.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/sha2.h" "$(CONFIG)/inc/sha2.h"
+	cp src/sha2.h $(CONFIG)/inc/sha2.h
 
 #
 #   sha4.h
@@ -317,7 +328,7 @@ $(CONFIG)/inc/sha2.h: $(DEPS_24)
 $(CONFIG)/inc/sha4.h: $(DEPS_25)
 	@echo '      [Copy] $(CONFIG)/inc/sha4.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/sha4.h" "$(CONFIG)/inc/sha4.h"
+	cp src/sha4.h $(CONFIG)/inc/sha4.h
 
 #
 #   ssl.h
@@ -325,7 +336,7 @@ $(CONFIG)/inc/sha4.h: $(DEPS_25)
 $(CONFIG)/inc/ssl.h: $(DEPS_26)
 	@echo '      [Copy] $(CONFIG)/inc/ssl.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/ssl.h" "$(CONFIG)/inc/ssl.h"
+	cp src/ssl.h $(CONFIG)/inc/ssl.h
 
 #
 #   timing.h
@@ -333,7 +344,7 @@ $(CONFIG)/inc/ssl.h: $(DEPS_26)
 $(CONFIG)/inc/timing.h: $(DEPS_27)
 	@echo '      [Copy] $(CONFIG)/inc/timing.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/timing.h" "$(CONFIG)/inc/timing.h"
+	cp src/timing.h $(CONFIG)/inc/timing.h
 
 #
 #   x509.h
@@ -341,7 +352,7 @@ $(CONFIG)/inc/timing.h: $(DEPS_27)
 $(CONFIG)/inc/x509.h: $(DEPS_28)
 	@echo '      [Copy] $(CONFIG)/inc/x509.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/x509.h" "$(CONFIG)/inc/x509.h"
+	cp src/x509.h $(CONFIG)/inc/x509.h
 
 #
 #   xtea.h
@@ -349,7 +360,7 @@ $(CONFIG)/inc/x509.h: $(DEPS_28)
 $(CONFIG)/inc/xtea.h: $(DEPS_29)
 	@echo '      [Copy] $(CONFIG)/inc/xtea.h'
 	mkdir -p "$(CONFIG)/inc"
-	cp "src/xtea.h" "$(CONFIG)/inc/xtea.h"
+	cp src/xtea.h $(CONFIG)/inc/xtea.h
 
 #
 #   aes.o
