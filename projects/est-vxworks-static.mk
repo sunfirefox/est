@@ -108,7 +108,7 @@ prep:
 	fi
 	@echo $(MAKEFLAGS) >$(CONFIG)/.makeflags
 clean:
-	rm -fr "$(CONFIG)/bin/libest.a"
+	rm -f "$(CONFIG)/bin/libest.a"
 	rm -fr "$(CONFIG)/obj/aes.o"
 	rm -fr "$(CONFIG)/obj/arc4.o"
 	rm -fr "$(CONFIG)/obj/base64.o"
