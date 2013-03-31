@@ -100,55 +100,30 @@ clean:
 	if exist "$(CONFIG)\bin\libest.lib" del /Q "$(CONFIG)\bin\libest.lib"
 	if exist "$(CONFIG)\bin\libest.pdb" del /Q "$(CONFIG)\bin\libest.pdb"
 	if exist "$(CONFIG)\bin\libest.exp" del /Q "$(CONFIG)\bin\libest.exp"
-	if exist "$(CONFIG)\obj\aes.obj\" rd /Q /S "$(CONFIG)\obj\aes.obj"
 	if exist "$(CONFIG)\obj\aes.obj" del /Q "$(CONFIG)\obj\aes.obj"
-	if exist "$(CONFIG)\obj\arc4.obj\" rd /Q /S "$(CONFIG)\obj\arc4.obj"
 	if exist "$(CONFIG)\obj\arc4.obj" del /Q "$(CONFIG)\obj\arc4.obj"
-	if exist "$(CONFIG)\obj\base64.obj\" rd /Q /S "$(CONFIG)\obj\base64.obj"
 	if exist "$(CONFIG)\obj\base64.obj" del /Q "$(CONFIG)\obj\base64.obj"
-	if exist "$(CONFIG)\obj\bignum.obj\" rd /Q /S "$(CONFIG)\obj\bignum.obj"
 	if exist "$(CONFIG)\obj\bignum.obj" del /Q "$(CONFIG)\obj\bignum.obj"
-	if exist "$(CONFIG)\obj\camellia.obj\" rd /Q /S "$(CONFIG)\obj\camellia.obj"
 	if exist "$(CONFIG)\obj\camellia.obj" del /Q "$(CONFIG)\obj\camellia.obj"
-	if exist "$(CONFIG)\obj\certs.obj\" rd /Q /S "$(CONFIG)\obj\certs.obj"
 	if exist "$(CONFIG)\obj\certs.obj" del /Q "$(CONFIG)\obj\certs.obj"
-	if exist "$(CONFIG)\obj\debug.obj\" rd /Q /S "$(CONFIG)\obj\debug.obj"
 	if exist "$(CONFIG)\obj\debug.obj" del /Q "$(CONFIG)\obj\debug.obj"
-	if exist "$(CONFIG)\obj\des.obj\" rd /Q /S "$(CONFIG)\obj\des.obj"
 	if exist "$(CONFIG)\obj\des.obj" del /Q "$(CONFIG)\obj\des.obj"
-	if exist "$(CONFIG)\obj\dhm.obj\" rd /Q /S "$(CONFIG)\obj\dhm.obj"
 	if exist "$(CONFIG)\obj\dhm.obj" del /Q "$(CONFIG)\obj\dhm.obj"
-	if exist "$(CONFIG)\obj\havege.obj\" rd /Q /S "$(CONFIG)\obj\havege.obj"
 	if exist "$(CONFIG)\obj\havege.obj" del /Q "$(CONFIG)\obj\havege.obj"
-	if exist "$(CONFIG)\obj\md2.obj\" rd /Q /S "$(CONFIG)\obj\md2.obj"
 	if exist "$(CONFIG)\obj\md2.obj" del /Q "$(CONFIG)\obj\md2.obj"
-	if exist "$(CONFIG)\obj\md4.obj\" rd /Q /S "$(CONFIG)\obj\md4.obj"
 	if exist "$(CONFIG)\obj\md4.obj" del /Q "$(CONFIG)\obj\md4.obj"
-	if exist "$(CONFIG)\obj\md5.obj\" rd /Q /S "$(CONFIG)\obj\md5.obj"
 	if exist "$(CONFIG)\obj\md5.obj" del /Q "$(CONFIG)\obj\md5.obj"
-	if exist "$(CONFIG)\obj\net.obj\" rd /Q /S "$(CONFIG)\obj\net.obj"
 	if exist "$(CONFIG)\obj\net.obj" del /Q "$(CONFIG)\obj\net.obj"
-	if exist "$(CONFIG)\obj\padlock.obj\" rd /Q /S "$(CONFIG)\obj\padlock.obj"
 	if exist "$(CONFIG)\obj\padlock.obj" del /Q "$(CONFIG)\obj\padlock.obj"
-	if exist "$(CONFIG)\obj\rsa.obj\" rd /Q /S "$(CONFIG)\obj\rsa.obj"
 	if exist "$(CONFIG)\obj\rsa.obj" del /Q "$(CONFIG)\obj\rsa.obj"
-	if exist "$(CONFIG)\obj\sha1.obj\" rd /Q /S "$(CONFIG)\obj\sha1.obj"
 	if exist "$(CONFIG)\obj\sha1.obj" del /Q "$(CONFIG)\obj\sha1.obj"
-	if exist "$(CONFIG)\obj\sha2.obj\" rd /Q /S "$(CONFIG)\obj\sha2.obj"
 	if exist "$(CONFIG)\obj\sha2.obj" del /Q "$(CONFIG)\obj\sha2.obj"
-	if exist "$(CONFIG)\obj\sha4.obj\" rd /Q /S "$(CONFIG)\obj\sha4.obj"
 	if exist "$(CONFIG)\obj\sha4.obj" del /Q "$(CONFIG)\obj\sha4.obj"
-	if exist "$(CONFIG)\obj\ssl_cli.obj\" rd /Q /S "$(CONFIG)\obj\ssl_cli.obj"
 	if exist "$(CONFIG)\obj\ssl_cli.obj" del /Q "$(CONFIG)\obj\ssl_cli.obj"
-	if exist "$(CONFIG)\obj\ssl_srv.obj\" rd /Q /S "$(CONFIG)\obj\ssl_srv.obj"
 	if exist "$(CONFIG)\obj\ssl_srv.obj" del /Q "$(CONFIG)\obj\ssl_srv.obj"
-	if exist "$(CONFIG)\obj\ssl_tls.obj\" rd /Q /S "$(CONFIG)\obj\ssl_tls.obj"
 	if exist "$(CONFIG)\obj\ssl_tls.obj" del /Q "$(CONFIG)\obj\ssl_tls.obj"
-	if exist "$(CONFIG)\obj\timing.obj\" rd /Q /S "$(CONFIG)\obj\timing.obj"
 	if exist "$(CONFIG)\obj\timing.obj" del /Q "$(CONFIG)\obj\timing.obj"
-	if exist "$(CONFIG)\obj\x509parse.obj\" rd /Q /S "$(CONFIG)\obj\x509parse.obj"
 	if exist "$(CONFIG)\obj\x509parse.obj" del /Q "$(CONFIG)\obj\x509parse.obj"
-	if exist "$(CONFIG)\obj\xtea.obj\" rd /Q /S "$(CONFIG)\obj\xtea.obj"
 	if exist "$(CONFIG)\obj\xtea.obj" del /Q "$(CONFIG)\obj\xtea.obj"
 
 
@@ -416,7 +391,7 @@ DEPS_30 = $(DEPS_30) $(CONFIG)\inc\xtea.h
 
 $(CONFIG)\obj\aes.obj: \
     src\aes.c $(DEPS_30)
-	@echo '   [Compile] src/aes.c'
+	@echo '   [Compile] $(CONFIG)/obj/aes.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\aes.c
 
 #
@@ -427,7 +402,7 @@ DEPS_31 = $(DEPS_31) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\arc4.obj: \
     src\arc4.c $(DEPS_31)
-	@echo '   [Compile] src/arc4.c'
+	@echo '   [Compile] $(CONFIG)/obj/arc4.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\arc4.obj -Fd$(CONFIG)\obj\arc4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\arc4.c
 
 #
@@ -438,7 +413,7 @@ DEPS_32 = $(DEPS_32) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\base64.obj: \
     src\base64.c $(DEPS_32)
-	@echo '   [Compile] src/base64.c'
+	@echo '   [Compile] $(CONFIG)/obj/base64.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\base64.obj -Fd$(CONFIG)\obj\base64.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\base64.c
 
 #
@@ -449,7 +424,7 @@ DEPS_33 = $(DEPS_33) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\bignum.obj: \
     src\bignum.c $(DEPS_33)
-	@echo '   [Compile] src/bignum.c'
+	@echo '   [Compile] $(CONFIG)/obj/bignum.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\bignum.obj -Fd$(CONFIG)\obj\bignum.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\bignum.c
 
 #
@@ -460,7 +435,7 @@ DEPS_34 = $(DEPS_34) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\camellia.obj: \
     src\camellia.c $(DEPS_34)
-	@echo '   [Compile] src/camellia.c'
+	@echo '   [Compile] $(CONFIG)/obj/camellia.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\camellia.obj -Fd$(CONFIG)\obj\camellia.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\camellia.c
 
 #
@@ -471,7 +446,7 @@ DEPS_35 = $(DEPS_35) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\certs.obj: \
     src\certs.c $(DEPS_35)
-	@echo '   [Compile] src/certs.c'
+	@echo '   [Compile] $(CONFIG)/obj/certs.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\certs.obj -Fd$(CONFIG)\obj\certs.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\certs.c
 
 #
@@ -482,7 +457,7 @@ DEPS_36 = $(DEPS_36) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\debug.obj: \
     src\debug.c $(DEPS_36)
-	@echo '   [Compile] src/debug.c'
+	@echo '   [Compile] $(CONFIG)/obj/debug.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\debug.obj -Fd$(CONFIG)\obj\debug.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\debug.c
 
 #
@@ -493,7 +468,7 @@ DEPS_37 = $(DEPS_37) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\des.obj: \
     src\des.c $(DEPS_37)
-	@echo '   [Compile] src/des.c'
+	@echo '   [Compile] $(CONFIG)/obj/des.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\des.obj -Fd$(CONFIG)\obj\des.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\des.c
 
 #
@@ -504,7 +479,7 @@ DEPS_38 = $(DEPS_38) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\dhm.obj: \
     src\dhm.c $(DEPS_38)
-	@echo '   [Compile] src/dhm.c'
+	@echo '   [Compile] $(CONFIG)/obj/dhm.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\dhm.obj -Fd$(CONFIG)\obj\dhm.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\dhm.c
 
 #
@@ -515,7 +490,7 @@ DEPS_39 = $(DEPS_39) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\havege.obj: \
     src\havege.c $(DEPS_39)
-	@echo '   [Compile] src/havege.c'
+	@echo '   [Compile] $(CONFIG)/obj/havege.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\havege.obj -Fd$(CONFIG)\obj\havege.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\havege.c
 
 #
@@ -526,7 +501,7 @@ DEPS_40 = $(DEPS_40) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\md2.obj: \
     src\md2.c $(DEPS_40)
-	@echo '   [Compile] src/md2.c'
+	@echo '   [Compile] $(CONFIG)/obj/md2.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\md2.obj -Fd$(CONFIG)\obj\md2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md2.c
 
 #
@@ -537,7 +512,7 @@ DEPS_41 = $(DEPS_41) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\md4.obj: \
     src\md4.c $(DEPS_41)
-	@echo '   [Compile] src/md4.c'
+	@echo '   [Compile] $(CONFIG)/obj/md4.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\md4.obj -Fd$(CONFIG)\obj\md4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md4.c
 
 #
@@ -548,7 +523,7 @@ DEPS_42 = $(DEPS_42) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\md5.obj: \
     src\md5.c $(DEPS_42)
-	@echo '   [Compile] src/md5.c'
+	@echo '   [Compile] $(CONFIG)/obj/md5.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\md5.obj -Fd$(CONFIG)\obj\md5.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md5.c
 
 #
@@ -559,7 +534,7 @@ DEPS_43 = $(DEPS_43) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\net.obj: \
     src\net.c $(DEPS_43)
-	@echo '   [Compile] src/net.c'
+	@echo '   [Compile] $(CONFIG)/obj/net.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\net.obj -Fd$(CONFIG)\obj\net.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\net.c
 
 #
@@ -570,7 +545,7 @@ DEPS_44 = $(DEPS_44) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\padlock.obj: \
     src\padlock.c $(DEPS_44)
-	@echo '   [Compile] src/padlock.c'
+	@echo '   [Compile] $(CONFIG)/obj/padlock.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\padlock.obj -Fd$(CONFIG)\obj\padlock.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\padlock.c
 
 #
@@ -581,7 +556,7 @@ DEPS_45 = $(DEPS_45) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\rsa.obj: \
     src\rsa.c $(DEPS_45)
-	@echo '   [Compile] src/rsa.c'
+	@echo '   [Compile] $(CONFIG)/obj/rsa.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\rsa.obj -Fd$(CONFIG)\obj\rsa.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\rsa.c
 
 #
@@ -592,7 +567,7 @@ DEPS_46 = $(DEPS_46) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\sha1.obj: \
     src\sha1.c $(DEPS_46)
-	@echo '   [Compile] src/sha1.c'
+	@echo '   [Compile] $(CONFIG)/obj/sha1.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha1.obj -Fd$(CONFIG)\obj\sha1.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha1.c
 
 #
@@ -603,7 +578,7 @@ DEPS_47 = $(DEPS_47) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\sha2.obj: \
     src\sha2.c $(DEPS_47)
-	@echo '   [Compile] src/sha2.c'
+	@echo '   [Compile] $(CONFIG)/obj/sha2.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha2.obj -Fd$(CONFIG)\obj\sha2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha2.c
 
 #
@@ -614,7 +589,7 @@ DEPS_48 = $(DEPS_48) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\sha4.obj: \
     src\sha4.c $(DEPS_48)
-	@echo '   [Compile] src/sha4.c'
+	@echo '   [Compile] $(CONFIG)/obj/sha4.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\sha4.obj -Fd$(CONFIG)\obj\sha4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha4.c
 
 #
@@ -625,7 +600,7 @@ DEPS_49 = $(DEPS_49) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\ssl_cli.obj: \
     src\ssl_cli.c $(DEPS_49)
-	@echo '   [Compile] src/ssl_cli.c'
+	@echo '   [Compile] $(CONFIG)/obj/ssl_cli.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_cli.obj -Fd$(CONFIG)\obj\ssl_cli.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_cli.c
 
 #
@@ -636,7 +611,7 @@ DEPS_50 = $(DEPS_50) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\ssl_srv.obj: \
     src\ssl_srv.c $(DEPS_50)
-	@echo '   [Compile] src/ssl_srv.c'
+	@echo '   [Compile] $(CONFIG)/obj/ssl_srv.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_srv.obj -Fd$(CONFIG)\obj\ssl_srv.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_srv.c
 
 #
@@ -647,7 +622,7 @@ DEPS_51 = $(DEPS_51) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\ssl_tls.obj: \
     src\ssl_tls.c $(DEPS_51)
-	@echo '   [Compile] src/ssl_tls.c'
+	@echo '   [Compile] $(CONFIG)/obj/ssl_tls.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_tls.obj -Fd$(CONFIG)\obj\ssl_tls.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_tls.c
 
 #
@@ -658,7 +633,7 @@ DEPS_52 = $(DEPS_52) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\timing.obj: \
     src\timing.c $(DEPS_52)
-	@echo '   [Compile] src/timing.c'
+	@echo '   [Compile] $(CONFIG)/obj/timing.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\timing.obj -Fd$(CONFIG)\obj\timing.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\timing.c
 
 #
@@ -669,7 +644,7 @@ DEPS_53 = $(DEPS_53) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\x509parse.obj: \
     src\x509parse.c $(DEPS_53)
-	@echo '   [Compile] src/x509parse.c'
+	@echo '   [Compile] $(CONFIG)/obj/x509parse.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\x509parse.obj -Fd$(CONFIG)\obj\x509parse.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\x509parse.c
 
 #
@@ -680,7 +655,7 @@ DEPS_54 = $(DEPS_54) $(CONFIG)\inc\est.h
 
 $(CONFIG)\obj\xtea.obj: \
     src\xtea.c $(DEPS_54)
-	@echo '   [Compile] src/xtea.c'
+	@echo '   [Compile] $(CONFIG)/obj/xtea.obj'
 	"$(CC)" -c -Fo$(CONFIG)\obj\xtea.obj -Fd$(CONFIG)\obj\xtea.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\xtea.c
 
 #
@@ -740,7 +715,7 @@ DEPS_55 = $(DEPS_55) $(CONFIG)\obj\x509parse.obj
 DEPS_55 = $(DEPS_55) $(CONFIG)\obj\xtea.obj
 
 $(CONFIG)\bin\libest.dll: $(DEPS_55)
-	@echo '      [Link] libest'
+	@echo '      [Link] $(CONFIG)/bin/libest.dll'
 	"$(LD)" -dll -out:$(CONFIG)\bin\libest.dll -entry:$(ENTRY) $(LDFLAGS) $(LIBPATHS) $(CONFIG)\obj\aes.obj $(CONFIG)\obj\arc4.obj $(CONFIG)\obj\base64.obj $(CONFIG)\obj\bignum.obj $(CONFIG)\obj\camellia.obj $(CONFIG)\obj\certs.obj $(CONFIG)\obj\debug.obj $(CONFIG)\obj\des.obj $(CONFIG)\obj\dhm.obj $(CONFIG)\obj\havege.obj $(CONFIG)\obj\md2.obj $(CONFIG)\obj\md4.obj $(CONFIG)\obj\md5.obj $(CONFIG)\obj\net.obj $(CONFIG)\obj\padlock.obj $(CONFIG)\obj\rsa.obj $(CONFIG)\obj\sha1.obj $(CONFIG)\obj\sha2.obj $(CONFIG)\obj\sha4.obj $(CONFIG)\obj\ssl_cli.obj $(CONFIG)\obj\ssl_srv.obj $(CONFIG)\obj\ssl_tls.obj $(CONFIG)\obj\timing.obj $(CONFIG)\obj\x509parse.obj $(CONFIG)\obj\xtea.obj $(LIBS) 
 
 #
