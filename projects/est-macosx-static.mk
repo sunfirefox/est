@@ -669,6 +669,7 @@ DEPS_55 += $(CONFIG)/inc/aes.h
 DEPS_55 += $(CONFIG)/inc/arc4.h
 DEPS_55 += $(CONFIG)/inc/base64.h
 DEPS_55 += $(CONFIG)/inc/bignum.h
+DEPS_55 += $(CONFIG)/inc/bit.h
 DEPS_55 += $(CONFIG)/inc/bitos.h
 DEPS_55 += $(CONFIG)/inc/bn_mul.h
 DEPS_55 += $(CONFIG)/inc/camellia.h
