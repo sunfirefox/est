@@ -68,44 +68,51 @@
 			remoteGlobalIDString = ADABEF81ADAC5B2D00000009;
 			remoteInfo = Prep;
 		};
-		ADABEF81ADAC5B2D0000003E /* PBXContainerItemProxy libest from All */ = {
+		ADABEF81ADAC5B2D0000003E /* PBXContainerItemProxy Prep from All */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADABEF81ADAC5B2D00000001 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = ADABEF81ADAC5B2D0000003F;
+			remoteGlobalIDString = ADABEF81ADAC5B2D00000009;
+			remoteInfo = Prep;
+		};
+		ADABEF81ADAC5B2D0000003F /* PBXContainerItemProxy libest from All */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADABEF81ADAC5B2D00000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADABEF81ADAC5B2D00000040;
 			remoteInfo = libest;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		ADABEF81ADAC5B2D0000000C /* aes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = aes.c; path = src/aes.c; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000040 /* bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bit.h; path = macosx-x64-static/inc/bit.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000041 /* est.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = est.h; path = macosx-x64-static/inc/est.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000042 /* bitos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bitos.h; path = macosx-x64-static/inc/bitos.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000043 /* bignum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bignum.h; path = macosx-x64-static/inc/bignum.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000044 /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = net.h; path = macosx-x64-static/inc/net.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000045 /* dhm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dhm.h; path = macosx-x64-static/inc/dhm.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000046 /* rsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rsa.h; path = macosx-x64-static/inc/rsa.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000047 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5.h; path = macosx-x64-static/inc/md5.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000048 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha1.h; path = macosx-x64-static/inc/sha1.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000049 /* x509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = x509.h; path = macosx-x64-static/inc/x509.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000004A /* ssl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ssl.h; path = macosx-x64-static/inc/ssl.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000004B /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = aes.h; path = macosx-x64-static/inc/aes.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000004C /* arc4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arc4.h; path = macosx-x64-static/inc/arc4.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000004D /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base64.h; path = macosx-x64-static/inc/base64.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000004E /* bn_mul.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bn_mul.h; path = macosx-x64-static/inc/bn_mul.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000004F /* camellia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camellia.h; path = macosx-x64-static/inc/camellia.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000050 /* certs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = certs.h; path = macosx-x64-static/inc/certs.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000051 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = macosx-x64-static/inc/debug.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000052 /* des.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = des.h; path = macosx-x64-static/inc/des.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000053 /* havege.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = havege.h; path = macosx-x64-static/inc/havege.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000054 /* md2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md2.h; path = macosx-x64-static/inc/md2.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000055 /* md4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md4.h; path = macosx-x64-static/inc/md4.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000056 /* padlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = padlock.h; path = macosx-x64-static/inc/padlock.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000057 /* sha2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha2.h; path = macosx-x64-static/inc/sha2.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000058 /* sha4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha4.h; path = macosx-x64-static/inc/sha4.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D00000059 /* timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timing.h; path = macosx-x64-static/inc/timing.h; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000005A /* xtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xtea.h; path = macosx-x64-static/inc/xtea.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000041 /* bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bit.h; path = macosx-x64-static/inc/bit.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000042 /* est.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = est.h; path = macosx-x64-static/inc/est.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000043 /* bitos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bitos.h; path = macosx-x64-static/inc/bitos.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000044 /* bignum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bignum.h; path = macosx-x64-static/inc/bignum.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000045 /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = net.h; path = macosx-x64-static/inc/net.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000046 /* dhm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dhm.h; path = macosx-x64-static/inc/dhm.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000047 /* rsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rsa.h; path = macosx-x64-static/inc/rsa.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000048 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5.h; path = macosx-x64-static/inc/md5.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000049 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha1.h; path = macosx-x64-static/inc/sha1.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000004A /* x509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = x509.h; path = macosx-x64-static/inc/x509.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000004B /* ssl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ssl.h; path = macosx-x64-static/inc/ssl.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000004C /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = aes.h; path = macosx-x64-static/inc/aes.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000004D /* arc4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arc4.h; path = macosx-x64-static/inc/arc4.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000004E /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base64.h; path = macosx-x64-static/inc/base64.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000004F /* bn_mul.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bn_mul.h; path = macosx-x64-static/inc/bn_mul.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000050 /* camellia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camellia.h; path = macosx-x64-static/inc/camellia.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000051 /* certs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = certs.h; path = macosx-x64-static/inc/certs.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000052 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = macosx-x64-static/inc/debug.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000053 /* des.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = des.h; path = macosx-x64-static/inc/des.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000054 /* havege.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = havege.h; path = macosx-x64-static/inc/havege.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000055 /* md2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md2.h; path = macosx-x64-static/inc/md2.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000056 /* md4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md4.h; path = macosx-x64-static/inc/md4.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000057 /* padlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = padlock.h; path = macosx-x64-static/inc/padlock.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000058 /* sha2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha2.h; path = macosx-x64-static/inc/sha2.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D00000059 /* sha4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha4.h; path = macosx-x64-static/inc/sha4.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000005A /* timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timing.h; path = macosx-x64-static/inc/timing.h; sourceTree = "<group>"; };
+		ADABEF81ADAC5B2D0000005B /* xtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xtea.h; path = macosx-x64-static/inc/xtea.h; sourceTree = "<group>"; };
 		ADABEF81ADAC5B2D0000000E /* arc4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arc4.c; path = src/arc4.c; sourceTree = "<group>"; };
 		ADABEF81ADAC5B2D00000010 /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = base64.c; path = src/base64.c; sourceTree = "<group>"; };
 		ADABEF81ADAC5B2D00000012 /* bignum.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bignum.c; path = src/bignum.c; sourceTree = "<group>"; };
@@ -130,11 +137,11 @@
 		ADABEF81ADAC5B2D00000038 /* timing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timing.c; path = src/timing.c; sourceTree = "<group>"; };
 		ADABEF81ADAC5B2D0000003A /* x509parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = x509parse.c; path = src/x509parse.c; sourceTree = "<group>"; };
 		ADABEF81ADAC5B2D0000003C /* xtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xtea.c; path = src/xtea.c; sourceTree = "<group>"; };
-		ADABEF81ADAC5B2D0000005B /* libest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libest.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADABEF81ADAC5B2D0000005C /* libest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libest.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		ADABEF81ADAC5B2D0000005C /* Frameworks and Libraries for libest */ = {
+		ADABEF81ADAC5B2D0000005D /* Frameworks and Libraries for libest */ = {
             isa = PBXFrameworksBuildPhase;
             buildActionMask = 2147483647;
             files = (
@@ -145,44 +152,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		ADABEF81ADAC5B2D0000005D /* Top Group */ = {
+		ADABEF81ADAC5B2D0000005E /* Top Group */ = {
             isa = PBXGroup;
             children = (
-				ADABEF81ADAC5B2D0000005E /* libest */,
-				ADABEF81ADAC5B2D0000005F /* Products */,
+				ADABEF81ADAC5B2D0000005F /* libest */,
+				ADABEF81ADAC5B2D00000060 /* Products */,
 			);
             sourceTree = "<group>";
         };
-		ADABEF81ADAC5B2D0000005E /* libest */ = {
+		ADABEF81ADAC5B2D0000005F /* libest */ = {
             isa = PBXGroup;
             children = (
-				ADABEF81ADAC5B2D00000040 /* bit.h */,
-				ADABEF81ADAC5B2D00000041 /* est.h */,
-				ADABEF81ADAC5B2D00000042 /* bitos.h */,
-				ADABEF81ADAC5B2D00000043 /* bignum.h */,
-				ADABEF81ADAC5B2D00000044 /* net.h */,
-				ADABEF81ADAC5B2D00000045 /* dhm.h */,
-				ADABEF81ADAC5B2D00000046 /* rsa.h */,
-				ADABEF81ADAC5B2D00000047 /* md5.h */,
-				ADABEF81ADAC5B2D00000048 /* sha1.h */,
-				ADABEF81ADAC5B2D00000049 /* x509.h */,
-				ADABEF81ADAC5B2D0000004A /* ssl.h */,
-				ADABEF81ADAC5B2D0000004B /* aes.h */,
-				ADABEF81ADAC5B2D0000004C /* arc4.h */,
-				ADABEF81ADAC5B2D0000004D /* base64.h */,
-				ADABEF81ADAC5B2D0000004E /* bn_mul.h */,
-				ADABEF81ADAC5B2D0000004F /* camellia.h */,
-				ADABEF81ADAC5B2D00000050 /* certs.h */,
-				ADABEF81ADAC5B2D00000051 /* debug.h */,
-				ADABEF81ADAC5B2D00000052 /* des.h */,
-				ADABEF81ADAC5B2D00000053 /* havege.h */,
-				ADABEF81ADAC5B2D00000054 /* md2.h */,
-				ADABEF81ADAC5B2D00000055 /* md4.h */,
-				ADABEF81ADAC5B2D00000056 /* padlock.h */,
-				ADABEF81ADAC5B2D00000057 /* sha2.h */,
-				ADABEF81ADAC5B2D00000058 /* sha4.h */,
-				ADABEF81ADAC5B2D00000059 /* timing.h */,
-				ADABEF81ADAC5B2D0000005A /* xtea.h */,
+				ADABEF81ADAC5B2D00000041 /* bit.h */,
+				ADABEF81ADAC5B2D00000042 /* est.h */,
+				ADABEF81ADAC5B2D00000043 /* bitos.h */,
+				ADABEF81ADAC5B2D00000044 /* bignum.h */,
+				ADABEF81ADAC5B2D00000045 /* net.h */,
+				ADABEF81ADAC5B2D00000046 /* dhm.h */,
+				ADABEF81ADAC5B2D00000047 /* rsa.h */,
+				ADABEF81ADAC5B2D00000048 /* md5.h */,
+				ADABEF81ADAC5B2D00000049 /* sha1.h */,
+				ADABEF81ADAC5B2D0000004A /* x509.h */,
+				ADABEF81ADAC5B2D0000004B /* ssl.h */,
+				ADABEF81ADAC5B2D0000004C /* aes.h */,
+				ADABEF81ADAC5B2D0000004D /* arc4.h */,
+				ADABEF81ADAC5B2D0000004E /* base64.h */,
+				ADABEF81ADAC5B2D0000004F /* bn_mul.h */,
+				ADABEF81ADAC5B2D00000050 /* camellia.h */,
+				ADABEF81ADAC5B2D00000051 /* certs.h */,
+				ADABEF81ADAC5B2D00000052 /* debug.h */,
+				ADABEF81ADAC5B2D00000053 /* des.h */,
+				ADABEF81ADAC5B2D00000054 /* havege.h */,
+				ADABEF81ADAC5B2D00000055 /* md2.h */,
+				ADABEF81ADAC5B2D00000056 /* md4.h */,
+				ADABEF81ADAC5B2D00000057 /* padlock.h */,
+				ADABEF81ADAC5B2D00000058 /* sha2.h */,
+				ADABEF81ADAC5B2D00000059 /* sha4.h */,
+				ADABEF81ADAC5B2D0000005A /* timing.h */,
+				ADABEF81ADAC5B2D0000005B /* xtea.h */,
 				ADABEF81ADAC5B2D0000000C /* aes.c */,
 				ADABEF81ADAC5B2D0000000E /* arc4.c */,
 				ADABEF81ADAC5B2D00000010 /* base64.c */,
@@ -213,10 +220,10 @@
             path = ..;
             sourceTree = SOURCE_ROOT;
         };
-		ADABEF81ADAC5B2D0000005F /* Products */ = {
+		ADABEF81ADAC5B2D00000060 /* Products */ = {
             isa = PBXGroup;
             children = (
-				ADABEF81ADAC5B2D0000005B /* libest */,
+				ADABEF81ADAC5B2D0000005C /* libest */,
 			);
             name = "Products";
             path = ..;
@@ -225,21 +232,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ADABEF81ADAC5B2D0000003F /* libest */ = {
+		ADABEF81ADAC5B2D00000040 /* libest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADABEF81ADAC5B2D00000061 /* Build configuration list for PBXNativeTarget "libest" */;
+			buildConfigurationList = ADABEF81ADAC5B2D00000062 /* Build configuration list for PBXNativeTarget "libest" */;
 			buildPhases = (
-				ADABEF81ADAC5B2D00000060 /* Sources */,
-				ADABEF81ADAC5B2D0000005C /* Frameworks */,
+				ADABEF81ADAC5B2D00000061 /* Sources */,
+				ADABEF81ADAC5B2D0000005D /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				ADABEF81ADAC5B2D00000062 /* Prep */,				
+				ADABEF81ADAC5B2D00000063 /* Prep */,				
 			);
 			name = libest;
 			productName = est;
-			productReference = ADABEF81ADAC5B2D0000005B /* libest */;
+			productReference = ADABEF81ADAC5B2D0000005C /* libest */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -363,20 +370,20 @@ fi";
 			knownRegions = (
 				en,
 			);
-			mainGroup = ADABEF81ADAC5B2D0000005D;
-			productRefGroup = ADABEF81ADAC5B2D0000005F /* Products */;
+			mainGroup = ADABEF81ADAC5B2D0000005E;
+			productRefGroup = ADABEF81ADAC5B2D00000060 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				ADABEF81ADAC5B2D00000006 /* All */,
 				ADABEF81ADAC5B2D00000009 /* Prep */,
-				ADABEF81ADAC5B2D0000003F /* libest */,
+				ADABEF81ADAC5B2D00000040 /* libest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		ADABEF81ADAC5B2D00000060 /* libest Sources */ = {
+		ADABEF81ADAC5B2D00000061 /* libest Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -411,15 +418,20 @@ fi";
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		ADABEF81ADAC5B2D00000062 /* PBXTargetDependency libest depends on Prep */ = {
+		ADABEF81ADAC5B2D00000063 /* PBXTargetDependency libest depends on Prep */ = {
 			isa = PBXTargetDependency;
 			target = ADABEF81ADAC5B2D00000009 /* Prep */;
 			targetProxy = ADABEF81ADAC5B2D0000003D /* PBXContainerItemProxy */;
 		};
+		ADABEF81ADAC5B2D00000064 /* PBXTargetDependency All depends on Prep */ = {
+			isa = PBXTargetDependency;
+			target = ADABEF81ADAC5B2D00000009 /* Prep */;
+			targetProxy = ADABEF81ADAC5B2D0000003E /* PBXContainerItemProxy */;
+		};
 		ADABEF81ADAC5B2D00000007 /* PBXTargetDependency All depends on libest */ = {
 			isa = PBXTargetDependency;
-			target = ADABEF81ADAC5B2D0000003F /* libest */;
-			targetProxy = ADABEF81ADAC5B2D0000003E /* PBXContainerItemProxy */;
+			target = ADABEF81ADAC5B2D00000040 /* libest */;
+			targetProxy = ADABEF81ADAC5B2D0000003F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -564,58 +576,58 @@ fi";
 			};
 			name = Release;
 		};
-		ADABEF81ADAC5B2D00000063 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = libest;
-				EXECUTABLE_EXTENSION = a;
-
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"BIT_DEBUG",
-					"$(inherited)"
-				);
-				OTHER_LDFLAGS = ();
-
-				MACH_O_TYPE = staticlib;
-
-			};
-			name = Debug;
-		};
-		ADABEF81ADAC5B2D00000064 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = libest;
-				EXECUTABLE_EXTENSION = a;
-
-				OTHER_LDFLAGS = ();
-
-				MACH_O_TYPE = staticlib;
-
-			};
-			name = Release;
-		};
 		ADABEF81ADAC5B2D00000065 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = All;
+				PRODUCT_NAME = libest;
+				EXECUTABLE_EXTENSION = a;
 
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BIT_DEBUG",
 					"$(inherited)"
 				);
+				OTHER_LDFLAGS = ();
+
+				MACH_O_TYPE = staticlib;
+
 			};
 			name = Debug;
 		};
 		ADABEF81ADAC5B2D00000066 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = libest;
+				EXECUTABLE_EXTENSION = a;
+
+				OTHER_LDFLAGS = ();
+
+				MACH_O_TYPE = staticlib;
+
+			};
+			name = Release;
+		};
+		ADABEF81ADAC5B2D00000067 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"BIT_DEBUG",
+					"$(inherited)"
+				);
+			};
+			name = Debug;
+		};
+		ADABEF81ADAC5B2D00000068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 				PRODUCT_NAME = All;
 
 
 			};
 			name = Release;
 		};
-		ADABEF81ADAC5B2D00000067 /* Debug */ = {
+		ADABEF81ADAC5B2D00000069 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = Prep;
@@ -627,7 +639,7 @@ fi";
 			};
 			name = Debug;
 		};
-		ADABEF81ADAC5B2D00000068 /* Release */ = {
+		ADABEF81ADAC5B2D0000006A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = Prep;
@@ -648,16 +660,7 @@ fi";
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADABEF81ADAC5B2D00000061 /* Build configuration list for PBXNativeTarget "libest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ADABEF81ADAC5B2D00000063 /* Debug */,
-				ADABEF81ADAC5B2D00000064 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ADABEF81ADAC5B2D00000005 /* Build configuration list for PBXNativeTarget "All" */ = {
+		ADABEF81ADAC5B2D00000062 /* Build configuration list for PBXNativeTarget "libest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADABEF81ADAC5B2D00000065 /* Debug */,
@@ -666,11 +669,20 @@ fi";
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADABEF81ADAC5B2D00000008 /* Build configuration list for PBXNativeTarget "Prep" */ = {
+		ADABEF81ADAC5B2D00000005 /* Build configuration list for PBXNativeTarget "All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADABEF81ADAC5B2D00000067 /* Debug */,
 				ADABEF81ADAC5B2D00000068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADABEF81ADAC5B2D00000008 /* Build configuration list for PBXNativeTarget "Prep" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADABEF81ADAC5B2D00000069 /* Debug */,
+				ADABEF81ADAC5B2D0000006A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
