@@ -107,6 +107,7 @@ prep:
 		fi ; \
 	fi
 	@echo $(MAKEFLAGS) >$(CONFIG)/.makeflags
+
 clean:
 	rm -f "$(CONFIG)/bin/libest.out"
 	rm -f "$(CONFIG)/obj/aes.o"
