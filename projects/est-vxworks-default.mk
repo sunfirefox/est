@@ -35,7 +35,7 @@ export WIND_HOME          := $(WIND_BASE)/..
 export PATH               := $(WIND_GNU_PATH)/$(WIND_HOST_TYPE)/bin:$(PATH)
 
 CFLAGS             += -fno-builtin -fno-defer-pop -fvolatile -w
-DFLAGS             += -D_REENTRANT -DVXWORKS -DRW_MULTI_THREAD -D_GNU_TOOL -DCPU=$(CPU) $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
+DFLAGS             += -DVXWORKS -DRW_MULTI_THREAD -D_GNU_TOOL -DCPU=PENTIUM $(patsubst %,-D%,$(filter BIT_%,$(MAKEFLAGS))) 
 IFLAGS             += -I$(CONFIG)/inc -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/wrn/coreip
 LDFLAGS            += '-Wl,-r'
 LIBPATHS           += -L$(CONFIG)/bin
@@ -405,7 +405,7 @@ DEPS_30 += $(CONFIG)/inc/xtea.h
 $(CONFIG)/obj/aes.o: \
     src/aes.c $(DEPS_30)
 	@echo '   [Compile] $(CONFIG)/obj/aes.o'
-	$(CC) -c -o $(CONFIG)/obj/aes.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/aes.c
+	$(CC) -c -o $(CONFIG)/obj/aes.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/aes.c
 
 #
 #   arc4.o
@@ -416,7 +416,7 @@ DEPS_31 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/arc4.o: \
     src/arc4.c $(DEPS_31)
 	@echo '   [Compile] $(CONFIG)/obj/arc4.o'
-	$(CC) -c -o $(CONFIG)/obj/arc4.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/arc4.c
+	$(CC) -c -o $(CONFIG)/obj/arc4.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/arc4.c
 
 #
 #   base64.o
@@ -427,7 +427,7 @@ DEPS_32 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/base64.o: \
     src/base64.c $(DEPS_32)
 	@echo '   [Compile] $(CONFIG)/obj/base64.o'
-	$(CC) -c -o $(CONFIG)/obj/base64.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/base64.c
+	$(CC) -c -o $(CONFIG)/obj/base64.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/base64.c
 
 #
 #   bignum.o
@@ -438,7 +438,7 @@ DEPS_33 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/bignum.o: \
     src/bignum.c $(DEPS_33)
 	@echo '   [Compile] $(CONFIG)/obj/bignum.o'
-	$(CC) -c -o $(CONFIG)/obj/bignum.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/bignum.c
+	$(CC) -c -o $(CONFIG)/obj/bignum.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/bignum.c
 
 #
 #   camellia.o
@@ -449,7 +449,7 @@ DEPS_34 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/camellia.o: \
     src/camellia.c $(DEPS_34)
 	@echo '   [Compile] $(CONFIG)/obj/camellia.o'
-	$(CC) -c -o $(CONFIG)/obj/camellia.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/camellia.c
+	$(CC) -c -o $(CONFIG)/obj/camellia.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/camellia.c
 
 #
 #   certs.o
@@ -460,7 +460,7 @@ DEPS_35 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/certs.o: \
     src/certs.c $(DEPS_35)
 	@echo '   [Compile] $(CONFIG)/obj/certs.o'
-	$(CC) -c -o $(CONFIG)/obj/certs.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/certs.c
+	$(CC) -c -o $(CONFIG)/obj/certs.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/certs.c
 
 #
 #   debug.o
@@ -471,7 +471,7 @@ DEPS_36 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/debug.o: \
     src/debug.c $(DEPS_36)
 	@echo '   [Compile] $(CONFIG)/obj/debug.o'
-	$(CC) -c -o $(CONFIG)/obj/debug.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/debug.c
+	$(CC) -c -o $(CONFIG)/obj/debug.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/debug.c
 
 #
 #   des.o
@@ -482,7 +482,7 @@ DEPS_37 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/des.o: \
     src/des.c $(DEPS_37)
 	@echo '   [Compile] $(CONFIG)/obj/des.o'
-	$(CC) -c -o $(CONFIG)/obj/des.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/des.c
+	$(CC) -c -o $(CONFIG)/obj/des.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/des.c
 
 #
 #   dhm.o
@@ -493,7 +493,7 @@ DEPS_38 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/dhm.o: \
     src/dhm.c $(DEPS_38)
 	@echo '   [Compile] $(CONFIG)/obj/dhm.o'
-	$(CC) -c -o $(CONFIG)/obj/dhm.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/dhm.c
+	$(CC) -c -o $(CONFIG)/obj/dhm.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/dhm.c
 
 #
 #   havege.o
@@ -504,7 +504,7 @@ DEPS_39 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/havege.o: \
     src/havege.c $(DEPS_39)
 	@echo '   [Compile] $(CONFIG)/obj/havege.o'
-	$(CC) -c -o $(CONFIG)/obj/havege.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/havege.c
+	$(CC) -c -o $(CONFIG)/obj/havege.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/havege.c
 
 #
 #   md2.o
@@ -515,7 +515,7 @@ DEPS_40 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/md2.o: \
     src/md2.c $(DEPS_40)
 	@echo '   [Compile] $(CONFIG)/obj/md2.o'
-	$(CC) -c -o $(CONFIG)/obj/md2.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/md2.c
+	$(CC) -c -o $(CONFIG)/obj/md2.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/md2.c
 
 #
 #   md4.o
@@ -526,7 +526,7 @@ DEPS_41 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/md4.o: \
     src/md4.c $(DEPS_41)
 	@echo '   [Compile] $(CONFIG)/obj/md4.o'
-	$(CC) -c -o $(CONFIG)/obj/md4.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/md4.c
+	$(CC) -c -o $(CONFIG)/obj/md4.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/md4.c
 
 #
 #   md5.o
@@ -537,7 +537,7 @@ DEPS_42 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/md5.o: \
     src/md5.c $(DEPS_42)
 	@echo '   [Compile] $(CONFIG)/obj/md5.o'
-	$(CC) -c -o $(CONFIG)/obj/md5.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/md5.c
+	$(CC) -c -o $(CONFIG)/obj/md5.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/md5.c
 
 #
 #   net.o
@@ -548,7 +548,7 @@ DEPS_43 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/net.o: \
     src/net.c $(DEPS_43)
 	@echo '   [Compile] $(CONFIG)/obj/net.o'
-	$(CC) -c -o $(CONFIG)/obj/net.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/net.c
+	$(CC) -c -o $(CONFIG)/obj/net.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/net.c
 
 #
 #   padlock.o
@@ -559,7 +559,7 @@ DEPS_44 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/padlock.o: \
     src/padlock.c $(DEPS_44)
 	@echo '   [Compile] $(CONFIG)/obj/padlock.o'
-	$(CC) -c -o $(CONFIG)/obj/padlock.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/padlock.c
+	$(CC) -c -o $(CONFIG)/obj/padlock.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/padlock.c
 
 #
 #   rsa.o
@@ -570,7 +570,7 @@ DEPS_45 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/rsa.o: \
     src/rsa.c $(DEPS_45)
 	@echo '   [Compile] $(CONFIG)/obj/rsa.o'
-	$(CC) -c -o $(CONFIG)/obj/rsa.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/rsa.c
+	$(CC) -c -o $(CONFIG)/obj/rsa.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/rsa.c
 
 #
 #   sha1.o
@@ -581,7 +581,7 @@ DEPS_46 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/sha1.o: \
     src/sha1.c $(DEPS_46)
 	@echo '   [Compile] $(CONFIG)/obj/sha1.o'
-	$(CC) -c -o $(CONFIG)/obj/sha1.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/sha1.c
+	$(CC) -c -o $(CONFIG)/obj/sha1.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/sha1.c
 
 #
 #   sha2.o
@@ -592,7 +592,7 @@ DEPS_47 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/sha2.o: \
     src/sha2.c $(DEPS_47)
 	@echo '   [Compile] $(CONFIG)/obj/sha2.o'
-	$(CC) -c -o $(CONFIG)/obj/sha2.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/sha2.c
+	$(CC) -c -o $(CONFIG)/obj/sha2.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/sha2.c
 
 #
 #   sha4.o
@@ -603,7 +603,7 @@ DEPS_48 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/sha4.o: \
     src/sha4.c $(DEPS_48)
 	@echo '   [Compile] $(CONFIG)/obj/sha4.o'
-	$(CC) -c -o $(CONFIG)/obj/sha4.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/sha4.c
+	$(CC) -c -o $(CONFIG)/obj/sha4.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/sha4.c
 
 #
 #   ssl_cli.o
@@ -614,7 +614,7 @@ DEPS_49 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/ssl_cli.o: \
     src/ssl_cli.c $(DEPS_49)
 	@echo '   [Compile] $(CONFIG)/obj/ssl_cli.o'
-	$(CC) -c -o $(CONFIG)/obj/ssl_cli.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/ssl_cli.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_cli.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/ssl_cli.c
 
 #
 #   ssl_srv.o
@@ -625,7 +625,7 @@ DEPS_50 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/ssl_srv.o: \
     src/ssl_srv.c $(DEPS_50)
 	@echo '   [Compile] $(CONFIG)/obj/ssl_srv.o'
-	$(CC) -c -o $(CONFIG)/obj/ssl_srv.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/ssl_srv.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_srv.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/ssl_srv.c
 
 #
 #   ssl_tls.o
@@ -636,7 +636,7 @@ DEPS_51 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/ssl_tls.o: \
     src/ssl_tls.c $(DEPS_51)
 	@echo '   [Compile] $(CONFIG)/obj/ssl_tls.o'
-	$(CC) -c -o $(CONFIG)/obj/ssl_tls.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/ssl_tls.c
+	$(CC) -c -o $(CONFIG)/obj/ssl_tls.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/ssl_tls.c
 
 #
 #   timing.o
@@ -647,7 +647,7 @@ DEPS_52 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/timing.o: \
     src/timing.c $(DEPS_52)
 	@echo '   [Compile] $(CONFIG)/obj/timing.o'
-	$(CC) -c -o $(CONFIG)/obj/timing.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/timing.c
+	$(CC) -c -o $(CONFIG)/obj/timing.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/timing.c
 
 #
 #   x509parse.o
@@ -658,7 +658,7 @@ DEPS_53 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/x509parse.o: \
     src/x509parse.c $(DEPS_53)
 	@echo '   [Compile] $(CONFIG)/obj/x509parse.o'
-	$(CC) -c -o $(CONFIG)/obj/x509parse.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/x509parse.c
+	$(CC) -c -o $(CONFIG)/obj/x509parse.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/x509parse.c
 
 #
 #   xtea.o
@@ -669,7 +669,7 @@ DEPS_54 += $(CONFIG)/inc/est.h
 $(CONFIG)/obj/xtea.o: \
     src/xtea.c $(DEPS_54)
 	@echo '   [Compile] $(CONFIG)/obj/xtea.o'
-	$(CC) -c -o $(CONFIG)/obj/xtea.o -fno-builtin -fno-defer-pop -fvolatile $(DFLAGS) $(IFLAGS) src/xtea.c
+	$(CC) -c -o $(CONFIG)/obj/xtea.o $(CFLAGS) $(DFLAGS) $(IFLAGS) src/xtea.c
 
 #
 #   libest

@@ -101,10 +101,10 @@
     #define BIT_EST_XTEA 1
 #endif
 #ifndef BIT_HAS_DOUBLE_BRACES
-    #define BIT_HAS_DOUBLE_BRACES 1
+    #define BIT_HAS_DOUBLE_BRACES 0
 #endif
 #ifndef BIT_HAS_DYN_LOAD
-    #define BIT_HAS_DYN_LOAD 1
+    #define BIT_HAS_DYN_LOAD 0
 #endif
 #ifndef BIT_HAS_LIB_EDIT
     #define BIT_HAS_LIB_EDIT 0
@@ -116,7 +116,7 @@
     #define BIT_HAS_MMU 1
 #endif
 #ifndef BIT_HAS_MTUNE
-    #define BIT_HAS_MTUNE 1
+    #define BIT_HAS_MTUNE 0
 #endif
 #ifndef BIT_HAS_PAM
     #define BIT_HAS_PAM 0
