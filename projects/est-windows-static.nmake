@@ -50,7 +50,7 @@ CFLAGS             = -nologo -GR- -W3 -Zi -Od -MDd
 DFLAGS             = -DBIT_DEBUG -D_REENTRANT -D_MT 
 IFLAGS             = -I$(CONFIG)\inc
 LDFLAGS            = -nologo -nodefaultlib -incremental:no -debug -machine:$(ARCH)
-LIBPATHS           = -libpath:$(CONFIG)\bin
+LIBPATHS           = "-libpath:$(CONFIG)\bin"
 LIBS               = ws2_32.lib advapi32.lib user32.lib kernel32.lib oldnames.lib msvcrt.lib shell32.lib
 
 BIT_ROOT_PREFIX    = C:
@@ -389,7 +389,7 @@ DEPS_30 = $(DEPS_30) $(CONFIG)\inc\xtea.h
 $(CONFIG)\obj\aes.obj: \
     src\aes.c $(DEPS_30)
 	@echo '   [Compile] $(CONFIG)/obj/aes.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\aes.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\aes.obj -Fd$(CONFIG)\obj\aes.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\aes.c
 
 #
 #   arc4.obj
@@ -400,7 +400,7 @@ DEPS_31 = $(DEPS_31) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\arc4.obj: \
     src\arc4.c $(DEPS_31)
 	@echo '   [Compile] $(CONFIG)/obj/arc4.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\arc4.obj -Fd$(CONFIG)\obj\arc4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\arc4.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\arc4.obj -Fd$(CONFIG)\obj\arc4.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\arc4.c
 
 #
 #   base64.obj
@@ -411,7 +411,7 @@ DEPS_32 = $(DEPS_32) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\base64.obj: \
     src\base64.c $(DEPS_32)
 	@echo '   [Compile] $(CONFIG)/obj/base64.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\base64.obj -Fd$(CONFIG)\obj\base64.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\base64.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\base64.obj -Fd$(CONFIG)\obj\base64.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\base64.c
 
 #
 #   bignum.obj
@@ -422,7 +422,7 @@ DEPS_33 = $(DEPS_33) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\bignum.obj: \
     src\bignum.c $(DEPS_33)
 	@echo '   [Compile] $(CONFIG)/obj/bignum.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\bignum.obj -Fd$(CONFIG)\obj\bignum.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\bignum.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\bignum.obj -Fd$(CONFIG)\obj\bignum.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\bignum.c
 
 #
 #   camellia.obj
@@ -433,7 +433,7 @@ DEPS_34 = $(DEPS_34) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\camellia.obj: \
     src\camellia.c $(DEPS_34)
 	@echo '   [Compile] $(CONFIG)/obj/camellia.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\camellia.obj -Fd$(CONFIG)\obj\camellia.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\camellia.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\camellia.obj -Fd$(CONFIG)\obj\camellia.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\camellia.c
 
 #
 #   certs.obj
@@ -444,7 +444,7 @@ DEPS_35 = $(DEPS_35) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\certs.obj: \
     src\certs.c $(DEPS_35)
 	@echo '   [Compile] $(CONFIG)/obj/certs.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\certs.obj -Fd$(CONFIG)\obj\certs.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\certs.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\certs.obj -Fd$(CONFIG)\obj\certs.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\certs.c
 
 #
 #   debug.obj
@@ -455,7 +455,7 @@ DEPS_36 = $(DEPS_36) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\debug.obj: \
     src\debug.c $(DEPS_36)
 	@echo '   [Compile] $(CONFIG)/obj/debug.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\debug.obj -Fd$(CONFIG)\obj\debug.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\debug.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\debug.obj -Fd$(CONFIG)\obj\debug.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\debug.c
 
 #
 #   des.obj
@@ -466,7 +466,7 @@ DEPS_37 = $(DEPS_37) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\des.obj: \
     src\des.c $(DEPS_37)
 	@echo '   [Compile] $(CONFIG)/obj/des.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\des.obj -Fd$(CONFIG)\obj\des.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\des.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\des.obj -Fd$(CONFIG)\obj\des.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\des.c
 
 #
 #   dhm.obj
@@ -477,7 +477,7 @@ DEPS_38 = $(DEPS_38) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\dhm.obj: \
     src\dhm.c $(DEPS_38)
 	@echo '   [Compile] $(CONFIG)/obj/dhm.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\dhm.obj -Fd$(CONFIG)\obj\dhm.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\dhm.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\dhm.obj -Fd$(CONFIG)\obj\dhm.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\dhm.c
 
 #
 #   havege.obj
@@ -488,7 +488,7 @@ DEPS_39 = $(DEPS_39) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\havege.obj: \
     src\havege.c $(DEPS_39)
 	@echo '   [Compile] $(CONFIG)/obj/havege.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\havege.obj -Fd$(CONFIG)\obj\havege.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\havege.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\havege.obj -Fd$(CONFIG)\obj\havege.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\havege.c
 
 #
 #   md2.obj
@@ -499,7 +499,7 @@ DEPS_40 = $(DEPS_40) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\md2.obj: \
     src\md2.c $(DEPS_40)
 	@echo '   [Compile] $(CONFIG)/obj/md2.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\md2.obj -Fd$(CONFIG)\obj\md2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md2.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\md2.obj -Fd$(CONFIG)\obj\md2.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\md2.c
 
 #
 #   md4.obj
@@ -510,7 +510,7 @@ DEPS_41 = $(DEPS_41) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\md4.obj: \
     src\md4.c $(DEPS_41)
 	@echo '   [Compile] $(CONFIG)/obj/md4.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\md4.obj -Fd$(CONFIG)\obj\md4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md4.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\md4.obj -Fd$(CONFIG)\obj\md4.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\md4.c
 
 #
 #   md5.obj
@@ -521,7 +521,7 @@ DEPS_42 = $(DEPS_42) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\md5.obj: \
     src\md5.c $(DEPS_42)
 	@echo '   [Compile] $(CONFIG)/obj/md5.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\md5.obj -Fd$(CONFIG)\obj\md5.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\md5.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\md5.obj -Fd$(CONFIG)\obj\md5.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\md5.c
 
 #
 #   net.obj
@@ -532,7 +532,7 @@ DEPS_43 = $(DEPS_43) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\net.obj: \
     src\net.c $(DEPS_43)
 	@echo '   [Compile] $(CONFIG)/obj/net.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\net.obj -Fd$(CONFIG)\obj\net.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\net.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\net.obj -Fd$(CONFIG)\obj\net.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\net.c
 
 #
 #   padlock.obj
@@ -543,7 +543,7 @@ DEPS_44 = $(DEPS_44) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\padlock.obj: \
     src\padlock.c $(DEPS_44)
 	@echo '   [Compile] $(CONFIG)/obj/padlock.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\padlock.obj -Fd$(CONFIG)\obj\padlock.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\padlock.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\padlock.obj -Fd$(CONFIG)\obj\padlock.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\padlock.c
 
 #
 #   rsa.obj
@@ -554,7 +554,7 @@ DEPS_45 = $(DEPS_45) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\rsa.obj: \
     src\rsa.c $(DEPS_45)
 	@echo '   [Compile] $(CONFIG)/obj/rsa.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\rsa.obj -Fd$(CONFIG)\obj\rsa.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\rsa.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\rsa.obj -Fd$(CONFIG)\obj\rsa.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\rsa.c
 
 #
 #   sha1.obj
@@ -565,7 +565,7 @@ DEPS_46 = $(DEPS_46) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\sha1.obj: \
     src\sha1.c $(DEPS_46)
 	@echo '   [Compile] $(CONFIG)/obj/sha1.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\sha1.obj -Fd$(CONFIG)\obj\sha1.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha1.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\sha1.obj -Fd$(CONFIG)\obj\sha1.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\sha1.c
 
 #
 #   sha2.obj
@@ -576,7 +576,7 @@ DEPS_47 = $(DEPS_47) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\sha2.obj: \
     src\sha2.c $(DEPS_47)
 	@echo '   [Compile] $(CONFIG)/obj/sha2.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\sha2.obj -Fd$(CONFIG)\obj\sha2.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha2.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\sha2.obj -Fd$(CONFIG)\obj\sha2.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\sha2.c
 
 #
 #   sha4.obj
@@ -587,7 +587,7 @@ DEPS_48 = $(DEPS_48) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\sha4.obj: \
     src\sha4.c $(DEPS_48)
 	@echo '   [Compile] $(CONFIG)/obj/sha4.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\sha4.obj -Fd$(CONFIG)\obj\sha4.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\sha4.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\sha4.obj -Fd$(CONFIG)\obj\sha4.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\sha4.c
 
 #
 #   ssl_cli.obj
@@ -598,7 +598,7 @@ DEPS_49 = $(DEPS_49) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\ssl_cli.obj: \
     src\ssl_cli.c $(DEPS_49)
 	@echo '   [Compile] $(CONFIG)/obj/ssl_cli.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_cli.obj -Fd$(CONFIG)\obj\ssl_cli.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_cli.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_cli.obj -Fd$(CONFIG)\obj\ssl_cli.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\ssl_cli.c
 
 #
 #   ssl_srv.obj
@@ -609,7 +609,7 @@ DEPS_50 = $(DEPS_50) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\ssl_srv.obj: \
     src\ssl_srv.c $(DEPS_50)
 	@echo '   [Compile] $(CONFIG)/obj/ssl_srv.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_srv.obj -Fd$(CONFIG)\obj\ssl_srv.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_srv.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_srv.obj -Fd$(CONFIG)\obj\ssl_srv.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\ssl_srv.c
 
 #
 #   ssl_tls.obj
@@ -620,7 +620,7 @@ DEPS_51 = $(DEPS_51) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\ssl_tls.obj: \
     src\ssl_tls.c $(DEPS_51)
 	@echo '   [Compile] $(CONFIG)/obj/ssl_tls.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_tls.obj -Fd$(CONFIG)\obj\ssl_tls.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\ssl_tls.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\ssl_tls.obj -Fd$(CONFIG)\obj\ssl_tls.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\ssl_tls.c
 
 #
 #   timing.obj
@@ -631,7 +631,7 @@ DEPS_52 = $(DEPS_52) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\timing.obj: \
     src\timing.c $(DEPS_52)
 	@echo '   [Compile] $(CONFIG)/obj/timing.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\timing.obj -Fd$(CONFIG)\obj\timing.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\timing.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\timing.obj -Fd$(CONFIG)\obj\timing.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\timing.c
 
 #
 #   x509parse.obj
@@ -642,7 +642,7 @@ DEPS_53 = $(DEPS_53) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\x509parse.obj: \
     src\x509parse.c $(DEPS_53)
 	@echo '   [Compile] $(CONFIG)/obj/x509parse.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\x509parse.obj -Fd$(CONFIG)\obj\x509parse.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\x509parse.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\x509parse.obj -Fd$(CONFIG)\obj\x509parse.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\x509parse.c
 
 #
 #   xtea.obj
@@ -653,7 +653,7 @@ DEPS_54 = $(DEPS_54) $(CONFIG)\inc\est.h
 $(CONFIG)\obj\xtea.obj: \
     src\xtea.c $(DEPS_54)
 	@echo '   [Compile] $(CONFIG)/obj/xtea.obj'
-	"$(CC)" -c -Fo$(CONFIG)\obj\xtea.obj -Fd$(CONFIG)\obj\xtea.pdb $(CFLAGS) $(DFLAGS) $(IFLAGS) src\xtea.c
+	"$(CC)" -c -Fo$(CONFIG)\obj\xtea.obj -Fd$(CONFIG)\obj\xtea.pdb $(CFLAGS) $(DFLAGS) "$(IFLAGS)" src\xtea.c
 
 #
 #   libest
@@ -714,7 +714,7 @@ DEPS_55 = $(DEPS_55) $(CONFIG)\obj\xtea.obj
 
 $(CONFIG)\bin\libest.lib: $(DEPS_55)
 	@echo '      [Link] $(CONFIG)/bin/libest.lib'
-	"lib.exe" -nologo -out:$(CONFIG)\bin\libest.lib $(CONFIG)\obj\aes.obj $(CONFIG)\obj\arc4.obj $(CONFIG)\obj\base64.obj $(CONFIG)\obj\bignum.obj $(CONFIG)\obj\camellia.obj $(CONFIG)\obj\certs.obj $(CONFIG)\obj\debug.obj $(CONFIG)\obj\des.obj $(CONFIG)\obj\dhm.obj $(CONFIG)\obj\havege.obj $(CONFIG)\obj\md2.obj $(CONFIG)\obj\md4.obj $(CONFIG)\obj\md5.obj $(CONFIG)\obj\net.obj $(CONFIG)\obj\padlock.obj $(CONFIG)\obj\rsa.obj $(CONFIG)\obj\sha1.obj $(CONFIG)\obj\sha2.obj $(CONFIG)\obj\sha4.obj $(CONFIG)\obj\ssl_cli.obj $(CONFIG)\obj\ssl_srv.obj $(CONFIG)\obj\ssl_tls.obj $(CONFIG)\obj\timing.obj $(CONFIG)\obj\x509parse.obj $(CONFIG)\obj\xtea.obj
+	"lib.exe" -nologo -out:$(CONFIG)\bin\libest.lib "$(CONFIG)\obj\aes.obj" "$(CONFIG)\obj\arc4.obj" "$(CONFIG)\obj\base64.obj" "$(CONFIG)\obj\bignum.obj" "$(CONFIG)\obj\camellia.obj" "$(CONFIG)\obj\certs.obj" "$(CONFIG)\obj\debug.obj" "$(CONFIG)\obj\des.obj" "$(CONFIG)\obj\dhm.obj" "$(CONFIG)\obj\havege.obj" "$(CONFIG)\obj\md2.obj" "$(CONFIG)\obj\md4.obj" "$(CONFIG)\obj\md5.obj" "$(CONFIG)\obj\net.obj" "$(CONFIG)\obj\padlock.obj" "$(CONFIG)\obj\rsa.obj" "$(CONFIG)\obj\sha1.obj" "$(CONFIG)\obj\sha2.obj" "$(CONFIG)\obj\sha4.obj" "$(CONFIG)\obj\ssl_cli.obj" "$(CONFIG)\obj\ssl_srv.obj" "$(CONFIG)\obj\ssl_tls.obj" "$(CONFIG)\obj\timing.obj" "$(CONFIG)\obj\x509parse.obj" "$(CONFIG)\obj\xtea.obj"
 
 #
 #   stop
