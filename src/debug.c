@@ -5,8 +5,6 @@
  */
 #include "est.h"
 
-#if BIT_EST_LOGGING
-
 /*
     MOB WARNING: snprintf does not null terminate and returns -1 on errors
  */
@@ -45,6 +43,7 @@ int snfmt(char *buf, ssize bufsize, cchar *fmt, ...)
     return n;
 }
 
+#if BIT_EST_LOGGING
 
 char *debug_fmt(cchar *format, ...)
 {

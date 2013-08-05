@@ -95,7 +95,7 @@ Bit.load({
             havege: true,
 
             /* Enable debug logging */
-            logging: true,
+            logging: false,
 
             /* Enable rare) MD2-signed X.509 certs */
             md2: false,
