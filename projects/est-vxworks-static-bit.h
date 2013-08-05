@@ -50,7 +50,7 @@
     #define BIT_EST_HAVEGE 1
 #endif
 #ifndef BIT_EST_LOGGING
-    #define BIT_EST_LOGGING 1
+    #define BIT_EST_LOGGING 0
 #endif
 #ifndef BIT_EST_MD2
     #define BIT_EST_MD2 0
@@ -246,6 +246,9 @@
 #endif
 #ifndef BIT_PROFILE
     #define BIT_PROFILE "static"
+#endif
+#ifndef BIT_TUNE_SIZE
+    #define BIT_TUNE_SIZE 1
 #endif
 
 /* Miscellaneous */

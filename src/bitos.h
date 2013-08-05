@@ -353,6 +353,7 @@
 #endif
     #include    <limits.h>
 #if BIT_UNIX_LIKE || VXWORKS
+    #include    <sys/socket.h>
     #include    <arpa/inet.h>
     #include    <netdb.h>
     #include    <net/if.h>
@@ -389,7 +390,6 @@
     #include    <sys/poll.h>
     #include    <sys/resource.h>
     #include    <sys/sem.h>
-    #include    <sys/socket.h>
     #include    <sys/select.h>
     #include    <sys/time.h>
     #include    <sys/times.h>
@@ -413,6 +413,7 @@
 #if LINUX
     #include    <sys/epoll.h>
     #include    <sys/prctl.h>
+    #include    <sys/eventfd.h>
     #if !__UCLIBC__
         #include    <sys/sendfile.h>
     #endif
@@ -687,11 +688,11 @@ typedef int64 Ticks;
 /*********************************** Defines **********************************/
 
 #ifndef BITSPERBYTE
-    #define BITSPERBYTE     (8 * sizeof(char))
+    #define BITSPERBYTE     ((int) (8 * sizeof(char)))
 #endif
 
 #ifndef BITS
-    #define BITS(type)      (BITSPERBYTE * (int) sizeof(type))
+    #define BITS(type)      ((int) (BITSPERBYTE * (int) sizeof(type)))
 #endif
 
 #if BIT_FLOAT
@@ -734,8 +735,19 @@ typedef int64 Ticks;
 #endif
 #endif
 
+#ifndef MAXUINT
+#if UINT_MAX
+    #define MAXUINT     UINT_MAX
+#else
+    #define MAXUINT     0xffffffff
+#endif
+#endif
+
 #ifndef MAXINT64
     #define MAXINT64    INT64(0x7fffffffffffffff)
+#endif
+#ifndef MAXUINT64
+    #define MAXUINT64   INT64(0xffffffffffffffff)
 #endif
 
 #if SIZE_T_MAX
@@ -945,7 +957,7 @@ typedef int64 Ticks;
 
 #if !LINUX
     #define __WALL          0
-    #if !CYGWIN
+    #if !CYGWIN && !defined(MSG_NOSIGNAL)
         #define MSG_NOSIGNAL 0
     #endif
 #endif
@@ -1145,7 +1157,7 @@ typedef int64 Ticks;
     #define PATHSIZE BIT_MAX_PATH
     #define NBBY 8
     #define hostent _hostent
-    #define NFDBITS (sizeof(fd_mask) * NBBY)
+    #define NFDBITS ((int) (sizeof(fd_mask) * NBBY))
     typedef long fd_mask;
     typedef int Socklen;
     struct sockaddr_storage { char pad[1024]; };
