@@ -101,10 +101,10 @@
     #define BIT_EST_XTEA 1
 #endif
 #ifndef BIT_HAS_ATOMIC
-    #define BIT_HAS_ATOMIC 1
+    #define BIT_HAS_ATOMIC 0
 #endif
 #ifndef BIT_HAS_ATOMIC64
-    #define BIT_HAS_ATOMIC64 1
+    #define BIT_HAS_ATOMIC64 0
 #endif
 #ifndef BIT_HAS_DOUBLE_BRACES
     #define BIT_HAS_DOUBLE_BRACES 0
